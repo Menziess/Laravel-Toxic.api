@@ -14,7 +14,11 @@
             </div>
         </div>
 
-        <Canvas></Canvas>
+        <div class="container">
+            
+            <Example></Example>
+
+        </div>
 
     </div>
 </div>
