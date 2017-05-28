@@ -35,4 +35,16 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+		'client_id' => env('FB_CLIENT_ID'),
+		'client_secret' => env('FB_CLIENT_SECRET'),
+		'redirect' => 'http://' . $_SERVER['SERVER_NAME']
+					  . preg_replace('/\/index.php/', '', $_SERVER['PHP_SELF'])
+					  . env('FB_REDIRECT'),
+	],
+
+	'google' => [
+		'key' => env('GOOGLE_KEY'),
+	],
+
 ];
