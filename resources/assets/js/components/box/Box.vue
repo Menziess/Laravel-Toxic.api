@@ -7,7 +7,7 @@
         </div>
 
         <div class="panel-body">
-          
+          <Drawing></Drawing>
         </div>
 
       </div>
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+  import Drawing from '../draw/Drawing.vue';
   export default {
     name: 'box',
+    components: {
+      Drawing
+    },
     data() {
       return {
         title: 'Box'
