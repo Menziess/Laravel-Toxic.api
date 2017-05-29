@@ -24,7 +24,6 @@ Route::get('/', function () {
 | that the default login and register page are not accessible, while
 | still keeping the same route names for the uncommenting of:
 |
-// Auth::routes();
 |
 */
 
