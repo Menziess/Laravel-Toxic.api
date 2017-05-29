@@ -20,6 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'login'], function() {
-    Route::get('/facebook', 'LoginController@redirectToFacebook');
+    Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login/facebook');
     Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
 });

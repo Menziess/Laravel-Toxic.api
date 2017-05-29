@@ -42054,7 +42054,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(41)();
-exports.push([module.i, "\ncanvas[data-v-5fd89a7e] {\r\n    border: 1px solid red;\n}\r\n", ""]);
+exports.push([module.i, "\ncanvas[data-v-5fd89a7e] {\r\n    border: 1px solid red;\r\n    width: 100%;\n}\r\n", ""]);
 
 /***/ }),
 /* 62 */

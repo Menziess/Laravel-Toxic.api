@@ -15,21 +15,37 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
 
+            // Id's
             $table->increments('id');
             $table->bigInteger('facebook_id')
                 ->unsigned()
 				->unique()
 				->nullable();
 
+            // Name
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('slug')->unique();
+
+            // Email & Password
             $table->string('email')
                 ->nullable()
                 ->unique();
-
             $table->string('password')
                 ->nullable();
 
+            // Additional Data
+            $table->string('gender')
+				  ->nullable();
+			$table->timestamp('date_of_birth')
+				  ->nullable();
+			$table->string('latitude')
+				->nullable();
+			$table->string('longitude')
+				->nullable();
+            $table->text('data')->nullable();
+
+            // Timestamps & Tokens
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

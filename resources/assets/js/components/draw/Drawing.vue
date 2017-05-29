@@ -17,5 +17,6 @@
 <style scoped>
 canvas {
     border: 1px solid red;
+    width: 100%;
 }
 </style>
