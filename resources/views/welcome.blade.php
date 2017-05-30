@@ -2,14 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+  <div class="row">
 
-        <div class="container">
-            
-            <img src="{{ url('img/Toxic-logo.png') }}" />
-
-        </div>
-
-    </div>
+    <img src="{{ url('img/Toxic-logo.png') }}" class="img-responsive" alt="Responsive image" 
+      style="margin: 0 auto;" />
+    
+  </div>
 </div>
 @endsection
