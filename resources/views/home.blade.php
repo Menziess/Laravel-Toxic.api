@@ -16,7 +16,8 @@
 
         <div class="container">
             
-            <Box></Box>
+            <Box title="Box 1"></Box>
+            <Box title="Box 2"></Box>
             <Example></Example>
 
         </div>

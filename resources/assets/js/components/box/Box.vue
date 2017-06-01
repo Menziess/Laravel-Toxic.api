@@ -6,9 +6,7 @@
           <span v-text="title"></span>
         </div>
 
-        <div class="panel-body">
-          <Drawing></Drawing>
-        </div>
+        <Drawing></Drawing>
 
       </div>
     </div>
@@ -22,10 +20,11 @@
     components: {
       Drawing
     },
+    props: ['title'],
     data() {
       return {
-        title: 'Box'
+        // 
       }
     }
   }
-</script>
+</script> 
