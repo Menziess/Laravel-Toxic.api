@@ -1,22 +1,25 @@
 <template>
-  <canvas ref="myCanvas" :height="height"
-    v-on:mousemove="putPoint($event)" 
-    v-on:mousedown="start"
-    v-on:mouseup="stop"
-    v-on:mouseout="stop"
-    v-on:mouseover="mouseOver($event)"
-    class="noselect"
-  >
-      Sorry, your browser sucks.
-  </canvas>
+  <div class="panel-drawing">
+    <canvas ref="myCanvas"
+      v-on:mouseup="stop"
+      v-on:mouseout="stop"
+      v-on:mousedown="start"
+      v-on:mouseover="mouseOver($event)"
+      v-on:mousemove="putPoint($event)" 
+      v-bind:class="{ mouseDown: dragging }"
+      class="noselect"
+    >
+        Sorry, your browser sucks.
+    </canvas>
+  </div>
 </template>
 
 <script>
   export default {
     name: 'drawing',
-    props: ['height'],  
     data() {
       return {
+        canvas: null,
         context: null,
         startAngle: 0,
         endAngle: 2 * Math.PI,
@@ -24,9 +27,6 @@
         rect: null,
         radius: 2,
       }
-    },
-    computed: {
-      //
     },
     methods: {
       start: function(e) { 
@@ -38,13 +38,14 @@
         this.context.beginPath();
       },
       mouseOver: function(e) {
-        if (e.buttons === 1)
+        if (e.buttons === 1) {
           this.dragging = true;
+        }
       },
       putPoint: function(e) {
         if (this.dragging) {  
-          let x = (e.pageX - this.rect.left) * this.$refs.myCanvas.width / this.rect.width;
-          let y = (e.pageY - this.rect.top) * this.$refs.myCanvas.height / this.rect.height;
+          let x = (e.pageX - this.rect.left) * this.canvas.width / this.rect.width;
+          let y = (e.pageY - this.rect.top) * this.canvas.height / this.rect.height;
 
           this.context.lineTo(x, y);
           this.context.stroke();
@@ -57,14 +58,14 @@
       }
     },
     mounted () {
-      const canvas = this.$refs.myCanvas;
+      this.canvas = this.$refs.myCanvas;
 
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight
+      this.canvas.width  = this.canvas.offsetWidth;
+      this.canvas.height = this.canvas.offsetHeight
 
-      this.context = canvas.getContext('2d');
+      this.context = this.canvas.getContext('2d');
       this.context.lineWidth = this.radius * 2;
-      this.rect = canvas.getBoundingClientRect();
+      this.rect = this.canvas.getBoundingClientRect();
     }
   }
 </script>
@@ -72,6 +73,10 @@
 <style scoped>
 canvas {
   width: 100%;
-  height: auto;
+  height: 40vh;
+}
+
+canvas.mouseDown:hover {
+  cursor: pointer;
 }
 </style>

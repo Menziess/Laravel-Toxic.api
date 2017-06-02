@@ -1729,8 +1729,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1738,12 +1736,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Drawing: __WEBPACK_IMPORTED_MODULE_0__draw_Drawing_vue___default.a
   },
-  props: ['title'],
-  data: function data() {
-    return {
-      // 
-    };
-  }
+  props: ['title']
 });
 
 /***/ }),
@@ -1814,7 +1807,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
       pressKey: function pressKey(e) {
-        console.log(e.char);
+        console.log(e.key);
       },
       pressedEnter: function pressedEnter(e) {
         console.log("Pressed Enter!");
@@ -1843,12 +1836,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'drawing',
-  props: ['height'],
   data: function data() {
     return {
+      canvas: null,
       context: null,
       startAngle: 0,
       endAngle: 2 * Math.PI,
@@ -1858,9 +1854,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
-  computed: {
-    //
-  },
   methods: {
     start: function start(e) {
       this.dragging = true;
@@ -1871,12 +1864,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.context.beginPath();
     },
     mouseOver: function mouseOver(e) {
-      if (e.buttons === 1) this.dragging = true;
+      if (e.buttons === 1) {
+        this.dragging = true;
+      }
     },
     putPoint: function putPoint(e) {
       if (this.dragging) {
-        var x = (e.pageX - this.rect.left) * this.$refs.myCanvas.width / this.rect.width;
-        var y = (e.pageY - this.rect.top) * this.$refs.myCanvas.height / this.rect.height;
+        var x = (e.pageX - this.rect.left) * this.canvas.width / this.rect.width;
+        var y = (e.pageY - this.rect.top) * this.canvas.height / this.rect.height;
 
         this.context.lineTo(x, y);
         this.context.stroke();
@@ -1889,14 +1884,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    var canvas = this.$refs.myCanvas;
+    this.canvas = this.$refs.myCanvas;
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
 
-    this.context = canvas.getContext('2d');
+    this.context = this.canvas.getContext('2d');
     this.context.lineWidth = this.radius * 2;
-    this.rect = canvas.getBoundingClientRect();
+    this.rect = this.canvas.getBoundingClientRect();
   }
 });
 
@@ -4346,7 +4341,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(35)();
-exports.push([module.i, "\ncanvas[data-v-1259ba9e] {\r\n  width: 100%;\r\n  height: auto;\n}\r\n", ""]);
+exports.push([module.i, "\ncanvas[data-v-1259ba9e] {\r\n  width: 100%;\r\n  height: 40vh;\n}\ncanvas.mouseDown[data-v-1259ba9e]:hover {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 /***/ }),
 /* 35 */
@@ -32057,24 +32052,26 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('canvas', {
+  return _c('div', {
+    staticClass: "panel-drawing"
+  }, [_c('canvas', {
     ref: "myCanvas",
     staticClass: "noselect",
-    attrs: {
-      "height": _vm.height
+    class: {
+      mouseDown: _vm.dragging
     },
     on: {
-      "mousemove": function($event) {
-        _vm.putPoint($event)
-      },
-      "mousedown": _vm.start,
       "mouseup": _vm.stop,
       "mouseout": _vm.stop,
+      "mousedown": _vm.start,
       "mouseover": function($event) {
         _vm.mouseOver($event)
+      },
+      "mousemove": function($event) {
+        _vm.putPoint($event)
       }
     }
-  }, [_vm._v("\n    Sorry, your browser sucks.\n")])
+  }, [_vm._v("\n      Sorry, your browser sucks.\n  ")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -32169,13 +32166,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.title)
     }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "panel-drawing"
-  }, [_c('Drawing', {
-    attrs: {
-      "height": "200"
-    }
-  })], 1)])])])
+  })]), _vm._v(" "), _c('Drawing')], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

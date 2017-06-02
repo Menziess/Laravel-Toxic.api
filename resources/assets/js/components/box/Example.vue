@@ -63,7 +63,7 @@
         },
 
         pressKey: (e) => {
-          console.log(e.char);
+          console.log(e.key);
         },
         pressedEnter: (e) => {
           console.log("Pressed Enter!");

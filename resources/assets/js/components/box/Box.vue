@@ -7,9 +7,7 @@
           <span v-text="title"></span>
         </div>
 
-        <div class="panel-drawing">
-          <Drawing height="200"></Drawing>
-        </div>
+        <Drawing></Drawing>
 
       </div>
     </div>
@@ -23,11 +21,6 @@
     components: {
       Drawing
     },
-    props: ['title'],
-    data() {
-      return {
-        // 
-      }
-    }
+    props: ['title']
   }
 </script>
