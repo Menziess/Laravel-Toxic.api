@@ -1728,6 +1728,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1839,13 +1842,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'drawing',
+  props: ['height'],
   data: function data() {
     return {
       context: null,
-      endRadius: Math.PI * 2,
+      startAngle: 0,
+      endAngle: 2 * Math.PI,
       dragging: false,
       rect: null,
       radius: 2
@@ -1865,7 +1871,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.context.beginPath();
     },
     mouseOver: function mouseOver(e) {
-      console.log(e);
       if (e.buttons === 1) this.dragging = true;
     },
     putPoint: function putPoint(e) {
@@ -1876,7 +1881,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.context.lineTo(x, y);
         this.context.stroke();
         this.context.beginPath();
-        this.context.arc(x, y, this.radius, 0, this.endRadius);
+        this.context.arc(x, y, this.radius, this.startAngle, this.endAngle);
         this.context.fill();
         this.context.beginPath();
         this.context.moveTo(x, y);
@@ -1885,6 +1890,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var canvas = this.$refs.myCanvas;
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
     this.context = canvas.getContext('2d');
     this.context.lineWidth = this.radius * 2;
     this.rect = canvas.getBoundingClientRect();
@@ -4337,7 +4346,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(35)();
-exports.push([module.i, "\ncanvas[data-v-1259ba9e] {\r\n    width: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\ncanvas[data-v-1259ba9e] {\r\n  width: 100%;\r\n  height: auto;\n}\r\n", ""]);
 
 /***/ }),
 /* 35 */
@@ -32050,6 +32059,10 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('canvas', {
     ref: "myCanvas",
+    staticClass: "noselect",
+    attrs: {
+      "height": _vm.height
+    },
     on: {
       "mousemove": function($event) {
         _vm.putPoint($event)
@@ -32156,7 +32169,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.title)
     }
-  })]), _vm._v(" "), _c('Drawing')], 1)])])
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "panel-drawing"
+  }, [_c('Drawing', {
+    attrs: {
+      "height": "200"
+    }
+  })], 1)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
