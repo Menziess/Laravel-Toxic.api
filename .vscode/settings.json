@@ -2,7 +2,7 @@
 {
 "php.validate.run": "onSave",
 "php.validate.enable": true,
-"php.validate.executablePath": "C:\\php7\\php.exe",
+// "php.validate.executablePath": "C:\\php7\\php.exe",
 "editor.tabSize": 2,
 "editor.insertSpaces": true
 }

@@ -2,7 +2,10 @@
   <canvas ref="myCanvas" 
     v-on:mousemove="putPoint($event)" 
     v-on:mousedown="start"
-    v-on:mouseup="stop">
+    v-on:mouseup="stop"
+    v-on:mouseout="stop"
+    v-on:mouseover="mouseOver($event)"
+    >
       Sorry, your browser sucks.
   </canvas>
 </template>
@@ -30,6 +33,11 @@
       stop: function(e) { 
         this.dragging = false; 
         this.context.beginPath();
+      },
+      mouseOver: function(e) {
+        console.log(e);
+        if (e.buttons === 1)
+          this.dragging = true;
       },
       putPoint: function(e) {
         if (this.dragging) {  
