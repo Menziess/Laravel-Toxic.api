@@ -48,6 +48,6 @@ Route::group(['namespace' => 'Auth'], function() {
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
-});
+// });
