@@ -6,6 +6,11 @@
       v-on:mousedown="start"
       v-on:mouseover="mouseOver($event)"
       v-on:mousemove="putPoint($event)" 
+      
+      v-on:touchend="stop"
+      v-on:touchstart="start"
+      v-on:touchmove="putPoint($event)"
+      
       v-bind:class="{ mouseDown: dragging }"
       class="noselect"
     >
@@ -29,20 +34,27 @@
       }
     },
     methods: {
-      start: function(e) { 
+      start: function(e) {
+        e.preventDefault();
         this.dragging = true;
         this.putPoint(e);
       },
+
       stop: function(e) { 
+        e.preventDefault();
         this.dragging = false; 
         this.context.beginPath();
       },
+
       mouseOver: function(e) {
         if (e.buttons === 1) {
           this.dragging = true;
         }
+        console.log(this.dataUrl());
       },
+
       putPoint: function(e) {
+        e.preventDefault();
         if (this.dragging) {  
           let x = (e.pageX - this.rect.left) * this.canvas.width / this.rect.width;
           let y = (e.pageY - this.rect.top) * this.canvas.height / this.rect.height;
@@ -55,6 +67,10 @@
           this.context.beginPath();
           this.context.moveTo(x, y);
         }
+      },
+
+      dataUrl: function() {
+        return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
       }
     },
     mounted () {
@@ -65,9 +81,26 @@
 
       this.context = this.canvas.getContext('2d');
       this.context.lineWidth = this.radius * 2;
+      this.lineJoin = this.context.lineCap = 'round';
       this.rect = this.canvas.getBoundingClientRect();
     }
   }
+  // Prevent scrolling when touching the canvas
+  document.body.addEventListener("touchstart", function (e) {
+    if (e.target == canvas) {
+      e.preventDefault();
+    }
+  }, false);
+  document.body.addEventListener("touchend", function (e) {
+    if (e.target == canvas) {
+      e.preventDefault();
+    }
+  }, false);
+  document.body.addEventListener("touchmove", function (e) {
+    if (e.target == canvas) {
+      e.preventDefault();
+    }
+  }, false);
 </script>
 
 <style scoped>
