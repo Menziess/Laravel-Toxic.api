@@ -181,6 +181,7 @@ return [
          * Other Service Providers...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
     ],

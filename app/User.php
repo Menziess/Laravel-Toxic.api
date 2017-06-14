@@ -3,13 +3,14 @@
 namespace App;
 
 use App\Helpers\JsonAble;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, JsonAble, SoftDeletes;
+    use Notifiable, JsonAble, SoftDeletes, HasApiTokens;
 
 	const PLACEHOLDER_PICTURE = 'img/Toxic-logo.png';
 
