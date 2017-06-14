@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
     
     Route::group(['prefix' => 'login'], function() {
-        Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login/facebook');
+        Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login.facebook');
         Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
     });
 });
@@ -49,5 +49,6 @@ Route::group(['namespace' => 'Auth'], function() {
 */
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/oauth', 'Auth\LoginController@oauth')->name('oauth');
     Route::get('/home', 'HomeController@index')->name('home');
 });

@@ -39,8 +39,16 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+      	$this->middleware('guest')->except('logout');
     }
+
+		/**
+		 * Get oauth page.
+		 */
+		public function oauth() 
+		{
+			return view('auth.oauth');
+		}
 
     /**
      * Redirect the user to the Facebook authentication page.
@@ -64,13 +72,13 @@ class LoginController extends Controller
 						
 				# Get user or create new user
 				if ($user) {
-					self::fillUser($user, $fb);
+						self::fillUser($user, $fb);
 				} else if ($user = self::checkExistingEmail($fb)) {
-					$user->facebook_id = $fb->id;
-					self::fillUser($user, $fb);			
+						$user->facebook_id = $fb->id;
+						self::fillUser($user, $fb);			
 				} else {
-					$user = User::firstOrNew(['facebook_id' => $fb->id]);
-					self::fillUser($user, $fb);
+						$user = User::firstOrNew(['facebook_id' => $fb->id]);
+						self::fillUser($user, $fb);
 				}
 
 				# Logs user in with remember me set on true
