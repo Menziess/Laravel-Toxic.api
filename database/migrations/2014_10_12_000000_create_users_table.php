@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
 
             // Id's
             $table->increments('id');
-            $table->string('token')
-                ->nullable();
+            $table->string('api_token', 60)
+                ->unique();
             $table->bigInteger('facebook_id')
                 ->unsigned()
 				->unique()
@@ -38,9 +38,9 @@ class CreateUsersTable extends Migration
 
             // Additional Data
             $table->string('gender')
-				  ->nullable();
+				 ->nullable();
 			$table->timestamp('date_of_birth')
-				  ->nullable();
+				->nullable();
 			$table->string('latitude')
 				->nullable();
 			$table->string('longitude')

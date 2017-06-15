@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'data', 'token',
+        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'data', 'api_token',
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'token',
+        'password', 'remember_token', 'api_token',
     ];
 
 	/**
@@ -48,6 +48,14 @@ class User extends Authenticatable
 	protected $dates = [
 		'date_of_birth',
 	];
+
+	/**
+     * User posts.
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
 
     /*
 	 * User resources.

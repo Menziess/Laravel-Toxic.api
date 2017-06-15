@@ -44,5 +44,12 @@ class Post extends Model
 		//
 	];
 
+    /**
+     * Get the owner.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
 }

@@ -2,22 +2,33 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Helper routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| These routes should be deleted before going into production.
 |
 */
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/gettoken', function() {
+    return App\User::first()->api_token;
+});
+Route::get('/templogin', function() {
+    Auth::loginUsingId(1);
+    $loggedin = Auth::check() ? 'true' : 'false';
+    return "Logged in: " . $loggedin;
+});
+Route::get('/templogout', function() {
+    Auth::logout();
+    $loggedin = Auth::check() ? 'true' : 'false';
+    return "Logged in: " . $loggedin;
+});
 
 /*
 |--------------------------------------------------------------------------
-| Login Routes
+| Public Routes
 |--------------------------------------------------------------------------
 |
 | Auth routes are overridden by manual logout and login routes ensuring
@@ -40,7 +51,7 @@ Route::group(['namespace' => 'Auth'], function() {
 
 /*
 |--------------------------------------------------------------------------
-| User Routes
+| Secure Routes
 |--------------------------------------------------------------------------
 |
 | After logging in, the authentication routes should be accessible for

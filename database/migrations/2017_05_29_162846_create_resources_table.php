@@ -21,9 +21,8 @@ class CreateResourcesTable extends Migration
 				  ->nullable();
 
             $table->foreign('user_id')
-				  ->references('id')
-				  ->on('users')
-            	  ->onDelete('set null');
+				  ->references('id')->on('users')
+            	  ->onDelete('cascade');
             
             $table->string('url');
             $table->string('type');
