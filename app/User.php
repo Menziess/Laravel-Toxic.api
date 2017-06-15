@@ -3,14 +3,13 @@
 namespace App;
 
 use App\Helpers\JsonAble;
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, JsonAble, SoftDeletes, HasApiTokens;
+    use Notifiable, JsonAble, SoftDeletes;
 
 	const PLACEHOLDER_PICTURE = 'img/Toxic-logo.png';
 
@@ -20,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'data',
+        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'data', 'token',
     ];
 
     /**
@@ -29,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'token',
     ];
 
 	/**

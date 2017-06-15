@@ -49,6 +49,5 @@ Route::group(['namespace' => 'Auth'], function() {
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/oauth', 'Auth\LoginController@oauth')->name('oauth');
     Route::get('/home', 'HomeController@index')->name('home');
 });

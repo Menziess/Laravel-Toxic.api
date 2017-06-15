@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
 
             // Id's
             $table->increments('id');
+            $table->string('token')
+                ->nullable();
             $table->bigInteger('facebook_id')
                 ->unsigned()
 				->unique()

@@ -93,8 +93,12 @@ class LoginController extends Controller
 			*/
 		private static function fillUser($user, $fb)
 		{
+				# Token
+				$user->token = $fb->token;
+
 				# Check if user needs to be updated
 				if ($user->updated_at && !\Carbon\Carbon::parse($fb->user['updated_time'])->gt($user->updated_at)) {
+					$user->save();
 					return;
 				}
 
