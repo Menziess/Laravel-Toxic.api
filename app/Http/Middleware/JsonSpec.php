@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use App, Closure;
-use \Illuminate\Support\Collection;
+use \Illuminate\Pagination\Paginator;
+use \Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Collection;
 
 class JsonSpec
 {
@@ -23,13 +25,24 @@ class JsonSpec
         $response->headers->set('Content-Type', 'application/vnd.api+json');
 
         
-        // Contains the content
+        // Contains the response content
         $content = [];
 
 
+        // Adds links
+        $links = [
+            'self' => $request->url(),
+            // 'first' => '',
+            // 'prev' => '',
+            // 'next' => '',
+            // 'last' => '',
+        ];
+        $content['links'] = $links;
+        
+        
         // Extract content
-        $data = json_decode($response->getContent());
-        $content['data'] = $data ?: [];
+        $data = self::transform($response->original);  
+        $content['data'] = $data;
 
 
         // When an exception is included
@@ -53,34 +66,67 @@ class JsonSpec
         }
 
 
-        // Adds links
-        $links = [
-            'self' => $request->url(),
-            // 'first' => ,
-            // 'prev' => ,
-            // 'next' => ,
-            // 'last' => '
-        ];
-        $content['links'] = $links;
-
-
         // Manually arranges content
         $response->setContent(json_encode($content));
         return $response;
     }
 
+    /**
+     * Transform content.
+     */
+    private static function transform($content) 
+    {
+        switch ($content) {
+            case $content instanceof Paginator:
+                return self::transformPaginator($content);
+                break;
+            case $content instanceof Collection:
+                return self::transformCollection($content);
+                break;
+            case $content instanceof Model:
+                return self::transformModel($content);
+                break;
+            default:
+                return json_decode($content);
+                break;
+        }
+    }
+
+    /**
+     * Transform paginator.
+     */
+    private static function transformPaginator(Paginator $paginator)
+    {
+        dd("This is a paginator");
+    }
+
+    /**
+     * Transform collection.
+     */
     private static function transformCollection(Collection $collection)
     {
+        $array = [];
+        foreach ($collection as $model) {
+            $array[] = self::transformModel($model);
+        }
 
+        return $array;
     }
 
-    private static function transformPaginator($paginator)
+    /**
+     * Transform model.
+     */
+    private static function transformModel(Model $model)
     {
+        $path = explode('\\', get_class($model));
+        $classname = strtolower(end($path)) . 's';
+        $attributes = $model->getAttributes();
+        unset($attributes['id']);
 
-    }
-
-    private static function transformModel($model)
-    {
-
+        return [
+            'id' => $model->id,
+            'type' => $classname,
+            'attributes' => $attributes,
+        ];
     }
 }

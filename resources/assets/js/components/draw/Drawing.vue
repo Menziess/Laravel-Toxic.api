@@ -76,7 +76,7 @@
           .then(response => {
             console.log(response);
             let img = new Image;
-            img.src = response.data.data.drawing;
+            img.src = response.data.data.attributes.drawing;
             this.context.drawImage(img,0,0);
           }).catch(error => {
             console.log(error);

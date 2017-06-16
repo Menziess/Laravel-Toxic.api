@@ -1907,7 +1907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('/toxic.api/public/api/post/1?api_token=' + api_token + '&').then(function (response) {
         console.log(response);
         var img = new Image();
-        img.src = response.data.data.drawing;
+        img.src = response.data.data.attributes.drawing;
         _this.context.drawImage(img, 0, 0);
       }).catch(function (error) {
         console.log(error);
