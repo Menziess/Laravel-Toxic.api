@@ -13,17 +13,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/gettoken', function() {
-    return App\User::first()->api_token;
+    $user = App\User::first();
+    if ($user)
+        return $user->api_token;
+    return "No user found";
 });
 Route::get('/templogin', function() {
-    Auth::loginUsingId(1);
+    $user = App\User::first();
     $loggedin = Auth::check() ? 'true' : 'false';
-    return "Logged in: " . $loggedin;
+    $api_token = null;
+    if ($user) {
+        $api_token = $user->api_token;
+        Auth::login($user);
+    }
+    return [
+        "logged_in" => $loggedin,
+        "logged_user" => $user,
+        "api_token" => $api_token,
+    ];
 });
 Route::get('/templogout', function() {
-    Auth::logout();
+    $user = Auth::user();
+    Auth::logout($user);
     $loggedin = Auth::check() ? 'true' : 'false';
-    return "Logged in: " . $loggedin;
+    return [
+        "logged_in" => $loggedin,
+        "logged_user" => $user, 
+    ];
 });
 
 /*

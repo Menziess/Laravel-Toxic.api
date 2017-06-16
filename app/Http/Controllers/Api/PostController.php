@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
 
 use App\Post, Auth;
 
@@ -16,33 +18,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Post::all();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Request\StorePostRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $this->validate($request, [
-            'subject' => 'bail|required|max:255',
-            'user_id' => Auth::guard('api')->id(),
-            'text' => 'required',
-        ]);
-
         $post = Post::create($request);
     }
 
@@ -54,18 +40,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Post::findOrFail($id);
     }
 
     /**
@@ -75,9 +50,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePostRequest $request, $id)
     {
-        //
+        $post = Post::update($request);
     }
 
     /**
@@ -88,6 +63,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return response()->json([
+            'message' => "Post " . $id . " deleted"
+        ], 200);
     }
 }

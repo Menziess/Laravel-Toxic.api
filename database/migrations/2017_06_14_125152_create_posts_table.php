@@ -32,7 +32,8 @@ class CreatePostsTable extends Migration
                 ->nullable();
             $table->text('drawing')
                 ->nullable();
-            $table->string('url');
+            $table->string('url')
+                ->nullable();
 
             // Additional Data
             $table->text('data')->nullable();

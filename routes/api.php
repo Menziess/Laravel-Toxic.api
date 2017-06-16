@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-Auth::loginUsingId(1);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +13,11 @@ Auth::loginUsingId(1);
 |
 */
 
+Auth::loginUsingId(1);
 Route::middleware('auth:api')->get('/tokencheck', function(Request $request) {
     dd($request->request);
 });
 
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
-
-    Route::resource('post', 'PostController');
-
+    Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
 });
