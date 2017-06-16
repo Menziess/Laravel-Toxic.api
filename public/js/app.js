@@ -1904,7 +1904,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       //TODO
       var api_token = localStorage.getItem('api_token');
-      axios.get('/toxic.api/public/api/post/1?api_token=' + api_token + '&').then(function (response) {
+      axios.get('/toxic.api/public/api/post/1', {
+        headers: {
+          Authorization: 'Bearer ' + api_token
+        }
+      }).then(function (response) {
         console.log(response);
         var img = new Image();
         img.src = response.data.data.attributes.drawing;
