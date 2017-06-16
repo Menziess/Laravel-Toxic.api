@@ -29,6 +29,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        dd("test");
         $post = Post::create($request);
     }
 

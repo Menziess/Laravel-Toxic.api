@@ -26,7 +26,7 @@ class CreatePostsTable extends Migration
             	  ->onDelete('cascade');
 
             // Content
-            $table->integer('type');
+            $table->integer('attachment');
             $table->string('subject');
             $table->text('text')
                 ->nullable();

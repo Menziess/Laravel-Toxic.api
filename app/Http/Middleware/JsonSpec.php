@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App, Closure;
+use \Illuminate\Support\Collection;
 
 class JsonSpec
 {
@@ -68,14 +69,14 @@ class JsonSpec
         return $response;
     }
 
-    private static function transformCollection($collection)
+    private static function transformCollection(Collection $collection)
     {
 
     }
 
     private static function transformPaginator($paginator)
     {
-        
+
     }
 
     private static function transformModel($model)

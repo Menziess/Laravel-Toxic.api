@@ -44,13 +44,14 @@
         e.preventDefault();
         this.dragging = false; 
         this.context.beginPath();
+        this.loadDataUrl();//TODO
       },
 
       mouseOver: function(e) {
         if (e.buttons === 1) {
           this.dragging = true;
         }
-        console.log(this.dataUrl());
+        console.log("\nDrawing:" + this.dataUrl());
       },
 
       putPoint: function(e) {
@@ -67,6 +68,20 @@
           this.context.beginPath();
           this.context.moveTo(x, y);
         }
+      },
+
+      loadDataUrl: function() { //TODO
+        let api_token = localStorage.getItem('api_token');
+        axios.get('/toxic.api/public/api/post/1?api_token=' + api_token + '&')
+          .then(response => {
+            console.log(response);
+            let img = new Image;
+            img.src = response.data.data.drawing;
+            this.context.drawImage(img,0,0);
+          }).catch(error => {
+            console.log(error);
+          });
+      
       },
 
       dataUrl: function() {
