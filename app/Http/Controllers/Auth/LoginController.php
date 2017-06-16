@@ -42,14 +42,6 @@ class LoginController extends Controller
       	$this->middleware('guest')->except('logout');
     }
 
-		/**
-		 * Get oauth page.
-		 */
-		public function oauth() 
-		{
-			return view('auth.oauth');
-		}
-
     /**
      * Redirect the user to the Facebook authentication page.
      *
@@ -83,7 +75,7 @@ class LoginController extends Controller
 
 				# Logs user in with remember me set on true
 				\Auth::login($user, true);
-				return redirect('/home');
+				return redirect('/home')->cookie('api_token', $user->api_token, 60);
 		}
 
 		/**

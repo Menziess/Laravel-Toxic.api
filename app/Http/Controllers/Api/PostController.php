@@ -29,8 +29,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        dd("test");
-        $post = Post::create($request);
+        $post = new Post;
+        $post->attachment = 1;
+        $post->fill($request->all());
+        $post->save();
+
+        return response($post, 201);
     }
 
     /**
@@ -53,7 +57,10 @@ class PostController extends Controller
      */
     public function update(StorePostRequest $request, $id)
     {
-        $post = Post::update($request);
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+
+        return $post;
     }
 
     /**
@@ -65,6 +72,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::findOrFail($id)->delete();
+        
         return response()->json([
             'message' => "Post " . $id . " deleted"
         ], 200);

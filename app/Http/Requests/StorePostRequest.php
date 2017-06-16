@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Auth;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -14,7 +15,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -26,8 +27,15 @@ class StorePostRequest extends FormRequest
     {
         return [
             'subject' => 'bail|required|max:255',
-            'user_id' => Auth::guard('api')->id(),
             'text' => 'required',
         ];
+    }
+
+    /**
+     * Returns formatted response on error.
+     */
+    public function response(array $errors)
+    {
+        return response($errors, 422);
     }
 }

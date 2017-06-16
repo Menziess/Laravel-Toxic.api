@@ -49,7 +49,7 @@ class JsonSpec
                 $errors = $public :
                 $errors = array_merge($public, $private);
 
-            $content['errors'] = $public;
+            $content['errors'] = $errors;
         }
 
 
