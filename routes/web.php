@@ -12,12 +12,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/gettoken', function() {
-    $user = App\User::first();
-    if ($user)
-        return $user->api_token;
-    return "No user found";
-});
 Route::get('/templogin', function() {
     $user = App\User::first();
     $loggedin = Auth::check() ? 'true' : 'false';

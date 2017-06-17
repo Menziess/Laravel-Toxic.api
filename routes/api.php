@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Auth::loginUsingId(1);
 Route::middleware('auth:api')->get('/tokencheck', function(Request $request) {
     dd($request->request);
 });

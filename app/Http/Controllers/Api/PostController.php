@@ -71,10 +71,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::findOrFail($id)->delete();
-        
-        return response()->json([
-            'message' => "Post " . $id . " deleted"
-        ], 200);
+        $post = Post::findOrFail($id)->delete();
+        return response("Deleted", 200);
     }
 }
