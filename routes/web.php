@@ -48,7 +48,7 @@ Route::get('/templogout', function() {
 |
 */
 
-Route::group(['namespace' => 'Auth'], function() {
+Route::namespace('Auth')->group(function() {
 
     Route::post('/logout', 'LoginController@logout')->name('logout');
     Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
@@ -69,6 +69,6 @@ Route::group(['namespace' => 'Auth'], function() {
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 });

@@ -39,11 +39,13 @@ class JsonSpec
         $content['links'] = $links;
         
         // Extract content
-        $data = self::transform($response->original);  
+        $data = isset($response->original)
+            ? self::transform($response->original) 
+            : $response;  
         $content['data'] = $data;
 
         // When an exception is included
-        if ($response->exception) {
+        if (isset($response->exception)) {
             $private = [
                 'source' => [
                     'file' => $response->exception->getFile(),

@@ -4,7 +4,24 @@ use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Public Routes
+|--------------------------------------------------------------------------
+|
+| Auth routes are overridden by manual logout and login routes ensuring
+| that the default login and register page are not accessible, while
+| still keeping the same route names for the uncommenting of:
+|
+|
+*/
+
+Route::middleware('web')->namespace('Api')->group(function() {
+    Route::post('/logout', 'LoginController@logout');
+    Route::get('/login', 'LoginController@redirectToFacebook');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Secure API Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -13,10 +30,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/tokencheck', function(Request $request) {
-    dd($request->request);
-});
-
-Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
+Route::middleware('auth:api')->namespace('Api')->group(function() {
     Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
 });
