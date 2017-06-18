@@ -51,7 +51,7 @@
         if (e.buttons === 1) {
           this.dragging = true;
         }
-        console.log("\nDrawing:" + this.dataUrl());
+        console.log(this.dataUrl());
       },
 
       putPoint: function(e) {
