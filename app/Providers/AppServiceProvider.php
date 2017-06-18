@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         User::creating(function ($user) {
             $user->makeSlug();
+            $user->api_token = str_random(60);
         });
 
         User::deleting(function ($user) {

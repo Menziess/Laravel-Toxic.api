@@ -45,7 +45,8 @@ class CreateUsersTable extends Migration
 				->nullable();
 			$table->string('longitude')
 				->nullable();
-            $table->text('data')->nullable();
+            $table->text('data')
+                ->nullable();
 
             // Timestamps & Tokens
             $table->rememberToken();

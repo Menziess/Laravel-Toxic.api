@@ -71,11 +71,9 @@
       },
 
       loadDataUrl: function() { //TODO
-        let api_token = localStorage.getItem('api_token');
+        let api_token = sessionStorage.getItem('api_token');
         axios.get('/toxic.api/public/api/post/1', {
-          headers: {
-            Authorization: 'Bearer ' + api_token
-          }
+          headers: { Authorization: 'Bearer ' + api_token }
         }).then(response => {
             console.log(response);
             let img = new Image;

@@ -861,6 +861,14 @@ var app = new Vue({
   el: '#app'
 });
 
+/**
+ * Session Storage API Token
+ */
+var api_token = document.getElementById("api_token");
+if (api_token) {
+  sessionStorage.setItem("api_token", api_token.content);
+}
+
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
@@ -1903,11 +1911,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       //TODO
-      var api_token = localStorage.getItem('api_token');
+      var api_token = sessionStorage.getItem('api_token');
       axios.get('/toxic.api/public/api/post/1', {
-        headers: {
-          Authorization: 'Bearer ' + api_token
-        }
+        headers: { Authorization: 'Bearer ' + api_token }
       }).then(function (response) {
         console.log(response);
         var img = new Image();

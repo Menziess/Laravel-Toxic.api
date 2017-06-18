@@ -28,3 +28,12 @@ Vue.component('box', Box);
 const app = new Vue({
     el: '#app'
 });
+
+
+/**
+ * Session Storage API Token
+ */
+const api_token = document.getElementById("api_token");
+if (api_token) {
+    sessionStorage.setItem("api_token", api_token.content);
+}
