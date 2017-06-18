@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
 use App\Helpers\FacebookLogin;
 use App\Http\Controllers\Controller;
@@ -20,13 +20,6 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -56,6 +49,5 @@ class LoginController extends Controller
     public function handleFacebookCallback()
     {
 		FacebookLogin::handleFacebookCallback();
-		return redirect($this->redirectTo);
 	}
 }
