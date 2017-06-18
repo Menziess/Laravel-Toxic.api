@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App, Closure;
+use Illuminate\Http\Response;
 use \Illuminate\Pagination\Paginator;
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Collection;
@@ -23,11 +24,9 @@ class JsonSpec
         // Set Json-API spec header
         $response = $next($request);
         $response->headers->set('Content-Type', 'application/vnd.api+json');
-
         
         // Contains the response content
         $content = [];
-
 
         // Adds links
         $links = [
@@ -39,11 +38,9 @@ class JsonSpec
         ];
         $content['links'] = $links;
         
-        
         // Extract content
         $data = self::transform($response->original);  
         $content['data'] = $data;
-
 
         // When an exception is included
         if ($response->exception) {
@@ -65,7 +62,6 @@ class JsonSpec
             $content['errors'] = $errors;
         }
 
-
         // Manually arranges content
         $response->setContent(json_encode($content));
         return $response;
@@ -85,6 +81,9 @@ class JsonSpec
                 break;
             case $content instanceof Model:
                 return self::transformModel($content);
+                break;
+            case is_array($content):
+                return $content;
                 break;
             default:
                 return json_decode($content);

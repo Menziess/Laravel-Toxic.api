@@ -27,9 +27,9 @@ class StorePostRequest extends FormRequest
     {
         return [
             'subject' => 'bail|required|max:255',
-            'text' => 'required_without_all:drawing,url|max:255',
-            'drawing' => 'required_without_all:text,url',
-            'url' => 'required_without_all:drawing,text|active_url',
+            'text' => 'required_without_all:drawing,url|empty_when:drawing,url|max:255',
+            'drawing' => 'required_without_all:text,url|empty_when:text,url',
+            'url' => 'required_without_all:drawing,text|empty_when:drawing,text|active_url',
         ];
     }
 
