@@ -35,5 +35,5 @@ const app = new Vue({
  */
 const api_token = document.getElementById("api_token");
 if (api_token) {
-    sessionStorage.setItem("api_token", api_token.content);
+    window.sessionStorage.setItem("api_token", api_token.content);
 }
