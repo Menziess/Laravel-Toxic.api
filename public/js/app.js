@@ -2028,6 +2028,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2038,6 +2041,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			// Max amount of characters for text
 			maxlength: 255,
 
+			// Post variables
 			subject: null,
 			attachment: 0
 		};
@@ -2050,11 +2054,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		submit: function submit() {
 			var api_token = sessionStorage.getItem('api_token');
-			axios.post('/toxic.api/public/api/post/', {
+			axios({
 				headers: { Authorization: 'Bearer ' + api_token },
+				method: 'post',
+				url: '/toxic.api/public/api/post',
 				data: {
 					subject: this.subject,
-					attachment: this.attachment
+					attachment: this.attachment,
+					text: this.$refs.myTextbox.text
 				}
 			}).then(function (response) {
 				console.log(response);
@@ -2288,14 +2295,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   name: 'textbox',
   data: function data() {
     return {
-      textarea: null
+      textarea: null,
+
+      text: this.$parent.text
     };
   },
 
   props: ['display', 'maxlength'],
   methods: {},
   mounted: function mounted() {
-    this.textarea = this.$refs.myTextarea;
+    this.textarea = this.$refs.myTextbox;
   }
 });
 
@@ -32516,10 +32525,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "panel-content"
   }, [_c('textarea', {
-    ref: "myTextarea",
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.text),
+      expression: "text"
+    }],
+    ref: "myTextbox",
     attrs: {
       "maxlength": _vm.maxlength,
       "autofocus": "autofocus"
+    },
+    domProps: {
+      "value": (_vm.text)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.text = $event.target.value
+      }
     }
   })])
 },staticRenderFns: []}
@@ -32571,7 +32595,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       rawName: "v-show",
       value: (_vm.attachment === 0),
       expression: "attachment === 0"
-    }]
+    }],
+    ref: "myDrawing"
   }), _vm._v(" "), _c('Textbox', {
     directives: [{
       name: "show",
@@ -32579,6 +32604,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.attachment === 1),
       expression: "attachment === 1"
     }],
+    ref: "myTextbox",
     attrs: {
       "maxlength": _vm.maxlength
     }

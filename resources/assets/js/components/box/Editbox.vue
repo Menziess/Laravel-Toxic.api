@@ -3,13 +3,16 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
 
+				<!-- Subject -->
 				<div class="panel-heading">
 					<input type="text" class="form-control" placeholder="Subject" v-model="subject">
 				</div>
 
-				<Drawing v-show="attachment === 0"></Drawing>
-				<Textbox v-show="attachment === 1" :maxlength="maxlength"></Textbox>  
+				<!-- Attachments -->
+				<Drawing v-show="attachment === 0" ref="myDrawing"></Drawing>
+				<Textbox v-show="attachment === 1" :maxlength="maxlength" ref="myTextbox"></Textbox>  
 
+				<!-- Buttons -->
 				<div class="panel-footer">
 					<button type="button" v-on:click="attachment = 0" class="btn btn-secondary">Draw</button>
 					<button type="button" v-on:click="attachment = 1" class="btn btn-secondary">Write</button>
@@ -33,9 +36,10 @@
 				// Max amount of characters for text
         maxlength: 255,
 
+				// Post variables
         subject: null,
         attachment: 0
-      }
+			}
     },
     components: {
       Drawing,
@@ -44,11 +48,14 @@
 		methods: {
 			submit() {
 				let api_token = sessionStorage.getItem('api_token');
-				axios.post('/toxic.api/public/api/post/', {
-					headers: { Authorization: 'Bearer ' + api_token },
+				axios({
+					headers: { Authorization: 'Bearer ' + api_token },					
+					method: 'post',
+					url: '/toxic.api/public/api/post',
 					data: {
 						subject: this.subject,
-						attachment: this.attachment
+						attachment: this.attachment,
+						text: this.$refs.myTextbox.text
 					}
 				}).then(response => {
 					console.log(response)
