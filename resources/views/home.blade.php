@@ -6,16 +6,16 @@
 
         <div class="container">
             
-            <Editbox></Editbox>
+            <Box></Box>
 
             @if(isset($posts))
             @foreach($posts as $post)
-                <Displaybox subject="{{ $post->subject }}"
+                <Post subject="{{ $post->subject }}"
                     attachment="{{ $post->attachment }}"
                     drawing="{{ $post->drawing }}"
                     text="{{ $post->text }}"
                     url="{{ $post->url }}"
-                ></Displaybox>
+                ></Post>
             @endforeach
             @endif
 

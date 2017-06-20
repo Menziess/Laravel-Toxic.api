@@ -16,16 +16,16 @@ window.Vue = require('vue');
  */
 
 import Example from './components/box/Example.vue';
-import Editbox from './components/box/Editbox.vue';
-import Displaybox from './components/post/Displaybox.vue';
+import Post from './components/post/Post.vue';
+import Box from './components/box/Box.vue';
 
 
 /**
  * Custom components.
  */
 Vue.component('example', Example);
-Vue.component('editbox', Editbox);
-Vue.component('displaybox', Displaybox);
+Vue.component('post', Post);
+Vue.component('box', Box);
 
 const app = new Vue({
     el: '#app'

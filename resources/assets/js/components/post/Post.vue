@@ -4,20 +4,21 @@
       <div class="panel panel-default">
 
         <!-- Subject -->
-        <div class="panel-heading">
+        <!--<div class="panel-heading">
             {{ subject }}
-        </div>
+        </div>-->
 
         <!-- Attachments -->
         <Drawing v-if="attachment == 0" ref="myDrawing"></Drawing>
-        <p v-else-if="attachment == 1">{{ text }}</p>
+        <Textbox v-else-if="attachment == 1" :text="text"></Textbox>
         <p v-else-if="attachment == 2">{{ url }}</p>
         <p v-else-if="attachment == 3">{{ url }}</p>
         <p v-else-if="attachment == 4">{{ url }}</p>
 
         <!-- Buttons -->
         <div class="panel-footer">
-          // placeholder
+          <button v-on:click="deletePost()" type="button" class="btn btn-danger pull-right">Delete</button>
+          <div class="clearfix"></div>
         </div>     
 
       </div>
@@ -27,11 +28,18 @@
 
 <script>
   import Drawing from './children/Drawing.vue';
+  import Textbox from './children/Textbox.vue';
   export default {
-    name: 'displaydrawing',
-    props: ['subject', 'attachment', 'drawing', 'text', 'url'],
+    name: 'post',
+    props: ['id', 'subject', 'attachment', 'drawing', 'text', 'url'],
     components: {
-      Drawing
+      Drawing,
+      Textbox
+    },
+    methods: {
+      deletePost() {
+        alert('dleeted');
+      }
     },
     mounted() {
       switch (parseInt(this.attachment)) {

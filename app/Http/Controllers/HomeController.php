@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = \App\Post::orderBy('id', 'desc')->take(1)->get();
+        $posts = \App\Post::orderBy('id', 'desc')->take(10)->get();
 
         return view('home', [
             'posts' => $posts

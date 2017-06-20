@@ -30,7 +30,7 @@
   import Drawing from './children/Drawing.vue';
   import Textbox from './children/Textbox.vue';
   export default {
-    name: 'editbox',
+    name: 'box',
     data() {
       return {
         subject: null,
