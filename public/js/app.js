@@ -1108,6 +1108,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_box_Example_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_box_Example_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_box_Editbox_vue__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_box_Editbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_box_Editbox_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_post_Displaybox_vue__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_post_Displaybox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_post_Displaybox_vue__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -1128,11 +1130,13 @@ window.Vue = __webpack_require__(53);
 
 
 
+
 /**
  * Custom components.
  */
 Vue.component('example', __WEBPACK_IMPORTED_MODULE_0__components_box_Example_vue___default.a);
 Vue.component('editbox', __WEBPACK_IMPORTED_MODULE_1__components_box_Editbox_vue___default.a);
+Vue.component('displaybox', __WEBPACK_IMPORTED_MODULE_2__components_post_Displaybox_vue___default.a);
 
 var app = new Vue({
   el: '#app'
@@ -2057,7 +2061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				data: {
 					subject: this.subject,
 					attachment: this.attachment,
-					drawing: this.$refs.myDrawing.dataUrl(),
+					drawing: this.$refs.myDrawing.getDataUrl(),
 					text: this.$refs.myTextbox.text,
 					url: null
 				}
@@ -2204,7 +2208,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (e.buttons === 1) {
         this.dragging = true;
       }
-      // console.log(this.dataUrl());
     },
     putPoint: function putPoint(e) {
       if (this.dragging) {
@@ -2229,15 +2232,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         headers: { Authorization: 'Bearer ' + api_token }
       }).then(function (response) {
         console.log(response);
-        var img = new Image();
-        img.src = response.data.data.attributes.drawing;
-        _this.context.drawImage(img, 0, 0);
+        _this.renderDataUrl(response.data.data.attributes.drawing);
       }).catch(function (error) {
         console.error(error);
       });
     },
-    dataUrl: function dataUrl() {
+    getDataUrl: function getDataUrl() {
       return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
+    },
+    renderDataUrl: function renderDataUrl(drawing) {
+      var img = new Image();
+      var self = this;
+      img.onload = function () {
+        this.context.drawImage(img, 0, 0);
+      };
+      img.src = drawing;
     }
   },
   mounted: function mounted() {
@@ -2250,7 +2259,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.context.lineWidth = this.radius * 2;
     this.lineJoin = this.context.lineCap = 'round';
     this.rect = this.canvas.getBoundingClientRect();
-    this.loadDataUrl();
   }
 });
 // Prevent scrolling when touching the canvas
@@ -2276,6 +2284,8 @@ document.body.addEventListener("touchmove", function (e) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -4743,7 +4753,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\ntextarea[data-v-336602fd] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 40vh;\r\n  width: 100%;\r\n\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-336602fd] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 40vh;\r\n  width: 100%;\r\n\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-336602fd]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-336602fd]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-336602fd]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
 
 /***/ }),
 /* 38 */
@@ -32521,7 +32531,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "text"
     }],
     attrs: {
-      "maxlength": _vm.maxlength
+      "placeholder": "Write something here",
+      "maxlength": _vm.maxlength,
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.text)
@@ -32565,8 +32577,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Subject",
-      "autofocus": "autofocus"
+      "placeholder": "Subject"
     },
     domProps: {
       "value": (_vm.subject)
@@ -42511,6 +42522,267 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'displaydrawing',
+  props: ['subject', 'attachment', 'drawing', 'text', 'url'],
+  components: {
+    Drawing: __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue___default.a
+  },
+  mounted: function mounted() {
+    switch (parseInt(this.attachment)) {
+      case 0:
+        this.$refs.myDrawing.renderDataUrl(this.drawing);
+        break;
+      default:
+        break;
+    }
+  }
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(65),
+  /* template */
+  __webpack_require__(67),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\post\\Displaybox.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Displaybox.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-411d511d", Component.options)
+  } else {
+    hotAPI.reload("data-v-411d511d", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("\n          " + _vm._s(_vm.subject) + "\n      ")]), _vm._v(" "), (_vm.attachment == 0) ? _c('Drawing', {
+    ref: "myDrawing"
+  }) : (_vm.attachment == 1) ? _c('p', [_vm._v(_vm._s(_vm.text))]) : (_vm.attachment == 2) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment == 3) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment == 4) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "panel-footer"
+  }, [_vm._v("\n        // placeholder\n      ")])], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-411d511d", module.exports)
+  }
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'drawing',
+  data: function data() {
+    return {
+      canvas: null,
+      context: null
+    };
+  },
+
+  methods: {
+    renderDataUrl: function renderDataUrl(drawing) {
+      var img = new Image();
+      var self = this;
+      img.onload = function () {
+        self.context.drawImage(img, 0, 0);
+      };
+      img.src = drawing;
+    }
+  },
+  mounted: function mounted() {
+    this.canvas = this.$refs.myCanvas;
+
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
+
+    this.context = this.canvas.getContext('2d');
+  }
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(8)();
+exports.push([module.i, "\ncanvas[data-v-7719f0bc] {\r\n  width: 100%;\r\n  height: 40vh;\n}\r\n", ""]);
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(72)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(68),
+  /* template */
+  __webpack_require__(71),
+  /* scopeId */
+  "data-v-7719f0bc",
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\post\\children\\Drawing.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Drawing.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7719f0bc", Component.options)
+  } else {
+    hotAPI.reload("data-v-7719f0bc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel-content"
+  }, [_c('canvas', {
+    ref: "myCanvas",
+    staticClass: "noselect"
+  }, [_vm._v("\n      Sorry, your browser sucks.\n  ")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7719f0bc", module.exports)
+  }
+}
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(69);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(9)("56497e5c", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7719f0bc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Drawing.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7719f0bc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Drawing.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

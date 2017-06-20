@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 import Example from './components/box/Example.vue';
 import Editbox from './components/box/Editbox.vue';
+import Displaybox from './components/post/Displaybox.vue';
 
 
 /**
@@ -24,6 +25,7 @@ import Editbox from './components/box/Editbox.vue';
  */
 Vue.component('example', Example);
 Vue.component('editbox', Editbox);
+Vue.component('displaybox', Displaybox);
 
 const app = new Vue({
     el: '#app'

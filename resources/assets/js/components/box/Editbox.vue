@@ -5,7 +5,7 @@
 
 				<!-- Subject -->
 				<div class="panel-heading">
-					<input type="text" class="form-control" placeholder="Subject" autofocus="autofocus" v-model="subject">
+					<input type="text" class="form-control" placeholder="Subject" v-model="subject">
 				</div>
 
 				<!-- Attachments -->
@@ -51,7 +51,7 @@
 					data: {
 						subject: this.subject,
 						attachment: this.attachment,
-						drawing: this.$refs.myDrawing.dataUrl(),
+						drawing: this.$refs.myDrawing.getDataUrl(),
 						text: this.$refs.myTextbox.text,
 						url: null
 					}

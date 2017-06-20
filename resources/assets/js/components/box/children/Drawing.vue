@@ -47,7 +47,6 @@
         if (e.buttons === 1) {
           this.dragging = true;
         }
-        // console.log(this.dataUrl());
       },
       putPoint(e) {
         if (this.dragging) {  
@@ -69,15 +68,21 @@
           headers: { Authorization: 'Bearer ' + api_token }
         }).then(response => {
             console.log(response);
-            let img = new Image;
-            img.src = response.data.data.attributes.drawing;
-            this.context.drawImage(img,0,0);
+            this.renderDataUrl(response.data.data.attributes.drawing);
           }).catch(error => {
             console.error(error);
           });
       },
-      dataUrl() {
+      getDataUrl() {
         return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
+      },
+      renderDataUrl(drawing) {
+        let img = new Image;
+        let self = this;
+        img.onload = function() {
+          this.context.drawImage(img,0,0);
+        }
+        img.src = drawing;
       }
     },
     mounted() {
@@ -90,7 +95,6 @@
       this.context.lineWidth = this.radius * 2;
       this.lineJoin = this.context.lineCap = 'round';
       this.rect = this.canvas.getBoundingClientRect();
-      this.loadDataUrl();
     }
   }
   // Prevent scrolling when touching the canvas

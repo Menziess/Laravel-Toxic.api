@@ -1,7 +1,9 @@
 <template>
   <div class="panel-content">
     <textarea
+      placeholder="Write something here"
       :maxlength="maxlength"
+      autofocus="autofocus"
       v-model="text"
     >
     </textarea>
@@ -31,5 +33,9 @@ textarea {
 
   line-height: 1.5;
   font-size: larger;
+}
+
+textarea::placeholder {
+  color: #ccd0d2;
 }
 </style>

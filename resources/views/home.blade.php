@@ -6,13 +6,18 @@
 
         <div class="container">
             
-            <Editbox title="Box 1"></Editbox>
+            <Editbox></Editbox>
 
-            <Editbox title="Box 2"></Editbox>
-
-            <Editbox title="Box 3"></Editbox>
-
-            <Example></Example>
+            @if(isset($posts))
+            @foreach($posts as $post)
+                <Displaybox subject="{{ $post->subject }}"
+                    attachment="{{ $post->attachment }}"
+                    drawing="{{ $post->drawing }}"
+                    text="{{ $post->text }}"
+                    url="{{ $post->url }}"
+                ></Displaybox>
+            @endforeach
+            @endif
 
         </div>
 
