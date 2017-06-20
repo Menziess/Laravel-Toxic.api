@@ -6,7 +6,11 @@
 
         <div class="container">
             
-            <Box title="Box 1"></Box>
+            <Editbox title="Box 1"></Editbox>
+
+            <Editbox title="Box 2"></Editbox>
+
+            <Editbox title="Box 3"></Editbox>
 
             <Example></Example>
 

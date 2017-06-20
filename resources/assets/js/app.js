@@ -16,14 +16,14 @@ window.Vue = require('vue');
  */
 
 import Example from './components/box/Example.vue';
-import Box from './components/box/Box.vue';
+import Editbox from './components/box/Editbox.vue';
 
 
 /**
  * Custom components.
  */
 Vue.component('example', Example);
-Vue.component('box', Box);
+Vue.component('editbox', Editbox);
 
 const app = new Vue({
     el: '#app'

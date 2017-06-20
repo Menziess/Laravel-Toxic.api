@@ -1,6 +1,7 @@
 <template>
-  <div class="panel-drawing">
+  <div class="panel-content">
     <canvas ref="myCanvas"
+
       v-on:mouseup="stop"
       v-on:mouseout="stop"
       v-on:mousedown="start"
@@ -44,7 +45,6 @@
         e.preventDefault();
         this.dragging = false; 
         this.context.beginPath();
-        this.loadDataUrl();//TODO
       },
 
       mouseOver: function(e) {
@@ -99,6 +99,7 @@
       this.context.lineWidth = this.radius * 2;
       this.lineJoin = this.context.lineCap = 'round';
       this.rect = this.canvas.getBoundingClientRect();
+      this.loadDataUrl();
     }
   }
   // Prevent scrolling when touching the canvas
