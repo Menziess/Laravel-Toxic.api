@@ -30,7 +30,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = new Post;
-        $post->attachment = 1;
+        $post->user_id = Auth::user()->id;
         $post->fill($request->all());
         $post->save();
 
@@ -72,6 +72,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id)->delete();
+        
         return response("Deleted", 200);
     }
 }

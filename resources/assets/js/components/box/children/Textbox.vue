@@ -1,9 +1,7 @@
 <template>
   <div class="panel-content">
-    <textarea ref="myTextbox"
-
+    <textarea
       :maxlength="maxlength"
-      autofocus="autofocus"
       v-model="text"
     >
     </textarea>
@@ -15,17 +13,9 @@
     name: 'textbox',
     data() {
       return {
-        textarea: null,
-
+        maxlength: 255,
         text: this.$parent.text
       }
-    },
-    props: ['display', 'maxlength'],
-    methods: {
-      
-    },
-    mounted () {
-      this.textarea = this.$refs.myTextbox;
     }
   }
 </script>

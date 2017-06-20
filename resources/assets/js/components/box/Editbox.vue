@@ -5,12 +5,12 @@
 
 				<!-- Subject -->
 				<div class="panel-heading">
-					<input type="text" class="form-control" placeholder="Subject" v-model="subject">
+					<input type="text" class="form-control" placeholder="Subject" autofocus="autofocus" v-model="subject">
 				</div>
 
 				<!-- Attachments -->
 				<Drawing v-show="attachment === 0" ref="myDrawing"></Drawing>
-				<Textbox v-show="attachment === 1" :maxlength="maxlength" ref="myTextbox"></Textbox>  
+				<Textbox v-show="attachment === 1" ref="myTextbox"></Textbox>  
 
 				<!-- Buttons -->
 				<div class="panel-footer">
@@ -33,10 +33,6 @@
     name: 'editbox',
     data() {
       return {
-				// Max amount of characters for text
-        maxlength: 255,
-
-				// Post variables
         subject: null,
         attachment: 0
 			}
@@ -55,12 +51,14 @@
 					data: {
 						subject: this.subject,
 						attachment: this.attachment,
-						text: this.$refs.myTextbox.text
+						drawing: this.$refs.myDrawing.dataUrl(),
+						text: this.$refs.myTextbox.text,
+						url: null
 					}
 				}).then(response => {
 					console.log(response)
 				}).catch(error => {
-					throw(error)
+					console.error(error)
 				});
 			}
 		}

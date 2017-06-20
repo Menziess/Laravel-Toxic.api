@@ -2038,10 +2038,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	name: 'editbox',
 	data: function data() {
 		return {
-			// Max amount of characters for text
-			maxlength: 255,
-
-			// Post variables
 			subject: null,
 			attachment: 0
 		};
@@ -2061,12 +2057,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				data: {
 					subject: this.subject,
 					attachment: this.attachment,
-					text: this.$refs.myTextbox.text
+					drawing: this.$refs.myDrawing.dataUrl(),
+					text: this.$refs.myTextbox.text,
+					url: null
 				}
 			}).then(function (response) {
 				console.log(response);
 			}).catch(function (error) {
-				throw error;
+				console.error(error);
 			});
 		}
 	}
@@ -2235,7 +2233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         img.src = response.data.data.attributes.drawing;
         _this.context.drawImage(img, 0, 0);
       }).catch(function (error) {
-        throw error;
+        console.error(error);
       });
     },
     dataUrl: function dataUrl() {
@@ -2288,23 +2286,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textbox',
   data: function data() {
     return {
-      textarea: null,
-
+      maxlength: 255,
       text: this.$parent.text
     };
-  },
-
-  props: ['display', 'maxlength'],
-  methods: {},
-  mounted: function mounted() {
-    this.textarea = this.$refs.myTextbox;
   }
 });
 
@@ -32531,10 +32520,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.text),
       expression: "text"
     }],
-    ref: "myTextbox",
     attrs: {
-      "maxlength": _vm.maxlength,
-      "autofocus": "autofocus"
+      "maxlength": _vm.maxlength
     },
     domProps: {
       "value": (_vm.text)
@@ -32578,7 +32565,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Subject"
+      "placeholder": "Subject",
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.subject)
@@ -32604,10 +32592,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.attachment === 1),
       expression: "attachment === 1"
     }],
-    ref: "myTextbox",
-    attrs: {
-      "maxlength": _vm.maxlength
-    }
+    ref: "myTextbox"
   }), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('button', {

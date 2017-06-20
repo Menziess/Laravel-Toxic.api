@@ -73,7 +73,7 @@
             img.src = response.data.data.attributes.drawing;
             this.context.drawImage(img,0,0);
           }).catch(error => {
-            throw(error);
+            console.error(error);
           });
       },
       dataUrl() {
