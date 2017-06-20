@@ -4,10 +4,9 @@
 
       :maxlength="maxlength"
       autofocus="autofocus"
-      rows="2" 
-      cols="2"
       
-    ></textarea>
+    >
+    </textarea>
   </div>
 </template>
 
@@ -31,10 +30,14 @@
 
 <style scoped>
 textarea {
-  resize: none;
   padding: 0.5em;
-  line-height: 1.5;
-  width: 100%;
+  resize: none;
   height: 40vh;
+  width: 100%;
+
+  border: none;
+
+  line-height: 1.5;
+  font-size: larger;
 }
 </style>

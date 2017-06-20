@@ -2,15 +2,15 @@
   <div class="panel-content">
     <canvas ref="myCanvas"
 
-      v-on:mouseup="stop"
-      v-on:mouseout="stop"
-      v-on:mousedown="start"
+      v-on:mouseup.prevent="stop"
+      v-on:mouseout.prevent="stop"
+      v-on:mousedown.prevent="start"
+      v-on:mousemove.prevent="putPoint($event)" 
       v-on:mouseover="mouseOver($event)"
-      v-on:mousemove="putPoint($event)" 
       
-      v-on:touchend="stop"
-      v-on:touchstart="start"
-      v-on:touchmove="putPoint($event)"
+      v-on:touchend.prevent="stop"
+      v-on:touchstart.prevent="start"
+      v-on:touchmove.prevent="putPoint($event)"
       
       v-bind:class="{ mouseDown: dragging }"
       class="noselect"
@@ -35,27 +35,21 @@
       }
     },
     methods: {
-      start: function(e) {
-        e.preventDefault();
+      start(e) {
         this.dragging = true;
         this.putPoint(e);
       },
-
-      stop: function(e) { 
-        e.preventDefault();
+      stop(e) { 
         this.dragging = false; 
         this.context.beginPath();
       },
-
-      mouseOver: function(e) {
+      mouseOver(e) {
         if (e.buttons === 1) {
           this.dragging = true;
         }
-        console.log(this.dataUrl());
+        // console.log(this.dataUrl());
       },
-
-      putPoint: function(e) {
-        e.preventDefault();
+      putPoint(e) {
         if (this.dragging) {  
           let x = (e.pageX - this.rect.left) * this.canvas.width / this.rect.width;
           let y = (e.pageY - this.rect.top) * this.canvas.height / this.rect.height;
@@ -69,8 +63,7 @@
           this.context.moveTo(x, y);
         }
       },
-
-      loadDataUrl: function() { //TODO
+      loadDataUrl() { //TODO
         let api_token = sessionStorage.getItem('api_token');
         axios.get('/toxic.api/public/api/post/1', {
           headers: { Authorization: 'Bearer ' + api_token }
@@ -80,16 +73,14 @@
             img.src = response.data.data.attributes.drawing;
             this.context.drawImage(img,0,0);
           }).catch(error => {
-            console.log(error);
+            throw(error);
           });
-      
       },
-
-      dataUrl: function() {
+      dataUrl() {
         return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
       }
     },
-    mounted () {
+    mounted() {
       this.canvas = this.$refs.myCanvas;
 
       this.canvas.width  = this.canvas.offsetWidth;
