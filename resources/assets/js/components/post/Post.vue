@@ -5,7 +5,7 @@
 
         <!-- Subject -->
         <div class="panel-heading">
-            {{ subject }}
+            <a :href="'/toxic.api/public/t/' + slug">{{ subject }}</a>
         </div>
 
         <!-- Attachments -->
@@ -31,7 +31,7 @@
   import Textbox from './children/Textbox.vue';
   export default {
     name: 'post',
-    props: ['id', 'subject', 'attachment', 'drawing', 'text', 'url'],
+    props: ['id', 'slug', 'subject', 'attachment', 'drawing', 'text', 'url'],
     components: {
       Drawing,
       Textbox

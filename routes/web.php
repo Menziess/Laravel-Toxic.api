@@ -71,4 +71,6 @@ Route::namespace('Auth')->group(function() {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/t/{slug}', 'HomeController@topic');
+    Route::get('/u/{slug}', 'HomeController@user');
 });

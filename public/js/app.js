@@ -2374,7 +2374,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'post',
-  props: ['id', 'subject', 'attachment', 'drawing', 'text', 'url'],
+  props: ['id', 'slug', 'subject', 'attachment', 'drawing', 'text', 'url'],
   components: {
     Drawing: __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue___default.a,
     Textbox: __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default.a
@@ -32826,7 +32826,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_vm._v("\n          " + _vm._s(_vm.subject) + "\n      ")]), _vm._v(" "), (_vm.attachment === 'text') ? _c('Textbox', {
+  }, [_c('a', {
+    attrs: {
+      "href": '/toxic.api/public/t/' + _vm.slug
+    }
+  }, [_vm._v(_vm._s(_vm.subject))])]), _vm._v(" "), (_vm.attachment === 'text') ? _c('Textbox', {
     attrs: {
       "text": _vm.text
     }
