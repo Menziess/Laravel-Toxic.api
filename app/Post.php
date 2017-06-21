@@ -52,7 +52,7 @@ class Post extends Model implements SlugAble
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -60,7 +60,7 @@ class Post extends Model implements SlugAble
      */
     public function topic()
     {
-        return $this->belongsTo(\App\Topic::class);
+        return $this->belongsTo('App\Topic');
     }
 
     /*

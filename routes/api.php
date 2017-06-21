@@ -32,4 +32,6 @@ Route::middleware('web')->namespace('Api')->group(function() {
 
 Route::middleware('auth:api')->namespace('Api')->group(function() {
     Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
+    Route::get('t/{slug}', 'TopicController@slug');
+    Route::get('u/{slug}', 'UserController@slug');
 });

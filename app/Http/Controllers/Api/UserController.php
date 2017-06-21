@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Topic;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
-class TopicController extends Controller
+class UserController extends Controller
 {
     /**
      * Store a newly created resource in storage.
@@ -17,7 +16,8 @@ class TopicController extends Controller
      */
     public function slug(String $slug)
     {
-        $topic = Topic::where('slug', $slug)->with('posts')->first();
-        return $topic->posts;
+        $user = User::where('slug', $slug)->first();
+        abort(401, "Not allowed!");
+        return $user;
     }
 }

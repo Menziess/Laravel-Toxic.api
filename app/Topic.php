@@ -51,7 +51,7 @@ class Topic extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -59,7 +59,7 @@ class Topic extends Model
      */
     public function posts()
     {
-        return $this->hasMany(\App\Post::class);
+        return $this->hasMany('App\Post');
     }
 
     /*

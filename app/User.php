@@ -55,7 +55,7 @@ class User extends Authenticatable implements SlugAble
      */
     public function posts()
     {
-        return $this->hasMany(\App\Post::class);
+        return $this->hasMany('App\Post');
     }
 
 	/**
@@ -63,7 +63,7 @@ class User extends Authenticatable implements SlugAble
      */
     public function topics()
     {
-        return $this->hasMany(\App\Topic::class);
+        return $this->hasMany('App\Topic');
     }
 
     /*
@@ -71,7 +71,7 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function resources($type = null)
 	{
-		return $this->hasMany(\App\Resource::class)
+		return $this->hasMany('App\Resource')
 			->where('type', $type);
 	}
 
@@ -80,7 +80,7 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function resource()
 	{
-		return $this->belongsTo(\App\Resource::class);
+		return $this->belongsTo('App\Resource');
 	}
 
     /*

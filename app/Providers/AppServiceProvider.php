@@ -32,9 +32,8 @@ class AppServiceProvider extends ServiceProvider
             $topic = Topic::firstOrNew(['slug' => $post->slug]);
             
             // If not persisted yet, assign user owner
-            if ($topic->exists()) {
-                $topic->user()->associate($post->user);
-                $topic->save();
+            if ($topic->posts->count() < 1) {
+                $topic->user()->associate($post->user)->save();
             }
 
             // Associate topic
