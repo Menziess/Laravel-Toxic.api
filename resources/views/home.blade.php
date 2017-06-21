@@ -10,7 +10,8 @@
 
             @if(isset($posts))
             @foreach($posts as $post)
-                <Post subject="{{ $post->subject }}"
+                <Post id="{{ $post->id }}" 
+                    subject="{{ $post->subject }}"
                     attachment="{{ $post->attachment }}"
                     drawing="{{ $post->drawing }}"
                     text="{{ $post->text }}"

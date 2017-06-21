@@ -38,7 +38,16 @@
     },
     methods: {
       deletePost() {
-        alert('dleeted');
+        let api_token = sessionStorage.getItem('api_token');
+				axios({
+					headers: { Authorization: 'Bearer ' + api_token },					
+					method: 'delete',
+					url: '/toxic.api/public/api/post/' + this.id
+				}).then(response => {
+					location.reload();
+				}).catch(error => {
+					console.error(error)
+				});
       }
     },
     mounted() {
