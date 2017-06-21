@@ -2,21 +2,18 @@
 
 namespace App;
 
-use App\Helpers\JsonAble;
+use App\Helpers\SlugAble;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Topic extends Model implements SlugAble
 {
-    use JsonAble, SoftDeletes;
-    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'attachment', 'subject', 'text', 'drawing', 'url',
+        'slug',
     ];
 
     /**
@@ -53,4 +50,18 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /*
+	 * Make slug to access original topic.
+	 */
+	public function makeSlug() {
+		$slug = strtolower($this->first_name . '-' . $this->last_name);
+		$ext = null;
+		while (self::where('slug', $slug . $ext)->exists()) {
+			if (!$ext) {
+				$ext = '.' . rand(1, 999);
+			}
+		}
+		$this->slug = $slug . $ext;
+	}
 }

@@ -3,11 +3,12 @@
 namespace App;
 
 use App\Helpers\JsonAble;
+use App\Helpers\SlugAble;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements SlugAble
 {
     use Notifiable, JsonAble, SoftDeletes;
 
