@@ -5,17 +5,18 @@
 
 				<!-- Subject -->
 				<div class="panel-heading">
-					<input type="text" class="form-control" placeholder="Subject" v-model="subject">
+					<input type="text" class="form-control" v-model="subject" maxlength="60"
+						:placeholder="defaultSubjectName()">
 				</div>
 
 				<!-- Attachments -->
-				<Drawing v-show="attachment === 0" ref="myDrawing"></Drawing>
-				<Textbox v-show="attachment === 1" ref="myTextbox"></Textbox>  
+				<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
+				<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
 
 				<!-- Buttons -->
 				<div class="panel-footer">
-					<button type="button" v-on:click="attachment = 0" class="btn btn-secondary">Draw</button>
-					<button type="button" v-on:click="attachment = 1" class="btn btn-secondary">Write</button>
+					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary">Write</button>
+					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
 
 					<button v-on:click="submit()" type="button" class="btn btn-primary pull-right">Post</button>
 					<div class="clearfix"></div>
@@ -34,7 +35,7 @@
     data() {
       return {
         subject: null,
-        attachment: 0
+        attachment: "text"
 			}
     },
     components: {
@@ -49,17 +50,34 @@
 					method: 'post',
 					url: '/toxic.api/public/api/post',
 					data: {
-						subject: this.subject,
+						subject: this.validateSubject(this.subject),
 						attachment: this.attachment,
 						drawing: this.$refs.myDrawing.getDataUrl(),
 						text: this.$refs.myTextbox.text,
 						url: null
 					}
 				}).then(response => {
+					location.reload();
 					console.log(response)
 				}).catch(error => {
 					console.error(error)
 				});
+			},
+			defaultSubjectName() {
+				switch (this.attachment) {
+					case 'drawing':
+						return "Drawings";
+						break;
+					default:
+						return "General";
+						break;
+				}
+			},
+			validateSubject(subject) {
+				if (!subject) {
+					return this.defaultSubjectName();
+				}
+				return subject.replace(/[^a-z0-9]/gi,' ');
 			}
 		}
   }

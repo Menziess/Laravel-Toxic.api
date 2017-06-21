@@ -4,16 +4,16 @@
       <div class="panel panel-default">
 
         <!-- Subject -->
-        <!--<div class="panel-heading">
+        <div class="panel-heading">
             {{ subject }}
-        </div>-->
+        </div>
 
         <!-- Attachments -->
-        <Drawing v-if="attachment == 0" ref="myDrawing"></Drawing>
-        <Textbox v-else-if="attachment == 1" :text="text"></Textbox>
-        <p v-else-if="attachment == 2">{{ url }}</p>
-        <p v-else-if="attachment == 3">{{ url }}</p>
-        <p v-else-if="attachment == 4">{{ url }}</p>
+        <Textbox v-if="attachment === 'text'" :text="text"></Textbox>
+        <Drawing v-else-if="attachment === 'drawing'" ref="myDrawing"></Drawing>
+        <p v-else-if="attachment === 'url'">{{ url }}</p>
+        <p v-else-if="attachment === 'video'">{{ url }}</p>
+        <p v-else-if="attachment === 'image'">{{ url }}</p>
 
         <!-- Buttons -->
         <div class="panel-footer">
@@ -45,14 +45,17 @@
 					url: '/toxic.api/public/api/post/' + this.id
 				}).then(response => {
 					location.reload();
+					console.error(response)
 				}).catch(error => {
 					console.error(error)
 				});
       }
     },
     mounted() {
-      switch (parseInt(this.attachment)) {
-        case 0:
+      switch (this.attachment) {
+        case 'text':
+          break;
+        case 'drawing':
           this.$refs.myDrawing.renderDataUrl(this.drawing);
           break;
         default:

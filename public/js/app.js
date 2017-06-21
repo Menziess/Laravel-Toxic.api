@@ -2035,6 +2035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2043,7 +2044,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			subject: null,
-			attachment: 0
+			attachment: "text"
 		};
 	},
 
@@ -2059,17 +2060,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				method: 'post',
 				url: '/toxic.api/public/api/post',
 				data: {
-					subject: this.subject,
+					subject: this.validateSubject(this.subject),
 					attachment: this.attachment,
 					drawing: this.$refs.myDrawing.getDataUrl(),
 					text: this.$refs.myTextbox.text,
 					url: null
 				}
 			}).then(function (response) {
+				location.reload();
 				console.log(response);
 			}).catch(function (error) {
 				console.error(error);
 			});
+		},
+		defaultSubjectName: function defaultSubjectName() {
+			switch (this.attachment) {
+				case 'drawing':
+					return "Drawings";
+					break;
+				default:
+					return "General";
+					break;
+			}
+		},
+		validateSubject: function validateSubject(subject) {
+			if (!subject) {
+				return this.defaultSubjectName();
+			}
+			return subject.replace(/[^a-z0-9]/gi, ' ');
 		}
 	}
 });
@@ -2197,6 +2215,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     start: function start(e) {
+      // Make sure canvas is properly rendered
+      if (this.canvas.width === 0) {
+        this.init();
+      }
       this.dragging = true;
       this.putPoint(e);
     },
@@ -2247,18 +2269,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.context.drawImage(img, 0, 0);
       };
       img.src = drawing;
+    },
+    init: function init() {
+      this.canvas.width = this.canvas.offsetWidth;
+      this.canvas.height = this.canvas.offsetHeight;
+
+      this.context = this.canvas.getContext('2d');
+      this.context.lineWidth = this.radius * 2;
+      this.lineJoin = this.context.lineCap = 'round';
+      this.rect = this.canvas.getBoundingClientRect();
     }
   },
   mounted: function mounted() {
     this.canvas = this.$refs.myCanvas;
-
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
-
-    this.context = this.canvas.getContext('2d');
-    this.context.lineWidth = this.radius * 2;
-    this.lineJoin = this.context.lineCap = 'round';
-    this.rect = this.canvas.getBoundingClientRect();
+    this.init();
   }
 });
 // Prevent scrolling when touching the canvas
@@ -2364,14 +2388,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         url: '/toxic.api/public/api/post/' + this.id
       }).then(function (response) {
         location.reload();
+        console.error(response);
       }).catch(function (error) {
         console.error(error);
       });
     }
   },
   mounted: function mounted() {
-    switch (parseInt(this.attachment)) {
-      case 0:
+    switch (this.attachment) {
+      case 'text':
+        break;
+      case 'drawing':
         this.$refs.myDrawing.renderDataUrl(this.drawing);
         break;
       default:
@@ -32797,13 +32824,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-8 col-md-offset-2"
   }, [_c('div', {
     staticClass: "panel panel-default"
-  }, [(_vm.attachment == 0) ? _c('Drawing', {
-    ref: "myDrawing"
-  }) : (_vm.attachment == 1) ? _c('Textbox', {
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("\n          " + _vm._s(_vm.subject) + "\n      ")]), _vm._v(" "), (_vm.attachment === 'text') ? _c('Textbox', {
     attrs: {
       "text": _vm.text
     }
-  }) : (_vm.attachment == 2) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment == 3) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment == 4) ? _c('p', [_vm._v(_vm._s(_vm.url))]) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : (_vm.attachment === 'drawing') ? _c('Drawing', {
+    ref: "myDrawing"
+  }) : (_vm.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.url))]) : (_vm.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.url))]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('button', {
     staticClass: "btn btn-danger pull-right",
@@ -32994,7 +33023,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Subject"
+      "maxlength": "60",
+      "placeholder": _vm.defaultSubjectName()
     },
     domProps: {
       "value": (_vm.subject)
@@ -33005,22 +33035,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.subject = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('Drawing', {
+  })]), _vm._v(" "), _c('Textbox', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.attachment === 0),
-      expression: "attachment === 0"
-    }],
-    ref: "myDrawing"
-  }), _vm._v(" "), _c('Textbox', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.attachment === 1),
-      expression: "attachment === 1"
+      value: (_vm.attachment === 'text'),
+      expression: "attachment === 'text'"
     }],
     ref: "myTextbox"
+  }), _vm._v(" "), _c('Drawing', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.attachment === 'drawing'),
+      expression: "attachment === 'drawing'"
+    }],
+    ref: "myDrawing"
   }), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('button', {
@@ -33030,20 +33060,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.attachment = 0
+        _vm.attachment = 'text'
       }
     }
-  }, [_vm._v("Draw")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Write")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-secondary",
     attrs: {
       "type": "button"
     },
     on: {
       "click": function($event) {
-        _vm.attachment = 1
+        _vm.attachment = 'drawing'
       }
     }
-  }, [_vm._v("Write")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Draw")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary pull-right",
     attrs: {
       "type": "button"

@@ -36,6 +36,8 @@
     },
     methods: {
       start(e) {
+        // Make sure canvas is properly rendered
+        if (this.canvas.width === 0) { this.init(); } 
         this.dragging = true;
         this.putPoint(e);
       },
@@ -83,18 +85,20 @@
           this.context.drawImage(img,0,0);
         }
         img.src = drawing;
+      },
+      init() {
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+
+        this.context = this.canvas.getContext('2d');
+        this.context.lineWidth = this.radius * 2;
+        this.lineJoin = this.context.lineCap = 'round';
+        this.rect = this.canvas.getBoundingClientRect();
       }
     },
     mounted() {
       this.canvas = this.$refs.myCanvas;
-
-      this.canvas.width  = this.canvas.offsetWidth;
-      this.canvas.height = this.canvas.offsetHeight
-
-      this.context = this.canvas.getContext('2d');
-      this.context.lineWidth = this.radius * 2;
-      this.lineJoin = this.context.lineCap = 'round';
-      this.rect = this.canvas.getBoundingClientRect();
+      this.init();
     }
   }
   // Prevent scrolling when touching the canvas

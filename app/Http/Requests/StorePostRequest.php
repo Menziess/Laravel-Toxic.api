@@ -26,11 +26,11 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'subject'       => 'bail|required|max:255',
-            'attachment'    => 'bail|required|numeric|min:0|max:4',
-            'drawing'       => 'required_without_all:text,url|required_if:attachment,0',
-            'text'          => 'required_without_all:drawing,url|required_if:attachment,1|max:255',
-            'url'           => 'required_without_all:drawing,text|required_if:attachment,2|required_if:attachment,3|required_if:attachment,4|max:255',
+            'subject'       => 'bail|required|string|max:60',
+            'attachment'    => 'bail|required|string|in:text,drawing,url,video,image',
+            'text'          => 'bail|required_without_all:drawing,url|required_if:attachment,text|max:255',
+            'drawing'       => 'required_without_all:text,url|required_if:attachment,drawing',
+            'url'           => 'required_without_all:drawing,text|required_if:attachment,url|required_if:attachment,video|required_if:attachment,image|max:255',
         ];
     }
 
