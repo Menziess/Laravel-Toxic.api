@@ -2,11 +2,14 @@
 
 namespace App;
 
-use App\Helpers\SlugAble;
+use App\Helpers\JsonAble;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Topic extends Model implements SlugAble
+class Topic extends Model
 {
+    use JsonAble, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,20 +51,25 @@ class Topic extends Model implements SlugAble
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
+    }
+
+    /**
+     * Get related posts.
+     */
+    public function posts()
+    {
+        return $this->hasMany(\App\Post::class);
     }
 
     /*
-	 * Make slug to access original topic.
+	 * Scope where slug is like
 	 */
-	public function makeSlug() {
-		$slug = strtolower($this->first_name . '-' . $this->last_name);
-		$ext = null;
-		while (self::where('slug', $slug . $ext)->exists()) {
-			if (!$ext) {
-				$ext = '.' . rand(1, 999);
-			}
+	public function scopeSearch($query, string $search = null)
+	{
+		if (!$search) {
+			return $query;
 		}
-		$this->slug = $slug . $ext;
+		return $query->where('slug', 'like', '%' . $search . '%');
 	}
 }

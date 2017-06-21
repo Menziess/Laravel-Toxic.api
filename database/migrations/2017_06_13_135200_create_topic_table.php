@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateTopicTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,36 +13,20 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
 
             // Id's
             $table->increments('id');
             $table->integer('user_id')
 				  ->unsigned()
 				  ->nullable();
-            $table->integer('topic_id')
-				  ->unsigned()
-				  ->nullable();
 
             $table->foreign('user_id')
 				  ->references('id')->on('users')
             	  ->onDelete('cascade');
-            $table->foreign('topic_id')
-				  ->references('id')->on('topics')
-            	  ->onDelete('cascade');
-
-            // Content
-            $table->integer('attachment');
-            $table->string('subject');
-            $table->text('text')
-                ->nullable();
-            $table->text('drawing')
-                ->nullable();
-            $table->string('url')
-                ->nullable();
 
             // Additional Data
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('data')->nullable();
 
             // Timestamps & Tokens
@@ -58,6 +42,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('topics');
     }
 }

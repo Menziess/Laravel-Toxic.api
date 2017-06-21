@@ -3,10 +3,11 @@
 namespace App;
 
 use App\Helpers\JsonAble;
+use App\Helpers\SlugAble;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Post extends Model implements SlugAble
 {
     use JsonAble, SoftDeletes;
     
@@ -51,6 +52,30 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
+
+    /**
+     * Get the owner.
+     */
+    public function topic()
+    {
+        return $this->belongsTo(\App\Topic::class);
+    }
+
+    /*
+	 * Make slug to access original topic.
+	 */
+	public function makeSlug() {
+        //Lower case everything
+        $string = strtolower($this->subject);
+        //Make alphanumeric (removes all other characters)
+        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        //Clean up multiple dashes or whitespaces
+        $string = preg_replace("/[\s-]+/", " ", $string);
+        //Convert whitespaces and underscore to dash
+        $string = preg_replace("/[\s_]/", "-", $string);
+        
+		return $this->slug = $string;
+	}
 }

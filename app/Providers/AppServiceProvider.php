@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\User;
+use App\Post;
+use App\Topic;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,22 @@ class AppServiceProvider extends ServiceProvider
 
         User::deleting(function ($user) {
             $user->deletePersonalData();
+        });
+        
+        Post::creating(function ($post) {
+            
+            // Create slug, then check if a topic exists with that slug
+            $post->makeSlug();
+            $topic = Topic::firstOrNew(['slug' => $post->slug]);
+            
+            // If not persisted yet, assign user owner
+            if ($topic->exists()) {
+                $topic->user()->associate($post->user);
+                $topic->save();
+            }
+
+            // Associate topic
+            $post->topic()->associate($topic);
         });
     }
 

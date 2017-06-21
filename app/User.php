@@ -20,7 +20,7 @@ class User extends Authenticatable implements SlugAble
      * @var array
      */
     protected $fillable = [
-        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'data', 'api_token',
+        'facebook_id', 'first_name', 'last_name', 'slug', 'email', 'password', 'api_token',
     ];
 
     /**
@@ -55,7 +55,15 @@ class User extends Authenticatable implements SlugAble
      */
     public function posts()
     {
-        return $this->hasMany('App\Post');
+        return $this->hasMany(\App\Post::class);
+    }
+
+	/**
+     * User topics.
+     */
+    public function topics()
+    {
+        return $this->hasMany(\App\Topic::class);
     }
 
     /*
@@ -63,7 +71,7 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function resources($type = null)
 	{
-		return $this->hasMany(Resource::class)
+		return $this->hasMany(\App\Resource::class)
 			->where('type', $type);
 	}
 
@@ -72,7 +80,7 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function resource()
 	{
-		return $this->belongsTo(Resource::class);
+		return $this->belongsTo(\App\Resource::class);
 	}
 
     /*
