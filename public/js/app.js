@@ -2048,6 +2048,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default.a
 	},
 	methods: {
+		test: function test() {
+			alert("test");
+		},
 		submit: function submit() {
 			axios({
 				headers: { Authorization: 'Bearer ' + api_token.content },
@@ -33010,7 +33013,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-md-8 col-md-offset-2"
   }, [_c('div', {
-    staticClass: "panel panel-default"
+    staticClass: "panel panel-default",
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        if (!$event.ctrlKey) { return null; }
+        _vm.submit()
+      }
+    }
   }, [_c('div', {
     staticClass: "panel-heading"
   }, [_c('input', {

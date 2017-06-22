@@ -1,6 +1,6 @@
 
 // Body
-$border: lightgray;
+$laravel-border-color: lightgray;
 $body-bg: #f5f8fa;
 
 // Borders
@@ -46,20 +46,20 @@ html {
 
 // Profile pic style
 .profile-pic {
-  border: $border solid 2px;
+  border: 2px solid $laravel-border-color;
 }
 .profile-pic-nav {
-  width: 41px; 
-  height: 41px;
+  width: 36px; 
+  height: 36px;
   background-color: $body-bg;
-  transform: translateY(-8px);
+  transform: translateY(-7px);
 }
 
 // Bootstrap panel used for posts
 .panel-content {
   line-height: 0;
   border: 0;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid $laravel-border-color;
 }
 
 // Prevents selecting element

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
+      <div v-on:keyup.ctrl.enter="submit()" class="panel panel-default">
 
 				<!-- Subject -->
 				<div class="panel-heading">
@@ -43,6 +43,9 @@
       Textbox
     },
 		methods: {
+			test() {
+				alert("test");
+			},
 			submit() {
 				axios({
 					headers: { Authorization: 'Bearer ' + api_token.content },					

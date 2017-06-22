@@ -21,14 +21,9 @@
                 <!-- Profile Picture -->
                 <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                     @if (Auth::guest())
-                    <!--<img class="img-circle noselect profile-pic profile-pic-nav"
-                        src="{{ asset('img/Toxic-logo.png') }}"
-                        alt="Profile picture"/>-->
-                    <svg class="img-circle noselect profile-pic profile-pic-nav">
-                        <!--<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />-->
-                    </svg>
+                    <svg class="img-circle noselect profile-pic profile-pic-nav"/>
                     @else
-                    <img class="img-circle noselect profile-pic profile-pic-nav"                     
+                    <img class="img-circle noselect profile-pic-nav"                     
                         src="{{ asset(Auth::user()->getPicture()) }}"
                         alt="Profile picture"/>
                     @endif
