@@ -27,15 +27,10 @@ Vue.component('example', Example);
 Vue.component('post', Post);
 Vue.component('box', Box);
 
+
+/**
+ * Vue app.
+ */
 const app = new Vue({
     el: '#app'
 });
-
-
-/**
- * Session Storage API Token
- */
-const api_token = document.getElementById("api_token");
-if (api_token) {
-    window.sessionStorage.setItem("api_token", api_token.content);
-}

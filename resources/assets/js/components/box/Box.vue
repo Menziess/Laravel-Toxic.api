@@ -44,13 +44,12 @@
     },
 		methods: {
 			submit() {
-				let api_token = sessionStorage.getItem('api_token');
 				axios({
-					headers: { Authorization: 'Bearer ' + api_token },					
+					headers: { Authorization: 'Bearer ' + api_token.content },					
 					method: 'post',
-					url: '/toxic.api/public/api/post',
+					url: domain_ext.content + '/api/post',
 					data: {
-						subject: this.validateSubject(this.subject),
+						subject: this.getSubject(this.subject),
 						attachment: this.attachment,
 						drawing: this.$refs.myDrawing.getDataUrl(),
 						text: this.$refs.myTextbox.text,
@@ -73,7 +72,7 @@
 						break;
 				}
 			},
-			validateSubject(subject) {
+			getSubject(subject) {
 				if (!subject) {
 					return this.defaultSubjectName();
 				}

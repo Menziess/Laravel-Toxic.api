@@ -5,7 +5,7 @@
 
         <!-- Subject -->
         <div class="panel-heading">
-            <a :href="'/toxic.api/public/t/' + slug">{{ subject }}</a>
+            <a :href="slugRoute()">{{ subject }}</a>
         </div>
 
         <!-- Attachments -->
@@ -38,17 +38,19 @@
     },
     methods: {
       deletePost() {
-        let api_token = sessionStorage.getItem('api_token');
 				axios({
-					headers: { Authorization: 'Bearer ' + api_token },					
+					headers: { Authorization: 'Bearer ' + api_token.content },					
 					method: 'delete',
-					url: '/toxic.api/public/api/post/' + this.id
+					url: domain_ext.content + '/api/post/' + this.id
 				}).then(response => {
 					location.reload();
 					console.error(response)
 				}).catch(error => {
 					console.error(error)
 				});
+      },
+      slugRoute() {
+        return domain_ext.content + '/t/' + this.slug;
       }
     },
     mounted() {
