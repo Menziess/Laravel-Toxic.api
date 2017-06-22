@@ -39,10 +39,11 @@
     methods: {
       deletePost() {
         let api_token = sessionStorage.getItem('api_token');
+        let domain_ext = document.getElementById("domain_ext").content;
 				axios({
 					headers: { Authorization: 'Bearer ' + api_token },					
 					method: 'delete',
-					url: '/toxic.api/public/api/post/' + this.id
+					url: domain_ext + '/api/post/' + this.id
 				}).then(response => {
 					location.reload();
 					console.error(response)

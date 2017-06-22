@@ -27,6 +27,10 @@ Vue.component('example', Example);
 Vue.component('post', Post);
 Vue.component('box', Box);
 
+
+/**
+ * Vue app.
+ */
 const app = new Vue({
     el: '#app'
 });
