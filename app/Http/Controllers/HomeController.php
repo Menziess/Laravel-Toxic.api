@@ -23,6 +23,16 @@ class HomeController extends Controller
     }
 
     /**
+     * Show landing page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function landing()
+    {
+        return view('welcome');
+    }
+
+    /**
      * Show posts of a particular topic.
      *
      * @return \Illuminate\Http\Response

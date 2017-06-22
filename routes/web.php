@@ -9,9 +9,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/templogin', function() {
     $user = App\User::first();
     $loggedin = Auth::check() ? 'true' : 'false';
@@ -49,14 +49,21 @@ Route::get('/templogout', function() {
 */
 
 Route::namespace('Auth')->group(function() {
-
-    Route::post('/logout', 'LoginController@logout')->name('logout');
     Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
-    
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+
     Route::group(['prefix' => 'login'], function() {
         Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login.facebook');
         Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
     });
+
+});
+
+Route::middleware('web')->group(function() {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/landing', 'HomeController@landing')->name('landing');
+    Route::get('/t/{slug}', 'HomeController@topic');
+    Route::get('/u/{slug}', 'HomeController@user');
 });
 
 /*
@@ -70,7 +77,5 @@ Route::namespace('Auth')->group(function() {
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/t/{slug}', 'HomeController@topic');
-    Route::get('/u/{slug}', 'HomeController@user');
+    //
 });
