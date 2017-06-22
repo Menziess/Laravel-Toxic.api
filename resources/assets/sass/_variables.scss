@@ -37,6 +37,11 @@ $input-color-placeholder: lighten($text-color, 30%);
 // Panels
 $panel-default-heading-bg: #fff;
 
+html {
+    width:100vw;
+    overflow-x:hidden;
+}
+
 .panel-content {
   line-height: 0;
   border: 0;
