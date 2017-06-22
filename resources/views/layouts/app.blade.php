@@ -7,7 +7,7 @@
 
     <!-- Tokens -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="api_token" content="{{ api_token() }}" id="api_token">
+    <meta name="api_token" content="{{ Helpers::api_token() }}" id="api_token">
 
     <!-- Title -->
     <title>{{ config('app.name', 'Toxic') }}</title>
