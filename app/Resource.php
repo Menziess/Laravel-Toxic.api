@@ -114,6 +114,16 @@ class Resource extends Model
 	}
 
 	/**
+	 * Check if images folder exists.
+	 */
+	private function checkImagesFolderExists()
+	{
+		if (!file_exists(storage_path('app/public/images'))) {
+			mkdir(storage_path('app/public/images'), 0777, true);
+		}
+	}
+
+	/**
 	 * Store image in storage.
 	 *
 	 * @param  Image 	$image
@@ -121,6 +131,7 @@ class Resource extends Model
 	 */
 	private function storeImage($image)
 	{
+		$this->checkImagesFolderExists();
 		$filepath = 'public/images/' . $this->url . $this->extension;
 		$image->interlace();
 		$image->save(storage_path('app/' . $filepath));

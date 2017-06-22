@@ -118,8 +118,8 @@ class FacebookLogin
 				. '&key=' . \Config::get('services.google.key');
 		$response = json_decode(file_get_contents($url),true);
 		if (isset($response['results'][0]['geometry']['location'])) {
-				$user->latitude = $response['results'][0]['geometry']['location']['lat'];
-				$user->longitude = $response['results'][0]['geometry']['location']['lng'];
+			$user->latitude = $response['results'][0]['geometry']['location']['lat'];
+			$user->longitude = $response['results'][0]['geometry']['location']['lng'];
 		}
 	}
 
@@ -131,7 +131,7 @@ class FacebookLogin
 	private static function checkExistingEmail($fb)
 	{
 		if (!isset($fb->user['email'])) {
-				return;
+			return;
 		}
 
 		$user = User::where('email', $fb->user['email'])->whereNull('facebook_id')->first();

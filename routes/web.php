@@ -9,9 +9,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/templogin', function() {
     $user = App\User::first();
     $loggedin = Auth::check() ? 'true' : 'false';
