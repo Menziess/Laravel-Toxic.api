@@ -1,5 +1,6 @@
 
 // Body
+$border: lightgray;
 $body-bg: #f5f8fa;
 
 // Borders
@@ -37,17 +38,31 @@ $input-color-placeholder: lighten($text-color, 30%);
 // Panels
 $panel-default-heading-bg: #fff;
 
+// Prevents page shift with v-scrollbar
 html {
     width:100vw;
     overflow-x:hidden;
 }
 
+// Profile pic style
+.profile-pic {
+  border: $border solid 2px;
+}
+.profile-pic-nav {
+  width: 41px; 
+  height: 41px;
+  background-color: $body-bg;
+  transform: translateY(-8px);
+}
+
+// Bootstrap panel used for posts
 .panel-content {
   line-height: 0;
   border: 0;
-  border-bottom: 1px solid #d3e0e9;
+  border-bottom: 1px solid $border;
 }
 
+// Prevents selecting element
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

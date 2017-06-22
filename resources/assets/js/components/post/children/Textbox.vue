@@ -2,7 +2,7 @@
 	<div>
 		<div class="col-md-2">
 			<img src="https://pbs.twimg.com/profile_images/2357255384/j70auysk95ch0chza3nw_bigger.jpeg" 
-				class="img-circle noselect"
+				class="img-circle noselect profile-pic"
 				width="73"
 				height="73"> 
 		</div>
@@ -27,6 +27,5 @@ p {
 
 img {
 	margin-top: 1em;
-	border: lightgray solid 2px;
 }
 </style>

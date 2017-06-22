@@ -1,54 +1,57 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
+        
+        <!-- Branding Image -->
         <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Toxic') }}
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
-            </ul>
+        <!-- Left Side Of Navbar -->
+        <ul class="nav navbar-nav">
+            <!--<li class="active"><a href="#">Home</a></li>-->
+            <!--<li><a href="#">Link</a></li>-->
+            <!--<button class="btn btn-secondary navbar-btn">Post</button>-->
+        </ul>
 
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                @if (Auth::guest())
-                    <li><a href="{{ route('login.facebook') }}">Register</a></li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->first_name }} <span class="caret"></span>
+        <!-- Right Side Of Navbar -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <!-- Profile Picture -->
+                <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                    @if (Auth::guest())
+                    <!--<img class="img-circle noselect profile-pic profile-pic-nav"
+                        src="{{ asset('img/Toxic-logo.png') }}"
+                        alt="Profile picture"/>-->
+                    <svg class="img-circle noselect profile-pic profile-pic-nav">
+                        <!--<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />-->
+                    </svg>
+                    @else
+                    <img class="img-circle noselect profile-pic profile-pic-nav"                     
+                        src="{{ asset(Auth::user()->getPicture()) }}"
+                        alt="Profile picture"/>
+                    @endif
+                </a>
+
+                <!-- Dropdown Menu -->
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        @if (Auth::guest())
+                        <a href="{{ route('login.facebook') }}">Register</a>
+                        @else
+                        <a href="#" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            Logout
                         </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                        @endif
                     </li>
-                @endif
-            </ul>
-        </div>
+                </ul>
+            </li>
+        </ul>
+
     </div>
 </nav>

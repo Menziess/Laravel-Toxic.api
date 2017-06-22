@@ -4929,7 +4929,7 @@ exports.push([module.i, "\ntextarea[data-v-336602fd] {\r\n  padding: 0.5em;\r\n 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\np[data-v-55deb102] {\r\n\tmargin-top: 1em;\n}\nimg[data-v-55deb102] {\r\n\tmargin-top: 1em;\r\n\tborder: lightgray solid 2px;\n}\r\n", ""]);
+exports.push([module.i, "\np[data-v-55deb102] {\r\n\tmargin-top: 1em;\n}\nimg[data-v-55deb102] {\r\n\tmargin-top: 1em;\n}\r\n", ""]);
 
 /***/ }),
 /* 42 */
@@ -32908,7 +32908,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "col-md-2"
   }, [_c('img', {
-    staticClass: "img-circle noselect",
+    staticClass: "img-circle noselect profile-pic",
     attrs: {
       "src": "https://pbs.twimg.com/profile_images/2357255384/j70auysk95ch0chza3nw_bigger.jpeg",
       "width": "73",
