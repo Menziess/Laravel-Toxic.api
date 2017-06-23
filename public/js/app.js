@@ -1118,6 +1118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(38);
+__webpack_require__(76);
 
 window.Vue = __webpack_require__(66);
 
@@ -2039,6 +2040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			subject: null,
+			submitted: false,
 			attachment: "text"
 		};
 	},
@@ -2048,14 +2050,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default.a
 	},
 	methods: {
-		test: function test() {
-			alert("test");
-		},
 		submit: function submit() {
+			var _this = this;
+
+			if (this.submitted) {
+				alert("already submitted!");
+				return false;
+			}
+			this.submitted = true;
 			axios({
-				headers: { Authorization: 'Bearer ' + api_token.content },
 				method: 'post',
-				url: domain_ext.content + '/api/post',
+				url: '/api/post',
 				data: {
 					subject: this.getSubject(this.subject),
 					attachment: this.attachment,
@@ -2064,10 +2069,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: null
 				}
 			}).then(function (response) {
-				location.reload();
+				alert(response.statusText);
+				_this.clearForm();
+				_this.submitted = false;
 				console.log(response);
-			}).catch(function (error) {
-				console.error(error);
 			});
 		},
 		defaultSubjectName: function defaultSubjectName() {
@@ -2081,11 +2086,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		getSubject: function getSubject(subject) {
+			LOL(); // <-- error
+
 			if (!subject) {
 				return this.defaultSubjectName();
 			}
 			return subject.replace(/[^a-z0-9]/gi, ' ');
-		}
+		},
+		clearForm: function clearForm() {}
 	}
 });
 
@@ -2247,9 +2255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       //TODO
       var api_token = sessionStorage.getItem('api_token');
-      axios.get('/toxic.api/public/api/post/1', {
-        headers: { Authorization: 'Bearer ' + api_token }
-      }).then(function (response) {
+      axios.get('/toxic.api/public/api/post/1').then(function (response) {
         console.log(response);
         _this.renderDataUrl(response.data.data.attributes.drawing);
       }).catch(function (error) {
@@ -2379,9 +2385,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     deletePost: function deletePost() {
       axios({
-        headers: { Authorization: 'Bearer ' + api_token.content },
         method: 'delete',
-        url: domain_ext.content + '/api/post/' + this.id
+        url: '/api/post/' + this.id
       }).then(function (response) {
         location.reload();
         console.error(response);
@@ -2520,6 +2525,23 @@ if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+/**
+ * Lastly we will check for an api_token and set the domain extension so that
+ * all outgoing HTTP requests target the right domain, and can be verified
+ * by the api middleware.
+ */
+var api_token = document.head.querySelector('meta[name="api_token"]');
+
+if (api_token) {
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content;
+}
+
+var domain_ext = document.head.querySelector('meta[name="domain_ext"]');
+
+if (domain_ext) {
+  window.axios.defaults.baseURL = domain_ext.content;
 }
 
 /**
@@ -32962,7 +32984,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Draw")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary pull-right",
+    staticClass: "btn btn-primary",
     attrs: {
       "data-dismiss": "modal",
       "type": "button"
@@ -32972,9 +32994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submit()
       }
     }
-  }, [_vm._v("Post")]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  })])], 1)])])
+  }, [_vm._v("Post")])])], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -42980,6 +43000,49 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ (function(module, exports) {
+
+/**
+ * Error logging.
+ */
+window.onerror = function (msg, url, line, column, error) {
+    var string = msg.toLowerCase();
+    var substring = "script error";
+    if (string.indexOf(substring) > -1) {
+        console.log('Script Error: See Browser Console for Detail');
+    } else {
+        var message = {
+            'message': msg,
+            'url': url,
+            'line': line,
+            'column': column,
+            'error': error
+        };
+        var request = {
+            method: 'post',
+            url: '/api/log',
+            data: message
+        };
+
+        axios(request).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+
+    return false;
+};
 
 /***/ })
 /******/ ]);

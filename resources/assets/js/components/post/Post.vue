@@ -9,7 +9,7 @@
         </div>
 
         <!-- Attachments -->
-        <Textbox v-if="attachment === 'text'" :text="text"></Textbox>
+        <Textbox      v-if="attachment === 'text'" :text="text"></Textbox>
         <Drawing v-else-if="attachment === 'drawing'" ref="myDrawing"></Drawing>
         <p v-else-if="attachment === 'url'">{{ url }}</p>
         <p v-else-if="attachment === 'video'">{{ url }}</p>
@@ -39,9 +39,8 @@
     methods: {
       deletePost() {
 				axios({
-					headers: { Authorization: 'Bearer ' + api_token.content },					
 					method: 'delete',
-					url: domain_ext.content + '/api/post/' + this.id
+					url: '/api/post/' + this.id
 				}).then(response => {
 					location.reload();
 					console.error(response)

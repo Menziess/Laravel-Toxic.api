@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('web')->namespace('Api')->group(function() {
+    Route::post('/log', 'ErrorController@log');
     Route::post('/logout', 'LoginController@logout');
     Route::get('/login', 'LoginController@redirectToFacebook');
 });

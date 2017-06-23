@@ -17,11 +17,11 @@
 					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary">Write</button>
 					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
 
-					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary pull-right">Post</button>
-					<div class="clearfix"></div>
+					<!--<div class="clearfix"></div>-->
+					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary">Post</button>
 				</div>
+			
 			</div>
-
 		</div>
 	</div>
   
@@ -35,6 +35,7 @@
     data() {
       return {
         subject: null,
+				submitted: false,
         attachment: "text"
 			}
     },
@@ -43,14 +44,15 @@
       Textbox
     },
 		methods: {
-			test() {
-				alert("test");
-			},
 			submit() {
+				if (this.submitted) {
+					alert("already submitted!");
+					return false;
+				}
+				this.submitted = true;
 				axios({
-					headers: { Authorization: 'Bearer ' + api_token.content },					
 					method: 'post',
-					url: domain_ext.content + '/api/post',
+					url: '/api/post',
 					data: {
 						subject: this.getSubject(this.subject),
 						attachment: this.attachment,
@@ -59,10 +61,10 @@
 						url: null
 					}
 				}).then(response => {
-					location.reload();
+					alert(response.statusText);
+					this.clearForm();
+					this.submitted = false;
 					console.log(response)
-				}).catch(error => {
-					console.error(error)
 				});
 			},
 			defaultSubjectName() {
@@ -76,10 +78,15 @@
 				}
 			},
 			getSubject(subject) {
+				LOL(); // <-- error
+				
 				if (!subject) {
 					return this.defaultSubjectName();
 				}
 				return subject.replace(/[^a-z0-9]/gi,' ');
+			},
+			clearForm() {
+
 			}
 		}
   }

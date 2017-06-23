@@ -38,6 +38,23 @@ if (token) {
 }
 
 /**
+ * Lastly we will check for an api_token and set the domain extension so that
+ * all outgoing HTTP requests target the right domain, and can be verified
+ * by the api middleware.
+ */
+let api_token = document.head.querySelector('meta[name="api_token"]');
+
+if (api_token) {
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content;
+}
+
+let domain_ext = document.head.querySelector('meta[name="domain_ext"]');
+
+if (domain_ext) {
+    window.axios.defaults.baseURL = domain_ext.content;
+}
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.

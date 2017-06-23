@@ -66,9 +66,8 @@
       },
       loadDataUrl() { //TODO
         let api_token = sessionStorage.getItem('api_token');
-        axios.get('/toxic.api/public/api/post/1', {
-          headers: { Authorization: 'Bearer ' + api_token }
-        }).then(response => {
+        axios.get('/toxic.api/public/api/post/1')
+          .then(response => {
             console.log(response);
             this.renderDataUrl(response.data.data.attributes.drawing);
           }).catch(error => {

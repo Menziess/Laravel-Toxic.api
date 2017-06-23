@@ -43,14 +43,10 @@
       Textbox
     },
 		methods: {
-			test() {
-				alert("test");
-			},
 			submit() {
 				axios({
-					headers: { Authorization: 'Bearer ' + api_token.content },					
 					method: 'post',
-					url: domain_ext.content + '/api/post',
+					url: '/api/post',
 					data: {
 						subject: this.getSubject(this.subject),
 						attachment: this.attachment,
