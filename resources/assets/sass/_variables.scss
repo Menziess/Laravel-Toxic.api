@@ -44,8 +44,13 @@ html {
     overflow-x:hidden;
 }
 
+// Offset from top page
 .landing {
   margin-top: 2em;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: transparent !important;
 }
 
 // Logo style

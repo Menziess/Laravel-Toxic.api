@@ -1,7 +1,7 @@
 <template>
 	<!-- Modal -->
 	<div id="newPost" class="modal fade" role="dialog">
-		<div v-on:keyup.ctrl.enter="submit()" class="modal-dialog">
+		<div v-on:keyup.ctrl.enter="triggerSubmit()" class="modal-dialog">
 			<div class="modal-content">
 
 				<!-- Subject -->				
@@ -18,7 +18,7 @@
 					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
 
 					<!--<div class="clearfix"></div>-->
-					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary">Post</button>
+					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
 				</div>
 			
 			</div>
@@ -44,6 +44,9 @@
       Textbox
     },
 		methods: {
+			triggerSubmit() {
+				this.$refs.mySubmit.click();
+			},
 			submit() {
 				if (this.submitted) {
 					alert("already submitted!");
@@ -78,7 +81,7 @@
 				}
 			},
 			getSubject(subject) {
-				LOL(); // <-- error
+				// LOL(); // <-- error
 				
 				if (!subject) {
 					return this.defaultSubjectName();

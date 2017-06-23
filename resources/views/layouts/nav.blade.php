@@ -1,57 +1,46 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
-        
-        <!-- Branding Image -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Toxic') }}
+
+        <!-- Navbar Brand -->
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{ config('app.name', 'Toxic') }}
+        </a>
+
+        <!--<li class="active"><a href="#">Home</a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <!--<button class="btn btn-secondary navbar-btn">Post</button>-->
+
+        <!-- New Post -->
+        <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#newPost">New</button>
+
+        <!-- Profile Picture -->
+        <div class="dropdown pull-right">
+            <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                @if (Auth::guest())
+                <svg class="img-circle noselect profile-pic profile-pic-nav"/>
+                @else
+                <img class="img-circle noselect profile-pic-nav"                     
+                    src="{{ asset(Auth::user()->getPicture()) }}"
+                    alt="Profile picture"/>
+                @endif
             </a>
-        </div>
-
-        <!-- Left Side Of Navbar -->
-        <ul class="nav navbar-nav">
-            <!--<li class="active"><a href="#">Home</a></li>-->
-            <!--<li><a href="#">Link</a></li>-->
-            <!--<button class="btn btn-secondary navbar-btn">Post</button>-->
-        </ul>
-
-        <!-- Right Side Of Navbar -->
-        <ul class="nav navbar-nav navbar-right">
-
-            <!-- New Post -->
-            <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#newPost">New</button>
             
-            <!-- Profile Pic -->
-            <li>
-                <!-- Profile Picture -->
-                <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                    @if (Auth::guest())
-                    <svg class="img-circle noselect profile-pic profile-pic-nav"/>
-                    @else
-                    <img class="img-circle noselect profile-pic-nav"                     
-                        src="{{ asset(Auth::user()->getPicture()) }}"
-                        alt="Profile picture"/>
-                    @endif
-                </a>
-
-                <!-- Dropdown Menu -->
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        @if (Auth::guest())
-                        <a href="{{ route('login.facebook') }}">Register</a>
-                        @else
-                        <a href="#" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                        @endif
+            <ul role="menu" class="dropdown-menu">
+                @if (Auth::guest())
+                    <!-- Login -->
+                    <li role="presentation"><a href="{{ route('login.facebook') }}" role="menuitem">Login</a></li>
+                @else
+                    <!-- Logout -->
+                    <li role="presentation"><a href="#" role="menuitem" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">Logout</a>
                     </li>
-                </ul>
-            </li>
-        </ul>
+                    <!-- CSRF -->
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                @endif
+            </ul>
+        </div>
 
     </div>
 </nav>
