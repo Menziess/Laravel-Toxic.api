@@ -32935,7 +32935,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "img-circle noselect profile-pic",
     attrs: {
-      "src": "https://pbs.twimg.com/profile_images/2357255384/j70auysk95ch0chza3nw_bigger.jpeg",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzIVuk6-jJ8zFFSCTc4lDQWn6fS2AVmRoLslW1uysVaas69IM",
       "width": "73",
       "height": "73"
     }

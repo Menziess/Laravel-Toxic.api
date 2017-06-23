@@ -19,9 +19,9 @@
     </g>
   </svg>
 
-  <div class="container landing">
+  <div class="container">
     <div class="row">
-      <div class="col-md-4 col-md-offset-1">
+      <div class="col-md-4 col-md-offset-1 landing">
         <blockquote>
           <p>{{ $badQuote[0] }}</p>
           <footer>{{ $badQuote[1] }}</footer>
@@ -32,7 +32,7 @@
       </div>
       <div class="col-md-2">
       </div>
-      <div class="col-md-4 center-block">
+      <div class="col-md-4 landing">
         <blockquote class="blockquote-reverse">
           <p>{{ $goodQuote[0] }}</p>
           <footer>{{ $goodQuote[1] }}</footer>

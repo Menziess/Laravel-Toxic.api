@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="col-md-2">
-			<img src="https://pbs.twimg.com/profile_images/2357255384/j70auysk95ch0chza3nw_bigger.jpeg" 
+			<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzIVuk6-jJ8zFFSCTc4lDQWn6fS2AVmRoLslW1uysVaas69IM" 
 				class="img-circle noselect profile-pic"
 				width="73"
 				height="73"> 
