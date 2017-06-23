@@ -29,7 +29,18 @@ class HomeController extends Controller
      */
     public function landing()
     {
-        return view('welcome');
+        $goodQuotes = [
+            ["If freedom of speech is taken away, then dumb and silent we may be led, like sheep to the slaughter.", "George Washington"],
+        ];
+
+        $badQuotes = [
+            ["You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe.", "Hollywood Actor"],
+        ];
+
+        return view('welcome', [
+            "goodQuote" => $goodQuotes[rand(0, count($goodQuotes) - 1)],
+            "badQuote" => $badQuotes[rand(0, count($badQuotes) - 1)],
+        ]);
     }
 
     /**
