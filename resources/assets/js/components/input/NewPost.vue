@@ -31,7 +31,7 @@
   import Drawing from './children/Drawing.vue';
   import Textbox from './children/Textbox.vue';
   export default {
-    name: 'box',
+    name: 'newpost',
     data() {
       return {
         subject: null,

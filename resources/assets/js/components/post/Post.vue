@@ -5,15 +5,15 @@
 
         <!-- Subject -->
         <div class="panel-heading">
-            <a :href="slugRoute()">{{ subject }}</a>
+            <a :href="slugRoute()">{{ post.subject }}</a>
         </div>
 
         <!-- Attachments -->
-        <Textbox      v-if="attachment === 'text'" :text="text"></Textbox>
-        <Drawing v-else-if="attachment === 'drawing'" ref="myDrawing"></Drawing>
-        <p v-else-if="attachment === 'url'">{{ url }}</p>
-        <p v-else-if="attachment === 'video'">{{ url }}</p>
-        <p v-else-if="attachment === 'image'">{{ url }}</p>
+        <Textbox      v-if="post.attachment === 'text'" :text="post.text"></Textbox>
+        <Drawing v-else-if="post.attachment === 'drawing'" ref="myDrawing"></Drawing>
+        <p v-else-if="post.attachment === 'url'">{{ post.url }}</p>
+        <p v-else-if="post.attachment === 'video'">{{ post.url }}</p>
+        <p v-else-if="post.attachment === 'image'">{{ post.url }}</p>
 
         <!-- Buttons -->
         <div class="panel-footer">
@@ -31,7 +31,7 @@
   import Textbox from './children/Textbox.vue';
   export default {
     name: 'post',
-    props: ['id', 'slug', 'subject', 'attachment', 'drawing', 'text', 'url'],
+    props: ['id', 'post'],
     components: {
       Drawing,
       Textbox
@@ -40,7 +40,7 @@
       deletePost() {
 				axios({
 					method: 'delete',
-					url: '/api/post/' + this.id
+					url: '/api/post/' + this.post.id
 				}).then(response => {
 					location.reload();
 					console.error(response)
@@ -49,15 +49,15 @@
 				});
       },
       slugRoute() {
-        return domain_ext.content + '/t/' + this.slug;
+        return domain_ext.content + '/t/' + this.post.slug;
       }
     },
     mounted() {
-      switch (this.attachment) {
+      switch (this.post.attachment) {
         case 'text':
           break;
         case 'drawing':
-          this.$refs.myDrawing.renderDataUrl(this.drawing);
+          this.$refs.myDrawing.renderDataUrl(this.post.drawing);
           break;
         default:
           break;

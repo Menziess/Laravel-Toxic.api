@@ -8,20 +8,11 @@
 
         <div class="container">
             
-            <Box></Box>
+            <!-- Hidden Modal -->
+            <NewPost></NewPost>
 
-            @if(isset($posts))
-            @foreach($posts as $post)
-                <Post id="{{ $post->id }}"
-                    slug="{{ $post->slug }}" 
-                    subject="{{ $post->subject }}"
-                    attachment="{{ $post->attachment }}"
-                    drawing="{{ $post->drawing }}"
-                    text="{{ $post->text }}"
-                    url="{{ $post->url }}"
-                ></Post>
-            @endforeach
-            @endif
+            <!-- Post Manager -->
+            <Manager json="{{ $posts }}"></Manager>
 
         </div>
 

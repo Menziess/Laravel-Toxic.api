@@ -7,25 +7,25 @@
         <div class="panel-body">
           
           <!-- data binding inputs -->
-          <input type="text" v-model="msg"><br/>
+          <input type="text" v-model="msg"><br>
           <span v-html="msg"></span>
-          <hr/>
+          <hr>
 
           <!-- for loop -->
           <ul>
             <li v-for="el in content">{{ el.text }}</li>
           </ul>
-          <hr/>
+          <hr>
           
           <!-- displaying objects -->
           <p>{{ user.first_name }}</p>
           <p v-if="active" v-text="user.last_name"></p>
           <p v-else>...</p>
-          <hr/>
+          <hr>
 
           <!-- function call -->
           <button v-on:click="greet">Say Hi</button>
-          <hr/>
+          <hr>
 
           <!-- events -->          
           <input type="text" 
