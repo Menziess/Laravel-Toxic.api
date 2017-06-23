@@ -17,6 +17,11 @@
 
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
+
+            <!-- New Post -->
+            <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#newPost">New</button>
+            
+            <!-- Profile Pic -->
             <li>
                 <!-- Profile Picture -->
                 <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">

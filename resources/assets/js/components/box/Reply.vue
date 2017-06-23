@@ -1,37 +1,37 @@
 <template>
-	<!-- Modal -->
-	<div id="newPost" class="modal fade" role="dialog">
-		<div v-on:keyup.ctrl.enter="submit()" class="modal-dialog">
-			<div class="modal-content">
+	<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div v-on:keyup.ctrl.enter="submit()" class="panel panel-default">
 
-				<!-- Subject -->				
-				<div class="modal-header">
-					<input type="text" class="form-control" v-model="subject" maxlength="60"
-						:placeholder="defaultSubjectName()">
-				</div>
-				<!-- Attachments -->
-				<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
-				<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
-
-				<div class="modal-footer">
-					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary">Write</button>
-					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
-
-					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary pull-right">Post</button>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-
+		<!-- Subject -->
+		<div class="panel-heading">
+			<input type="text" class="form-control" v-model="subject" maxlength="60"
+				:placeholder="defaultSubjectName()">
 		</div>
-	</div>
-  
+
+		<!-- Attachments -->
+		<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
+		<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
+
+		<!-- Buttons -->
+		<div class="panel-footer">
+			<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary">Write</button>
+			<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
+
+			<button v-on:click="submit()" type="button" class="btn btn-primary pull-right">Post</button>
+			<div class="clearfix"></div>
+		</div>     
+
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
   import Drawing from './children/Drawing.vue';
   import Textbox from './children/Textbox.vue';
   export default {
-    name: 'box',
+    name: 'reply',
     data() {
       return {
         subject: null,
