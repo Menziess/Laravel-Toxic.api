@@ -32950,7 +32950,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   })) : _c('div', [_c('h3', {
-    staticClass: "text-center landing"
+    staticClass: "text-center",
+    staticStyle: {
+      "margin-top": "10vw"
+    }
   }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

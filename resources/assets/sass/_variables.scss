@@ -1,10 +1,11 @@
 
 // Body
 $laravel-border-color: lightgray;
-$body-bg: #f5f8fa;
+// $body-bg: #f5f8fa;
+$body-bg: #52ff77;
 
 // Borders
-$laravel-border-color: darken($body-bg, 10%);
+// $laravel-border-color: darken($body-bg, 10%);
 $list-group-border: $laravel-border-color;
 $navbar-default-border: $laravel-border-color;
 $panel-default-border: $laravel-border-color;
@@ -44,20 +45,39 @@ html {
     overflow-x:hidden;
 }
 
-// Offset from top page
-.landing {
-  margin-top: 2em;
+// Logo style
+.logo {
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
+// Transparent blockquotes
+blockquote {
+  border-color: #2baf43 !important;
+}
+
+.inline {
+  display: inline-block;
+}
+
+// SVG image
+.svg {
+  width: 180%;
+  margin: auto; 
+  display: block; 
+  z-index: -1;  
+  position: fixed;
+  margin-top: 5vh; 
+}
+
+// Remove weird effect by bootstrap
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: transparent !important;
 }
 
-// Logo style
-.logo {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.dropdown-backdrop, .btn {
+  opacity: 0.8;
 }
 
 // Profile pic style
