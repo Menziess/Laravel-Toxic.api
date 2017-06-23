@@ -38,7 +38,11 @@
           <footer>{{ $goodQuote[1] }}</footer>
         </blockquote>
         <div class="text-center">
-          <a href="{{ route('home') }}" class="btn btn-lg btn-danger">Enter</a>          
+          @if (Session::has('destination'))
+            <a href="{{ url(Session::get('destination')) }}" class="btn btn-lg btn-danger">Continue</a>          
+          @else
+            <a href="{{ route('home') }}" class="btn btn-lg btn-danger">Enter</a>          
+          @endif
         </div>
       </div>
     </div>
