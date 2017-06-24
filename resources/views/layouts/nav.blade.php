@@ -11,17 +11,20 @@
         <!--<button class="btn btn-secondary navbar-btn">Post</button>-->
 
         <!-- New Post -->
-        <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#newPost">New</button>
+        <button type="button" class="btn btn-success navbar-btn pull-right" 
+            data-toggle="modal" data-target="#newPost"
+            title="Create a new post">New</button>
 
         <!-- Profile Picture -->
         <div class="dropdown pull-right">
             <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                 @if (Auth::guest())
-                <svg class="img-circle noselect profile-pic profile-pic-nav"/>
+                <span title="Register / Login"><svg class="img-circle noselect profile-pic profile-pic-nav"/></span>
                 @else
                 <img class="img-circle noselect profile-pic-nav"                     
-                    src="{{ asset(Auth::user()->getPicture()) }}"
-                    alt="Profile picture"/>
+                    src="{{ Auth::user()->picture }}"
+                    alt="Profile picture"
+                    title="{{ Auth::user()->name }}" />
                 @endif
             </a>
             

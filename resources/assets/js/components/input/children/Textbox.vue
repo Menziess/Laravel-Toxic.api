@@ -29,6 +29,7 @@ textarea {
   height: 40vh;
   width: 100%;
 
+  outline: none;
   border: none;
 
   line-height: 1.5;

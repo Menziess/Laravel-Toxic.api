@@ -8,7 +8,10 @@
             <a :href="slugRoute()">{{ post.subject }}</a>
         </div>
 
-        <!-- Attachments -->
+        <!-- Post Details -->
+        <PostDetails :username="post.user.name" :userslug="post.user.slug" :userpic="post.user.picture"></PostDetails>
+        
+        <!-- Post Content -->
         <Textbox      v-if="post.attachment === 'text'" :text="post.text"></Textbox>
         <Drawing v-else-if="post.attachment === 'drawing'" ref="myDrawing"></Drawing>
         <p v-else-if="post.attachment === 'url'">{{ post.url }}</p>
@@ -27,14 +30,16 @@
 </template>
 
 <script>
+  import PostDetails from './utils/PostDetails.vue';
   import Drawing from './children/Drawing.vue';
   import Textbox from './children/Textbox.vue';
   export default {
     name: 'post',
     props: ['id', 'post'],
     components: {
+      PostDetails,
       Drawing,
-      Textbox
+      Textbox,
     },
     methods: {
       deletePost() {

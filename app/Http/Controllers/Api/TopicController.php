@@ -18,7 +18,7 @@ class TopicController extends Controller
      */
     public function slug(String $slug)
     {
-        $topic = Topic::where('slug', $slug)->with('posts')->first();
+        $topic = Topic::where('slug', $slug)->with('posts.user')->first();
         if (!isset($topic->posts))
             return new Collection();
         return $topic->posts;

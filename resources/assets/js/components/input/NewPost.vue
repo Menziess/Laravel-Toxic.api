@@ -9,15 +9,20 @@
 					<input type="text" class="form-control" v-model="subject" maxlength="60"
 						:placeholder="defaultSubjectName()">
 				</div>
+				
 				<!-- Attachments -->
 				<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
 				<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
 
 				<div class="modal-footer">
-					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary">Write</button>
-					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary">Draw</button>
+					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary pull-left">Write</button>
+					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary pull-left">Draw</button>
+					<a disabled type="button" v-on:click="attachment = 'url'" class="btn btn-secondary pull-left">
+						<span class="glyphicon glyphicon-heart"></span>
+					</a>
+					<!--<button disabled type="button" v-on:click="attachment = 'video'" class="btn btn-secondary pull-left">Video</button>
+					<button disabled type="button" v-on:click="attachment = 'image'" class="btn btn-secondary pull-left">Image</button>-->
 
-					<!--<div class="clearfix"></div>-->
 					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
 				</div>
 			
@@ -74,6 +79,12 @@
 				switch (this.attachment) {
 					case 'drawing':
 						return "Drawings";
+						break;
+					case 'video':
+						return "Videos";
+						break;
+					case 'image':
+						return 'Images';
 						break;
 					default:
 						return "General";

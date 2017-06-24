@@ -42,6 +42,16 @@ class User extends Authenticatable implements SlugAble
     ];
 
 	/**
+     * The attributes that are mutated with the model.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'picture',
+		'name',
+    ];
+
+	/**
 	 * Cast dates to Carbon instance.
 	 *
 	 * @var array
@@ -98,20 +108,20 @@ class User extends Authenticatable implements SlugAble
 	/*
 	 * Get full user name.
 	 */
-	public function getName()
+	public function getNameAttribute()
 	{
 		return $this->first_name . ' ' . $this->last_name;
 	}
 
-    /*
+	/*
 	 * Get profile picture.
 	 */
-	public function getPicture()
+	public function getPictureAttribute()
 	{
 		$image = $this->resource
 			? 'storage/images/' . $this->resource->url . $this->resource->extension
 			: self::PLACEHOLDER_PICTURE;
-		return $image;
+		return asset($image);
 	}
 
 	/*

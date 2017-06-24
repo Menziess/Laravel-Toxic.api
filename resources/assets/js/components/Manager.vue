@@ -37,6 +37,7 @@
       
     },
     mounted() {
+			console.log(JSON.parse(this.json));
 			this.posts = JSON.parse(this.json);
     }
   }

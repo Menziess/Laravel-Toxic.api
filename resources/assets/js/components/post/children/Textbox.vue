@@ -21,11 +21,5 @@
 </script>
 
 <style scoped>
-p {
-	margin-top: 1em;
-}
 
-img {
-	margin-top: 1em;
-}
 </style>
