@@ -2426,22 +2426,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.init();
   }
 });
-// Prevent scrolling when touching the canvas
-document.body.addEventListener("touchstart", function (e) {
-  if (e.target == canvas) {
-    e.preventDefault();
-  }
-}, false);
-document.body.addEventListener("touchend", function (e) {
-  if (e.target == canvas) {
-    e.preventDefault();
-  }
-}, false);
-document.body.addEventListener("touchmove", function (e) {
-  if (e.target == canvas) {
-    e.preventDefault();
-  }
-}, false);
 
 /***/ }),
 /* 37 */
@@ -5173,7 +5157,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tmargin: 0 1em 1em 3.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tword-wrap: break-word;\r\n\tmargin: 0 1em 0 3.5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 48 */
@@ -33355,7 +33339,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
-    staticClass: "btn btn-secondary pull-left",
+    staticClass: "btn btn-info pull-left",
     attrs: {
       "type": "button"
     },
@@ -33365,7 +33349,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Write")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary pull-left",
+    staticClass: "btn btn-info pull-left",
     attrs: {
       "type": "button"
     },
@@ -33375,7 +33359,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Draw")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary pull-left",
+    staticClass: "btn btn-info pull-left",
     attrs: {
       "disabled": "",
       "type": "button"

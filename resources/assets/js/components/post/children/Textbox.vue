@@ -16,6 +16,7 @@
 
 <style scoped>
 .post-content {
-	margin: 0 1em 1em 3.5em;
+	word-wrap: break-word;
+	margin: 0 1em 0 3.5em;
 }
 </style>

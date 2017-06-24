@@ -15,9 +15,9 @@
 				<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
 
 				<div class="modal-footer">
-					<button type="button" v-on:click="attachment = 'text'" class="btn btn-secondary pull-left">Write</button>
-					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-secondary pull-left">Draw</button>
-					<button disabled type="button" v-on:click="attachment = 'url'" class="btn btn-secondary pull-left">📎</button>
+					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">Write</button>
+					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info pull-left">Draw</button>
+					<button disabled type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">📎</button>
 					<!--<button disabled type="button" v-on:click="attachment = 'video'" class="btn btn-secondary pull-left">Video</button>
 					<button disabled type="button" v-on:click="attachment = 'image'" class="btn btn-secondary pull-left">Image</button>-->
 
