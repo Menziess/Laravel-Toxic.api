@@ -16,6 +16,6 @@
 
 <style scoped>
 .post-content {
-	margin: 4em 1em 1em 4.5em;
+	margin: 0 1em 1em 3.5em;
 }
 </style>

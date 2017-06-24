@@ -6,12 +6,14 @@
 			width="48"
 			height="48"
 			:title="username"> 
-
-		<a :href="slugUrl">
-			<span><strong>{{ this.username }}</strong></span>
-		</a>
-		<span>{{ slugUrl }}</span>
-			
+		
+		<div class="user-info">
+			<a :href="slugUrl">
+				<span><strong>{{ this.username }}</strong></span>
+			</a>
+			&nbsp;
+			<span>{{ slugUrl }}</span>
+		</div>
 
   </div>
 </template>
@@ -29,12 +31,13 @@ export default {
 </script>
 
 <style scoped>
-img, span {
+.user-info {
 	display: inline-block;
 	margin: 0.5em 0.5em 0 0.5em;
+	overflow: hidden;
+	z-index: -1;
 }
 .post-details {
-	position: absolute;
 	padding: 0.5em;
 }
 </style>

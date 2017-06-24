@@ -3,6 +3,6 @@
 "php.validate.run": "onSave",
 "php.validate.enable": true,
 // "php.validate.executablePath": "C:\\php7\\php.exe",
-"editor.tabSize": 4,
+"editor.tabSize": 2,
 "editor.insertSpaces": true
 }

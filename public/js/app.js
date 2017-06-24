@@ -2647,6 +2647,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'postdetails',
@@ -5171,7 +5173,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tmargin: 4em 1em 1em 4.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tmargin: 0 1em 1em 3.5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 48 */
@@ -5192,7 +5194,7 @@ exports.push([module.i, "\ntextarea[data-v-7fdae59e] {\r\n  padding: 0.5em;\r\n 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nimg[data-v-c01abe00], span[data-v-c01abe00] {\r\n\tdisplay: inline-block;\r\n\tmargin: 0.5em 0.5em 0 0.5em;\n}\n.post-details[data-v-c01abe00] {\r\n\tposition: absolute;\r\n\tpadding: 0.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.user-info[data-v-c01abe00] {\r\n\tdisplay: inline-block;\r\n\tmargin: 0.5em 0.5em 0 0.5em;\r\n\toverflow: hidden;\r\n\tz-index: -1;\n}\n.post-details[data-v-c01abe00] {\r\n\tpadding: 0.5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 51 */
@@ -33546,11 +33548,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "height": "48",
       "title": _vm.username
     }
-  }), _vm._v(" "), _c('a', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "user-info"
+  }, [_c('a', {
     attrs: {
       "href": _vm.slugUrl
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.slugUrl))])])
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v("\n\t\t\t \n\t\t\t"), _c('span', [_vm._v(_vm._s(_vm.slugUrl))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
