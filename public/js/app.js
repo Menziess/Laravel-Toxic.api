@@ -2239,8 +2239,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -2619,12 +2617,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textbox',
@@ -2655,11 +2647,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic']
+	props: ['username', 'userslug', 'userpic'],
+	computed: {
+		slugUrl: function slugUrl() {
+			return 'u/' + this.userslug;
+		}
+	}
 });
 
 /***/ }),
@@ -5175,7 +5171,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tmargin: 4em 1em 1em 4.5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 48 */
@@ -5196,7 +5192,7 @@ exports.push([module.i, "\ntextarea[data-v-7fdae59e] {\r\n  padding: 0.5em;\r\n 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-details[data-v-c01abe00] {\r\n  margin: 1em 0;\n}\r\n", ""]);
+exports.push([module.i, "\nimg[data-v-c01abe00], span[data-v-c01abe00] {\r\n\tdisplay: inline-block;\r\n\tmargin: 0.5em 0.5em 0 0.5em;\n}\n.post-details[data-v-c01abe00] {\r\n\tposition: absolute;\r\n\tpadding: 0.5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 51 */
@@ -33278,23 +33274,12 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
+  return _c('div', [_c('div', {
+    staticClass: "col-md-6 post-content"
   }, [_c('p', [_vm._v(_vm._s(_vm.text))])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   })])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-md-2"
-  }, [_c('img', {
-    staticClass: "img-circle noselect profile-pic",
-    attrs: {
-      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzIVuk6-jJ8zFFSCTc4lDQWn6fS2AVmRoLslW1uysVaas69IM",
-      "width": "73",
-      "height": "73"
-    }
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33387,7 +33372,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.attachment = 'drawing'
       }
     }
-  }, [_vm._v("Draw")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Draw")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-secondary pull-left",
     attrs: {
       "disabled": "",
@@ -33398,9 +33383,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.attachment = 'url'
       }
     }
-  }, [_c('span', {
-    staticClass: "glyphicon glyphicon-heart"
-  })]), _vm._v(" "), _c('button', {
+  }, [_vm._v("📎")]), _vm._v(" "), _c('button', {
     ref: "mySubmit",
     staticClass: "btn btn-primary",
     attrs: {
@@ -33555,20 +33538,19 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "post-details"
-  }, [_c('div', {
-    staticClass: "col-sm-2"
   }, [_c('img', {
     staticClass: "img-circle noselect profile-pic",
     attrs: {
       "src": _vm.userpic,
-      "width": "73",
-      "height": "73"
+      "width": "48",
+      "height": "48",
+      "title": _vm.username
     }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-4"
-  }, [_c('p', [_vm._v("/u/" + _vm._s(this.userslug))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(this.username))])]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  })])
+  }), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": _vm.slugUrl
+    }
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.slugUrl))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33773,7 +33755,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.3
+ * Vue.js v2.3.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -38202,7 +38184,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.3';
+Vue$3.version = '2.3.4';
 
 /*  */
 
@@ -38693,6 +38675,7 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
+      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {

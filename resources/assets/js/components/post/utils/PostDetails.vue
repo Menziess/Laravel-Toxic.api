@@ -1,18 +1,17 @@
 <template>
   <div class="post-details">
 
-		<div class="col-sm-2">
-			<img :src="userpic" 
-				class="img-circle noselect profile-pic"
-				width="73"
-				height="73"> 
-		</div>
+		<img :src="userpic"
+			class="img-circle noselect profile-pic"
+			width="48"
+			height="48"
+			:title="username"> 
 
-		<div class="col-sm-4">
-			<p>/u/{{ this.userslug }}</p>
-			<p>{{ this.username }}</p>
-		</div>
-		<div class="clearfix"></div>
+		<a :href="slugUrl">
+			<span><strong>{{ this.username }}</strong></span>
+		</a>
+		<span>{{ slugUrl }}</span>
+			
 
   </div>
 </template>
@@ -20,12 +19,22 @@
 <script>
 export default {
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic']
+	props: ['username', 'userslug', 'userpic'],
+	computed: {
+		slugUrl() {
+			return 'u/' + this.userslug;
+		}
+	}
 }
 </script>
 
 <style scoped>
+img, span {
+	display: inline-block;
+	margin: 0.5em 0.5em 0 0.5em;
+}
 .post-details {
-  margin: 1em 0;
+	position: absolute;
+	padding: 0.5em;
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
 	<div>
-		<div class="col-md-2">
-			<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzIVuk6-jJ8zFFSCTc4lDQWn6fS2AVmRoLslW1uysVaas69IM" 
-				class="img-circle noselect profile-pic"
-				width="73"
-				height="73"> 
-		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 post-content">
 			<p>{{ text }}</p>
 		</div>
 		<div class="clearfix"></div>
@@ -21,5 +15,7 @@
 </script>
 
 <style scoped>
-
+.post-content {
+	margin: 4em 1em 1em 4.5em;
+}
 </style>
