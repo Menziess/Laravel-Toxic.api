@@ -33,7 +33,7 @@ const routes = [
   { path: '/foo', component: Foo },
   { path: '/bar', component: Bar }
 ];
-const history = domain_ext.content === '/';
+const history = domain_ext.content === 'undefined';
 const router = new VueRouter({
 	mode: history ? 'history' : '',
   routes: routes

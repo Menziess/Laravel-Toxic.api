@@ -1177,7 +1177,7 @@ Vue.component('post', __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue___de
 var Foo = { template: '<div>foo</div>' };
 var Bar = { template: '<div>bar</div>' };
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }];
-var history = domain_ext.content === '/';
+var history = domain_ext.content === 'undefined';
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: history ? 'history' : '',
   routes: routes
