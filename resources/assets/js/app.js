@@ -10,7 +10,7 @@ require('./logging');
 
 import VueRouter from 'vue-router';
 import NewPost from './components/input/NewPost.vue';
-import Manager from './components/Manager.vue';
+import Posts from './components/Posts.vue';
 import Post from './components/post/Post.vue';
 
 window.Vue = require('vue');
@@ -20,20 +20,27 @@ Vue.use(VueRouter);
 /**
  * Custom components.
  */
-Vue.component('manager', Manager);
 Vue.component('newpost', NewPost);
+Vue.component('posts', Posts);
 Vue.component('post', Post);
 
 /**
  * Route components.
  */
-const Foo = { template: '<div>foo</div>' };
-const Bar = { template: '<div>bar</div>' };
 const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { 
+		path: '/',
+		component: Posts 
+	}, { 
+		path: '/u', 
+		component: { template: '<div>Users</div>' } 
+	}
 ];
-const history = domain_ext.content === 'undefined';
+
+/**
+ * Router.
+ */
+const history = domain_ext.content === "";
 const router = new VueRouter({
 	mode: history ? 'history' : '',
   routes: routes

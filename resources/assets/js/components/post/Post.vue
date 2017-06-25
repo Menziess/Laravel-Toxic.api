@@ -5,18 +5,18 @@
 
         <!-- Subject -->
         <div class="panel-heading">
-            <a :href="slugRoute()">{{ post.subject }}</a>
+            <a :href="slugRoute()">{{ post.attributes.subject }}</a>
         </div>
 
         <!-- Post Details -->
-        <PostDetails :username="post.user.name" :userslug="post.user.slug" :userpic="post.user.picture"></PostDetails>
+        <PostDetails :username="post.relationships.user.name" :userslug="post.relationships.user.slug" :userpic="post.relationships.user.picture"></PostDetails>
         
         <!-- Post Content -->
-        <Textbox      v-if="post.attachment === 'text'" :text="post.text"></Textbox>
-        <Drawing v-else-if="post.attachment === 'drawing'" ref="myDrawing"></Drawing>
-        <p v-else-if="post.attachment === 'url'">{{ post.url }}</p>
-        <p v-else-if="post.attachment === 'video'">{{ post.url }}</p>
-        <p v-else-if="post.attachment === 'image'">{{ post.url }}</p>
+        <Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
+        <Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
+        <p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
+        <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
+        <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
 
         <!-- Buttons -->
         <div class="panel-footer">
@@ -58,11 +58,11 @@
       }
     },
     mounted() {
-      switch (this.post.attachment) {
+      switch (this.post.attributes.attachment) {
         case 'text':
           break;
         case 'drawing':
-          this.$refs.myDrawing.renderDataUrl(this.post.drawing);
+          this.$refs.myDrawing.renderDataUrl(this.post.attributes.drawing);
           break;
         default:
           break;

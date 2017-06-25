@@ -122,12 +122,14 @@ class JsonSpec
         $path = explode('\\', get_class($model));
         $classname = strtolower(end($path)) . 's';
         $attributes = $model->getAttributes();
+        $relations = $model->getRelations();
         unset($attributes['id']);
 
         return [
             'id' => $model->id,
             'type' => $classname,
             'attributes' => $attributes,
+            'relationships' => $relations,
         ];
     }
 }

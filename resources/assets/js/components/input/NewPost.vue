@@ -68,7 +68,6 @@
 					}
 				}).then(response => {
 					alert(response.statusText);
-					this.clearForm();
 					this.submitted = false;
 					console.log(response)
 				});
@@ -90,7 +89,7 @@
 				}
 			},
 			getSubject(subject) {
-				LOL(); // <-- error
+				// LOL(); // <-- error
 				
 				if (!subject) {
 					return this.defaultSubjectName();

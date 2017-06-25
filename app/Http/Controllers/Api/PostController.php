@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return Post::orderBy('id', 'desc')->with('user')->get();
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::findOrFail($id);
+        return Post::with('user')->findOrFail($id);
     }
 
     /**
