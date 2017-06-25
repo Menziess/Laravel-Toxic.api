@@ -1,6 +1,14 @@
 <template>
   <div>
 
+		<!-- Subject -->
+		<div v-if="slug">
+			<h1 class="text-center" style="margin-top: 2vw;">
+				<small>/t/</small>
+				{{ slug }} {{ id }}
+			</h1>
+		</div>
+
 		<!-- Loading -->
 		<div v-if="loading">
 			<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
@@ -32,7 +40,7 @@
   import Post from './post/Post.vue';
   export default {
     name: 'posts',
-    props: ['json'],
+    props: ['json', 'slug', 'id'],
     components: {
       Post
     },

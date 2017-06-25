@@ -20,7 +20,11 @@ class HomeController extends Controller
         if (!$request->cookie('laravel_session')) 
             return redirect('landing');
         
-        return view('home');
+        $posts = \App\Post::orderBy('id', 'desc')->take(10)->with('user')->get();
+
+        return view('home', [
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -33,35 +37,35 @@ class HomeController extends Controller
         return view('welcome');
     }
 
-    // /**
-    //  * Show posts of a particular topic.
-    //  *
-    //  * @param  \Illuminate\Http\Request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function topic(String $slug, TopicController $topicController, Request $request) 
-    // {
-    //     if (!$request->cookie('laravel_session')) 
-    //         return redirect('landing')->with('destination', $request->fullUrl());
+    /**
+     * Show posts of a particular topic.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function topic(String $slug, TopicController $topicController, Request $request) 
+    {
+        if (!$request->cookie('laravel_session')) 
+            return redirect('landing')->with('destination', $request->fullUrl());
         
-    //     return view('home', [
-    //         'posts' => $topicController->slug($slug)
-    //     ]);
-    // }
+        return view('home', [
+            'posts' => $topicController->slug($slug)
+        ]);
+    }
 
-    // /**
-    //  * Show profile of a particular user.
-    //  *
-    //  * @param  \Illuminate\Http\Request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function user(String $slug, UserController $userController, Request $request) 
-    // {
-    //     if (!$request->cookie('laravel_session')) 
-    //         return redirect('landing')->with('destination', $request->fullUrl());
+    /**
+     * Show profile of a particular user.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function user(String $slug, UserController $userController, Request $request) 
+    {
+        if (!$request->cookie('laravel_session')) 
+            return redirect('landing')->with('destination', $request->fullUrl());
 
-    //     return view('user', [
-    //         'users' => $userController->slug($slug)
-    //     ]);
-    // }
+        return view('user', [
+            'users' => $userController->slug($slug)
+        ]);
+    }
 }

@@ -5,7 +5,9 @@
 
         <!-- Subject -->
         <div class="panel-heading">
-            <a :href="slugRoute()">{{ post.attributes.subject }}</a>
+            <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
+              <span><strong>{{ post.attributes.subject }}</strong></span>
+            </router-link>
         </div>
 
         <!-- Post Details -->
@@ -53,9 +55,6 @@
 					console.error(error)
 				});
       },
-      slugRoute() {
-        return domain_ext.content + '/t/' + this.post.slug;
-      }
     },
     mounted() {
       switch (this.post.attributes.attachment) {

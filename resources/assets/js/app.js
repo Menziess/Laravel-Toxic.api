@@ -28,13 +28,10 @@ Vue.component('post', Post);
  * Route components.
  */
 const routes = [
-  { 
-		path: '/',
-		component: Posts 
-	}, { 
-		path: '/u', 
-		component: { template: '<div>Users</div>' } 
-	}
+  { path: '/', component: Posts }, 
+	{ path: '/t/:slug/:id?', component: Posts, props: true },
+	{ path: '/u/:slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } },
+	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }
 ];
 
 /**

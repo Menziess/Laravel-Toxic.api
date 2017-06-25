@@ -1079,7 +1079,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(60),
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -1141,7 +1141,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Posts_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue__);
@@ -1174,13 +1174,7 @@ Vue.component('post', __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue___de
 /**
  * Route components.
  */
-var routes = [{
-  path: '/',
-  component: __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue___default.a
-}, {
-  path: '/u',
-  component: { template: '<div>Users</div>' }
-}];
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue___default.a }, { path: '/t/:slug/:id?', component: __WEBPACK_IMPORTED_MODULE_2__components_Posts_vue___default.a, props: true }, { path: '/u/:slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } }, { path: '*', component: { template: '<div><h1>404</h1></div>' } }];
 
 /**
  * Router.
@@ -2046,7 +2040,91 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 32 */,
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_Post_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	name: 'posts',
+	props: ['json', 'slug', 'id'],
+	components: {
+		Post: __WEBPACK_IMPORTED_MODULE_0__post_Post_vue___default.a
+	},
+	data: function data() {
+		return {
+			loading: true,
+			error: null,
+			empty: null,
+			posts: []
+		};
+	},
+
+	watch: {
+		'$route': 'fetchData'
+	},
+	created: function created() {
+		this.fetchData();
+	},
+
+	methods: {
+		fetchData: function fetchData() {
+			var _this = this;
+
+			axios.get('/api/post').then(function (response) {
+				_this.posts = response.data.data;
+				_this.empty = response.data.data.length === 0;
+			}).catch(function (error) {
+				_this.error = response.error.title;
+			});
+			this.loading = false;
+		}
+	}
+});
+
+/***/ }),
 /* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2346,6 +2424,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -2369,9 +2449,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         console.error(error);
       });
-    },
-    slugRoute: function slugRoute() {
-      return domain_ext.content + '/t/' + this.post.slug;
     }
   },
   mounted: function mounted() {
@@ -32560,7 +32637,40 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 51 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(32),
+  /* template */
+  __webpack_require__(60),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\Posts.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Posts.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-507a6650", Component.options)
+  } else {
+    hotAPI.reload("data-v-507a6650", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32606,7 +32716,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(58),
   /* scopeId */
   "data-v-23218784",
   /* cssModules */
@@ -32785,8 +32895,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */,
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32842,7 +32951,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32854,11 +32963,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-heading"
-  }, [_c('a', {
+  }, [_c('router-link', {
     attrs: {
-      "href": _vm.slugRoute()
+      "to": '/t/' + _vm.post.attributes.slug + '/' + _vm.post.id
     }
-  }, [_vm._v(_vm._s(_vm.post.attributes.subject))])]), _vm._v(" "), _c('PostDetails', {
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.post.attributes.subject))])])])], 1), _vm._v(" "), _c('PostDetails', {
     attrs: {
       "username": _vm.post.relationships.user.name,
       "userslug": _vm.post.relationships.user.slug,
@@ -32891,6 +33000,48 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-32b0ad74", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [(_vm.slug) ? _c('div', [_c('h1', {
+    staticClass: "text-center",
+    staticStyle: {
+      "margin-top": "2vw"
+    }
+  }, [_c('small', [_vm._v("/t/")]), _vm._v("\n\t\t\t\t" + _vm._s(_vm.slug) + " " + _vm._s(_vm.id) + "\n\t\t\t")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('h3', {
+    staticClass: "text-center",
+    staticStyle: {
+      "margin-top": "10vw"
+    }
+  }, [_vm._v("Loading posts...")])]) : _vm._e(), _vm._v(" "), (_vm.error) ? _c('div', [_c('h3', {
+    staticClass: "text-center text-danger",
+    staticStyle: {
+      "margin-top": "10vw"
+    }
+  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), (_vm.posts.length > 0) ? _c('div', _vm._l((_vm.posts), function(post) {
+    return _c('Post', {
+      key: post.id,
+      attrs: {
+        "post": post
+      }
+    })
+  })) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
+    staticClass: "text-center",
+    staticStyle: {
+      "margin-top": "10vw"
+    }
+  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-507a6650", module.exports)
   }
 }
 
@@ -33106,7 +33257,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "user-info"
   }, [_c('router-link', {
-    staticClass: "btn btn-secondary navbar-btn",
     attrs: {
       "to": '/u/' + this.userslug
     }
@@ -45523,161 +45673,6 @@ module.exports = function(module) {
 __webpack_require__(12);
 module.exports = __webpack_require__(13);
 
-
-/***/ }),
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_Post_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	name: 'posts',
-	props: ['json'],
-	components: {
-		Post: __WEBPACK_IMPORTED_MODULE_0__post_Post_vue___default.a
-	},
-	data: function data() {
-		return {
-			loading: true,
-			error: null,
-			empty: null,
-			posts: []
-		};
-	},
-
-	watch: {
-		'$route': 'fetchData'
-	},
-	created: function created() {
-		this.fetchData();
-	},
-
-	methods: {
-		fetchData: function fetchData() {
-			var _this = this;
-
-			axios.get('/api/post').then(function (response) {
-				_this.posts = response.data.data;
-				_this.empty = response.data.data.length === 0;
-			}).catch(function (error) {
-				_this.error = response.error.title;
-			});
-			this.loading = false;
-		}
-	}
-});
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(83),
-  /* template */
-  __webpack_require__(85),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\Posts.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Posts.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-507a6650", Component.options)
-  } else {
-    hotAPI.reload("data-v-507a6650", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.loading) ? _c('div', [_c('h3', {
-    staticClass: "text-center",
-    staticStyle: {
-      "margin-top": "10vw"
-    }
-  }, [_vm._v("Loading posts...")])]) : _vm._e(), _vm._v(" "), (_vm.error) ? _c('div', [_c('h3', {
-    staticClass: "text-center text-danger",
-    staticStyle: {
-      "margin-top": "10vw"
-    }
-  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), (_vm.posts.length > 0) ? _c('div', _vm._l((_vm.posts), function(post) {
-    return _c('Post', {
-      key: post.id,
-      attrs: {
-        "post": post
-      }
-    })
-  })) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
-    staticClass: "text-center",
-    staticStyle: {
-      "margin-top": "10vw"
-    }
-  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-507a6650", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

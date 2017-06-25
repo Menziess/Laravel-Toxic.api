@@ -9,7 +9,7 @@
 		
 		<div class="user-info">
 
-			<router-link :to="'/u/' + this.userslug" class="btn btn-secondary navbar-btn">
+			<router-link :to="'/u/' + this.userslug">
 				<span><strong>{{ this.username }}</strong></span>
 			</router-link>
 
