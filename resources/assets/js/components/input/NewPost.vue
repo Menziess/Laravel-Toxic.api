@@ -90,15 +90,12 @@
 				}
 			},
 			getSubject(subject) {
-				// LOL(); // <-- error
+				LOL(); // <-- error
 				
 				if (!subject) {
 					return this.defaultSubjectName();
 				}
 				return subject.replace(/[^a-z0-9]/gi,' ');
-			},
-			clearForm() {
-
 			}
 		}
   }

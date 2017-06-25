@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 75);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -505,7 +505,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(79)
+var listToStyles = __webpack_require__(72)
 
 /*
 type StyleObject = {
@@ -805,7 +805,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(53)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)))
 
 /***/ }),
 /* 5 */
@@ -1077,9 +1077,9 @@ module.exports = function bind(fn, thisArg) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(65),
+  __webpack_require__(60),
   /* scopeId */
   null,
   /* cssModules */
@@ -1138,16 +1138,13 @@ module.exports = g;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Background_vue__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Background_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Background_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Manager_vue__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Manager_vue__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Manager_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Manager_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Example_vue__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Example_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Example_vue__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -1155,39 +1152,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(42);
-__webpack_require__(43);
-
-window.Vue = __webpack_require__(80);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+__webpack_require__(40);
+__webpack_require__(41);
 
 
 
 
 
- // Just an example
+
+window.Vue = __webpack_require__(73);
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 /**
  * Custom components.
  */
-Vue.component('background', __WEBPACK_IMPORTED_MODULE_0__components_Background_vue___default.a);
 Vue.component('manager', __WEBPACK_IMPORTED_MODULE_2__components_Manager_vue___default.a);
 Vue.component('newpost', __WEBPACK_IMPORTED_MODULE_1__components_input_NewPost_vue___default.a);
 Vue.component('post', __WEBPACK_IMPORTED_MODULE_3__components_post_Post_vue___default.a);
 
-Vue.component('example', __WEBPACK_IMPORTED_MODULE_4__components_Example_vue___default.a); // Just an example
+/**
+ * Route components.
+ */
+var Foo = { template: '<div>foo</div>' };
+var Bar = { template: '<div>bar</div>' };
+var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }];
+var history = domain_ext.content === '/';
+var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+  mode: history ? 'history' : '',
+  routes: routes
+});
 
 /**
  * Vue app.
  */
 var app = new Vue({
-  el: '#app'
-});
+  router: router
+}).$mount('#app');
 
 /***/ }),
 /* 13 */
@@ -2042,118 +2043,6 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	name: 'background',
-	data: function data() {
-		return {
-			viewbox: "0 0 400 400"
-		};
-	},
-
-	computed: {
-		rotate: function rotate() {
-			"transform: rotate(" + 4 + ");";
-		}
-	}
-});
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'box',
-  data: function data() {
-    return {
-
-      msg: "<h1>Hello world!</h1>",
-      content: [{ text: 'sup 1' }, { text: 'sup 2' }, { text: 'sup 3' }],
-
-      user: {
-        first_name: 'John',
-        last_name: 'Doe'
-      },
-      active: true,
-
-      greet: function greet() {
-        alert("Hi");
-      },
-
-
-      pressKey: function pressKey(e) {
-        console.log(e.key);
-      },
-      pressedEnter: function pressedEnter(e) {
-        console.log("Pressed Enter!");
-      }
-
-    };
-  }
-});
-
-/***/ }),
-/* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_Post_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_Post_vue__);
 //
@@ -2198,14 +2087,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue__);
 //
 //
@@ -2302,19 +2191,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		getSubject: function getSubject(subject) {
-			// LOL(); // <-- error
+			LOL(); // <-- error
 
 			if (!subject) {
 				return this.defaultSubjectName();
 			}
 			return subject.replace(/[^a-z0-9]/gi, ' ');
-		},
-		clearForm: function clearForm() {}
+		}
 	}
 });
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2428,7 +2316,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2457,16 +2345,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_PostDetails_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_PostDetails_vue__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_PostDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_PostDetails_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Drawing_vue__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Drawing_vue__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__children_Drawing_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue__);
 //
 //
@@ -2541,7 +2429,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2587,7 +2475,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2608,7 +2496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 41 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2645,11 +2533,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 42 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(52);
+window._ = __webpack_require__(49);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -2658,9 +2546,9 @@ window._ = __webpack_require__(52);
  */
 
 try {
-    window.$ = window.jQuery = __webpack_require__(51);
+    window.$ = window.jQuery = __webpack_require__(48);
 
-    __webpack_require__(44);
+    __webpack_require__(42);
 } catch (e) {}
 
 /**
@@ -2720,7 +2608,7 @@ if (domain_ext) {
 // });
 
 /***/ }),
-/* 43 */
+/* 41 */
 /***/ (function(module, exports) {
 
 /**
@@ -2756,7 +2644,7 @@ window.onerror = function (msg, url, line, column, error) {
 };
 
 /***/ }),
-/* 44 */
+/* 42 */
 /***/ (function(module, exports) {
 
 /*!
@@ -5139,49 +5027,42 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 45 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\ncanvas[data-v-23218784] {\r\n  width: 100%;\r\n  height: 40vh;\n}\ncanvas.mouseDown[data-v-23218784]:hover {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 /***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
-/* 47 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tword-wrap: break-word;\r\n\tmargin: 0 1em 0 3.5em;\n}\r\n", ""]);
 
 /***/ }),
-/* 48 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\ncanvas[data-v-7719f0bc] {\r\n  width: 100%;\r\n  height: 40vh;\n}\r\n", ""]);
 
 /***/ }),
-/* 49 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\ntextarea[data-v-7fdae59e] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 40vh;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7fdae59e]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7fdae59e]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7fdae59e]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
 
 /***/ }),
-/* 50 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\n.user-info[data-v-c01abe00] {\r\n\tdisplay: inline-block;\r\n\tmargin: 0.5em 0.5em 0 0.5em;\r\n\toverflow: hidden;\r\n\tz-index: -1;\n}\n.post-details[data-v-c01abe00] {\r\n\tpadding: 0.5em;\n}\r\n", ""]);
 
 /***/ }),
-/* 51 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15441,7 +15322,7 @@ return jQuery;
 
 
 /***/ }),
-/* 52 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32530,10 +32411,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(81)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(74)(module)))
 
 /***/ }),
-/* 53 */
+/* 50 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -32723,86 +32604,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 54 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(74)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(66),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\Background.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Background.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4ecaecf9", Component.options)
-  } else {
-    hotAPI.reload("data-v-4ecaecf9", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(33),
-  /* template */
-  __webpack_require__(71),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\Example.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-add310a2", Component.options)
-  } else {
-    hotAPI.reload("data-v-add310a2", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(34),
-  /* template */
-  __webpack_require__(63),
+  __webpack_require__(58),
   /* scopeId */
   null,
   /* cssModules */
@@ -32829,14 +32638,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(33),
   /* template */
-  __webpack_require__(68),
+  __webpack_require__(62),
   /* scopeId */
   null,
   /* cssModules */
@@ -32863,18 +32672,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(73)
+__webpack_require__(67)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(64),
+  __webpack_require__(59),
   /* scopeId */
   "data-v-23218784",
   /* cssModules */
@@ -32901,18 +32710,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 59 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(77)
+__webpack_require__(70)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(70),
+  __webpack_require__(64),
   /* scopeId */
   "data-v-7fdae59e",
   /* cssModules */
@@ -32939,18 +32748,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(76)
+__webpack_require__(69)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(39),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(69),
+  __webpack_require__(63),
   /* scopeId */
   "data-v-7719f0bc",
   /* cssModules */
@@ -32977,18 +32786,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(75)
+__webpack_require__(68)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(40),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(67),
+  __webpack_require__(61),
   /* scopeId */
   "data-v-55deb102",
   /* cssModules */
@@ -33015,18 +32824,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(78)
+__webpack_require__(71)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(41),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(72),
+  __webpack_require__(65),
   /* scopeId */
   "data-v-c01abe00",
   /* cssModules */
@@ -33053,7 +32862,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33080,7 +32889,7 @@ if (false) {
 }
 
 /***/ }),
-/* 64 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33136,7 +32945,7 @@ if (false) {
 }
 
 /***/ }),
-/* 65 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33189,74 +32998,7 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('svg', {
-    staticClass: "svg",
-    style: (_vm.rotate),
-    attrs: {
-      "id": "svg",
-      "version": "1.1",
-      "viewBox": _vm.viewbox
-    }
-  }, [_c('g', {
-    attrs: {
-      "id": "svgg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "id": "path0",
-      "d": "",
-      "stroke": "none",
-      "fill": "#00ff00",
-      "fill-rule": "evenodd"
-    }
-  }), _vm._v(" "), _c('path', {
-    attrs: {
-      "id": "path1",
-      "d": "M334.975 77.876 C 320.345 87.800,284.433 111.910,255.172 131.454 C 225.911 150.998,201.740 167.198,201.459 167.454 C 200.941 167.926,236.717 187.371,243.995 190.573 C 246.169 191.530,252.045 194.547,257.053 197.279 L 266.159 202.246 270.110 199.481 C 272.282 197.960,274.530 196.420,275.104 196.059 C 279.464 193.317,288.075 187.549,288.342 187.191 C 288.522 186.949,296.798 181.343,306.732 174.733 C 316.667 168.123,325.177 162.237,325.644 161.653 C 326.111 161.069,326.647 160.694,326.836 160.819 C 327.354 161.165,343.514 150.317,343.514 149.623 C 343.514 149.291,343.767 149.176,344.076 149.367 C 344.385 149.558,345.789 148.735,347.196 147.538 C 348.603 146.341,360.475 138.215,373.578 129.481 C 396.424 114.252,397.371 113.539,396.624 112.136 C 395.101 109.276,374.828 79.142,374.283 78.927 C 373.977 78.807,373.727 78.430,373.727 78.089 C 373.727 77.512,362.064 59.734,361.729 59.801 C 361.645 59.817,349.606 67.951,334.975 77.876 M20.033 87.162 C 10.279 101.794,2.217 113.981,2.116 114.244 C 1.893 114.831,26.288 131.100,27.045 130.870 C 27.343 130.780,27.586 130.986,27.586 131.327 C 27.586 131.669,28.291 132.334,29.153 132.805 C 30.015 133.276,32.511 134.918,34.700 136.453 C 36.889 137.989,38.956 139.245,39.292 139.245 C 39.629 139.245,40.298 139.719,40.779 140.298 C 41.260 140.878,42.261 141.583,43.004 141.865 C 43.747 142.148,49.306 145.664,55.358 149.679 C 61.411 153.694,66.628 156.979,66.952 156.979 C 67.277 156.979,67.641 157.228,67.761 157.533 C 67.978 158.083,97.556 177.997,98.156 177.997 C 98.327 177.997,106.238 183.168,115.736 189.489 C 132.703 200.780,133.008 200.949,133.200 199.150 C 133.404 197.240,197.977 168.082,199.677 169.133 C 200.035 169.354,200.328 169.106,200.328 168.582 C 200.328 168.057,199.898 167.463,199.371 167.261 C 198.844 167.059,187.444 159.638,174.037 150.770 C 160.629 141.902,149.532 134.647,149.375 134.647 C 149.219 134.647,124.339 118.151,94.086 97.990 C 63.833 77.828,38.785 61.158,38.424 60.946 C 38.062 60.733,29.787 72.530,20.033 87.162 ",
-      "stroke": "none",
-      "fill": "#2baf43",
-      "fill-rule": "evenodd"
-    }
-  }), _vm._v(" "), _c('path', {
-    attrs: {
-      "id": "path2",
-      "d": "M306.404 96.938 L 304.433 98.631 306.568 97.218 C 307.742 96.441,308.703 95.678,308.703 95.522 C 308.703 95.030,308.425 95.201,306.404 96.938 M180.952 155.349 C 181.675 155.937,182.857 156.708,183.580 157.063 L 184.893 157.708 183.580 156.638 C 182.857 156.050,181.675 155.279,180.952 154.924 L 179.639 154.279 180.952 155.349 M200.458 168.676 C 200.387 169.149,200.035 169.354,199.677 169.133 C 199.318 168.911,184.225 175.175,166.136 183.051 L 133.247 197.373 133.455 262.069 C 133.569 297.652,133.745 334.988,133.846 345.039 L 134.031 363.312 161.761 363.101 C 177.012 362.985,192.225 362.795,195.567 362.679 L 201.642 362.468 201.548 315.717 C 201.454 268.742,200.700 167.070,200.458 168.676 M247.291 192.651 C 253.101 195.975,265.353 202.368,265.353 202.076 C 265.353 201.696,245.833 191.130,245.151 191.141 C 244.883 191.145,245.846 191.825,247.291 192.651 ",
-      "stroke": "none",
-      "fill": "#2ec248",
-      "fill-rule": "evenodd"
-    }
-  }), _vm._v(" "), _c('path', {
-    attrs: {
-      "id": "path3",
-      "d": "M295.658 103.432 C 290.109 107.169,285.232 110.587,284.821 111.026 C 284.409 111.465,289.023 108.532,295.074 104.507 C 301.125 100.482,306.076 97.046,306.076 96.871 C 306.076 96.397,306.484 96.139,295.658 103.432 M98.851 100.939 C 99.847 101.983,109.555 108.374,110.144 108.374 C 110.427 108.374,108.741 107.094,106.397 105.528 C 100.609 101.663,98.064 100.116,98.851 100.939 M255.923 130.360 C 247.666 135.902,240.572 140.796,240.160 141.235 C 239.574 141.858,270.746 121.409,271.866 120.435 C 272.017 120.304,271.869 120.216,271.538 120.240 C 271.207 120.264,264.180 124.817,255.923 130.360 M142.203 129.607 C 154.921 138.084,157.579 139.773,156.650 138.791 C 155.672 137.756,132.128 122.167,131.543 122.167 C 131.267 122.167,136.064 125.515,142.203 129.607 M201.205 235.157 C 201.445 272.114,201.642 315.899,201.642 332.457 L 201.642 362.562 234.179 362.562 L 266.716 362.562 266.405 349.261 C 266.233 341.946,266.062 305.961,266.025 269.294 L 265.956 202.627 234.021 185.550 C 216.457 176.158,201.790 168.358,201.427 168.218 C 200.986 168.047,200.912 190.257,201.205 235.157 ",
-      "stroke": "none",
-      "fill": "#30cf4f",
-      "fill-rule": "evenodd"
-    }
-  }), _vm._v(" "), _c('path', {
-    attrs: {
-      "id": "path4",
-      "d": "M72.767 6.351 C 71.919 7.735,70.938 9.340,70.588 9.918 C 70.237 10.496,68.887 12.565,67.586 14.516 C 63.205 21.085,53.202 36.839,53.202 37.168 C 53.202 37.347,52.908 37.851,52.550 38.287 C 50.919 40.271,37.934 60.481,38.165 60.677 C 39.003 61.392,58.478 74.220,58.726 74.220 C 58.891 74.220,75.313 85.008,95.220 98.194 C 115.127 111.379,131.553 122.167,131.722 122.167 C 131.891 122.167,147.473 132.466,166.350 145.054 L 200.670 167.941 209.202 162.128 C 236.416 143.586,289.777 107.587,322.989 85.364 C 344.031 71.284,361.248 59.493,361.248 59.161 C 361.248 58.829,360.555 57.722,359.708 56.701 C 358.860 55.679,355.194 50.386,351.560 44.938 C 347.927 39.489,344.535 34.612,344.023 34.100 C 343.511 33.588,338.864 26.814,333.697 19.048 C 328.530 11.281,324.078 4.679,323.803 4.377 C 323.528 4.075,315.692 8.952,306.390 15.215 C 297.088 21.477,288.704 27.100,287.760 27.710 C 286.815 28.320,285.661 29.156,285.194 29.568 C 284.728 29.980,266.706 42.013,245.147 56.308 C 223.587 70.604,205.580 82.625,205.131 83.022 C 204.682 83.419,203.931 84.039,203.463 84.401 C 202.994 84.762,202.130 85.435,201.544 85.897 C 200.626 86.620,195.433 83.396,164.259 62.744 C 144.338 49.549,127.874 38.752,127.671 38.752 C 127.468 38.752,126.516 38.157,125.555 37.429 C 122.837 35.369,76.121 4.530,75.162 4.162 C 74.671 3.973,73.656 4.901,72.767 6.351 ",
-      "stroke": "none",
-      "fill": "#52ff77",
-      "fill-rule": "evenodd"
-    }
-  })])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-4ecaecf9", module.exports)
-  }
-}
-
-/***/ }),
-/* 67 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33275,7 +33017,7 @@ if (false) {
 }
 
 /***/ }),
-/* 68 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33392,7 +33134,7 @@ if (false) {
 }
 
 /***/ }),
-/* 69 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33412,7 +33154,7 @@ if (false) {
 }
 
 /***/ }),
-/* 70 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33450,75 +33192,7 @@ if (false) {
 }
 
 /***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.msg),
-      expression: "msg"
-    }],
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.msg)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.msg = $event.target.value
-      }
-    }
-  }), _c('br'), _vm._v(" "), _c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.msg)
-    }
-  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('ul', _vm._l((_vm.content), function(el) {
-    return _c('li', [_vm._v(_vm._s(el.text))])
-  })), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.user.first_name))]), _vm._v(" "), (_vm.active) ? _c('p', {
-    domProps: {
-      "textContent": _vm._s(_vm.user.last_name)
-    }
-  }) : _c('p', [_vm._v("...")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('button', {
-    on: {
-      "click": _vm.greet
-    }
-  }, [_vm._v("Say Hi")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "keyup": [_vm.pressKey, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.pressedEnter($event)
-      }]
-    }
-  })])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-add310a2", module.exports)
-  }
-}
-
-/***/ }),
-/* 72 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33549,13 +33223,2520 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+  * vue-router v2.6.0
+  * (c) 2017 Evan You
+  * @license MIT
+  */
+/*  */
+
+function assert (condition, message) {
+  if (!condition) {
+    throw new Error(("[vue-router] " + message))
+  }
+}
+
+function warn (condition, message) {
+  if ("development" !== 'production' && !condition) {
+    typeof console !== 'undefined' && console.warn(("[vue-router] " + message));
+  }
+}
+
+var View = {
+  name: 'router-view',
+  functional: true,
+  props: {
+    name: {
+      type: String,
+      default: 'default'
+    }
+  },
+  render: function render (_, ref) {
+    var props = ref.props;
+    var children = ref.children;
+    var parent = ref.parent;
+    var data = ref.data;
+
+    data.routerView = true;
+
+    // directly use parent context's createElement() function
+    // so that components rendered by router-view can resolve named slots
+    var h = parent.$createElement;
+    var name = props.name;
+    var route = parent.$route;
+    var cache = parent._routerViewCache || (parent._routerViewCache = {});
+
+    // determine current view depth, also check to see if the tree
+    // has been toggled inactive but kept-alive.
+    var depth = 0;
+    var inactive = false;
+    while (parent && parent._routerRoot !== parent) {
+      if (parent.$vnode && parent.$vnode.data.routerView) {
+        depth++;
+      }
+      if (parent._inactive) {
+        inactive = true;
+      }
+      parent = parent.$parent;
+    }
+    data.routerViewDepth = depth;
+
+    // render previous view if the tree is inactive and kept-alive
+    if (inactive) {
+      return h(cache[name], data, children)
+    }
+
+    var matched = route.matched[depth];
+    // render empty node if no matched route
+    if (!matched) {
+      cache[name] = null;
+      return h()
+    }
+
+    var component = cache[name] = matched.components[name];
+
+    // attach instance registration hook
+    // this will be called in the instance's injected lifecycle hooks
+    data.registerRouteInstance = function (vm, val) {
+      // val could be undefined for unregistration
+      var current = matched.instances[name];
+      if (
+        (val && current !== vm) ||
+        (!val && current === vm)
+      ) {
+        matched.instances[name] = val;
+      }
+    }
+
+    // also regiseter instance in prepatch hook
+    // in case the same component instance is reused across different routes
+    ;(data.hook || (data.hook = {})).prepatch = function (_, vnode) {
+      matched.instances[name] = vnode.componentInstance;
+    };
+
+    // resolve props
+    data.props = resolveProps(route, matched.props && matched.props[name]);
+
+    return h(component, data, children)
+  }
+};
+
+function resolveProps (route, config) {
+  switch (typeof config) {
+    case 'undefined':
+      return
+    case 'object':
+      return config
+    case 'function':
+      return config(route)
+    case 'boolean':
+      return config ? route.params : undefined
+    default:
+      if (true) {
+        warn(
+          false,
+          "props in \"" + (route.path) + "\" is a " + (typeof config) + ", " +
+          "expecting an object, function or boolean."
+        );
+      }
+  }
+}
+
+/*  */
+
+var encodeReserveRE = /[!'()*]/g;
+var encodeReserveReplacer = function (c) { return '%' + c.charCodeAt(0).toString(16); };
+var commaRE = /%2C/g;
+
+// fixed encodeURIComponent which is more conformant to RFC3986:
+// - escapes [!'()*]
+// - preserve commas
+var encode = function (str) { return encodeURIComponent(str)
+  .replace(encodeReserveRE, encodeReserveReplacer)
+  .replace(commaRE, ','); };
+
+var decode = decodeURIComponent;
+
+function resolveQuery (
+  query,
+  extraQuery,
+  _parseQuery
+) {
+  if ( extraQuery === void 0 ) extraQuery = {};
+
+  var parse = _parseQuery || parseQuery;
+  var parsedQuery;
+  try {
+    parsedQuery = parse(query || '');
+  } catch (e) {
+    "development" !== 'production' && warn(false, e.message);
+    parsedQuery = {};
+  }
+  for (var key in extraQuery) {
+    var val = extraQuery[key];
+    parsedQuery[key] = Array.isArray(val) ? val.slice() : val;
+  }
+  return parsedQuery
+}
+
+function parseQuery (query) {
+  var res = {};
+
+  query = query.trim().replace(/^(\?|#|&)/, '');
+
+  if (!query) {
+    return res
+  }
+
+  query.split('&').forEach(function (param) {
+    var parts = param.replace(/\+/g, ' ').split('=');
+    var key = decode(parts.shift());
+    var val = parts.length > 0
+      ? decode(parts.join('='))
+      : null;
+
+    if (res[key] === undefined) {
+      res[key] = val;
+    } else if (Array.isArray(res[key])) {
+      res[key].push(val);
+    } else {
+      res[key] = [res[key], val];
+    }
+  });
+
+  return res
+}
+
+function stringifyQuery (obj) {
+  var res = obj ? Object.keys(obj).map(function (key) {
+    var val = obj[key];
+
+    if (val === undefined) {
+      return ''
+    }
+
+    if (val === null) {
+      return encode(key)
+    }
+
+    if (Array.isArray(val)) {
+      var result = [];
+      val.forEach(function (val2) {
+        if (val2 === undefined) {
+          return
+        }
+        if (val2 === null) {
+          result.push(encode(key));
+        } else {
+          result.push(encode(key) + '=' + encode(val2));
+        }
+      });
+      return result.join('&')
+    }
+
+    return encode(key) + '=' + encode(val)
+  }).filter(function (x) { return x.length > 0; }).join('&') : null;
+  return res ? ("?" + res) : ''
+}
+
+/*  */
+
+
+var trailingSlashRE = /\/?$/;
+
+function createRoute (
+  record,
+  location,
+  redirectedFrom,
+  router
+) {
+  var stringifyQuery$$1 = router && router.options.stringifyQuery;
+  var route = {
+    name: location.name || (record && record.name),
+    meta: (record && record.meta) || {},
+    path: location.path || '/',
+    hash: location.hash || '',
+    query: location.query || {},
+    params: location.params || {},
+    fullPath: getFullPath(location, stringifyQuery$$1),
+    matched: record ? formatMatch(record) : []
+  };
+  if (redirectedFrom) {
+    route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery$$1);
+  }
+  return Object.freeze(route)
+}
+
+// the starting route that represents the initial state
+var START = createRoute(null, {
+  path: '/'
+});
+
+function formatMatch (record) {
+  var res = [];
+  while (record) {
+    res.unshift(record);
+    record = record.parent;
+  }
+  return res
+}
+
+function getFullPath (
+  ref,
+  _stringifyQuery
+) {
+  var path = ref.path;
+  var query = ref.query; if ( query === void 0 ) query = {};
+  var hash = ref.hash; if ( hash === void 0 ) hash = '';
+
+  var stringify = _stringifyQuery || stringifyQuery;
+  return (path || '/') + stringify(query) + hash
+}
+
+function isSameRoute (a, b) {
+  if (b === START) {
+    return a === b
+  } else if (!b) {
+    return false
+  } else if (a.path && b.path) {
+    return (
+      a.path.replace(trailingSlashRE, '') === b.path.replace(trailingSlashRE, '') &&
+      a.hash === b.hash &&
+      isObjectEqual(a.query, b.query)
+    )
+  } else if (a.name && b.name) {
+    return (
+      a.name === b.name &&
+      a.hash === b.hash &&
+      isObjectEqual(a.query, b.query) &&
+      isObjectEqual(a.params, b.params)
+    )
+  } else {
+    return false
+  }
+}
+
+function isObjectEqual (a, b) {
+  if ( a === void 0 ) a = {};
+  if ( b === void 0 ) b = {};
+
+  var aKeys = Object.keys(a);
+  var bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) {
+    return false
+  }
+  return aKeys.every(function (key) {
+    var aVal = a[key];
+    var bVal = b[key];
+    // check nested equality
+    if (typeof aVal === 'object' && typeof bVal === 'object') {
+      return isObjectEqual(aVal, bVal)
+    }
+    return String(aVal) === String(bVal)
+  })
+}
+
+function isIncludedRoute (current, target) {
+  return (
+    current.path.replace(trailingSlashRE, '/').indexOf(
+      target.path.replace(trailingSlashRE, '/')
+    ) === 0 &&
+    (!target.hash || current.hash === target.hash) &&
+    queryIncludes(current.query, target.query)
+  )
+}
+
+function queryIncludes (current, target) {
+  for (var key in target) {
+    if (!(key in current)) {
+      return false
+    }
+  }
+  return true
+}
+
+/*  */
+
+// work around weird flow bug
+var toTypes = [String, Object];
+var eventTypes = [String, Array];
+
+var Link = {
+  name: 'router-link',
+  props: {
+    to: {
+      type: toTypes,
+      required: true
+    },
+    tag: {
+      type: String,
+      default: 'a'
+    },
+    exact: Boolean,
+    append: Boolean,
+    replace: Boolean,
+    activeClass: String,
+    exactActiveClass: String,
+    event: {
+      type: eventTypes,
+      default: 'click'
+    }
+  },
+  render: function render (h) {
+    var this$1 = this;
+
+    var router = this.$router;
+    var current = this.$route;
+    var ref = router.resolve(this.to, current, this.append);
+    var location = ref.location;
+    var route = ref.route;
+    var href = ref.href;
+
+    var classes = {};
+    var globalActiveClass = router.options.linkActiveClass;
+    var globalExactActiveClass = router.options.linkExactActiveClass;
+    // Support global empty active class
+    var activeClassFallback = globalActiveClass == null
+            ? 'router-link-active'
+            : globalActiveClass;
+    var exactActiveClassFallback = globalExactActiveClass == null
+            ? 'router-link-exact-active'
+            : globalExactActiveClass;
+    var activeClass = this.activeClass == null
+            ? activeClassFallback
+            : this.activeClass;
+    var exactActiveClass = this.exactActiveClass == null
+            ? exactActiveClassFallback
+            : this.exactActiveClass;
+    var compareTarget = location.path
+      ? createRoute(null, location, null, router)
+      : route;
+
+    classes[exactActiveClass] = isSameRoute(current, compareTarget);
+    classes[activeClass] = this.exact
+      ? classes[exactActiveClass]
+      : isIncludedRoute(current, compareTarget);
+
+    var handler = function (e) {
+      if (guardEvent(e)) {
+        if (this$1.replace) {
+          router.replace(location);
+        } else {
+          router.push(location);
+        }
+      }
+    };
+
+    var on = { click: guardEvent };
+    if (Array.isArray(this.event)) {
+      this.event.forEach(function (e) { on[e] = handler; });
+    } else {
+      on[this.event] = handler;
+    }
+
+    var data = {
+      class: classes
+    };
+
+    if (this.tag === 'a') {
+      data.on = on;
+      data.attrs = { href: href };
+    } else {
+      // find the first <a> child and apply listener and href
+      var a = findAnchor(this.$slots.default);
+      if (a) {
+        // in case the <a> is a static node
+        a.isStatic = false;
+        var extend = _Vue.util.extend;
+        var aData = a.data = extend({}, a.data);
+        aData.on = on;
+        var aAttrs = a.data.attrs = extend({}, a.data.attrs);
+        aAttrs.href = href;
+      } else {
+        // doesn't have <a> child, apply listener to self
+        data.on = on;
+      }
+    }
+
+    return h(this.tag, data, this.$slots.default)
+  }
+};
+
+function guardEvent (e) {
+  // don't redirect with control keys
+  if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) { return }
+  // don't redirect when preventDefault called
+  if (e.defaultPrevented) { return }
+  // don't redirect on right click
+  if (e.button !== undefined && e.button !== 0) { return }
+  // don't redirect if `target="_blank"`
+  if (e.currentTarget && e.currentTarget.getAttribute) {
+    var target = e.currentTarget.getAttribute('target');
+    if (/\b_blank\b/i.test(target)) { return }
+  }
+  // this may be a Weex event which doesn't have this method
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  return true
+}
+
+function findAnchor (children) {
+  if (children) {
+    var child;
+    for (var i = 0; i < children.length; i++) {
+      child = children[i];
+      if (child.tag === 'a') {
+        return child
+      }
+      if (child.children && (child = findAnchor(child.children))) {
+        return child
+      }
+    }
+  }
+}
+
+var _Vue;
+
+function install (Vue) {
+  if (install.installed) { return }
+  install.installed = true;
+
+  _Vue = Vue;
+
+  var isDef = function (v) { return v !== undefined; };
+
+  var registerInstance = function (vm, callVal) {
+    var i = vm.$options._parentVnode;
+    if (isDef(i) && isDef(i = i.data) && isDef(i = i.registerRouteInstance)) {
+      i(vm, callVal);
+    }
+  };
+
+  Vue.mixin({
+    beforeCreate: function beforeCreate () {
+      if (isDef(this.$options.router)) {
+        this._routerRoot = this;
+        this._router = this.$options.router;
+        this._router.init(this);
+        Vue.util.defineReactive(this, '_route', this._router.history.current);
+      } else {
+        this._routerRoot = (this.$parent && this.$parent._routerRoot) || this;
+      }
+      registerInstance(this, this);
+    },
+    destroyed: function destroyed () {
+      registerInstance(this);
+    }
+  });
+
+  Object.defineProperty(Vue.prototype, '$router', {
+    get: function get () { return this._routerRoot._router }
+  });
+
+  Object.defineProperty(Vue.prototype, '$route', {
+    get: function get () { return this._routerRoot._route }
+  });
+
+  Vue.component('router-view', View);
+  Vue.component('router-link', Link);
+
+  var strats = Vue.config.optionMergeStrategies;
+  // use the same hook merging strategy for route hooks
+  strats.beforeRouteEnter = strats.beforeRouteLeave = strats.created;
+}
+
+/*  */
+
+var inBrowser = typeof window !== 'undefined';
+
+/*  */
+
+function resolvePath (
+  relative,
+  base,
+  append
+) {
+  var firstChar = relative.charAt(0);
+  if (firstChar === '/') {
+    return relative
+  }
+
+  if (firstChar === '?' || firstChar === '#') {
+    return base + relative
+  }
+
+  var stack = base.split('/');
+
+  // remove trailing segment if:
+  // - not appending
+  // - appending to trailing slash (last segment is empty)
+  if (!append || !stack[stack.length - 1]) {
+    stack.pop();
+  }
+
+  // resolve relative path
+  var segments = relative.replace(/^\//, '').split('/');
+  for (var i = 0; i < segments.length; i++) {
+    var segment = segments[i];
+    if (segment === '..') {
+      stack.pop();
+    } else if (segment !== '.') {
+      stack.push(segment);
+    }
+  }
+
+  // ensure leading slash
+  if (stack[0] !== '') {
+    stack.unshift('');
+  }
+
+  return stack.join('/')
+}
+
+function parsePath (path) {
+  var hash = '';
+  var query = '';
+
+  var hashIndex = path.indexOf('#');
+  if (hashIndex >= 0) {
+    hash = path.slice(hashIndex);
+    path = path.slice(0, hashIndex);
+  }
+
+  var queryIndex = path.indexOf('?');
+  if (queryIndex >= 0) {
+    query = path.slice(queryIndex + 1);
+    path = path.slice(0, queryIndex);
+  }
+
+  return {
+    path: path,
+    query: query,
+    hash: hash
+  }
+}
+
+function cleanPath (path) {
+  return path.replace(/\/\//g, '/')
+}
+
+var index$1 = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+/**
+ * Expose `pathToRegexp`.
+ */
+var index = pathToRegexp;
+var parse_1 = parse;
+var compile_1 = compile;
+var tokensToFunction_1 = tokensToFunction;
+var tokensToRegExp_1 = tokensToRegExp;
+
+/**
+ * The main path matching regexp utility.
+ *
+ * @type {RegExp}
+ */
+var PATH_REGEXP = new RegExp([
+  // Match escaped characters that would otherwise appear in future matches.
+  // This allows the user to escape special characters that won't transform.
+  '(\\\\.)',
+  // Match Express-style parameters and un-named parameters with a prefix
+  // and optional suffixes. Matches appear as:
+  //
+  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
+  // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
+  // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
+  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'
+].join('|'), 'g');
+
+/**
+ * Parse a string for the raw tokens.
+ *
+ * @param  {string}  str
+ * @param  {Object=} options
+ * @return {!Array}
+ */
+function parse (str, options) {
+  var tokens = [];
+  var key = 0;
+  var index = 0;
+  var path = '';
+  var defaultDelimiter = options && options.delimiter || '/';
+  var res;
+
+  while ((res = PATH_REGEXP.exec(str)) != null) {
+    var m = res[0];
+    var escaped = res[1];
+    var offset = res.index;
+    path += str.slice(index, offset);
+    index = offset + m.length;
+
+    // Ignore already escaped sequences.
+    if (escaped) {
+      path += escaped[1];
+      continue
+    }
+
+    var next = str[index];
+    var prefix = res[2];
+    var name = res[3];
+    var capture = res[4];
+    var group = res[5];
+    var modifier = res[6];
+    var asterisk = res[7];
+
+    // Push the current path onto the tokens.
+    if (path) {
+      tokens.push(path);
+      path = '';
+    }
+
+    var partial = prefix != null && next != null && next !== prefix;
+    var repeat = modifier === '+' || modifier === '*';
+    var optional = modifier === '?' || modifier === '*';
+    var delimiter = res[2] || defaultDelimiter;
+    var pattern = capture || group;
+
+    tokens.push({
+      name: name || key++,
+      prefix: prefix || '',
+      delimiter: delimiter,
+      optional: optional,
+      repeat: repeat,
+      partial: partial,
+      asterisk: !!asterisk,
+      pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?')
+    });
+  }
+
+  // Match any characters still remaining.
+  if (index < str.length) {
+    path += str.substr(index);
+  }
+
+  // If the path exists, push it onto the end.
+  if (path) {
+    tokens.push(path);
+  }
+
+  return tokens
+}
+
+/**
+ * Compile a string to a template function for the path.
+ *
+ * @param  {string}             str
+ * @param  {Object=}            options
+ * @return {!function(Object=, Object=)}
+ */
+function compile (str, options) {
+  return tokensToFunction(parse(str, options))
+}
+
+/**
+ * Prettier encoding of URI path segments.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeURIComponentPretty (str) {
+  return encodeURI(str).replace(/[\/?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
+ * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+function encodeAsterisk (str) {
+  return encodeURI(str).replace(/[?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
+  })
+}
+
+/**
+ * Expose a method for transforming tokens into the path function.
+ */
+function tokensToFunction (tokens) {
+  // Compile all the tokens into regexps.
+  var matches = new Array(tokens.length);
+
+  // Compile all the patterns before compilation.
+  for (var i = 0; i < tokens.length; i++) {
+    if (typeof tokens[i] === 'object') {
+      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
+    }
+  }
+
+  return function (obj, opts) {
+    var path = '';
+    var data = obj || {};
+    var options = opts || {};
+    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;
+
+    for (var i = 0; i < tokens.length; i++) {
+      var token = tokens[i];
+
+      if (typeof token === 'string') {
+        path += token;
+
+        continue
+      }
+
+      var value = data[token.name];
+      var segment;
+
+      if (value == null) {
+        if (token.optional) {
+          // Prepend partial segment prefixes.
+          if (token.partial) {
+            path += token.prefix;
+          }
+
+          continue
+        } else {
+          throw new TypeError('Expected "' + token.name + '" to be defined')
+        }
+      }
+
+      if (index$1(value)) {
+        if (!token.repeat) {
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`')
+        }
+
+        if (value.length === 0) {
+          if (token.optional) {
+            continue
+          } else {
+            throw new TypeError('Expected "' + token.name + '" to not be empty')
+          }
+        }
+
+        for (var j = 0; j < value.length; j++) {
+          segment = encode(value[j]);
+
+          if (!matches[i].test(segment)) {
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`')
+          }
+
+          path += (j === 0 ? token.prefix : token.delimiter) + segment;
+        }
+
+        continue
+      }
+
+      segment = token.asterisk ? encodeAsterisk(value) : encode(value);
+
+      if (!matches[i].test(segment)) {
+        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
+      }
+
+      path += token.prefix + segment;
+    }
+
+    return path
+  }
+}
+
+/**
+ * Escape a regular expression string.
+ *
+ * @param  {string} str
+ * @return {string}
+ */
+function escapeString (str) {
+  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
+}
+
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {string} group
+ * @return {string}
+ */
+function escapeGroup (group) {
+  return group.replace(/([=!:$\/()])/g, '\\$1')
+}
+
+/**
+ * Attach the keys as a property of the regexp.
+ *
+ * @param  {!RegExp} re
+ * @param  {Array}   keys
+ * @return {!RegExp}
+ */
+function attachKeys (re, keys) {
+  re.keys = keys;
+  return re
+}
+
+/**
+ * Get the flags for a regexp from the options.
+ *
+ * @param  {Object} options
+ * @return {string}
+ */
+function flags (options) {
+  return options.sensitive ? '' : 'i'
+}
+
+/**
+ * Pull out keys from a regexp.
+ *
+ * @param  {!RegExp} path
+ * @param  {!Array}  keys
+ * @return {!RegExp}
+ */
+function regexpToRegexp (path, keys) {
+  // Use a negative lookahead to match only capturing groups.
+  var groups = path.source.match(/\((?!\?)/g);
+
+  if (groups) {
+    for (var i = 0; i < groups.length; i++) {
+      keys.push({
+        name: i,
+        prefix: null,
+        delimiter: null,
+        optional: false,
+        repeat: false,
+        partial: false,
+        asterisk: false,
+        pattern: null
+      });
+    }
+  }
+
+  return attachKeys(path, keys)
+}
+
+/**
+ * Transform an array into a regexp.
+ *
+ * @param  {!Array}  path
+ * @param  {Array}   keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+function arrayToRegexp (path, keys, options) {
+  var parts = [];
+
+  for (var i = 0; i < path.length; i++) {
+    parts.push(pathToRegexp(path[i], keys, options).source);
+  }
+
+  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
+
+  return attachKeys(regexp, keys)
+}
+
+/**
+ * Create a path regexp from string input.
+ *
+ * @param  {string}  path
+ * @param  {!Array}  keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+function stringToRegexp (path, keys, options) {
+  return tokensToRegExp(parse(path, options), keys, options)
+}
+
+/**
+ * Expose a function for taking tokens and returning a RegExp.
+ *
+ * @param  {!Array}          tokens
+ * @param  {(Array|Object)=} keys
+ * @param  {Object=}         options
+ * @return {!RegExp}
+ */
+function tokensToRegExp (tokens, keys, options) {
+  if (!index$1(keys)) {
+    options = /** @type {!Object} */ (keys || options);
+    keys = [];
+  }
+
+  options = options || {};
+
+  var strict = options.strict;
+  var end = options.end !== false;
+  var route = '';
+
+  // Iterate over the tokens and create our regexp string.
+  for (var i = 0; i < tokens.length; i++) {
+    var token = tokens[i];
+
+    if (typeof token === 'string') {
+      route += escapeString(token);
+    } else {
+      var prefix = escapeString(token.prefix);
+      var capture = '(?:' + token.pattern + ')';
+
+      keys.push(token);
+
+      if (token.repeat) {
+        capture += '(?:' + prefix + capture + ')*';
+      }
+
+      if (token.optional) {
+        if (!token.partial) {
+          capture = '(?:' + prefix + '(' + capture + '))?';
+        } else {
+          capture = prefix + '(' + capture + ')?';
+        }
+      } else {
+        capture = prefix + '(' + capture + ')';
+      }
+
+      route += capture;
+    }
+  }
+
+  var delimiter = escapeString(options.delimiter || '/');
+  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter;
+
+  // In non-strict mode we allow a slash at the end of match. If the path to
+  // match already ends with a slash, we remove it for consistency. The slash
+  // is valid at the end of a path match, not in the middle. This is important
+  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+  if (!strict) {
+    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';
+  }
+
+  if (end) {
+    route += '$';
+  } else {
+    // In non-ending mode, we need the capturing groups to match as much as
+    // possible by using a positive lookahead to the end or next path segment.
+    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';
+  }
+
+  return attachKeys(new RegExp('^' + route, flags(options)), keys)
+}
+
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array can be passed in for the keys, which will hold the
+ * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+ * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+ *
+ * @param  {(string|RegExp|Array)} path
+ * @param  {(Array|Object)=}       keys
+ * @param  {Object=}               options
+ * @return {!RegExp}
+ */
+function pathToRegexp (path, keys, options) {
+  if (!index$1(keys)) {
+    options = /** @type {!Object} */ (keys || options);
+    keys = [];
+  }
+
+  options = options || {};
+
+  if (path instanceof RegExp) {
+    return regexpToRegexp(path, /** @type {!Array} */ (keys))
+  }
+
+  if (index$1(path)) {
+    return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options)
+  }
+
+  return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
+}
+
+index.parse = parse_1;
+index.compile = compile_1;
+index.tokensToFunction = tokensToFunction_1;
+index.tokensToRegExp = tokensToRegExp_1;
+
+/*  */
+
+var regexpCompileCache = Object.create(null);
+
+function fillParams (
+  path,
+  params,
+  routeMsg
+) {
+  try {
+    var filler =
+      regexpCompileCache[path] ||
+      (regexpCompileCache[path] = index.compile(path));
+    return filler(params || {}, { pretty: true })
+  } catch (e) {
+    if (true) {
+      warn(false, ("missing param for " + routeMsg + ": " + (e.message)));
+    }
+    return ''
+  }
+}
+
+/*  */
+
+function createRouteMap (
+  routes,
+  oldPathList,
+  oldPathMap,
+  oldNameMap
+) {
+  // the path list is used to control path matching priority
+  var pathList = oldPathList || [];
+  var pathMap = oldPathMap || Object.create(null);
+  var nameMap = oldNameMap || Object.create(null);
+
+  routes.forEach(function (route) {
+    addRouteRecord(pathList, pathMap, nameMap, route);
+  });
+
+  // ensure wildcard routes are always at the end
+  for (var i = 0, l = pathList.length; i < l; i++) {
+    if (pathList[i] === '*') {
+      pathList.push(pathList.splice(i, 1)[0]);
+      l--;
+      i--;
+    }
+  }
+
+  return {
+    pathList: pathList,
+    pathMap: pathMap,
+    nameMap: nameMap
+  }
+}
+
+function addRouteRecord (
+  pathList,
+  pathMap,
+  nameMap,
+  route,
+  parent,
+  matchAs
+) {
+  var path = route.path;
+  var name = route.name;
+  if (true) {
+    assert(path != null, "\"path\" is required in a route configuration.");
+    assert(
+      typeof route.component !== 'string',
+      "route config \"component\" for path: " + (String(path || name)) + " cannot be a " +
+      "string id. Use an actual component instead."
+    );
+  }
+
+  var normalizedPath = normalizePath(path, parent);
+  var pathToRegexpOptions = route.pathToRegexpOptions || {};
+
+  if (typeof route.caseSensitive === 'boolean') {
+    pathToRegexpOptions.sensitive = route.caseSensitive;
+  }
+
+  var record = {
+    path: normalizedPath,
+    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
+    components: route.components || { default: route.component },
+    instances: {},
+    name: name,
+    parent: parent,
+    matchAs: matchAs,
+    redirect: route.redirect,
+    beforeEnter: route.beforeEnter,
+    meta: route.meta || {},
+    props: route.props == null
+      ? {}
+      : route.components
+        ? route.props
+        : { default: route.props }
+  };
+
+  if (route.children) {
+    // Warn if route is named, does not redirect and has a default child route.
+    // If users navigate to this route by name, the default child will
+    // not be rendered (GH Issue #629)
+    if (true) {
+      if (route.name && !route.redirect && route.children.some(function (child) { return /^\/?$/.test(child.path); })) {
+        warn(
+          false,
+          "Named Route '" + (route.name) + "' has a default child route. " +
+          "When navigating to this named route (:to=\"{name: '" + (route.name) + "'\"), " +
+          "the default child route will not be rendered. Remove the name from " +
+          "this route and use the name of the default child route for named " +
+          "links instead."
+        );
+      }
+    }
+    route.children.forEach(function (child) {
+      var childMatchAs = matchAs
+        ? cleanPath((matchAs + "/" + (child.path)))
+        : undefined;
+      addRouteRecord(pathList, pathMap, nameMap, child, record, childMatchAs);
+    });
+  }
+
+  if (route.alias !== undefined) {
+    var aliases = Array.isArray(route.alias)
+      ? route.alias
+      : [route.alias];
+
+    aliases.forEach(function (alias) {
+      var aliasRoute = {
+        path: alias,
+        children: route.children
+      };
+      addRouteRecord(
+        pathList,
+        pathMap,
+        nameMap,
+        aliasRoute,
+        parent,
+        record.path || '/' // matchAs
+      );
+    });
+  }
+
+  if (!pathMap[record.path]) {
+    pathList.push(record.path);
+    pathMap[record.path] = record;
+  }
+
+  if (name) {
+    if (!nameMap[name]) {
+      nameMap[name] = record;
+    } else if ("development" !== 'production' && !matchAs) {
+      warn(
+        false,
+        "Duplicate named routes definition: " +
+        "{ name: \"" + name + "\", path: \"" + (record.path) + "\" }"
+      );
+    }
+  }
+}
+
+function compileRouteRegex (path, pathToRegexpOptions) {
+  var regex = index(path, [], pathToRegexpOptions);
+  if (true) {
+    var keys = {};
+    regex.keys.forEach(function (key) {
+      warn(!keys[key.name], ("Duplicate param keys in route with path: \"" + path + "\""));
+      keys[key.name] = true;
+    });
+  }
+  return regex
+}
+
+function normalizePath (path, parent) {
+  path = path.replace(/\/$/, '');
+  if (path[0] === '/') { return path }
+  if (parent == null) { return path }
+  return cleanPath(((parent.path) + "/" + path))
+}
+
+/*  */
+
+
+function normalizeLocation (
+  raw,
+  current,
+  append,
+  router
+) {
+  var next = typeof raw === 'string' ? { path: raw } : raw;
+  // named target
+  if (next.name || next._normalized) {
+    return next
+  }
+
+  // relative params
+  if (!next.path && next.params && current) {
+    next = assign({}, next);
+    next._normalized = true;
+    var params = assign(assign({}, current.params), next.params);
+    if (current.name) {
+      next.name = current.name;
+      next.params = params;
+    } else if (current.matched.length) {
+      var rawPath = current.matched[current.matched.length - 1].path;
+      next.path = fillParams(rawPath, params, ("path " + (current.path)));
+    } else if (true) {
+      warn(false, "relative params navigation requires a current route.");
+    }
+    return next
+  }
+
+  var parsedPath = parsePath(next.path || '');
+  var basePath = (current && current.path) || '/';
+  var path = parsedPath.path
+    ? resolvePath(parsedPath.path, basePath, append || next.append)
+    : basePath;
+
+  var query = resolveQuery(
+    parsedPath.query,
+    next.query,
+    router && router.options.parseQuery
+  );
+
+  var hash = next.hash || parsedPath.hash;
+  if (hash && hash.charAt(0) !== '#') {
+    hash = "#" + hash;
+  }
+
+  return {
+    _normalized: true,
+    path: path,
+    query: query,
+    hash: hash
+  }
+}
+
+function assign (a, b) {
+  for (var key in b) {
+    a[key] = b[key];
+  }
+  return a
+}
+
+/*  */
+
+
+function createMatcher (
+  routes,
+  router
+) {
+  var ref = createRouteMap(routes);
+  var pathList = ref.pathList;
+  var pathMap = ref.pathMap;
+  var nameMap = ref.nameMap;
+
+  function addRoutes (routes) {
+    createRouteMap(routes, pathList, pathMap, nameMap);
+  }
+
+  function match (
+    raw,
+    currentRoute,
+    redirectedFrom
+  ) {
+    var location = normalizeLocation(raw, currentRoute, false, router);
+    var name = location.name;
+
+    if (name) {
+      var record = nameMap[name];
+      if (true) {
+        warn(record, ("Route with name '" + name + "' does not exist"));
+      }
+      if (!record) { return _createRoute(null, location) }
+      var paramNames = record.regex.keys
+        .filter(function (key) { return !key.optional; })
+        .map(function (key) { return key.name; });
+
+      if (typeof location.params !== 'object') {
+        location.params = {};
+      }
+
+      if (currentRoute && typeof currentRoute.params === 'object') {
+        for (var key in currentRoute.params) {
+          if (!(key in location.params) && paramNames.indexOf(key) > -1) {
+            location.params[key] = currentRoute.params[key];
+          }
+        }
+      }
+
+      if (record) {
+        location.path = fillParams(record.path, location.params, ("named route \"" + name + "\""));
+        return _createRoute(record, location, redirectedFrom)
+      }
+    } else if (location.path) {
+      location.params = {};
+      for (var i = 0; i < pathList.length; i++) {
+        var path = pathList[i];
+        var record$1 = pathMap[path];
+        if (matchRoute(record$1.regex, location.path, location.params)) {
+          return _createRoute(record$1, location, redirectedFrom)
+        }
+      }
+    }
+    // no match
+    return _createRoute(null, location)
+  }
+
+  function redirect (
+    record,
+    location
+  ) {
+    var originalRedirect = record.redirect;
+    var redirect = typeof originalRedirect === 'function'
+        ? originalRedirect(createRoute(record, location, null, router))
+        : originalRedirect;
+
+    if (typeof redirect === 'string') {
+      redirect = { path: redirect };
+    }
+
+    if (!redirect || typeof redirect !== 'object') {
+      if (true) {
+        warn(
+          false, ("invalid redirect option: " + (JSON.stringify(redirect)))
+        );
+      }
+      return _createRoute(null, location)
+    }
+
+    var re = redirect;
+    var name = re.name;
+    var path = re.path;
+    var query = location.query;
+    var hash = location.hash;
+    var params = location.params;
+    query = re.hasOwnProperty('query') ? re.query : query;
+    hash = re.hasOwnProperty('hash') ? re.hash : hash;
+    params = re.hasOwnProperty('params') ? re.params : params;
+
+    if (name) {
+      // resolved named direct
+      var targetRecord = nameMap[name];
+      if (true) {
+        assert(targetRecord, ("redirect failed: named route \"" + name + "\" not found."));
+      }
+      return match({
+        _normalized: true,
+        name: name,
+        query: query,
+        hash: hash,
+        params: params
+      }, undefined, location)
+    } else if (path) {
+      // 1. resolve relative redirect
+      var rawPath = resolveRecordPath(path, record);
+      // 2. resolve params
+      var resolvedPath = fillParams(rawPath, params, ("redirect route with path \"" + rawPath + "\""));
+      // 3. rematch with existing query and hash
+      return match({
+        _normalized: true,
+        path: resolvedPath,
+        query: query,
+        hash: hash
+      }, undefined, location)
+    } else {
+      if (true) {
+        warn(false, ("invalid redirect option: " + (JSON.stringify(redirect))));
+      }
+      return _createRoute(null, location)
+    }
+  }
+
+  function alias (
+    record,
+    location,
+    matchAs
+  ) {
+    var aliasedPath = fillParams(matchAs, location.params, ("aliased route with path \"" + matchAs + "\""));
+    var aliasedMatch = match({
+      _normalized: true,
+      path: aliasedPath
+    });
+    if (aliasedMatch) {
+      var matched = aliasedMatch.matched;
+      var aliasedRecord = matched[matched.length - 1];
+      location.params = aliasedMatch.params;
+      return _createRoute(aliasedRecord, location)
+    }
+    return _createRoute(null, location)
+  }
+
+  function _createRoute (
+    record,
+    location,
+    redirectedFrom
+  ) {
+    if (record && record.redirect) {
+      return redirect(record, redirectedFrom || location)
+    }
+    if (record && record.matchAs) {
+      return alias(record, location, record.matchAs)
+    }
+    return createRoute(record, location, redirectedFrom, router)
+  }
+
+  return {
+    match: match,
+    addRoutes: addRoutes
+  }
+}
+
+function matchRoute (
+  regex,
+  path,
+  params
+) {
+  var m = path.match(regex);
+
+  if (!m) {
+    return false
+  } else if (!params) {
+    return true
+  }
+
+  for (var i = 1, len = m.length; i < len; ++i) {
+    var key = regex.keys[i - 1];
+    var val = typeof m[i] === 'string' ? decodeURIComponent(m[i]) : m[i];
+    if (key) {
+      params[key.name] = val;
+    }
+  }
+
+  return true
+}
+
+function resolveRecordPath (path, record) {
+  return resolvePath(path, record.parent ? record.parent.path : '/', true)
+}
+
+/*  */
+
+
+var positionStore = Object.create(null);
+
+function setupScroll () {
+  window.addEventListener('popstate', function (e) {
+    saveScrollPosition();
+    if (e.state && e.state.key) {
+      setStateKey(e.state.key);
+    }
+  });
+}
+
+function handleScroll (
+  router,
+  to,
+  from,
+  isPop
+) {
+  if (!router.app) {
+    return
+  }
+
+  var behavior = router.options.scrollBehavior;
+  if (!behavior) {
+    return
+  }
+
+  if (true) {
+    assert(typeof behavior === 'function', "scrollBehavior must be a function");
+  }
+
+  // wait until re-render finishes before scrolling
+  router.app.$nextTick(function () {
+    var position = getScrollPosition();
+    var shouldScroll = behavior(to, from, isPop ? position : null);
+    if (!shouldScroll) {
+      return
+    }
+    var isObject = typeof shouldScroll === 'object';
+    if (isObject && typeof shouldScroll.selector === 'string') {
+      var el = document.querySelector(shouldScroll.selector);
+      if (el) {
+        var offset = shouldScroll.offset && typeof shouldScroll.offset === 'object' ? shouldScroll.offset : {};
+        offset = normalizeOffset(offset);
+        position = getElementPosition(el, offset);
+      } else if (isValidPosition(shouldScroll)) {
+        position = normalizePosition(shouldScroll);
+      }
+    } else if (isObject && isValidPosition(shouldScroll)) {
+      position = normalizePosition(shouldScroll);
+    }
+
+    if (position) {
+      window.scrollTo(position.x, position.y);
+    }
+  });
+}
+
+function saveScrollPosition () {
+  var key = getStateKey();
+  if (key) {
+    positionStore[key] = {
+      x: window.pageXOffset,
+      y: window.pageYOffset
+    };
+  }
+}
+
+function getScrollPosition () {
+  var key = getStateKey();
+  if (key) {
+    return positionStore[key]
+  }
+}
+
+function getElementPosition (el, offset) {
+  var docEl = document.documentElement;
+  var docRect = docEl.getBoundingClientRect();
+  var elRect = el.getBoundingClientRect();
+  return {
+    x: elRect.left - docRect.left - offset.x,
+    y: elRect.top - docRect.top - offset.y
+  }
+}
+
+function isValidPosition (obj) {
+  return isNumber(obj.x) || isNumber(obj.y)
+}
+
+function normalizePosition (obj) {
+  return {
+    x: isNumber(obj.x) ? obj.x : window.pageXOffset,
+    y: isNumber(obj.y) ? obj.y : window.pageYOffset
+  }
+}
+
+function normalizeOffset (obj) {
+  return {
+    x: isNumber(obj.x) ? obj.x : 0,
+    y: isNumber(obj.y) ? obj.y : 0
+  }
+}
+
+function isNumber (v) {
+  return typeof v === 'number'
+}
+
+/*  */
+
+var supportsPushState = inBrowser && (function () {
+  var ua = window.navigator.userAgent;
+
+  if (
+    (ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) &&
+    ua.indexOf('Mobile Safari') !== -1 &&
+    ua.indexOf('Chrome') === -1 &&
+    ua.indexOf('Windows Phone') === -1
+  ) {
+    return false
+  }
+
+  return window.history && 'pushState' in window.history
+})();
+
+// use User Timing api (if present) for more accurate key precision
+var Time = inBrowser && window.performance && window.performance.now
+  ? window.performance
+  : Date;
+
+var _key = genKey();
+
+function genKey () {
+  return Time.now().toFixed(3)
+}
+
+function getStateKey () {
+  return _key
+}
+
+function setStateKey (key) {
+  _key = key;
+}
+
+function pushState (url, replace) {
+  saveScrollPosition();
+  // try...catch the pushState call to get around Safari
+  // DOM Exception 18 where it limits to 100 pushState calls
+  var history = window.history;
+  try {
+    if (replace) {
+      history.replaceState({ key: _key }, '', url);
+    } else {
+      _key = genKey();
+      history.pushState({ key: _key }, '', url);
+    }
+  } catch (e) {
+    window.location[replace ? 'replace' : 'assign'](url);
+  }
+}
+
+function replaceState (url) {
+  pushState(url, true);
+}
+
+/*  */
+
+function runQueue (queue, fn, cb) {
+  var step = function (index) {
+    if (index >= queue.length) {
+      cb();
+    } else {
+      if (queue[index]) {
+        fn(queue[index], function () {
+          step(index + 1);
+        });
+      } else {
+        step(index + 1);
+      }
+    }
+  };
+  step(0);
+}
+
+/*  */
+
+var History = function History (router, base) {
+  this.router = router;
+  this.base = normalizeBase(base);
+  // start with a route object that stands for "nowhere"
+  this.current = START;
+  this.pending = null;
+  this.ready = false;
+  this.readyCbs = [];
+  this.readyErrorCbs = [];
+  this.errorCbs = [];
+};
+
+History.prototype.listen = function listen (cb) {
+  this.cb = cb;
+};
+
+History.prototype.onReady = function onReady (cb, errorCb) {
+  if (this.ready) {
+    cb();
+  } else {
+    this.readyCbs.push(cb);
+    if (errorCb) {
+      this.readyErrorCbs.push(errorCb);
+    }
+  }
+};
+
+History.prototype.onError = function onError (errorCb) {
+  this.errorCbs.push(errorCb);
+};
+
+History.prototype.transitionTo = function transitionTo (location, onComplete, onAbort) {
+    var this$1 = this;
+
+  var route = this.router.match(location, this.current);
+  this.confirmTransition(route, function () {
+    this$1.updateRoute(route);
+    onComplete && onComplete(route);
+    this$1.ensureURL();
+
+    // fire ready cbs once
+    if (!this$1.ready) {
+      this$1.ready = true;
+      this$1.readyCbs.forEach(function (cb) { cb(route); });
+    }
+  }, function (err) {
+    if (onAbort) {
+      onAbort(err);
+    }
+    if (err && !this$1.ready) {
+      this$1.ready = true;
+      this$1.readyErrorCbs.forEach(function (cb) { cb(err); });
+    }
+  });
+};
+
+History.prototype.confirmTransition = function confirmTransition (route, onComplete, onAbort) {
+    var this$1 = this;
+
+  var current = this.current;
+  var abort = function (err) {
+    if (isError(err)) {
+      if (this$1.errorCbs.length) {
+        this$1.errorCbs.forEach(function (cb) { cb(err); });
+      } else {
+        warn(false, 'uncaught error during route navigation:');
+        console.error(err);
+      }
+    }
+    onAbort && onAbort(err);
+  };
+  if (
+    isSameRoute(route, current) &&
+    // in the case the route map has been dynamically appended to
+    route.matched.length === current.matched.length
+  ) {
+    this.ensureURL();
+    return abort()
+  }
+
+  var ref = resolveQueue(this.current.matched, route.matched);
+    var updated = ref.updated;
+    var deactivated = ref.deactivated;
+    var activated = ref.activated;
+
+  var queue = [].concat(
+    // in-component leave guards
+    extractLeaveGuards(deactivated),
+    // global before hooks
+    this.router.beforeHooks,
+    // in-component update hooks
+    extractUpdateHooks(updated),
+    // in-config enter guards
+    activated.map(function (m) { return m.beforeEnter; }),
+    // async components
+    resolveAsyncComponents(activated)
+  );
+
+  this.pending = route;
+  var iterator = function (hook, next) {
+    if (this$1.pending !== route) {
+      return abort()
+    }
+    try {
+      hook(route, current, function (to) {
+        if (to === false || isError(to)) {
+          // next(false) -> abort navigation, ensure current URL
+          this$1.ensureURL(true);
+          abort(to);
+        } else if (
+          typeof to === 'string' ||
+          (typeof to === 'object' && (
+            typeof to.path === 'string' ||
+            typeof to.name === 'string'
+          ))
+        ) {
+          // next('/') or next({ path: '/' }) -> redirect
+          abort();
+          if (typeof to === 'object' && to.replace) {
+            this$1.replace(to);
+          } else {
+            this$1.push(to);
+          }
+        } else {
+          // confirm transition and pass on the value
+          next(to);
+        }
+      });
+    } catch (e) {
+      abort(e);
+    }
+  };
+
+  runQueue(queue, iterator, function () {
+    var postEnterCbs = [];
+    var isValid = function () { return this$1.current === route; };
+    // wait until async components are resolved before
+    // extracting in-component enter guards
+    var enterGuards = extractEnterGuards(activated, postEnterCbs, isValid);
+    var queue = enterGuards.concat(this$1.router.resolveHooks);
+    runQueue(queue, iterator, function () {
+      if (this$1.pending !== route) {
+        return abort()
+      }
+      this$1.pending = null;
+      onComplete(route);
+      if (this$1.router.app) {
+        this$1.router.app.$nextTick(function () {
+          postEnterCbs.forEach(function (cb) { cb(); });
+        });
+      }
+    });
+  });
+};
+
+History.prototype.updateRoute = function updateRoute (route) {
+  var prev = this.current;
+  this.current = route;
+  this.cb && this.cb(route);
+  this.router.afterHooks.forEach(function (hook) {
+    hook && hook(route, prev);
+  });
+};
+
+function normalizeBase (base) {
+  if (!base) {
+    if (inBrowser) {
+      // respect <base> tag
+      var baseEl = document.querySelector('base');
+      base = (baseEl && baseEl.getAttribute('href')) || '/';
+      // strip full URL origin
+      base = base.replace(/^https?:\/\/[^\/]+/, '');
+    } else {
+      base = '/';
+    }
+  }
+  // make sure there's the starting slash
+  if (base.charAt(0) !== '/') {
+    base = '/' + base;
+  }
+  // remove trailing slash
+  return base.replace(/\/$/, '')
+}
+
+function resolveQueue (
+  current,
+  next
+) {
+  var i;
+  var max = Math.max(current.length, next.length);
+  for (i = 0; i < max; i++) {
+    if (current[i] !== next[i]) {
+      break
+    }
+  }
+  return {
+    updated: next.slice(0, i),
+    activated: next.slice(i),
+    deactivated: current.slice(i)
+  }
+}
+
+function extractGuards (
+  records,
+  name,
+  bind,
+  reverse
+) {
+  var guards = flatMapComponents(records, function (def, instance, match, key) {
+    var guard = extractGuard(def, name);
+    if (guard) {
+      return Array.isArray(guard)
+        ? guard.map(function (guard) { return bind(guard, instance, match, key); })
+        : bind(guard, instance, match, key)
+    }
+  });
+  return flatten(reverse ? guards.reverse() : guards)
+}
+
+function extractGuard (
+  def,
+  key
+) {
+  if (typeof def !== 'function') {
+    // extend now so that global mixins are applied.
+    def = _Vue.extend(def);
+  }
+  return def.options[key]
+}
+
+function extractLeaveGuards (deactivated) {
+  return extractGuards(deactivated, 'beforeRouteLeave', bindGuard, true)
+}
+
+function extractUpdateHooks (updated) {
+  return extractGuards(updated, 'beforeRouteUpdate', bindGuard)
+}
+
+function bindGuard (guard, instance) {
+  if (instance) {
+    return function boundRouteGuard () {
+      return guard.apply(instance, arguments)
+    }
+  }
+}
+
+function extractEnterGuards (
+  activated,
+  cbs,
+  isValid
+) {
+  return extractGuards(activated, 'beforeRouteEnter', function (guard, _, match, key) {
+    return bindEnterGuard(guard, match, key, cbs, isValid)
+  })
+}
+
+function bindEnterGuard (
+  guard,
+  match,
+  key,
+  cbs,
+  isValid
+) {
+  return function routeEnterGuard (to, from, next) {
+    return guard(to, from, function (cb) {
+      next(cb);
+      if (typeof cb === 'function') {
+        cbs.push(function () {
+          // #750
+          // if a router-view is wrapped with an out-in transition,
+          // the instance may not have been registered at this time.
+          // we will need to poll for registration until current route
+          // is no longer valid.
+          poll(cb, match.instances, key, isValid);
+        });
+      }
+    })
+  }
+}
+
+function poll (
+  cb, // somehow flow cannot infer this is a function
+  instances,
+  key,
+  isValid
+) {
+  if (instances[key]) {
+    cb(instances[key]);
+  } else if (isValid()) {
+    setTimeout(function () {
+      poll(cb, instances, key, isValid);
+    }, 16);
+  }
+}
+
+function resolveAsyncComponents (matched) {
+  return function (to, from, next) {
+    var hasAsync = false;
+    var pending = 0;
+    var error = null;
+
+    flatMapComponents(matched, function (def, _, match, key) {
+      // if it's a function and doesn't have cid attached,
+      // assume it's an async component resolve function.
+      // we are not using Vue's default async resolving mechanism because
+      // we want to halt the navigation until the incoming component has been
+      // resolved.
+      if (typeof def === 'function' && def.cid === undefined) {
+        hasAsync = true;
+        pending++;
+
+        var resolve = once(function (resolvedDef) {
+          // save resolved on async factory in case it's used elsewhere
+          def.resolved = typeof resolvedDef === 'function'
+            ? resolvedDef
+            : _Vue.extend(resolvedDef);
+          match.components[key] = resolvedDef;
+          pending--;
+          if (pending <= 0) {
+            next();
+          }
+        });
+
+        var reject = once(function (reason) {
+          var msg = "Failed to resolve async component " + key + ": " + reason;
+          "development" !== 'production' && warn(false, msg);
+          if (!error) {
+            error = isError(reason)
+              ? reason
+              : new Error(msg);
+            next(error);
+          }
+        });
+
+        var res;
+        try {
+          res = def(resolve, reject);
+        } catch (e) {
+          reject(e);
+        }
+        if (res) {
+          if (typeof res.then === 'function') {
+            res.then(resolve, reject);
+          } else {
+            // new syntax in Vue 2.3
+            var comp = res.component;
+            if (comp && typeof comp.then === 'function') {
+              comp.then(resolve, reject);
+            }
+          }
+        }
+      }
+    });
+
+    if (!hasAsync) { next(); }
+  }
+}
+
+function flatMapComponents (
+  matched,
+  fn
+) {
+  return flatten(matched.map(function (m) {
+    return Object.keys(m.components).map(function (key) { return fn(
+      m.components[key],
+      m.instances[key],
+      m, key
+    ); })
+  }))
+}
+
+function flatten (arr) {
+  return Array.prototype.concat.apply([], arr)
+}
+
+// in Webpack 2, require.ensure now also returns a Promise
+// so the resolve/reject functions may get called an extra time
+// if the user uses an arrow function shorthand that happens to
+// return that Promise.
+function once (fn) {
+  var called = false;
+  return function () {
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+
+    if (called) { return }
+    called = true;
+    return fn.apply(this, args)
+  }
+}
+
+function isError (err) {
+  return Object.prototype.toString.call(err).indexOf('Error') > -1
+}
+
+/*  */
+
+
+var HTML5History = (function (History$$1) {
+  function HTML5History (router, base) {
+    var this$1 = this;
+
+    History$$1.call(this, router, base);
+
+    var expectScroll = router.options.scrollBehavior;
+
+    if (expectScroll) {
+      setupScroll();
+    }
+
+    window.addEventListener('popstate', function (e) {
+      var current = this$1.current;
+      this$1.transitionTo(getLocation(this$1.base), function (route) {
+        if (expectScroll) {
+          handleScroll(router, route, current, true);
+        }
+      });
+    });
+  }
+
+  if ( History$$1 ) HTML5History.__proto__ = History$$1;
+  HTML5History.prototype = Object.create( History$$1 && History$$1.prototype );
+  HTML5History.prototype.constructor = HTML5History;
+
+  HTML5History.prototype.go = function go (n) {
+    window.history.go(n);
+  };
+
+  HTML5History.prototype.push = function push (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    var ref = this;
+    var fromRoute = ref.current;
+    this.transitionTo(location, function (route) {
+      pushState(cleanPath(this$1.base + route.fullPath));
+      handleScroll(this$1.router, route, fromRoute, false);
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  HTML5History.prototype.replace = function replace (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    var ref = this;
+    var fromRoute = ref.current;
+    this.transitionTo(location, function (route) {
+      replaceState(cleanPath(this$1.base + route.fullPath));
+      handleScroll(this$1.router, route, fromRoute, false);
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  HTML5History.prototype.ensureURL = function ensureURL (push) {
+    if (getLocation(this.base) !== this.current.fullPath) {
+      var current = cleanPath(this.base + this.current.fullPath);
+      push ? pushState(current) : replaceState(current);
+    }
+  };
+
+  HTML5History.prototype.getCurrentLocation = function getCurrentLocation () {
+    return getLocation(this.base)
+  };
+
+  return HTML5History;
+}(History));
+
+function getLocation (base) {
+  var path = window.location.pathname;
+  if (base && path.indexOf(base) === 0) {
+    path = path.slice(base.length);
+  }
+  return (path || '/') + window.location.search + window.location.hash
+}
+
+/*  */
+
+
+var HashHistory = (function (History$$1) {
+  function HashHistory (router, base, fallback) {
+    History$$1.call(this, router, base);
+    // check history fallback deeplinking
+    if (fallback && checkFallback(this.base)) {
+      return
+    }
+    ensureSlash();
+  }
+
+  if ( History$$1 ) HashHistory.__proto__ = History$$1;
+  HashHistory.prototype = Object.create( History$$1 && History$$1.prototype );
+  HashHistory.prototype.constructor = HashHistory;
+
+  // this is delayed until the app mounts
+  // to avoid the hashchange listener being fired too early
+  HashHistory.prototype.setupListeners = function setupListeners () {
+    var this$1 = this;
+
+    window.addEventListener('hashchange', function () {
+      if (!ensureSlash()) {
+        return
+      }
+      this$1.transitionTo(getHash(), function (route) {
+        replaceHash(route.fullPath);
+      });
+    });
+  };
+
+  HashHistory.prototype.push = function push (location, onComplete, onAbort) {
+    this.transitionTo(location, function (route) {
+      pushHash(route.fullPath);
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  HashHistory.prototype.replace = function replace (location, onComplete, onAbort) {
+    this.transitionTo(location, function (route) {
+      replaceHash(route.fullPath);
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  HashHistory.prototype.go = function go (n) {
+    window.history.go(n);
+  };
+
+  HashHistory.prototype.ensureURL = function ensureURL (push) {
+    var current = this.current.fullPath;
+    if (getHash() !== current) {
+      push ? pushHash(current) : replaceHash(current);
+    }
+  };
+
+  HashHistory.prototype.getCurrentLocation = function getCurrentLocation () {
+    return getHash()
+  };
+
+  return HashHistory;
+}(History));
+
+function checkFallback (base) {
+  var location = getLocation(base);
+  if (!/^\/#/.test(location)) {
+    window.location.replace(
+      cleanPath(base + '/#' + location)
+    );
+    return true
+  }
+}
+
+function ensureSlash () {
+  var path = getHash();
+  if (path.charAt(0) === '/') {
+    return true
+  }
+  replaceHash('/' + path);
+  return false
+}
+
+function getHash () {
+  // We can't use window.location.hash here because it's not
+  // consistent across browsers - Firefox will pre-decode it!
+  var href = window.location.href;
+  var index = href.indexOf('#');
+  return index === -1 ? '' : href.slice(index + 1)
+}
+
+function pushHash (path) {
+  window.location.hash = path;
+}
+
+function replaceHash (path) {
+  var href = window.location.href;
+  var i = href.indexOf('#');
+  var base = i >= 0 ? href.slice(0, i) : href;
+  window.location.replace((base + "#" + path));
+}
+
+/*  */
+
+
+var AbstractHistory = (function (History$$1) {
+  function AbstractHistory (router, base) {
+    History$$1.call(this, router, base);
+    this.stack = [];
+    this.index = -1;
+  }
+
+  if ( History$$1 ) AbstractHistory.__proto__ = History$$1;
+  AbstractHistory.prototype = Object.create( History$$1 && History$$1.prototype );
+  AbstractHistory.prototype.constructor = AbstractHistory;
+
+  AbstractHistory.prototype.push = function push (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    this.transitionTo(location, function (route) {
+      this$1.stack = this$1.stack.slice(0, this$1.index + 1).concat(route);
+      this$1.index++;
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  AbstractHistory.prototype.replace = function replace (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    this.transitionTo(location, function (route) {
+      this$1.stack = this$1.stack.slice(0, this$1.index).concat(route);
+      onComplete && onComplete(route);
+    }, onAbort);
+  };
+
+  AbstractHistory.prototype.go = function go (n) {
+    var this$1 = this;
+
+    var targetIndex = this.index + n;
+    if (targetIndex < 0 || targetIndex >= this.stack.length) {
+      return
+    }
+    var route = this.stack[targetIndex];
+    this.confirmTransition(route, function () {
+      this$1.index = targetIndex;
+      this$1.updateRoute(route);
+    });
+  };
+
+  AbstractHistory.prototype.getCurrentLocation = function getCurrentLocation () {
+    var current = this.stack[this.stack.length - 1];
+    return current ? current.fullPath : '/'
+  };
+
+  AbstractHistory.prototype.ensureURL = function ensureURL () {
+    // noop
+  };
+
+  return AbstractHistory;
+}(History));
+
+/*  */
+
+var VueRouter = function VueRouter (options) {
+  if ( options === void 0 ) options = {};
+
+  this.app = null;
+  this.apps = [];
+  this.options = options;
+  this.beforeHooks = [];
+  this.resolveHooks = [];
+  this.afterHooks = [];
+  this.matcher = createMatcher(options.routes || [], this);
+
+  var mode = options.mode || 'hash';
+  this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false;
+  if (this.fallback) {
+    mode = 'hash';
+  }
+  if (!inBrowser) {
+    mode = 'abstract';
+  }
+  this.mode = mode;
+
+  switch (mode) {
+    case 'history':
+      this.history = new HTML5History(this, options.base);
+      break
+    case 'hash':
+      this.history = new HashHistory(this, options.base, this.fallback);
+      break
+    case 'abstract':
+      this.history = new AbstractHistory(this, options.base);
+      break
+    default:
+      if (true) {
+        assert(false, ("invalid mode: " + mode));
+      }
+  }
+};
+
+var prototypeAccessors = { currentRoute: {} };
+
+VueRouter.prototype.match = function match (
+  raw,
+  current,
+  redirectedFrom
+) {
+  return this.matcher.match(raw, current, redirectedFrom)
+};
+
+prototypeAccessors.currentRoute.get = function () {
+  return this.history && this.history.current
+};
+
+VueRouter.prototype.init = function init (app /* Vue component instance */) {
+    var this$1 = this;
+
+  "development" !== 'production' && assert(
+    install.installed,
+    "not installed. Make sure to call `Vue.use(VueRouter)` " +
+    "before creating root instance."
+  );
+
+  this.apps.push(app);
+
+  // main app already initialized.
+  if (this.app) {
+    return
+  }
+
+  this.app = app;
+
+  var history = this.history;
+
+  if (history instanceof HTML5History) {
+    history.transitionTo(history.getCurrentLocation());
+  } else if (history instanceof HashHistory) {
+    var setupHashListener = function () {
+      history.setupListeners();
+    };
+    history.transitionTo(
+      history.getCurrentLocation(),
+      setupHashListener,
+      setupHashListener
+    );
+  }
+
+  history.listen(function (route) {
+    this$1.apps.forEach(function (app) {
+      app._route = route;
+    });
+  });
+};
+
+VueRouter.prototype.beforeEach = function beforeEach (fn) {
+  return registerHook(this.beforeHooks, fn)
+};
+
+VueRouter.prototype.beforeResolve = function beforeResolve (fn) {
+  return registerHook(this.resolveHooks, fn)
+};
+
+VueRouter.prototype.afterEach = function afterEach (fn) {
+  return registerHook(this.afterHooks, fn)
+};
+
+VueRouter.prototype.onReady = function onReady (cb, errorCb) {
+  this.history.onReady(cb, errorCb);
+};
+
+VueRouter.prototype.onError = function onError (errorCb) {
+  this.history.onError(errorCb);
+};
+
+VueRouter.prototype.push = function push (location, onComplete, onAbort) {
+  this.history.push(location, onComplete, onAbort);
+};
+
+VueRouter.prototype.replace = function replace (location, onComplete, onAbort) {
+  this.history.replace(location, onComplete, onAbort);
+};
+
+VueRouter.prototype.go = function go (n) {
+  this.history.go(n);
+};
+
+VueRouter.prototype.back = function back () {
+  this.go(-1);
+};
+
+VueRouter.prototype.forward = function forward () {
+  this.go(1);
+};
+
+VueRouter.prototype.getMatchedComponents = function getMatchedComponents (to) {
+  var route = to
+    ? to.matched
+      ? to
+      : this.resolve(to).route
+    : this.currentRoute;
+  if (!route) {
+    return []
+  }
+  return [].concat.apply([], route.matched.map(function (m) {
+    return Object.keys(m.components).map(function (key) {
+      return m.components[key]
+    })
+  }))
+};
+
+VueRouter.prototype.resolve = function resolve (
+  to,
+  current,
+  append
+) {
+  var location = normalizeLocation(
+    to,
+    current || this.history.current,
+    append,
+    this
+  );
+  var route = this.match(location, current);
+  var fullPath = route.redirectedFrom || route.fullPath;
+  var base = this.history.base;
+  var href = createHref(base, fullPath, this.mode);
+  return {
+    location: location,
+    route: route,
+    href: href,
+    // for backwards compat
+    normalizedTo: location,
+    resolved: route
+  }
+};
+
+VueRouter.prototype.addRoutes = function addRoutes (routes) {
+  this.matcher.addRoutes(routes);
+  if (this.history.current !== START) {
+    this.history.transitionTo(this.history.getCurrentLocation());
+  }
+};
+
+Object.defineProperties( VueRouter.prototype, prototypeAccessors );
+
+function registerHook (list, fn) {
+  list.push(fn);
+  return function () {
+    var i = list.indexOf(fn);
+    if (i > -1) { list.splice(i, 1); }
+  }
+}
+
+function createHref (base, fullPath, mode) {
+  var path = mode === 'hash' ? '#' + fullPath : fullPath;
+  return base ? cleanPath(base + '/' + path) : path
+}
+
+VueRouter.install = install;
+VueRouter.version = '2.6.0';
+
+if (inBrowser && window.Vue) {
+  window.Vue.use(VueRouter);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (VueRouter);
+
+
+/***/ }),
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(45);
+var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33575,39 +35756,13 @@ if(false) {
 }
 
 /***/ }),
-/* 74 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(46);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("33dee8e8", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ecaecf9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Background.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ecaecf9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Background.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(47);
+var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33627,13 +35782,13 @@ if(false) {
 }
 
 /***/ }),
-/* 76 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(48);
+var content = __webpack_require__(45);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33653,13 +35808,13 @@ if(false) {
 }
 
 /***/ }),
-/* 77 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(46);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33679,13 +35834,13 @@ if(false) {
 }
 
 /***/ }),
-/* 78 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(50);
+var content = __webpack_require__(47);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33705,7 +35860,7 @@ if(false) {
 }
 
 /***/ }),
-/* 79 */
+/* 72 */
 /***/ (function(module, exports) {
 
 /**
@@ -33738,12 +35893,12 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 80 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.4
+ * Vue.js v2.3.3
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -38172,7 +40327,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.4';
+Vue$3.version = '2.3.3';
 
 /*  */
 
@@ -38663,7 +40818,6 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
-      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {
@@ -43437,7 +45591,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 81 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -43465,7 +45619,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 82 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
