@@ -11,11 +11,6 @@
       <h3 class="text-center text-danger" style="margin-top: 10vw;">{{ error }}</h3>
     </div>
 
-		<!-- Empty State -->
-		<div v-if="empty">
-			<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
-		</div>
-
 		<!-- Posts -->
 		<div v-if="posts.length > 0">
 			<Post v-for="post in posts"
@@ -23,6 +18,11 @@
 					:post="post"
 			>
 			</Post>
+		</div>
+
+		<!-- Empty State -->
+		<div v-if="empty">
+			<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
 		</div>
 
   </div>
@@ -39,8 +39,8 @@
     data() {
 			return {
 				loading: true,
-				empty: false,
 				error: null,
+				empty: null,
 				posts: [
 
 				]
@@ -57,13 +57,11 @@
 				axios.get('/api/post')
           .then(response => {
 						this.posts = response.data.data;
-						console.log(response);
+						this.empty = response.data.data.length === 0;
           }).catch(error => {
 						this.error = response.error.title;
-            console.error(error);
           });
 				this.loading = false;
-				this.empty = this.posts.length === 0;
 			}
 		}
   }

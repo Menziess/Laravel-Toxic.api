@@ -8,11 +8,13 @@
 			:title="username"> 
 		
 		<div class="user-info">
-			<a :href="slugUrl">
+
+			<router-link :to="'/u/' + this.userslug" class="btn btn-secondary navbar-btn">
 				<span><strong>{{ this.username }}</strong></span>
-			</a>
+			</router-link>
+
 			&nbsp;
-			<span>{{ slugUrl }}</span>
+			<span>/u/{{ this.userslug }}</span>
 		</div>
 
   </div>
@@ -21,12 +23,7 @@
 <script>
 export default {
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic'],
-	computed: {
-		slugUrl() {
-			return 'u/' + this.userslug;
-		}
-	}
+	props: ['username', 'userslug', 'userpic']
 }
 </script>
 

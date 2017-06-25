@@ -2480,15 +2480,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic'],
-	computed: {
-		slugUrl: function slugUrl() {
-			return 'u/' + this.userslug;
-		}
-	}
+	props: ['username', 'userslug', 'userpic']
 });
 
 /***/ }),
@@ -33108,11 +33105,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "user-info"
-  }, [_c('a', {
+  }, [_c('router-link', {
+    staticClass: "btn btn-secondary navbar-btn",
     attrs: {
-      "href": _vm.slugUrl
+      "to": '/u/' + this.userslug
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v("\n\t\t\t \n\t\t\t"), _c('span', [_vm._v(_vm._s(_vm.slugUrl))])])])
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v("\n\n\t\t\t \n\t\t\t"), _c('span', [_vm._v("/u/" + _vm._s(this.userslug))])], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -45582,8 +45580,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			loading: true,
-			empty: false,
 			error: null,
+			empty: null,
 			posts: []
 		};
 	},
@@ -45601,13 +45599,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			axios.get('/api/post').then(function (response) {
 				_this.posts = response.data.data;
-				console.log(response);
+				_this.empty = response.data.data.length === 0;
 			}).catch(function (error) {
 				_this.error = response.error.title;
-				console.error(error);
 			});
 			this.loading = false;
-			this.empty = this.posts.length === 0;
 		}
 	}
 });
@@ -45661,19 +45657,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-top": "10vw"
     }
-  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
-    staticClass: "text-center",
-    staticStyle: {
-      "margin-top": "10vw"
-    }
-  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e(), _vm._v(" "), (_vm.posts.length > 0) ? _c('div', _vm._l((_vm.posts), function(post) {
+  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), (_vm.posts.length > 0) ? _c('div', _vm._l((_vm.posts), function(post) {
     return _c('Post', {
       key: post.id,
       attrs: {
         "post": post
       }
     })
-  })) : _vm._e()])
+  })) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
+    staticClass: "text-center",
+    staticStyle: {
+      "margin-top": "10vw"
+    }
+  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
