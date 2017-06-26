@@ -46,5 +46,10 @@
 			</ul>
 		</div>
 
+		<!-- Search Field -->
+		<div class="input-group nav-search pull-right">
+			<input type="text" class="form-control" placeholder="Search">
+		</div>
+
 	</div>
 </nav>

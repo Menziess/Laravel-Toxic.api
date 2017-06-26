@@ -69,6 +69,18 @@ blockquote {
   background-color: transparent !important;
 }
 
+// Navbar search element
+.nav-search {
+  display: inline-block !important;
+  margin: 7px 15px;
+  @media (max-width: 500px) {
+    display: none !important;
+  }
+}
+.nav-search input {
+  border-radius: 20px !important;
+}
+
 // Profile pic style
 .profile-pic {
   border: 2px solid $laravel-border-color;

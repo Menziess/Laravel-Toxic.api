@@ -29,7 +29,7 @@ const mutations = {
     state.posts.splice(remove, 1);
   },
   addPost(state, post) {
-    state.posts.push(post);
+    state.posts.unshift(post);
   }
 };
 
