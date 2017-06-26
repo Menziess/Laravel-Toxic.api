@@ -44,22 +44,21 @@
     components: {
       Post
     },
-		computed() {
-			posts: this.$store.state.posts;
+		computed: {
+			posts() {
+				return this.$store.getters.posts;
+			}
+		},
+		watch: {
+			'$route': 'fetchData'
 		},
     data() {
 			return {
 				loading: true,
 				error: null,
-				empty: null,
-				// posts: [
-
-				// ]
+				empty: null
 			}
     },
-		watch: {
-			'$route': 'fetchData'
-		},
 		created() {
 			this.fetchData();
 		},
@@ -67,8 +66,8 @@
       fetchData() {
 				axios.get('/api/post')
           .then(response => {
-						this.posts = response.data.data;
-						this.empty = response.data.data.length === 0;
+						this.$store.commit('setInitialPosts', response.data.data);
+						this.empty = this.posts.length === 0;
           }).catch(error => {
 						this.error = response.error.title;
           });

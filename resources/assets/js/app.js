@@ -12,6 +12,7 @@ import NewPost from './components/input/NewPost.vue';
 import Posts from './components/Posts.vue';
 import Post from './components/post/Post.vue';
 
+import VueRouter from 'vue-router';
 import store from './store';
 
 window.Vue = require('vue');
