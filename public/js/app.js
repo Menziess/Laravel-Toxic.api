@@ -11788,6 +11788,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11802,7 +11803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 	watch: {
-		'$route': 'fetchData'
+		'$route': 'init'
 	},
 	data: function data() {
 		return {
@@ -11812,20 +11813,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	created: function created() {
-		this.fetchData();
+		this.init();
 	},
 
 	methods: {
+		init: function init() {
+			if (this.posts.length > 0) {
+				this.loading = false;
+			} else {
+				this.fetchData();
+			};
+		},
 		fetchData: function fetchData() {
 			var _this = this;
 
 			axios.get('/api/post').then(function (response) {
 				_this.$store.commit('setInitialPosts', response.data.data);
 				_this.empty = _this.posts.length === 0;
+				_this.loading = false;
 			}).catch(function (error) {
 				_this.error = response.error.title;
+				_this.loading = false;
 			});
-			this.loading = false;
+		},
+		displayError: function displayError(error) {
+			this.error = response.error.title;
 		}
 	}
 });
@@ -11840,7 +11852,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__children_Drawing_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue__);
-//
 //
 //
 //
@@ -11890,14 +11901,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__children_Textbox_vue___default.a
 	},
 	methods: {
-		triggerSubmit: function triggerSubmit() {
-			this.$refs.mySubmit.click();
-		},
 		submit: function submit() {
 			var _this = this;
 
 			if (this.submitted) {
-				alert("already submitted!");
 				return false;
 			}
 			this.submitted = true;
@@ -11912,9 +11919,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: null
 				}
 			}).then(function (response) {
-				alert(response.statusText);
 				_this.submitted = false;
-				console.log(response);
+				_this.$store.commit('addPost', response.data.data);
+			}).catch(function (error) {
+				_this.submitted = false;
+				_this.$emit('error', error);
 			});
 		},
 		defaultSubjectName: function defaultSubjectName() {
@@ -12146,14 +12155,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     deletePost: function deletePost() {
+      var _this = this;
+
       axios({
         method: 'delete',
         url: '/api/post/' + this.post.id
       }).then(function (response) {
-        location.reload();
-        console.error(response);
+        _this.$store.commit('deletePostById', _this.post.id);
       }).catch(function (error) {
-        console.error(error);
+        _this.$emit('error', error);
       });
     }
   },
@@ -12402,12 +12412,28 @@ var state = {
 var getters = {
   posts: function posts(state) {
     return state.posts;
+  },
+  getPostById: function getPostById(state, getters) {
+    return function (id) {
+      return state.posts.find(function (post) {
+        return post.id === id;
+      });
+    };
   }
 };
 
 var mutations = {
   setInitialPosts: function setInitialPosts(state, posts) {
     state.posts = posts;
+  },
+  deletePostById: function deletePostById(state, id) {
+    var remove = state.posts.map(function (post) {
+      return post.id;
+    }).indexOf(id);
+    state.posts.splice(remove, 1);
+  },
+  addPost: function addPost(state, post) {
+    state.posts.push(post);
   }
 };
 
@@ -42769,6 +42795,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: post.id,
       attrs: {
         "post": post
+      },
+      on: {
+        "error": _vm.displayError
       }
     })
   })) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
@@ -42822,7 +42851,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "keyup": function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
         if (!$event.ctrlKey) { return null; }
-        _vm.triggerSubmit()
+        _vm.$refs.mySubmit.click()
       }
     }
   }, [_c('div', {

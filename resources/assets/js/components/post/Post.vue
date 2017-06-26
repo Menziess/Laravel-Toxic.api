@@ -49,10 +49,9 @@
 					method: 'delete',
 					url: '/api/post/' + this.post.id
 				}).then(response => {
-					location.reload();
-					console.error(response)
+					this.$store.commit('deletePostById', this.post.id);
 				}).catch(error => {
-					console.error(error)
+          this.$emit('error', error);
 				});
       },
     },

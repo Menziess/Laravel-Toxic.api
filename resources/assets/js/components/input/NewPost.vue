@@ -1,7 +1,7 @@
 <template>
 	<!-- Modal -->
 	<div id="newPost" class="modal fade" role="dialog">
-		<div v-on:keyup.ctrl.enter="triggerSubmit()" class="modal-dialog">
+		<div v-on:keyup.ctrl.enter="$refs.mySubmit.click()" class="modal-dialog">
 			<div class="modal-content">
 
 				<!-- Subject -->				
@@ -27,7 +27,6 @@
 			</div>
 		</div>
 	</div>
-  
 </template>
 
 <script>
@@ -47,14 +46,8 @@
       Textbox
     },
 		methods: {
-			triggerSubmit() {
-				this.$refs.mySubmit.click();
-			},
 			submit() {
-				if (this.submitted) {
-					alert("already submitted!");
-					return false;
-				}
+				if (this.submitted) { return false; }
 				this.submitted = true;
 				axios({
 					method: 'post',
@@ -67,9 +60,11 @@
 						url: null
 					}
 				}).then(response => {
-					alert(response.statusText);
 					this.submitted = false;
-					console.log(response)
+					this.$store.commit('addPost', response.data.data);
+				}).catch(error => {
+					this.submitted = false;
+					this.$emit('error', error);
 				});
 			},
 			defaultSubjectName() {

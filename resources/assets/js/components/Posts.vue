@@ -24,6 +24,7 @@
 			<Post v-for="post in posts"
 					:key="post.id"
 					:post="post"
+					v-on:error="displayError"
 			>
 			</Post>
 		</div>
@@ -50,7 +51,7 @@
 			}
 		},
 		watch: {
-			'$route': 'fetchData'
+			'$route': 'init'
 		},
     data() {
 			return {
@@ -60,18 +61,29 @@
 			}
     },
 		created() {
-			this.fetchData();
+			this.init();
 		},
     methods: {
+			init() {
+				if (this.posts.length > 0) {
+					this.loading = false;
+				} else {
+					this.fetchData();
+				};
+			},
       fetchData() {
 				axios.get('/api/post')
           .then(response => {
 						this.$store.commit('setInitialPosts', response.data.data);
 						this.empty = this.posts.length === 0;
+						this.loading = false;
           }).catch(error => {
 						this.error = response.error.title;
+						this.loading = false;
           });
-				this.loading = false;
+			},
+			displayError(error) {
+				this.error = response.error.title;
 			}
 		}
   }

@@ -30,9 +30,9 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = new Post;
-        $post->user_id = Auth::user()->id;
+        $user = Auth::user();
         $post->fill($request->all());
-        $post->save();
+        $post->user()->associate($user)->save();
 
         return response($post, 201);
     }
