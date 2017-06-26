@@ -44,14 +44,17 @@
     components: {
       Post
     },
+		computed() {
+			posts: this.$store.state.posts;
+		},
     data() {
 			return {
 				loading: true,
 				error: null,
 				empty: null,
-				posts: [
+				// posts: [
 
-				]
+				// ]
 			}
     },
 		watch: {
