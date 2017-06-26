@@ -57,9 +57,9 @@ Route::namespace('Auth')->group(function() {
 });
 
 Route::middleware('web')->group(function() {
-    Route::get('/landing', 'HomeController@landing')->name('landing');
-    Route::get('/t/{slug}', 'HomeController@topic');
-    Route::get('/u/{slug}', 'HomeController@user');
+    // Route::get('/landing', 'HomeController@landing')->name('landing');
+    // Route::get('/t/{slug}', 'HomeController@topic');
+    // Route::get('/u/{slug}', 'HomeController@user');
     Route::get('/{vue_capture?}', 'HomeController@index')
         ->where('vue_capture', '[\/\w\.-]*')
         ->name('home');

@@ -10871,9 +10871,18 @@ __webpack_require__(43);
 
 
 
+/**
+ * Setting up Vue.
+ */
 window.Vue = __webpack_require__(11);
-
 Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]);
+
+/**
+ * Removing url hashes.
+ */
+if (window.location.hash && window.location.hash == '#_=_') {
+  window.location.hash = '';
+}
 
 /**
  * Custom components.
@@ -46773,9 +46782,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'landing'
+  name: 'landing',
+  props: ['destination']
 });
 
 /***/ }),
@@ -46827,7 +46838,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "col-sm-6 col-sm-offset-3"
-  }, [_c('blockquote', [_c('p', [_vm._v("You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe.")]), _vm._v(" "), _c('footer', [_vm._v("Morpheus")])])], 1)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('blockquote', [_c('p', [_vm._v("You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe.")]), _vm._v(" "), _c('footer', [_vm._v("Morpheus")])])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin": "2vw"
+    }
+  }, [_c('div', {
+    staticClass: "button-group text-center"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "text-center inline"
+  }, [(_vm.destination) ? _c('router-link', {
+    staticClass: "btn btn-lg btn-danger",
+    attrs: {
+      "to": _vm.destination,
+      "tag": "button"
+    }
+  }, [_vm._v("\n            Continue\n          ")]) : _c('router-link', {
+    staticClass: "btn btn-lg btn-danger",
+    attrs: {
+      "to": "/",
+      "tag": "button"
+    }
+  }, [_vm._v("\n            Enter\n          ")])], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "row",
     staticStyle: {
       "margin": "5vw 0 2em 0"
@@ -46839,13 +46871,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('p', [_vm._v("You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.")]), _vm._v(" "), _c('footer', [_vm._v("Morpheus")])])], 1)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "margin": "2vw"
-    }
-  }, [_c('div', {
-    staticClass: "button-group text-center"
-  }, [_c('div', {
     staticClass: "text-center inline",
     staticStyle: {
       "margin-right": "4em"
@@ -46855,9 +46880,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "http://www.google.com"
     }
-  }, [_vm._v("Leave")])]), _vm._v(" "), _c('div', {
-    staticClass: "text-center inline"
-  })])])
+  }, [_vm._v("Leave")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -46916,7 +46939,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Picture: __WEBPACK_IMPORTED_MODULE_0__Picture___default.a
   },
-  props: ['currentuser', 'logout', 'login']
+  props: ['destination', 'currentuser', 'logout', 'login'],
+  mounted: function mounted() {
+    if (this.destination) {
+      console.log(this.destination);
+      var router = this.$router;
+      router.push('/landing', router.push(this.destination));
+    }
+  }
 });
 
 /***/ }),

@@ -38,7 +38,14 @@ export default {
   components: {
     Picture
   },
-  props: ['currentuser', 'logout', 'login']
+  props: ['destination', 'currentuser', 'logout', 'login'],
+  mounted() {
+    if (this.destination) {
+      console.log(this.destination);
+      let router = this.$router;
+      router.push('/landing', router.push(this.destination));
+    }
+  }
 }
 </script>
 

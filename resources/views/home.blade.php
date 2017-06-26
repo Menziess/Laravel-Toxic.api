@@ -4,10 +4,12 @@
 
 <Background></Background>
 
-<Navbar 
+<Navbar
 	:currentuser="{{ Auth::guest() ?: Auth::user() }}" 
+	destination="{{ Session::has('destination') ? Session::get('destination') : null }}"
 	logout="{{ route('logout') }}"
-	login="{{ route('login') }}"></Navbar>
+	login="{{ route('login') }}"
+	></Navbar>
 
 <div class="container">
 	<div class="row">

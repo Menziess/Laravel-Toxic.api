@@ -18,10 +18,18 @@ import Post from './components/post/Post.vue';
 import VueRouter from 'vue-router';
 import store from './store';
 
+/**
+ * Setting up Vue.
+ */
 window.Vue = require('vue');
-
 Vue.use(VueRouter);
 
+/**
+ * Removing url hashes.
+ */
+if (window.location.hash && window.location.hash == '#_=_') {
+		window.location.hash = '';
+}
 
 /**
  * Custom components.

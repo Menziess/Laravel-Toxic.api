@@ -24,11 +24,12 @@
 
           <!-- Enter Button -->
           <div class="text-center inline">
-            <!--@if (Session::has('destination'))
-              <a href="{{ url(Session::get('destination')) }}" class="btn btn-lg btn-danger">Continue</a>          
-            @else
-              <a href="{{ route('home') }}" class="btn btn-lg btn-danger">Enter</a>          
-            @endif-->
+            <router-link v-if="destination" :to="destination" tag="button" class="btn btn-lg btn-danger">
+              Continue
+            </router-link>
+            <router-link v-else to="/" tag="button" class="btn btn-lg btn-danger">
+              Enter
+            </router-link>         
           </div>
         </div>
       </div>
@@ -51,5 +52,6 @@
 <script>
 export default {
   name: 'landing',
+  props: ['destination']
 }
 </script>
