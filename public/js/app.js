@@ -11808,8 +11808,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			loading: true,
-			error: null,
-			empty: null
+			empty: false,
+			error: null
 		};
 	},
 	created: function created() {
@@ -42800,7 +42800,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "error": _vm.displayError
       }
     })
-  })) : _vm._e(), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
+  })) : _vm._e(), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
     staticClass: "text-center",
     staticStyle: {
       "margin-top": "10vw"

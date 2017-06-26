@@ -30,7 +30,7 @@
 		</div>
 
 		<!-- Empty State -->
-		<div v-if="empty">
+		<div v-if="posts.length < 1 && loading === false">
 			<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
 		</div>
 
@@ -56,8 +56,8 @@
     data() {
 			return {
 				loading: true,
-				error: null,
-				empty: null
+				empty: false,
+				error: null
 			}
     },
 		created() {
