@@ -40,9 +40,9 @@ export default {
   },
   props: ['destination', 'currentuser', 'logout', 'login'],
   mounted() {
+    // If new user, destination is set so he must see landing page
     if (this.destination) {
-      this.$router.push('/landing',
-      console.log(this.destination));
+      this.$router.push('/landing')
     }
   }
 }

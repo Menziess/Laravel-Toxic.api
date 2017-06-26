@@ -5,8 +5,8 @@
 <Background></Background>
 
 <Navbar
+	destination="{{ Session::has('destination') ? Session::get('destination') : '' }}"
 	:currentuser="{{ Auth::guest() ?: Auth::user() }}" 
-	destination="{{ Session::has('destination') ? Session::get('destination') : null }}"
 	logout="{{ route('logout') }}"
 	login="{{ route('login') }}"
 	></Navbar>
