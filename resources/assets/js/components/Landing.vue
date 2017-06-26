@@ -24,12 +24,9 @@
 
           <!-- Enter Button -->
           <div class="text-center inline">
-            <router-link v-if="destination" :to="destination" tag="button" class="btn btn-lg btn-danger">
+            <button v-on:click="$router.go(-1)" class="btn btn-lg btn-danger">
               Continue
-            </router-link>
-            <router-link v-else to="/" tag="button" class="btn btn-lg btn-danger">
-              Enter
-            </router-link>         
+            </button>       
           </div>
         </div>
       </div>
@@ -51,7 +48,6 @@
 
 <script>
 export default {
-  name: 'landing',
-  props: ['destination']
+  name: 'landing'
 }
 </script>

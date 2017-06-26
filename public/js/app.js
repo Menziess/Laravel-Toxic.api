@@ -46780,13 +46780,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'landing',
-  props: ['destination']
+  name: 'landing'
 });
 
 /***/ }),
@@ -46847,19 +46843,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button-group text-center"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "text-center inline"
-  }, [(_vm.destination) ? _c('router-link', {
+  }, [_c('button', {
     staticClass: "btn btn-lg btn-danger",
-    attrs: {
-      "to": _vm.destination,
-      "tag": "button"
+    on: {
+      "click": function($event) {
+        _vm.$router.go(-1)
+      }
     }
-  }, [_vm._v("\n            Continue\n          ")]) : _c('router-link', {
-    staticClass: "btn btn-lg btn-danger",
-    attrs: {
-      "to": "/",
-      "tag": "button"
-    }
-  }, [_vm._v("\n            Enter\n          ")])], 1)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            Continue\n          ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "row",
     staticStyle: {
       "margin": "5vw 0 2em 0"
@@ -46942,9 +46933,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['destination', 'currentuser', 'logout', 'login'],
   mounted: function mounted() {
     if (this.destination) {
-      console.log(this.destination);
-      var router = this.$router;
-      router.push('/landing', router.push(this.destination));
+      this.$router.push('/landing', console.log(this.destination));
     }
   }
 });

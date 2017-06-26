@@ -41,9 +41,8 @@ export default {
   props: ['destination', 'currentuser', 'logout', 'login'],
   mounted() {
     if (this.destination) {
-      console.log(this.destination);
-      let router = this.$router;
-      router.push('/landing', router.push(this.destination));
+      this.$router.push('/landing',
+      console.log(this.destination));
     }
   }
 }
