@@ -57,10 +57,10 @@ blockquote {
 
 // SVG image
 .svg {
-  width: 180%;
+  width: 180vw;
   margin: auto; 
-  display: block; 
   z-index: -2;  
+  display: block; 
   position: fixed;
 }
 
