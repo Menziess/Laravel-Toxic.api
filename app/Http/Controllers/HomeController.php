@@ -34,7 +34,7 @@ class HomeController extends Controller
      */
     public function landing()
     {
-        return view('welcome');
+        return view('landing');
     }
 
     /**

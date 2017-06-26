@@ -18,6 +18,7 @@ Route::middleware('web')->namespace('Api')->group(function() {
     Route::post('/log', 'ErrorController@log');
     Route::post('/logout', 'LoginController@logout');
     Route::get('/login', 'LoginController@redirectToFacebook');
+    Route::get('post', 'PostController@index');
 });
 
 /*
@@ -32,7 +33,11 @@ Route::middleware('web')->namespace('Api')->group(function() {
 */
 
 Route::middleware('auth:api')->namespace('Api')->group(function() {
-    Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
+    Route::post('post', 'PostController@store');
+    Route::get('post/{id}', 'PostController@show');
+    Route::put('post/{id}', 'PostController@update');
+    Route::delete('post/{id}', 'PostController@destroy');
+
     Route::get('t/{slug}', 'TopicController@slug');
     Route::get('u/{slug}', 'UserController@slug');
 });
