@@ -58,9 +58,33 @@ class Post extends Model implements SlugAble
     /**
      * Get the owner.
      */
+    public function parent()
+    {
+        return $this->belongsTo('App\Post');
+    }
+
+    /**
+     * Get the owner.
+     */
+    public function replies()
+    {
+        return $this->hasMany('App\Post')->with('user');
+    }
+
+    /**
+     * Get the owner.
+     */
     public function topic()
     {
         return $this->belongsTo('App\Topic');
+    }
+
+    /**
+     * Scope original posts. 
+     */
+    public function scopeOriginal($query)
+    {
+        return $query->whereNull('post_id');
     }
 
     /*

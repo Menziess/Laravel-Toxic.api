@@ -20,14 +20,14 @@
     </div>
 
 		<!-- Posts -->
-		<div v-if="posts.length > 0">
+		<!--<div v-if="posts">-->
 			<Post v-for="post in posts"
 					:key="post.id"
 					:post="post"
 					v-on:error="displayError"
 			>
 			</Post>
-		</div>
+		<!--</div>-->
 
 		<!-- Empty State -->
 		<div v-if="posts.length < 1 && loading === false">

@@ -23,12 +23,18 @@ class CreatePostsTable extends Migration
             $table->integer('topic_id')
 				  ->unsigned()
 				  ->nullable();
+            $table->integer('post_id')
+				  ->unsigned()
+				  ->nullable();
 
             $table->foreign('user_id')
 				  ->references('id')->on('users')
             	  ->onDelete('cascade');
             $table->foreign('topic_id')
 				  ->references('id')->on('topics')
+            	  ->onDelete('cascade');
+            $table->foreign('post_id')
+				  ->references('id')->on('posts')
             	  ->onDelete('cascade');
 
             // Content

@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::orderBy('id', 'desc')->with('user')->get();
+        return Post::orderBy('id', 'desc')->original()->with(['user', 'replies'])->get();
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::with('user')->findOrFail($id);
+        return Post::with(['user', 'replies'])->findOrFail($id);
     }
 
     /**

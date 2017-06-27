@@ -20,6 +20,14 @@
         <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
         <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
 
+        <!-- Post Replies -->
+        <div v-if="post.relationships.replies">
+          <Reply v-for="reply in post.relationships.replies"
+            :key="reply.id"
+            :reply="reply"
+          ></Reply>
+        </div>
+
         <!-- Buttons -->
         <div class="panel-footer">
           <button v-on:click="deletePost()" type="button" class="btn btn-danger pull-right">Delete</button>
@@ -35,6 +43,7 @@
   import PostDetails from './utils/PostDetails.vue';
   import Drawing from './children/Drawing.vue';
   import Textbox from './children/Textbox.vue';
+  import Reply from './utils/Reply.vue';
   export default {
     name: 'post',
     props: ['id', 'post'],
@@ -42,6 +51,7 @@
       PostDetails,
       Drawing,
       Textbox,
+      Reply
     },
     methods: {
       deletePost() {
