@@ -18,15 +18,15 @@
         <div class="button-group text-center">
 
           <!-- Leave Button -->     
-          <div class="text-center inline" style="margin-right: 4em;">
+          <div class="text-center inline" style="margin-right: 10vw;">
             <a href="http://www.google.com" class="btn btn-lg btn-primary">Leave</a>
           </div>
 
           <!-- Enter Button -->
           <div class="text-center inline">
-            <button v-on:click="$router.go(-1)" class="btn btn-lg btn-danger">
+            <a v-on:click="$router.go(-1)" class="btn btn-lg btn-danger">
               Continue
-            </button>       
+            </a>       
           </div>
         </div>
       </div>

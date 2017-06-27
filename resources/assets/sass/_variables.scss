@@ -104,21 +104,11 @@ blockquote {
   display: inline-block;
 }
 
-// Remove weird effect by bootstrap
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: transparent !important;
-}
-
 // Navbar search element
 .nav-search {
-  display: inline-block !important;
-  margin: 7px 15px;
   @media only screen and (max-width: 500px) {
     display: none !important;
   }
-}
-.nav-search input {
-  border-radius: 20px !important;
 }
 
 // Profile pic style
@@ -132,15 +122,19 @@ blockquote {
   transform: translateY(-7px);
 }
 
-// Bootstrap panel used for posts
+// Styling bootstrap a bit
+.col-md-8 {
+  padding: 0 !important;
+}
+.panel-separator {
+  border-top: 1px solid $laravel-border-color;  
+}
 .panel-content {
   line-height: 0;
   border: 0;
 }
-
-// There's a thin line between literature and art
-.panel-separator {
-  border-top: 1px solid $laravel-border-color;  
+.panel {
+  border-radius: 0 !important;
 }
 
 // Prevents selecting element

@@ -4,11 +4,11 @@
       <div class="panel panel-default">
 
         <!-- Subject -->
-        <div class="panel-heading">
+        <!--<div class="panel-heading">
             <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
               <span><strong>{{ post.attributes.subject }}</strong></span>
             </router-link>
-        </div>
+        </div>-->
 
         <!-- Post Details -->
         <PostDetails :username="post.relationships.user.name" :userslug="post.relationships.user.slug" :userpic="post.relationships.user.picture"></PostDetails>
