@@ -21,6 +21,7 @@
     <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
     <link rel="mask-icon" href="{{ asset('favicons/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">    
 </head>
 <body>
     <div id="app">

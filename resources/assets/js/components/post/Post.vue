@@ -25,27 +25,18 @@
         <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
         <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
 
+        <!-- Buttons -->
+        <div class="panel-buttons">
+          <a class="btn" href="#"><i class="glyphicon glyphicon-share-alt reply"></i></a>
+          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+        </div>
+
         <!-- Post Replies -->
         <Reply v-for="reply in post.relationships.replies"
           :key="reply.id"
           :reply="reply"
         ></Reply>
-
-        <!-- Buttons -->
-        <div class="panel-buttons">
-          <a class="btn" href="#">
-            <i class="glyphicon glyphicon-share-alt" 
-              style="transform: scale(1, -1);"></i>
-          </a>
-
-          <a class="btn" href="#">
-            <i class="glyphicon glyphicon-thumbs-up"></i>
-          </a>
-
-          <a class="btn" href="#">
-            <i class="glyphicon glyphicon-thumbs-down"></i>
-          </a>
-        </div>
 
       </div>
     </div>
@@ -95,5 +86,8 @@
 <style>
 .panel-buttons {
   margin-left: 3.7em;
+}
+.reply {
+  transform: scale(1, -1);
 }
 </style>

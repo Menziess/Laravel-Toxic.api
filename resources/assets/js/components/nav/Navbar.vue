@@ -44,7 +44,6 @@ export default {
   mounted() {
     // If new user, destination is set so he must see landing page
     if (this.destination) {
-      console.log('destination: ' + this.destination);
       this.$router.push('/landing')
     }
   }
