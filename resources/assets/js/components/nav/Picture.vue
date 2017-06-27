@@ -13,13 +13,13 @@
     
     <ul role="menu" class="dropdown-menu">
 
-      <li v-if="user" role="presentation"><a href="#" role="menuitem" onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();">Logout</a>
+      <li v-if="user" role="presentation"><a role="menuitem" 
+        v-on:click.prevent="submitLogout()">Logout</a>
       </li>
 
       <li v-else role="presentation"><a :href="login" role="menuitem">Login</a></li>
 
-      <form id="logout-form" :action="logout" method="POST" style="display: none;">
+      <form :action="logout" method="POST" style="display: none;" ref="logoutform">
         <input type="hidden" name="_token" :value="crsf_token">
       </form>
 
@@ -35,6 +35,11 @@ export default {
     return {
       crsf_token: null,
       user: null
+    }
+  },
+  methods: {
+    submitLogout() {
+      this.$refs.logoutform.submit();
     }
   },
   mounted() {

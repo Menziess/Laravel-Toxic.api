@@ -11897,9 +11897,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12310,6 +12307,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       user: null
     };
   },
+
+  methods: {
+    submitLogout: function submitLogout() {
+      this.$refs.logoutform.submit();
+    }
+  },
   mounted: function mounted() {
     this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     this.user = this.currentuser instanceof Object ? this.currentuser : null;
@@ -12330,8 +12333,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Reply_vue__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Reply_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_Reply_vue__);
-//
-//
 //
 //
 //
@@ -43090,9 +43091,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('a', {
     attrs: {
-      "href": "#",
-      "role": "menuitem",
-      "onclick": "event.preventDefault();\n      document.getElementById('logout-form').submit();"
+      "role": "menuitem"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.submitLogout()
+      }
     }
   }, [_vm._v("Logout")])]) : _c('li', {
     attrs: {
@@ -43104,11 +43109,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "menuitem"
     }
   }, [_vm._v("Login")])]), _vm._v(" "), _c('form', {
+    ref: "logoutform",
     staticStyle: {
       "display": "none"
     },
     attrs: {
-      "id": "logout-form",
       "action": _vm.logout,
       "method": "POST"
     }
@@ -43272,14 +43277,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : (_vm.post.attributes.attachment === 'drawing') ? _c('Drawing', {
     ref: "myDrawing"
-  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e(), _vm._v(" "), (_vm.post.relationships.replies) ? _c('div', _vm._l((_vm.post.relationships.replies), function(reply) {
+  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e(), _vm._v(" "), _vm._l((_vm.post.relationships.replies), function(reply) {
     return _c('Reply', {
       key: reply.id,
       attrs: {
         "reply": reply
       }
     })
-  })) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('button', {
     staticClass: "btn btn-danger pull-right",
@@ -43293,7 +43298,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Delete")]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
-  })])], 1)])])
+  })])], 2)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -47324,7 +47329,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Textbox: __WEBPACK_IMPORTED_MODULE_2__children_Textbox_vue___default.a
   },
   methods: {
-    deleteRost: function deleteRost() {
+    deleteReply: function deleteReply() {
       var _this = this;
 
       axios({

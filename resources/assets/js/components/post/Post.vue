@@ -21,12 +21,10 @@
         <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
 
         <!-- Post Replies -->
-        <div v-if="post.relationships.replies">
-          <Reply v-for="reply in post.relationships.replies"
-            :key="reply.id"
-            :reply="reply"
-          ></Reply>
-        </div>
+        <Reply v-for="reply in post.relationships.replies"
+          :key="reply.id"
+          :reply="reply"
+        ></Reply>
 
         <!-- Buttons -->
         <div class="panel-footer">

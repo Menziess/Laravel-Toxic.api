@@ -30,7 +30,7 @@
       Textbox,
     },
     methods: {
-      deleteRost() {
+      deleteReply() {
 				axios({
 					method: 'delete',
 					url: '/api/post/' + this.post.id
