@@ -24,7 +24,7 @@
 
           <!-- Enter Button -->
           <div class="text-center inline">
-            <a v-on:click="$router.go(-1)" class="btn btn-lg btn-danger">
+            <a v-on:click="$router.push('/')" class="btn btn-lg btn-danger">
               Continue
             </a>       
           </div>
@@ -48,6 +48,6 @@
 
 <script>
 export default {
-  name: 'landing'
+  name: 'landing',
 }
 </script>

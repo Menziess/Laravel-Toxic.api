@@ -1,5 +1,4 @@
 <template>
-  <div>
   <div v-show="this.$router.history.current.path !== '/landing'" class="navigation">
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -30,7 +29,6 @@
       </div>
     </nav>
   </div>
-  </div>
 </template>
 
 <script>
@@ -44,7 +42,7 @@ export default {
   mounted() {
     // If new user, destination is set so he must see landing page
     if (this.destination) {
-      this.$router.push('/landing')
+      this.$router.push('/landing');
     }
   }
 }
@@ -70,6 +68,6 @@ nav {
 }
 .nav-search {
   display: inline-block;
-  margin: 7px 15px;
+  margin: 8px 15px;
 }
 </style>

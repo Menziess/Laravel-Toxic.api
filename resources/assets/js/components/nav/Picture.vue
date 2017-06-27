@@ -48,3 +48,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.navbar-brand {
+  padding: 14px 15px;
+}
+</style>
