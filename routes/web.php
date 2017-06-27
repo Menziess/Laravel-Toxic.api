@@ -45,18 +45,19 @@ Route::get('/templogout', function() {
 |
 */
 
-Route::namespace('Auth')->group(function() {
-    Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
-    Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::middleware('web')->group(function() {
+    
+    Route::namespace('Auth')->group(function() {
+        Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
+        Route::post('/logout', 'LoginController@logout')->name('logout');
 
-    Route::group(['prefix' => 'login'], function() {
-        Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login.facebook');
-        Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
+        Route::group(['prefix' => 'login'], function() {
+            Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login.facebook');
+            Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
+        });
+
     });
 
-});
-
-Route::middleware('web')->group(function() {
     Route::get('/{vue_capture?}', 'HomeController@index')
         ->where('vue_capture', '[\/\w\.-]*')
         ->name('home');
