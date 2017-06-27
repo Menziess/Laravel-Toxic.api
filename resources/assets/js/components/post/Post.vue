@@ -11,7 +11,12 @@
         </div>-->
 
         <!-- Post Details -->
-        <PostDetails :username="post.relationships.user.name" :userslug="post.relationships.user.slug" :userpic="post.relationships.user.picture"></PostDetails>
+        <PostDetails 
+          :username="post.relationships.user.name" 
+          :userslug="post.relationships.user.slug" 
+          :userpic="post.relationships.user.picture"
+          v-on:deletepost="deletePost"
+        ></PostDetails>
         
         <!-- Post Content -->
         <Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
@@ -27,10 +32,20 @@
         ></Reply>
 
         <!-- Buttons -->
-        <div class="panel-footer">
-          <button v-on:click="deletePost()" type="button" class="btn btn-danger pull-right">Delete</button>
-          <div class="clearfix"></div>
-        </div>     
+        <div class="panel-buttons">
+          <a class="btn" href="#">
+            <i class="glyphicon glyphicon-share-alt" 
+              style="transform: scale(1, -1);"></i>
+          </a>
+
+          <a class="btn" href="#">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+          </a>
+
+          <a class="btn" href="#">
+            <i class="glyphicon glyphicon-thumbs-down"></i>
+          </a>
+        </div>
 
       </div>
     </div>
@@ -76,3 +91,9 @@
     }
   }
 </script>
+
+<style>
+.panel-buttons {
+  margin-left: 3.7em;
+}
+</style>

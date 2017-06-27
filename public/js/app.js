@@ -1075,6 +1075,10 @@ module.exports = function bind(fn, thisArg) {
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(105)
+
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(44),
@@ -12136,8 +12140,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					url: null
 				}
 			}).then(function (response) {
+				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.commit('addPost', response.data.data);
+				_this.$store.commit('addPost', post);
 			}).catch(function (error) {
 				_this.submitted = false;
 				_this.$emit('error', error);
@@ -12483,6 +12488,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12619,10 +12639,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic']
+	props: ['username', 'userslug', 'userpic'],
+	methods: {
+		deletePost: function deletePost() {
+			this.$emit('deletepost');
+		}
+	}
 });
 
 /***/ }),
@@ -15266,7 +15311,7 @@ exports.push([module.i, "\n.svg {\r\n  width: 180vw;\r\n  margin: auto; \r\n  z-
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tword-wrap: break-word;\r\n\tmargin: 0 1em 0 3.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-55deb102] {\r\n\tword-wrap: break-word;\r\n\tmargin: 0 1em 0 3.7em;\n}\r\n", ""]);
 
 /***/ }),
 /* 57 */
@@ -15287,7 +15332,7 @@ exports.push([module.i, "\ntextarea[data-v-7fdae59e] {\r\n  padding: 0.5em;\r\n 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.user-info[data-v-c01abe00] {\r\n\tdisplay: inline-block;\r\n\tmargin: 0.5em 0.5em 0 0.5em;\r\n\toverflow: hidden;\r\n\tz-index: -1;\n}\n.post-details[data-v-c01abe00] {\r\n\tpadding: 0.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-details[data-v-c01abe00] {\r\n\tpadding: 0.5em;\n}\n.user-info[data-v-c01abe00] {\r\n\tvertical-align: top;\r\n\tdisplay: inline-block;\r\n\tz-index: -1;\r\n\tmargin: 0 0.5em 0 0.5em;\n}\n.options[data-v-c01abe00] {\r\n\tdisplay: inline-block;\n}\r\n", ""]);
 
 /***/ }),
 /* 60 */
@@ -43375,6 +43420,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "username": _vm.post.relationships.user.name,
       "userslug": _vm.post.relationships.user.slug,
       "userpic": _vm.post.relationships.user.picture
+    },
+    on: {
+      "deletepost": _vm.deletePost
     }
   }), _vm._v(" "), (_vm.post.attributes.attachment === 'text') ? _c('Textbox', {
     attrs: {
@@ -43389,22 +43437,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "reply": reply
       }
     })
-  }), _vm._v(" "), _c('div', {
-    staticClass: "panel-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-danger pull-right",
+  }), _vm._v(" "), _vm._m(0)], 2)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel-buttons"
+  }, [_c('a', {
+    staticClass: "btn",
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.deletePost()
-      }
+      "href": "#"
     }
-  }, [_vm._v("Delete")]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  })])], 2)])])
-},staticRenderFns: []}
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-share-alt",
+    staticStyle: {
+      "transform": "scale(1, -1)"
+    }
+  })]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-thumbs-up"
+  })]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-thumbs-down"
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -43829,12 +43891,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "user-info"
+  }, [_c('div', {
+    staticClass: "username"
   }, [_c('router-link', {
     attrs: {
       "to": '/u/' + this.userslug
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])]), _vm._v("\n\n\t\t\t \n\t\t\t"), _c('span', [_vm._v("/u/" + _vm._s(this.userslug))])], 1)])
-},staticRenderFns: []}
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "userslug"
+  }, [_c('span', [_vm._v("/u/" + _vm._s(this.userslug))])])]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown pull-right"
+  }, [_vm._m(0), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', {
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('a', {
+    attrs: {
+      "role": "menuitem"
+    },
+    on: {
+      "click": function($event) {
+        _vm.deletePost()
+      }
+    }
+  }, [_vm._v("Delete")])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "btn options",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-option-horizontal"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -47413,6 +47511,46 @@ module.exports = function(module) {
 __webpack_require__(16);
 module.exports = __webpack_require__(17);
 
+
+/***/ }),
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+exports.push([module.i, "\n.panel-buttons {\r\n  margin-left: 3.7em;\n}\r\n", ""]);
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(104);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("215b6cda", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-32b0ad74\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Post.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-32b0ad74\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Post.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
