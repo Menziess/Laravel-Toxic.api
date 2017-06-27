@@ -25,13 +25,6 @@ window.Vue = require('vue');
 Vue.use(VueRouter);
 
 /**
- * Removing url hashes.
- */
-if (window.location.hash && window.location.hash == '#_=_') {
-		window.location.hash = '';
-}
-
-/**
  * Custom components.
  */
 Vue.component('background', Background);

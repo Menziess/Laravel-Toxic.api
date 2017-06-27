@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // At first visit to this website, the landing page is presented
-        if (!$request->cookie('laravel_session')) 
+        if (!$request->cookie(env('session.cookie'))) 
             $request->session()->flash('destination', $request->path());
         
         return view('home');

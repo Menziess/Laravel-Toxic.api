@@ -9,7 +9,7 @@
 	:currentuser="{{ Auth::guest() ?: Auth::user() }}" 
 	logout="{{ route('logout') }}"
 	login="{{ route('login') }}"
-	></Navbar>
+></Navbar>
 
 <div class="container">
 	<div class="row">
