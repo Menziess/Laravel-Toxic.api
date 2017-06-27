@@ -8,27 +8,32 @@ use Illuminate\Http\Request;
 
 class FacebookLogin
 {
-    const FACEBOOK_SCOPES = ['public_profile', 'email', 'user_birthday', 'user_location'];
-    const FACEBOOK_FIELDS = ['first_name', 'last_name', 'email', 'location', 'birthday', 'gender', 'updated_time'];
+	const FACEBOOK_SCOPES = ['public_profile', 'email', 'user_birthday', 'user_location'];
+	const FACEBOOK_FIELDS = ['first_name', 'last_name', 'email', 'location', 'birthday', 'gender', 'updated_time'];
 
-    /**
-     * Redirect the user to the Facebook authentication page.
-     *
-     * @return Response
-     */
-    public static function redirectToFacebook()
-    {
-        return \Socialite::driver('facebook')->scopes(self::FACEBOOK_SCOPES)->redirect();
-    }
+	/**
+	 * Redirect the user to the Facebook authentication page.
+	 *
+	 * @return Response
+	 */
+	public static function redirectToFacebook()
+	{
+		return \Socialite::driver('facebook')->scopes(self::FACEBOOK_SCOPES)->redirect();
+	}
 
-    /**
-     * Obtain the user information from Facebook.
-     *
-     * @return Response
-     */
-    public static function handleFacebookCallback()
-    {
-		$fb = \Socialite::driver('facebook')->fields(self::FACEBOOK_FIELDS)->user();
+	/**
+	 * Obtain the user information from Facebook.
+	 *
+	 * @return Response
+	 */
+	public static function handleFacebookCallback()
+	{
+		try {
+			$fb = \Socialite::driver('facebook')->fields(self::FACEBOOK_FIELDS)->user();
+		} catch (\Exception $e) {
+			return redirect('/');
+		}
+		
 		$user = User::withTrashed()->where('facebook_id', $fb->id)->first();
 				
 		# Get user or create new user
