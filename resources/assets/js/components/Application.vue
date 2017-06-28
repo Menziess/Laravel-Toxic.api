@@ -19,7 +19,6 @@ export default {
   mounted() {
     const store = this.$store;
     this.error = store.getters.error;
-    store.dispatch('setError', this.me);
     if (this.me != 'undefined') {
       store.dispatch('setMe', this.me);
     }
