@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
+use \Illuminate\Database\Eloquent\Model;
 
 use App\Post, Auth;
 
@@ -32,9 +33,38 @@ class PostController extends Controller
         $post = new Post;
         $user = Auth::user();
         $post->fill($request->all());
+        
+        // Set ancestral data if this post is a child
+        if ($post->post_id) {
+            $parent = Post::withTrashed()->find($post->post_id);
+            self::setMetaData($parent, $post);
+        }
+
+        // Set post owner
         $post->user()->associate($user)->save();
 
         return response($post, 201);
+    }
+
+    /**
+     * Manages ancestral tree and other related data.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model $parent
+     * @param  \Illuminate\Database\Eloquent\Model $child
+     */
+    private function setMetaData(Model $parent, Model $child)
+    {
+        // Get ancestral data of parent, increment amount of children
+        $nrChildren = (int) $parent->getData('nr_of_children');
+        $ancestors = $parent->getData('ancestor_ids');
+        $parent->setData('nr_of_children', $nrChildren++)->save();
+
+        // Pass along ancestral tree
+        if ($ancestors) {
+            $child->setData('ancestor_ids', array_push($ancestors, $parent->id));            
+        } else {
+            $child->setData('ancestor_ids', [$parent->id]);
+        }
     }
 
     /**

@@ -11811,12 +11811,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'application',
   props: ['me', 'destination'],
+  computed: {
+    error: function error() {
+      return this.$store.getters.error;
+    }
+  },
   mounted: function mounted() {
     var store = this.$store;
+    this.error = store.getters.error;
     if (this.me != 'undefined') {
       store.dispatch('setMe', this.me);
     }
@@ -12017,7 +12026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.get('/api/post').then(function (response) {
-				_this.$store.dispatch('setInitialPosts', response.data.data);
+				_this.$store.commit('setInitialPosts', response.data.data);
 				_this.empty = _this.posts.length === 0;
 				_this.loading = false;
 			}).catch(function (error) {
@@ -12335,10 +12344,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.dispatch('addPost', post); // MAKE SURE ITS TIED TO THE PARENT
+				_this.$store.dispatch('addReply', post);
 			}).catch(function (error) {
 				_this.submitted = false;
-				_this.$store.dispatch('error', error);
+				_this.$store.dispatch('setError', error);
 			});
 		}
 	}
@@ -12869,6 +12878,17 @@ window.onerror = function (msg, url, line, column, error) {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
+var find = {
+  elementById: function elementById(array, id) {
+    return array.map(function (element) {
+      return element.id;
+    });
+  },
+  indexById: function indexById(array, id) {
+    return find.elementById(array, id).indexOf(id);
+  }
+};
+
 var state = {
   posts: [],
   me: null,
@@ -12911,18 +12931,17 @@ var mutations = {
     state.posts = posts;
   },
   deletePostById: function deletePostById(state, id) {
-    var remove = state.posts.map(function (post) {
-      return post.id;
-    }).indexOf(id);
+    var remove = find.indexById(state.posts, id);
     state.posts.splice(remove, 1);
   },
   addPost: function addPost(state, post) {
     state.posts.unshift(post);
   },
   addReply: function addReply(state, post) {
-    console.log(post);
-
-    // state.posts.unshift(post); 
+    var parentId = post.attributes.post_id;
+    var parent = find.elementById(state.posts, parentId);
+    console.log(parent);
+    parent.relationships.push(post);
   },
 
 
@@ -15371,7 +15390,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\ndiv[data-v-16d22bd6] {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.error[data-v-16d22bd6] {\r\n  bottom: 0;\r\n  position: absolute;\r\n  z-index: 9999;\n}\r\n", ""]);
 
 /***/ }),
 /* 53 */
@@ -43509,7 +43528,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div')
+  return _c('div', [(_vm.error) ? _c('div', {
+    staticClass: "error panel panel-footer"
+  }, [_c('i', {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

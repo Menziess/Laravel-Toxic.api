@@ -3,6 +3,25 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const find = {
+  elementById(array, id) {
+    return array.map(element => {
+      return element.id;
+    });
+  },
+  indexById(array, id) {
+    return find.elementById(array, id)
+      .indexOf(id);
+  },
+  // findParentByChild(array, child) {
+  //   if (!child.attributes.post_id) {
+  //     return child;
+  //   }
+  //   let parent = find.elementById(array, child.attributes.post_id)
+  //   findParentByChild(array, find)
+  // }
+}
+
 const state = {
   posts: [
 
@@ -31,16 +50,15 @@ const mutations = {
   // Posts
   setInitialPosts(state, posts) { state.posts = posts; },
   deletePostById(state, id) {
-    let remove = state.posts.map(post => {
-      return post.id;
-    }).indexOf(id);
+    const remove = find.indexById(state.posts, id);
     state.posts.splice(remove, 1);
   },
   addPost(state, post) { state.posts.unshift(post); },
   addReply(state, post) {
-    console.log(post);
-
-    // state.posts.unshift(post); 
+    const parentId = post.attributes.post_id;
+    const parent = find.elementById(state.posts, parentId);
+    console.log(parent);
+    parent.relationships.push(post);
   },
 
   // Me
@@ -55,7 +73,7 @@ const mutations = {
 
 const actions = {
 
-    // Posts
+  // Posts
   deletePostById(context, id) { context.commit('deletePostById', id); },
   addPost(context, post) { context.commit('addPost', post); },
   addReply(context, post) { context.commit('addReply', post); },
