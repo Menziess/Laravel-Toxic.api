@@ -1,5 +1,5 @@
 <template>
-	<div :class="[original ? ['col-md-8', 'col-md-offset-2'] : '']">
+	<div :class="[original ? ['col-md-8', 'col-md-offset-2'] : 'panel-separator']">
 		<div :class="[original ? ['panel', 'panel-default'] : '']">
       <div>
 
@@ -30,10 +30,14 @@
           <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
         </div>
 
+        <!-- Reply Box -->
+        <PostNew></PostNew>
+
         <!-- Post Replies -->
         <PostView v-for="post in post.relationships.replies"
           :key="post.id"
           :post="post"
+          modal="false"
         ></PostView>
 
       </div>
@@ -43,6 +47,7 @@
 
 <script>
   import PostDetails from './post_view/PostDetails.vue';
+  import PostNew from './PostNew.vue';
   import Drawing from './post_view/Drawing.vue';
   import Textbox from './post_view/Textbox.vue';
   export default {
@@ -50,6 +55,7 @@
     props: ['id', 'post'],
     components: {
       PostDetails,
+      PostNew,
       Drawing,
       Textbox
     },
@@ -65,7 +71,6 @@
       }
     },
     mounted() {
-      console.log(this.post);
       switch (this.post.attributes.attachment) {
         case 'text':
           break;

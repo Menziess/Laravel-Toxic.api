@@ -131,7 +131,7 @@ blockquote {
   padding: 0 !important;
 }
 .panel-separator {
-  border-top: 1px solid $laravel-border-color;  
+  border-top: 1px solid darken($laravel-border-color, 10%);  
 }
 .panel-content {
   line-height: 0;
