@@ -47638,8 +47638,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['me', 'destination'],
   mounted: function mounted() {
     var store = this.$store;
-    if (this.me) store.commit('setMe', this.me);
-    if (this.destination) {
+    if (this.me != 'undefined') {
+      store.commit('setMe', this.me);
+    }
+    if (this.destination != 'undefined') {
       store.commit('setDestination', this.destination);
       this.$router.push('/landing');
     }
