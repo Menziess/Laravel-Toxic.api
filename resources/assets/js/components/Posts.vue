@@ -73,7 +73,7 @@
       fetchData() {
 				axios.get('/api/post')
           .then(response => {
-						this.$store.dispatch('setInitialPosts', response.data.data);
+						this.$store.commit('setInitialPosts', response.data.data);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
