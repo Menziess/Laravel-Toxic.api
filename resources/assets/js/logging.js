@@ -22,8 +22,10 @@ window.onerror = function (msg, url, line, column, error) {
 
       axios(request).then(response => {
         console.log(response);
-      }).catch(error => {
+      }).error(error => {
         console.error(error);
+      }).catch(exception => {
+        console.log(exception);
       });
     }
 

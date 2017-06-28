@@ -33,10 +33,10 @@
         </div>
 
         <!-- Post Replies -->
-        <Reply v-for="reply in post.relationships.replies"
+        <PostReply v-for="reply in post.relationships.replies"
           :key="reply.id"
           :reply="reply"
-        ></Reply>
+        ></PostReply>
 
       </div>
     </div>
@@ -44,18 +44,18 @@
 </template>
 
 <script>
-  import PostDetails from './utils/PostDetails.vue';
-  import Drawing from './children/Drawing.vue';
-  import Textbox from './children/Textbox.vue';
-  import Reply from './utils/Reply.vue';
+  import PostReply from './post_view/PostReply.vue';
+  import PostDetails from './post_view/PostDetails.vue';
+  import Drawing from './post_view/Drawing.vue';
+  import Textbox from './post_view/Textbox.vue';
   export default {
     name: 'post',
     props: ['id', 'post'],
     components: {
+      PostReply,
       PostDetails,
       Drawing,
-      Textbox,
-      Reply
+      Textbox
     },
     methods: {
       deletePost() {

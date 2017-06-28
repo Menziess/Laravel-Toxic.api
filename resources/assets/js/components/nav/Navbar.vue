@@ -19,7 +19,7 @@
           title="Create a new post">New</button>
 
         <!-- Profile Picture -->
-        <Picture :currentuser="currentuser" :logout="logout" :login="login"></Picture>
+        <Picture :logout="logout" :login="login"></Picture>
 
         <!-- Search Field -->
         <div class="input-group nav-search pull-right">
@@ -38,13 +38,7 @@ export default {
   components: {
     Picture
   },
-  props: ['destination', 'currentuser', 'logout', 'login'],
-  mounted() {
-    // If new user, destination is set so he must see landing page
-    if (this.destination) {
-      this.$router.push('/landing');
-    }
-  }
+  props: ['logout', 'login']
 }
 </script>
 

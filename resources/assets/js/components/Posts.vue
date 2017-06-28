@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import Post from './post/Post.vue';
+  import Post from './post/PostView.vue';
   export default {
     name: 'posts',
     props: ['json', 'slug', 'id'],

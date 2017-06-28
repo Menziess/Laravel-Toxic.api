@@ -14,14 +14,20 @@
 				<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
 				<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
 
+				<!-- Buttons -->
 				<div class="modal-footer">
-					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">Write</button>
-					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info pull-left">Draw</button>
+
+					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">
+						Write
+					</button>
+
+					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info pull-left">
+						Draw
+					</button>
+
 					<button disabled type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
 						<i class="glyphicon glyphicon-paperclip"></i>
 					</button>
-					<!--<button disabled type="button" v-on:click="attachment = 'video'" class="btn btn-secondary pull-left">Video</button>
-					<button disabled type="button" v-on:click="attachment = 'image'" class="btn btn-secondary pull-left">Image</button>-->
 
 					<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
 				</div>
@@ -32,8 +38,8 @@
 </template>
 
 <script>
-  import Drawing from './children/Drawing.vue';
-  import Textbox from './children/Textbox.vue';
+  import Drawing from './post_new/Drawing.vue';
+  import Textbox from './post_new/Textbox.vue';
   export default {
     name: 'newpost',
     data() {
@@ -87,8 +93,6 @@
 				}
 			},
 			getSubject(subject) {
-				// LOL(); // <-- error
-				
 				if (!subject) {
 					return this.defaultSubjectName();
 				}

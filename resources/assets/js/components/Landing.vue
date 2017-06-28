@@ -24,7 +24,7 @@
 
           <!-- Enter Button -->
           <div class="text-center inline">
-            <a v-on:click="$router.push('/')" class="btn btn-lg btn-danger">
+            <a v-on:click="$router.push(destination)" class="btn btn-lg btn-danger">
               Continue
             </a>       
           </div>
@@ -49,5 +49,16 @@
 <script>
 export default {
   name: 'landing',
+  data() {
+    return {
+      destination: '/'
+    }
+  },
+  mounted() {
+    const destination = this.$store.getters.destination;
+    if (destination) {
+      this.destination = destination;
+    }
+  }
 }
 </script>

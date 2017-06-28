@@ -8,12 +8,12 @@
 require('./bootstrap');
 require('./logging');
 
+import Application from './components/Application.vue';
 import Background from './components/Background.vue';
 import Landing from './components/Landing.vue';
-import NewPost from './components/input/NewPost.vue';
+import PostNew from './components/post/PostNew.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Posts from './components/Posts.vue';
-import Post from './components/post/Post.vue';
 
 import VueRouter from 'vue-router';
 import store from './store';
@@ -27,12 +27,12 @@ Vue.use(VueRouter);
 /**
  * Custom components.
  */
+Vue.component('application', Application);
 Vue.component('background', Background);
-Vue.component('newpost', NewPost);
+Vue.component('postnew', PostNew);
 Vue.component('landing', Landing);
 Vue.component('navbar', Navbar);
 Vue.component('posts', Posts);
-Vue.component('post', Post);
 
 /**
  * Route components.

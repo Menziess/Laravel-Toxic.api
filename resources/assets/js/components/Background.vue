@@ -35,7 +35,7 @@ export default {
   width: 160vw;
   margin: auto; 
   z-index: -2;  
-  display: block; 
+  display: block;
   position: fixed;
   opacity: 0.5;
   will-change: opacity, transform;

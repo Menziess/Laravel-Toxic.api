@@ -2,9 +2,9 @@
   <div class="dropdown pull-right">
     <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
 
-      <img v-if="user" class="img-circle noselect profile-pic-nav"                     
-        :src="user.picture"
-        :title="user.name"
+      <img v-if="me" class="img-circle noselect profile-pic-nav"                     
+        :src="me.picture"
+        :title="me.name"
         alt="Profile picture">
 
       <span v-else title="Register / Login"><svg class="img-circle noselect profile-pic profile-pic-nav"/></span>
@@ -13,7 +13,7 @@
     
     <ul role="menu" class="dropdown-menu">
 
-      <li v-if="user" role="presentation"><a role="menuitem" 
+      <li v-if="me" role="presentation"><a role="menuitem" 
         v-on:click.prevent="submitLogout()">Logout</a>
       </li>
 
@@ -30,11 +30,11 @@
 <script>
 export default {
   name: 'picture',
-  props: ['currentuser', 'logout', 'login'],
+  props: ['logout', 'login'],
   data() {
     return {
       crsf_token: null,
-      user: null
+      me: null
     }
   },
   methods: {
@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
-    this.user = this.currentuser instanceof Object ? this.currentuser : null;
+    this.me = this.$store.getters.me;
   }
 }
 </script>

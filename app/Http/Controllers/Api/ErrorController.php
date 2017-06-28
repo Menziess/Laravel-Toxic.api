@@ -17,6 +17,6 @@ class ErrorController extends Controller
             "data" => $request
         ]);
 
-        return response(200, "Error logged");
+        return response("Error logged", 200);
     }
 }

@@ -19,10 +19,10 @@
 
 <script>
   import PostDetails from './PostDetails.vue';
-  import Drawing from '../children/Drawing.vue';
-  import Textbox from '../children/Textbox.vue';
+  import Drawing from './Drawing.vue';
+  import Textbox from './Textbox.vue';
   export default {
-    name: 'reply',
+    name: 'postreply',
     props: ['id', 'reply'],
     components: {
       PostDetails,
