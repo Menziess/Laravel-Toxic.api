@@ -11874,10 +11874,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12208,6 +12204,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -12219,6 +12219,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     PostDetails: __WEBPACK_IMPORTED_MODULE_0__post_view_PostDetails_vue___default.a,
     Drawing: __WEBPACK_IMPORTED_MODULE_1__post_view_Drawing_vue___default.a,
     Textbox: __WEBPACK_IMPORTED_MODULE_2__post_view_Textbox_vue___default.a
+  },
+  computed: {
+    original: function original() {
+      return !this.post.attributes.post_id;
+    }
   },
   methods: {
     error: function (_error) {
@@ -43419,10 +43424,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
   }, _vm._l((_vm.posts), function(post) {
     return _c('PostView', {
       key: post.id,
@@ -43433,7 +43434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "error": _vm.displayError
       }
     })
-  }))])]), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
+  })), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
     staticClass: "text-center",
     staticStyle: {
       "margin-top": "10vw"
@@ -43453,7 +43454,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('PostDetails', {
+  return _c('div', {
+    class: [_vm.original ? ['col-md-8', 'col-md-offset-2'] : '']
+  }, [_c('div', {
+    class: [_vm.original ? ['panel', 'panel-default'] : '']
+  }, [_c('div', [_c('PostDetails', {
     attrs: {
       "post": _vm.post
     },
@@ -43473,7 +43478,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "post": post
       }
     })
-  })], 2)
+  })], 2)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "panel-buttons"

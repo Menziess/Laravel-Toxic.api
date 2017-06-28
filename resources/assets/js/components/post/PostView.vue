@@ -1,39 +1,43 @@
 <template>
-  <div>
+	<div :class="[original ? ['col-md-8', 'col-md-offset-2'] : '']">
+		<div :class="[original ? ['panel', 'panel-default'] : '']">
+      <div>
 
-    <!-- Subject -->
-    <!--<div class="panel-heading">
-        <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
-          <span><strong>{{ post.attributes.subject }}</strong></span>
-        </router-link>
-    </div>-->
+        <!-- Subject -->
+        <!--<div class="panel-heading">
+            <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
+              <span><strong>{{ post.attributes.subject }}</strong></span>
+            </router-link>
+        </div>-->
 
-    <!-- Post Details -->
-    <PostDetails 
-      :post="post"
-      v-on:error="error"
-    ></PostDetails>
-    
-    <!-- Post Content -->
-    <Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
-    <Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
-    <p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
-    <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
-    <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
+        <!-- Post Details -->
+        <PostDetails 
+          :post="post"
+          v-on:error="error"
+        ></PostDetails>
+        
+        <!-- Post Content -->
+        <Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
+        <Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
+        <p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
+        <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
+        <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
 
-    <!-- Buttons -->
-    <div class="panel-buttons">
-      <a class="btn" href="#"><i class="glyphicon glyphicon-share-alt reply"></i></a>
-      <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-      <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+        <!-- Buttons -->
+        <div class="panel-buttons">
+          <a class="btn" href="#"><i class="glyphicon glyphicon-share-alt reply"></i></a>
+          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+        </div>
+
+        <!-- Post Replies -->
+        <PostView v-for="post in post.relationships.replies"
+          :key="post.id"
+          :post="post"
+        ></PostView>
+
+      </div>
     </div>
-
-    <!-- Post Replies -->
-    <PostView v-for="post in post.relationships.replies"
-      :key="post.id"
-      :post="post"
-    ></PostView>
-
   </div>
 </template>
 
@@ -48,6 +52,11 @@
       PostDetails,
       Drawing,
       Textbox
+    },
+    computed: {
+      original() {
+        return !this.post.attributes.post_id;
+      }
     },
     methods: {
       error() {

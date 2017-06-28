@@ -21,15 +21,11 @@
 
 		<!-- Posts -->
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<div class="panel panel-default">
-					<PostView v-for="post in posts"
-							:key="post.id"
-							:post="post"
-							v-on:error="displayError"
-					></PostView>
-				</div>
-			</div>
+			<PostView v-for="post in posts"
+					:key="post.id"
+					:post="post"
+					v-on:error="displayError"
+			></PostView>
 		</div>
 
 		<!-- Empty State -->
