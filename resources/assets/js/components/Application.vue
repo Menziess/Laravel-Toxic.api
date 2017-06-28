@@ -11,10 +11,10 @@ export default {
   mounted() {
     const store = this.$store;
     if (this.me != 'undefined') {
-      store.commit('setMe', this.me);
+      store.dispatch('setMe', this.me);
     }
     if (this.destination != 'undefined') {
-      store.commit('setDestination', this.destination);
+      store.dispatch('setDestination', this.destination);
       this.$router.push('/landing');
     }
   }

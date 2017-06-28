@@ -11818,10 +11818,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var store = this.$store;
     if (this.me != 'undefined') {
-      store.commit('setMe', this.me);
+      store.dispatch('setMe', this.me);
     }
     if (this.destination != 'undefined') {
-      store.commit('setDestination', this.destination);
+      store.dispatch('setDestination', this.destination);
       this.$router.push('/landing');
     }
   }
@@ -12017,7 +12017,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.get('/api/post').then(function (response) {
-				_this.$store.commit('setInitialPosts', response.data.data);
+				_this.$store.dispatch('setInitialPosts', response.data.data);
 				_this.empty = _this.posts.length === 0;
 				_this.loading = false;
 			}).catch(function (error) {
@@ -12226,7 +12226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.commit('addPost', post);
+				_this.$store.dispatch('addPost', post);
 			}).catch(function (error) {
 				_this.submitted = false;
 				_this.$emit('error', error);
@@ -12335,10 +12335,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.commit('addPost', post); // MAKE SURE ITS TIED TO THE PARENT
+				_this.$store.dispatch('addPost', post); // MAKE SURE ITS TIED TO THE PARENT
 			}).catch(function (error) {
 				_this.submitted = false;
-				_this.$emit('error', error);
+				_this.$store.dispatch('error', error);
 			});
 		}
 	}
@@ -12714,7 +12714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				method: 'delete',
 				url: '/api/post/' + this.post.id
 			}).then(function (response) {
-				_this.$store.commit('deletePostById', _this.post.id);
+				_this.$store.dispatch('deletePostById', _this.post.id);
 			}).catch(function (error) {
 				_this.$emit('error', error);
 			});
@@ -12872,7 +12872,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 var state = {
   posts: [],
   me: null,
-  destination: null
+  destination: null,
+  error: null
 };
 
 var getters = {
@@ -12896,6 +12897,11 @@ var getters = {
   // Destination
   destination: function destination(state) {
     return state.destination;
+  },
+
+  // Error
+  error: function error(state) {
+    return state.error;
   }
 };
 
@@ -12913,6 +12919,11 @@ var mutations = {
   addPost: function addPost(state, post) {
     state.posts.unshift(post);
   },
+  addReply: function addReply(state, post) {
+    console.log(post);
+
+    // state.posts.unshift(post); 
+  },
 
 
   // Me
@@ -12924,13 +12935,52 @@ var mutations = {
   // Destination
   setDestination: function setDestination(state, destination) {
     state.destination = destination;
+  },
+
+
+  // Error
+  setError: function setError(state, error) {
+    state.error = error;
+  }
+};
+
+var actions = {
+
+  // Posts
+  deletePostById: function deletePostById(context, id) {
+    context.commit('deletePostById', id);
+  },
+  addPost: function addPost(context, post) {
+    context.commit('addPost', post);
+  },
+  addReply: function addReply(context, post) {
+    context.commit('addReply', post);
+  },
+
+
+  // Me
+  setMe: function setMe(context, me) {
+    context.commit('setMe', me);
+  },
+
+
+  // Destination
+  setDestination: function setDestination(context, destination) {
+    context.commit('setDestination', destination);
+  },
+
+
+  // Error
+  setError: function setError(context, error) {
+    context.commit('setError', error);
   }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   state: state,
   getters: getters,
-  mutations: mutations
+  mutations: mutations,
+  actions: actions
 }));
 
 /***/ }),

@@ -35,7 +35,7 @@
 					method: 'delete',
 					url: '/api/post/' + this.post.id
 				}).then(response => {
-					this.$store.commit('deletePostById', this.post.id);
+					this.$store.dispatch('deletePostById', this.post.id);
 				}).catch(error => {
           this.$emit('error', error);
 				});

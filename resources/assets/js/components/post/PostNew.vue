@@ -70,7 +70,7 @@
 				}).then(response => {
 					const post = response.data.data;
 					this.submitted = false;
-					this.$store.commit('addPost', post);
+					this.$store.dispatch('addPost', post);
 				}).catch(error => {
 					this.submitted = false;
 					this.$emit('error', error);

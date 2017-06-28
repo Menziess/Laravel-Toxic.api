@@ -61,10 +61,10 @@
 				}).then(response => {
 					const post = response.data.data;
 					this.submitted = false;
-					this.$store.commit('addPost', post); // MAKE SURE ITS TIED TO THE PARENT
+					this.$store.dispatch('addPost', post); // MAKE SURE ITS TIED TO THE PARENT
 				}).catch(error => {
 					this.submitted = false;
-					this.$emit('error', error);
+					this.$store.dispatch('error', error);
 				});
 			}
 		}
