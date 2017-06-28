@@ -20,11 +20,17 @@
     </div>
 
 		<!-- Posts -->
-		<Post v-for="post in posts"
-				:key="post.id"
-				:post="post"
-				v-on:error="displayError"
-		></Post>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<PostView v-for="post in posts"
+							:key="post.id"
+							:post="post"
+							v-on:error="displayError"
+					></PostView>
+				</div>
+			</div>
+		</div>
 
 		<!-- Empty State -->
 		<div v-if="posts.length < 1 && loading === false">
@@ -35,12 +41,12 @@
 </template>
 
 <script>
-  import Post from './post/PostView.vue';
+  import PostView from './post/PostView.vue';
   export default {
     name: 'posts',
     props: ['json', 'slug', 'id'],
     components: {
-      Post
+      PostView
     },
 		computed: {
 			posts() {

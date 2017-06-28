@@ -104,11 +104,11 @@ class JsonSpec
     /**
      * Transform collection.
      */
-    private static function transformCollection(Collection $collection)
+    private static function transformCollection(Collection $collection, $recursive = true)
     {
         $array = [];
         foreach ($collection as $model) {
-            $array[] = self::transformModel($model);
+            $array[] = self::transformModel($model, $recursive);
         }
 
         return $array;
@@ -117,19 +117,33 @@ class JsonSpec
     /**
      * Transform model.
      */
-    private static function transformModel(Model $model)
+    private static function transformModel(Model $model, $recursive = true)
     {
         $path = explode('\\', get_class($model));
         $classname = strtolower(end($path)) . 's';
-        $attributes = $model->getAttributes();
-        $relations = $model->getRelations();
-        unset($attributes['id']);
+        $attributes = $model->attributesToArray();
 
-        return [
+        unset($attributes['id']);
+        
+        $array = [
             'id' => $model->id,
             'type' => $classname,
             'attributes' => $attributes,
-            'relationships' => $relations,
         ];
+
+        if (!$recursive) {
+          
+            return $array;
+
+        } else {
+            $relations = array_map(function($relation) {
+                // return $relation;
+                return self::transform($relation, false);
+            }, $model->getRelations());
+
+            return array_merge($array, [
+                'relationships' => $relations
+            ]);
+        }
     }
 }

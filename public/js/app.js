@@ -11872,13 +11872,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'posts',
 	props: ['json', 'slug', 'id'],
 	components: {
-		Post: __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default.a
+		PostView: __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default.a
 	},
 	computed: {
 		posts: function posts() {
@@ -12157,14 +12163,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_view_PostReply_vue__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_view_PostReply_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_view_PostReply_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__post_view_PostDetails_vue__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__post_view_PostDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__post_view_PostDetails_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_view_PostDetails_vue__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_view_PostDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_view_PostDetails_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__post_view_Drawing_vue__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__post_view_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__post_view_Drawing_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__post_view_Textbox_vue__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__post_view_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__post_view_Textbox_vue__);
 //
 //
 //
@@ -12204,41 +12208,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'post',
+  name: 'PostView',
   props: ['id', 'post'],
   components: {
-    PostReply: __WEBPACK_IMPORTED_MODULE_0__post_view_PostReply_vue___default.a,
-    PostDetails: __WEBPACK_IMPORTED_MODULE_1__post_view_PostDetails_vue___default.a,
-    Drawing: __WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue___default.a,
-    Textbox: __WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue___default.a
+    PostDetails: __WEBPACK_IMPORTED_MODULE_0__post_view_PostDetails_vue___default.a,
+    Drawing: __WEBPACK_IMPORTED_MODULE_1__post_view_Drawing_vue___default.a,
+    Textbox: __WEBPACK_IMPORTED_MODULE_2__post_view_Textbox_vue___default.a
   },
   methods: {
-    deletePost: function deletePost() {
-      var _this = this;
+    error: function (_error) {
+      function error() {
+        return _error.apply(this, arguments);
+      }
 
-      axios({
-        method: 'delete',
-        url: '/api/post/' + this.post.id
-      }).then(function (response) {
-        _this.$store.commit('deletePostById', _this.post.id);
-      }).catch(function (error) {
-        _this.$emit('error', error);
-      });
-    }
+      error.toString = function () {
+        return _error.toString();
+      };
+
+      return error;
+    }(function () {
+      console.log("ERROR from PostView");
+      console.log(error);
+    })
   },
   mounted: function mounted() {
+    console.log(this.post);
     switch (this.post.attributes.attachment) {
       case 'text':
         break;
@@ -12442,76 +12441,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 43 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PostDetails_vue__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PostDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__PostDetails_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Drawing_vue__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Drawing_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Textbox_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Textbox_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'postreply',
-  props: ['id', 'reply'],
-  components: {
-    PostDetails: __WEBPACK_IMPORTED_MODULE_0__PostDetails_vue___default.a,
-    Drawing: __WEBPACK_IMPORTED_MODULE_1__Drawing_vue___default.a,
-    Textbox: __WEBPACK_IMPORTED_MODULE_2__Textbox_vue___default.a
-  },
-  methods: {
-    deleteReply: function deleteReply() {
-      var _this = this;
-
-      axios({
-        method: 'delete',
-        url: '/api/post/' + this.post.id
-      }).then(function (response) {
-        _this.$store.commit('deletePostById', _this.post.id);
-      }).catch(function (error) {
-        _this.$emit('error', error);
-      });
-    }
-  },
-  mounted: function mounted() {
-    switch (this.reply.attachment) {
-      case 'text':
-        break;
-      case 'drawing':
-        this.$refs.myDrawing.renderDataUrl(this.reply.drawing);
-        break;
-      default:
-        break;
-    }
-  }
-});
-
-/***/ }),
+/* 43 */,
 /* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -43074,40 +43004,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(43),
-  /* template */
-  __webpack_require__(85),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Apache24\\htdocs\\toxic.api\\resources\\assets\\js\\components\\post\\post_view\\PostReply.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] PostReply.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6d2873ca", Component.options)
-  } else {
-    hotAPI.reload("data-v-6d2873ca", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 72 */,
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43520,8 +43417,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-top": "10vw"
     }
-  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.posts), function(post) {
-    return _c('Post', {
+  }, [_vm._v(_vm._s(_vm.error))])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, _vm._l((_vm.posts), function(post) {
+    return _c('PostView', {
       key: post.id,
       attrs: {
         "post": post
@@ -43530,12 +43433,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "error": _vm.displayError
       }
     })
-  }), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
+  }))])]), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
     staticClass: "text-center",
     staticStyle: {
       "margin-top": "10vw"
     }
-  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()], 2)
+  }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -43550,20 +43453,12 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('PostDetails', {
+  return _c('div', [_c('PostDetails', {
     attrs: {
-      "username": _vm.post.relationships.user.name,
-      "userslug": _vm.post.relationships.user.slug,
-      "userpic": _vm.post.relationships.user.picture
+      "post": _vm.post
     },
     on: {
-      "deletepost": _vm.deletePost
+      "error": _vm.error
     }
   }), _vm._v(" "), (_vm.post.attributes.attachment === 'text') ? _c('Textbox', {
     attrs: {
@@ -43571,14 +43466,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : (_vm.post.attributes.attachment === 'drawing') ? _c('Drawing', {
     ref: "myDrawing"
-  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l((_vm.post.relationships.replies), function(reply) {
-    return _c('PostReply', {
-      key: reply.id,
+  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._l((_vm.post.relationships.replies), function(post) {
+    return _c('PostView', {
+      key: post.id,
       attrs: {
-        "reply": reply
+        "post": post
       }
     })
-  })], 2)])])
+  })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "panel-buttons"
@@ -43752,35 +43647,7 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-separator"
-  }, [_c('PostDetails', {
-    attrs: {
-      "username": _vm.reply.user.name,
-      "userslug": _vm.reply.user.slug,
-      "userpic": _vm.reply.user.picture
-    }
-  }), _vm._v(" "), (_vm.reply.attachment === 'text') ? _c('Textbox', {
-    attrs: {
-      "text": _vm.reply.text
-    }
-  }) : (_vm.reply.attachment === 'drawing') ? _c('Drawing', {
-    ref: "myDrawing"
-  }) : (_vm.reply.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.reply.url))]) : (_vm.reply.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.reply.url))]) : (_vm.reply.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.reply.url))]) : _vm._e()], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6d2873ca", module.exports)
-  }
-}
-
-/***/ }),
+/* 85 */,
 /* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47471,13 +47338,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic'],
+	props: ['post'],
 	methods: {
 		deletePost: function deletePost() {
-			this.$emit('deletepost');
+			var _this = this;
+
+			axios({
+				method: 'delete',
+				url: '/api/post/' + this.post.id
+			}).then(function (response) {
+				_this.$store.commit('deletePostById', _this.post.id);
+			}).catch(function (error) {
+				_this.$emit('error', error);
+			});
 		}
 	}
 });
@@ -47537,10 +47415,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "img-circle noselect profile-pic",
     attrs: {
-      "src": _vm.userpic,
+      "src": _vm.post.relationships.user.attributes.picture,
+      "title": _vm.post.relationships.user.attributes.name,
       "width": "48",
-      "height": "48",
-      "title": _vm.username
+      "height": "48"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "user-info"
@@ -47548,11 +47426,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "username"
   }, [_c('router-link', {
     attrs: {
-      "to": '/u/' + this.userslug
+      "to": '/u/' + this.post.relationships.user.attributes.slug
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.username))])])])], 1), _vm._v(" "), _c('div', {
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.post.relationships.user.attributes.name))])])])], 1), _vm._v(" "), _c('div', {
     staticClass: "userslug"
-  }, [_c('span', [_vm._v("/u/" + _vm._s(this.userslug))])])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("/u/" + _vm._s(this.post.relationships.user.attributes.slug))])])]), _vm._v(" "), _c('div', {
     staticClass: "dropdown pull-right"
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu",

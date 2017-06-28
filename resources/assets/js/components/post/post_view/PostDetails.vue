@@ -1,21 +1,23 @@
 <template>
   <div class="post-details">
 
-		<img :src="userpic"
+		<img 
+			:src="post.relationships.user.attributes.picture"
+			:title="post.relationships.user.attributes.name" 
 			class="img-circle noselect profile-pic"
 			width="48"
 			height="48"
-			:title="username"> 
+		>
 		
 		<div class="user-info">
 			<div class="username">
-				<router-link :to="'/u/' + this.userslug">
-					<span><strong>{{ this.username }}</strong></span>
+				<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
+					<span><strong>{{ this.post.relationships.user.attributes.name }}</strong></span>
 				</router-link>
 			</div>
 
 			<div class="userslug">
-				<span>/u/{{ this.userslug }}</span>
+				<span>/u/{{ this.post.relationships.user.attributes.slug }}</span>
 			</div>
 		</div>
 
@@ -43,12 +45,19 @@
 <script>
 export default {
 	name: 'postdetails',
-	props: ['username', 'userslug', 'userpic'],
+	props: ['post'],
 	methods: {
 		deletePost() {
-			this.$emit('deletepost');
-		}
-	}
+			axios({
+				method: 'delete',
+				url: '/api/post/' + this.post.id
+			}).then(response => {
+				this.$store.commit('deletePostById', this.post.id);
+			}).catch(error => {
+				this.$emit('error', error);
+			});
+		},
+	},
 }
 </script>
 
