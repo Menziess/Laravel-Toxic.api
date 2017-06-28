@@ -9,22 +9,27 @@
 			height="48"
 		>
 		
-		<div class="user-info">
-			<div class="username">
+		<div class="info">
+			<div class="text inline">
 				<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
 					<span><strong>{{ this.post.relationships.user.attributes.name }}</strong></span>
 				</router-link>
 			</div>
 
-			<div class="userslug">
+			<div class="text inline">
 				<span>/u/{{ this.post.relationships.user.attributes.slug }}</span>
+			</div>
+
+			<div class="text inline">
+				<span>{{ this.post.attributes.created_at }}</span>		
 			</div>
 		</div>
 
-		<div class="dropdown pull-right">
-			<a class="btn options" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+		
+		<div class="dropdown inline pull-right">
+			<button type="button" class="btn" data-toggle="dropdown" role="button" aria-expanded="false">
 				<i class="glyphicon glyphicon-option-horizontal"></i>
-			</a>
+			</button>
 			
 			<ul role="menu" class="dropdown-menu">
 
@@ -65,13 +70,13 @@ export default {
 .post-details {
 	padding: 0.5em;
 }
-.user-info {
+.info {
+	display: inline-grid;
 	vertical-align: top;
-	display: inline-block;
-	z-index: -1;
-	margin: 0 0.5em 0 0.5em;
 }
-.options {
-	display: inline-block;
+.text {
+	text-overflow: ellipsis;
+	vertical-align: top;
+	margin: 0 0.5em 0 0.5em;
 }
 </style>

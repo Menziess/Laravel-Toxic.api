@@ -1,6 +1,5 @@
 <template>
-	<!-- Modal -->
-	<div id="newPost" class="modal fade" role="dialog">
+	<div id="postModal" class="modal fade" role="dialog">
 		<div v-on:keyup.ctrl.enter="$refs.mySubmit.click()" class="modal-dialog">
 			<div class="modal-content">
 
@@ -41,7 +40,7 @@
   import Drawing from './post_new/Drawing.vue';
   import Textbox from './post_new/Textbox.vue';
   export default {
-    name: 'newpost',
+    name: 'postmodal',
     data() {
       return {
         subject: null,
@@ -61,6 +60,7 @@
 					method: 'post',
 					url: '/api/post',
 					data: {
+						post_id: null,
 						subject: this.getSubject(this.subject),
 						attachment: this.attachment,
 						drawing: this.$refs.myDrawing.getDataUrl(),

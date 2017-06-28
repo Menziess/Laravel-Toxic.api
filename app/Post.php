@@ -17,7 +17,7 @@ class Post extends Model implements SlugAble
      * @var array
      */
     protected $fillable = [
-        'attachment', 'subject', 'text', 'drawing', 'url',
+        'post_id', 'attachment', 'subject', 'text', 'drawing', 'url',
     ];
 
     /**

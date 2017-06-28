@@ -10,8 +10,8 @@ require('./logging');
 
 import Application from './components/Application.vue';
 import Background from './components/Background.vue';
-import Landing from './components/Landing.vue';
 import PostNew from './components/post/PostNew.vue';
+import Landing from './components/Landing.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Posts from './components/Posts.vue';
 

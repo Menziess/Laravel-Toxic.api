@@ -15,7 +15,7 @@
 
         <!-- New Post -->
         <button type="button" class="btn btn-success navbar-btn pull-right" 
-          data-toggle="modal" data-target="#newPost"
+          data-toggle="modal" data-target="#postModal"
           title="Create a new post">New</button>
 
         <!-- Profile Picture -->

@@ -25,19 +25,18 @@
 
         <!-- Buttons -->
         <div class="panel-buttons">
-          <a class="btn" href="#"><i class="glyphicon glyphicon-share-alt reply"></i></a>
-          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-          <a class="btn" href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+          <button class="btn" v-on:click="replying = !replying"><i class="glyphicon glyphicon-share-alt reply"></i></button>
+          <button class="btn"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+          <button class="btn"><i class="glyphicon glyphicon-thumbs-down"></i></button>
         </div>
 
         <!-- Reply Box -->
-        <PostNew></PostNew>
+        <PostReply v-if="replying" :post="post"></PostReply>
 
         <!-- Post Replies -->
         <PostView v-for="post in post.relationships.replies"
           :key="post.id"
           :post="post"
-          modal="false"
         ></PostView>
 
       </div>
@@ -47,17 +46,22 @@
 
 <script>
   import PostDetails from './post_view/PostDetails.vue';
-  import PostNew from './PostNew.vue';
+  import PostReply from './PostReply.vue';
   import Drawing from './post_view/Drawing.vue';
   import Textbox from './post_view/Textbox.vue';
   export default {
     name: 'PostView',
-    props: ['id', 'post'],
+    props: ['post'],
     components: {
       PostDetails,
-      PostNew,
+      PostReply,
       Drawing,
       Textbox
+    },
+    data() {
+      return {
+        replying: false
+      }
     },
     computed: {
       original() {
