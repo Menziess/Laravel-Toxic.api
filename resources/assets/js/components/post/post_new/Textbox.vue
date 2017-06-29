@@ -1,7 +1,7 @@
 <template>
   <div class="panel-content">
     <textarea
-      placeholder="Write something here"
+      :placeholder="placeholder ? placeholder : 'Write something here...'"
       :maxlength="maxlength"
       autofocus="autofocus"
       v-model="text"
@@ -13,6 +13,7 @@
 <script>
   export default {
     name: 'textbox',
+    props: ['placeholder'],
     data() {
       return {
         maxlength: 255,

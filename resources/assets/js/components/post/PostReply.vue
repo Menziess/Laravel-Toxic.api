@@ -1,9 +1,16 @@
 <template>
-	<div v-on:keyup.ctrl.enter="$refs.mySubmit.click()">
+	<div v-on:keyup.ctrl.enter="$refs.mySubmit.click()"
+		class="panel-separator">
 		
-		<!-- Attachments -->
-		<Textbox v-show="attachment === 'text'" ref="myTextbox"></Textbox>  
-		<Drawing v-show="attachment === 'drawing'" ref="myDrawing"></Drawing>
+		<!-- Contents -->
+		<Textbox v-show="attachment === 'text'" 
+			ref="myTextbox" 
+			placeholder="Write your reply here..."
+		></Textbox>
+
+		<Drawing v-show="attachment === 'drawing'" 
+			ref="myDrawing"
+		></Drawing>
 
 		<!-- Buttons -->
 		<div class="modal-footer">

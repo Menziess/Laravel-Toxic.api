@@ -11,24 +11,10 @@
         </div>-->
 
         <!-- Post Details -->
-        <PostDetails 
+        <PostContent 
           :post="post"
-          v-on:error="error"
-        ></PostDetails>
-        
-        <!-- Post Content -->
-        <Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
-        <Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
-        <p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
-        <p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
-        <p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
-
-        <!-- Buttons -->
-        <div class="panel-buttons">
-          <button class="btn" v-on:click="replying = !replying"><i class="glyphicon glyphicon-share-alt reply"></i></button>
-          <button class="btn"><i class="glyphicon glyphicon-thumbs-up"></i></button>
-          <button class="btn"><i class="glyphicon glyphicon-thumbs-down"></i></button>
-        </div>
+          v-on:reply="replying = !replying"
+        ></PostContent>
 
         <!-- Reply Box -->
         <PostReply v-if="replying" :post="post"></PostReply>
@@ -45,7 +31,7 @@
 </template>
 
 <script>
-  import PostDetails from './post_view/PostDetails.vue';
+  import PostContent from './post_view/PostContent.vue';
   import PostReply from './PostReply.vue';
   import Drawing from './post_view/Drawing.vue';
   import Textbox from './post_view/Textbox.vue';
@@ -53,7 +39,7 @@
     name: 'PostView',
     props: ['post'],
     components: {
-      PostDetails,
+      PostContent,
       PostReply,
       Drawing,
       Textbox
@@ -67,31 +53,11 @@
       original() {
         return !this.post.attributes.post_id;
       }
-    },
-    methods: {
-      error() {
-        console.log("ERROR from PostView");
-        console.log(error);
-      }
-    },
-    mounted() {
-      switch (this.post.attributes.attachment) {
-        case 'text':
-          break;
-        case 'drawing':
-          this.$refs.myDrawing.renderDataUrl(this.post.attributes.drawing);
-          break;
-        default:
-          break;
-      }
     }
   }
 </script>
 
 <style>
-.panel-buttons {
-  margin-left: 3.7em;
-}
 .reply {
   transform: scale(1, -1);
 }
