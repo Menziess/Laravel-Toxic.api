@@ -1,22 +1,23 @@
 <template>
   <div v-show="this.$router.history.current.path !== '/landing'" class="navigation">
     <nav class="navbar navbar-default navbar-static-top">
+        
       <div class="container">
 
         <!-- Posts Feed -->
-        <router-link to="/" tag="button" class="btn btn-secondary navbar-btn">
+        <router-link to="/" tag="li" class="btn btn-secondary navbar-btn">
           <i class="glyphicon glyphicon-home"></i>
         </router-link>
 
         <!-- Something else -->
-        <router-link to="/landing" tag="button" class="btn btn-secondary navbar-btn">
+        <router-link to="/landing" tag="li" class="btn btn-secondary navbar-btn">
           <i class="glyphicon glyphicon-heart-empty"></i>
         </router-link>
 
         <!-- New Post -->
         <button type="button" class="btn btn-success navbar-btn pull-right" 
           data-toggle="modal" data-target="#postModal"
-          title="Create a new post">New</button>
+          title="Create a new post" v-on:click="checkLoggedIn()">New</button>
 
         <!-- Profile Picture -->
         <Picture :logout="logout" :login="login"></Picture>
@@ -38,7 +39,14 @@ export default {
   components: {
     Picture
   },
-  props: ['logout', 'login']
+  props: ['logout', 'login'],
+  methods: {
+    checkLoggedIn() {
+      if (!this.$store.getters.me) {
+        this.$store.dispatch('error', "You can draw and write, but you have to login in order to post.");
+      }
+    }
+  }
 }
 </script>
 

@@ -71,7 +71,7 @@
 					this.$store.dispatch('addReply', post);
 				}).catch(error => {
 					this.submitted = false;
-					this.$store.dispatch('setError', error);
+					this.$store.dispatch('error', error);
 				});
 			}
 		}

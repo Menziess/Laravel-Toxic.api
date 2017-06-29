@@ -10,16 +10,16 @@
             </router-link>
         </div>-->
 
-        <!-- Post Details -->
-        <PostContent 
+        <!-- Attachments -->
+        <Attachments 
           :post="post"
           v-on:reply="replying = !replying"
-        ></PostContent>
+        ></Attachments>
 
-        <!-- Reply Box -->
+        <!-- Reply Form -->
         <PostReply v-if="replying" :post="post"></PostReply>
 
-        <!-- Post Replies -->
+        <!-- Replies -->
         <PostView v-for="post in post.relationships.replies"
           :key="post.id"
           :post="post"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import PostContent from './post_view/PostContent.vue';
+  import Attachments from './post_view/Attachments.vue';
   import PostReply from './PostReply.vue';
   import Drawing from './post_view/Drawing.vue';
   import Textbox from './post_view/Textbox.vue';
@@ -39,7 +39,7 @@
     name: 'PostView',
     props: ['post'],
     components: {
-      PostContent,
+      Attachments,
       PostReply,
       Drawing,
       Textbox
@@ -58,7 +58,7 @@
 </script>
 
 <style>
-.reply {
+.reply { 
   transform: scale(1, -1);
 }
 </style>

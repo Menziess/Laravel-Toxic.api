@@ -68,7 +68,7 @@ const mutations = {
   setDestination(state, destination) { state.destination = destination; },
 
   // Error
-  setError(state, error) { state.error = error; },
+  error(state, error) { state.error = error; },
 };
 
 const actions = {
@@ -85,7 +85,7 @@ const actions = {
   setDestination(context, destination) { context.commit('setDestination', destination); },
 
   // Error
-  setError(context, error) { context.commit('setError', error); },
+  error(context, error) { context.commit('error', error); },
 }
 
 export default new Vuex.Store({

@@ -59,22 +59,25 @@
 				axios({
 					method: 'post',
 					url: '/api/post',
-					data: {
-						post_id: null,
-						subject: this.getSubject(this.subject),
-						attachment: this.attachment,
-						drawing: this.$refs.myDrawing.getDataUrl(),
-						text: this.$refs.myTextbox.text,
-						url: null
-					}
+					data: this.getForm()
 				}).then(response => {
 					const post = response.data.data;
 					this.submitted = false;
 					this.$store.dispatch('addPost', post);
 				}).catch(error => {
 					this.submitted = false;
-					this.$emit('error', error);
+					// this.$store.dispatch('error', error);
 				});
+			},
+			getForm() {
+				return {
+					post_id: null,
+					subject: this.getSubject(this.subject),
+					attachment: this.attachment,
+					drawing: this.$refs.myDrawing.getDataUrl(),
+					text: this.$refs.myTextbox.text,
+					url: null
+				}
 			},
 			defaultSubjectName() {
 				switch (this.attachment) {

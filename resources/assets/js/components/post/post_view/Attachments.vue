@@ -97,7 +97,7 @@
 import Drawing from './Drawing.vue';
 import Textbox from './Textbox.vue';
 export default {
-	name: 'postcontent',
+	name: 'attachments',
 	props: ['post'],
 	components: {
 		Drawing,
@@ -111,6 +111,7 @@ export default {
 			}).then(response => {
 				this.$store.dispatch('deletePostById', this.post.id);
 			}).catch(error => {
+				console.log(error);
 				this.$store.dispatch('error', error);
 			});
 		},
