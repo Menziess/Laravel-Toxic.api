@@ -30,7 +30,9 @@ export default {
 </script>
 
 <style>
-
+.logo {
+  position: static;
+}
 .svg {
   width: 160vw;
   margin: auto; 

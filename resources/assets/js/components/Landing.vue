@@ -55,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    const destination = this.$store.getters.destination;
+    const destination = this.$store.getters.destinationRoute;
     if (destination) {
       this.destination = destination;
     }

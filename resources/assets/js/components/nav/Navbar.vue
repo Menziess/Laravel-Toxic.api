@@ -1,5 +1,5 @@
 <template>
-  <div v-show="this.$router.history.current.path !== '/landing'" class="navigation">
+  <div class="navigation">
     <nav class="navbar navbar-default navbar-static-top">
         
       <div class="container">
@@ -20,7 +20,7 @@
           title="Create a new post" v-on:click="checkLoggedIn()">New</button>
 
         <!-- Profile Picture -->
-        <Picture :logout="logout" :login="login"></Picture>
+        <Picture></Picture>
 
         <!-- Search Field -->
         <div class="input-group nav-search pull-right">
@@ -39,11 +39,13 @@ export default {
   components: {
     Picture
   },
-  props: ['logout', 'login'],
   methods: {
     checkLoggedIn() {
       if (!this.$store.getters.me) {
-        this.$store.dispatch('error', "You can draw and write, but you have to login in order to post.");
+        this.$store.dispatch('error', {
+          message: "You can draw and write, but you have to login in order to post.",
+          redirect: this.$store.getters.loginRoute
+        });
       }
     }
   }
@@ -56,7 +58,6 @@ nav {
   transform: translateZ(0);
   position: fixed;
   width: 100vw;
-  /*box-shadow: 0 0 23px #95d7a1;*/
 }
 .navigation {
   margin-bottom: 2.1em;

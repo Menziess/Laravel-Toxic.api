@@ -30,11 +30,12 @@
 <script>
 export default {
   name: 'picture',
-  props: ['logout', 'login'],
   data() {
     return {
       crsf_token: null,
-      me: null
+      me: null,
+      login: null,
+      logout: null,
     }
   },
   methods: {
@@ -45,6 +46,8 @@ export default {
   mounted() {
     this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     this.me = this.$store.getters.me;
+    this.login = this.$store.getters.loginRoute;
+    this.logout = this.$store.getters.logoutRoute;
   }
 }
 </script>

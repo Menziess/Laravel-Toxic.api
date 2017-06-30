@@ -23,12 +23,21 @@ const find = {
 }
 
 const state = {
+  // Posts
   posts: [
 
   ],
+
+  // Me
   me: null,
-  destination: null,
-  error: null
+  
+  // Routes
+  logoutRoute: null,
+  loginRoute: null,
+  destinationRoute: null,
+
+  //Error
+  error: null,
 };
 
 const getters = {
@@ -39,8 +48,10 @@ const getters = {
   // Me
   me: state => { return state.me; },
 
-  // Destination
-  destination: state => { return state.destination; },
+  // Routes
+  loginRoute: state => { return state.loginRoute; },
+  logoutRoute: state => { return state.logoutRoute; },
+  destinationRoute: state => { return state.destinationRoute; },
 
   // Error
   error: state => { return state.error; },
@@ -64,8 +75,10 @@ const mutations = {
   // Me
   setMe(state, me) { state.me = me; },
 
-  // Destination
-  setDestination(state, destination) { state.destination = destination; },
+  // Routes
+  setLogin(state, route) { state.loginRoute = route; },
+  setLogout(state, route) { state.logoutRoute = route; },
+  setDestination(state, route) { state.destinationRoute = route; },
 
   // Error
   error(state, error) { state.error = error; },
@@ -82,7 +95,9 @@ const actions = {
   setMe(context, me) { context.commit('setMe', me); },
 
   // Destination
-  setDestination(context, destination) { context.commit('setDestination', destination); },
+  setLogin(context, route) { context.commit('setLogin', route); },
+  setLogout(context, route) { context.commit('setLogout', route); },
+  setDestination(context, route) { context.commit('setDestination', route); },
 
   // Error
   error(context, error) { context.commit('error', error); },

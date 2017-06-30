@@ -5,9 +5,20 @@
 
       <div v-if="typeof error === 'string' || error instanceof String" class="alert alert-success" role="alert">
         {{ error }}
-        <li class="inline pull-right" v-on:click="$store.dispatch('error', null)">
+        <li class="inline pull-right" v-on:click="clearError()">
           <i class="glyphicon glyphicon-remove"></i>
         </li>
+      </div>
+
+      <div v-else-if="error.redirect" class="alert alert-success" role="alert">
+        {{ error.message }}
+        <li class="inline pull-right" v-on:click="clearError()">
+          <i class="glyphicon glyphicon-remove"></i>
+        </li>
+        <br><br>
+        <button class="btn btn-success" v-on:click="redirect(error.redirect)">
+          Continue
+        </button>
       </div>
 
       <div v-else class="alert alert-danger" role="alert">
@@ -16,7 +27,7 @@
         <button class="btn btn-warning" data-toggle="collapse" data-target="#stack">
           <i class="glyphicon glyphicon-wrench"></i>
         </button>
-        <button class="btn btn-success" v-on:click="$store.dispatch('error', null)">
+        <button class="btn btn-success" v-on:click="clearError()">
           <i class="glyphicon glyphicon-ok"></i>
         </button>
       </div>
@@ -33,19 +44,36 @@
 <script>
 export default {
   name: 'application',
-  props: ['me', 'destination'],
+  props: ['me', 'login', 'logout', 'destination'],
   computed: {
     error() {
       return this.$store.getters.error;
     }
   },
+  methods: {
+    redirect(url) {
+      this.clearError();
+      window.location.replace(url);
+    },
+    clearError() {
+      this.$store.dispatch('error', null);
+    },
+    valid(value) {
+      return (value && value != undefined && value != "undefined");
+    }
+  },
   mounted() {
     const store = this.$store;
     this.error = store.getters.error;
-    if (typeof this.me !== 'undefined') {
-      store.dispatch('setMe', this.me);
-    }
-    if (this.destination !== 'undefined') {
+
+    if (this.valid(this.me)) store.dispatch('setMe', this.me);
+
+    if (this.valid(this.login)) store.dispatch('setLogin', this.login);
+
+    if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
+
+    console.log(this.destination + ' is valid: ' + this.valid(this.destination));
+    if (this.valid(this.destination)) {
       store.dispatch('setDestination', this.destination);
       this.$router.push('/landing');
     }
@@ -54,6 +82,9 @@ export default {
 </script>
 
 <style scoped>
+i:hover {
+  color: black;
+}
 .application {
   position: fixed;
   z-index: 9999;

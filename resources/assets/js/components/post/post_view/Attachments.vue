@@ -9,9 +9,9 @@
 				width="48"
 				height="48"
 			>
-			<button class="btn"><i class="glyphicon glyphicon-menu-up"></i></button>
+			<li class="btn"><i class="glyphicon glyphicon-menu-up"></i></li>
 			<span>24234</span>
-			<button class="btn"><i class="glyphicon glyphicon-menu-down"></i></button>
+			<li class="btn"><i class="glyphicon glyphicon-menu-down"></i></li>
 		</div>
 		
 		<div class="mid">
@@ -105,19 +105,35 @@ export default {
 	},
 	methods: {
 		deletePost() {
-			axios({
-				method: 'delete',
-				url: '/api/post/' + this.post.id
-			}).then(response => {
-				this.$store.dispatch('deletePostById', this.post.id);
-			}).catch(error => {
-				console.log(error);
-				this.$store.dispatch('error', error);
-			});
+			this.checkLoggedInElse(
+			"You must be logged in to delete a post.",
+				() => axios({
+					method: 'delete',
+					url: '/api/post/' + this.post.id
+				}).then(response => {
+					this.$store.dispatch('deletePostById', this.post.id);
+				}).catch(error => {
+					console.log(error);
+					this.$store.dispatch('error', error);
+				})
+			)
 		},
 		reply() {
-			this.$emit('reply');
-		}
+			this.checkLoggedInElse(
+				"You must be logged in to reply.",	
+				() => this.$emit('reply')
+			);
+		},
+		checkLoggedInElse(message, callback) {
+      if (!this.$store.getters.me) {
+        this.$store.dispatch('error', {
+          message: message,
+          redirect: this.$store.getters.loginRoute
+        });
+      } else {
+				callback();
+			}
+    }
 	},
 	mounted() {
 		switch (this.post.attributes.attachment) {

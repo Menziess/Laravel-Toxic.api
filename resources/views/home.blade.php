@@ -4,18 +4,17 @@
 
 <!-- Manages Important Stuff -->
 <Application
-	:me="{{ Auth::check() ? Auth::user() : 'undefined' }}" 
+	logout="{{ route('logout') }}"
+	login="{{ route('login') }}"
 	destination="{{ Session::has('destination') ? Session::get('destination') : 'undefined' }}"
+	:me="{{ Auth::check() ? Auth::user() : 'undefined' }}" 
 ></Application>
 
 <!-- Beautifull Background -->
 <Background></Background>
 
 <!-- Navigation -->
-<Navbar
-	logout="{{ route('logout') }}"
-	login="{{ route('login') }}"
-></Navbar>
+<Navbar></Navbar>
 
 <!-- Content -->
 <div class="container">
