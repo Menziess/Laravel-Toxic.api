@@ -43635,7 +43635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "menu"
     }
-  }, [(_vm.$store.getters.me.id === _vm.post.attributes.user_id) ? _c('li', {
+  }, [(_vm.$store.getters.me && _vm.$store.getters.me.id === _vm.post.attributes.user_id) ? _c('li', {
     attrs: {
       "role": "presentation"
     }

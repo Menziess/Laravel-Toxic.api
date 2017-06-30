@@ -44,7 +44,7 @@
 			
 			<ul role="menu" class="dropdown-menu dropdown-menu-right">
 
-				<li v-if="$store.getters.me.id === post.attributes.user_id" role="presentation">
+				<li v-if="$store.getters.me && $store.getters.me.id === post.attributes.user_id" role="presentation">
 					<a v-on:click="deletePost()" role="menuitem">Delete</a>
 				</li>
 
