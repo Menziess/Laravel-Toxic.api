@@ -3,6 +3,9 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+/**
+ * Contains methods to find elements in arrays.
+ */
 const find = {
   elementById(array, id) {
     return array.find(element => {
@@ -10,96 +13,87 @@ const find = {
     });
   },
   indexById(array, id) {
-    return find.elementById(array, id)
-      .indexOf(id);
-  },
-  // findParentByChild(array, child) {
-  //   if (!child.attributes.post_id) {
-  //     return child;
-  //   }
-  //   let parent = find.elementById(array, child.attributes.post_id)
-  //   findParentByChild(array, find)
-  // }
+    return array.map(element => {
+      return element.id;
+    }).indexOf(id);
+  }
 }
 
-const state = {
-  // Posts
-  posts: [
-
-  ],
-
-  // Me
-  me: null,
-  
-  // Routes
-  logoutRoute: null,
-  loginRoute: null,
-  destinationRoute: null,
-
-  //Error
-  error: null,
-};
-
-const getters = {
-  // Posts
-  posts: state => { return state.posts; },
-
-  // Me
-  me: state => { return state.me; },
-
-  // Routes
-  loginRoute: state => { return state.loginRoute; },
-  logoutRoute: state => { return state.logoutRoute; },
-  destinationRoute: state => { return state.destinationRoute; },
-
-  // Error
-  error: state => { return state.error; },
-};
-
+/**
+ * Modifying store.
+ */
 const mutations = {
-  // Posts
-  setInitialPosts(state, posts) { state.posts = posts; },
+
   deletePostById(state, id) {
     const remove = find.indexById(state.posts, id);
     state.posts.splice(remove, 1);
   },
-  addPost(state, post) { state.posts.unshift(post); },
-  addReply(state, post) {
-    const parentId = post.attributes.post_id;
-    const parent = find.elementById(state.posts, parentId);
-    parent.relationships.replies.push(post);
+
+  addPost(state, post) { 
+    // If top parent
+    if (!post.attributes.post_id) {
+      state.posts.unshift(post); 
+    } 
+    // else reply to some parent
+    else {
+      const parentId = post.attributes.post_id;
+      const parent = find.elementById(state.posts, parentId);
+      
+      if (!parent) return;
+
+      console.log(post);
+
+      if (parent.relationships.replies) {
+        parent.relationships.replies.push(post);
+      } else {
+        let replies = [ post ];
+        parent.relationships.replies = replies;
+      }
+    }
   },
 
-  // Me
-  setMe(state, me) { state.me = me; },
-
-  // Routes
-  setLogin(state, route) { state.loginRoute = route; },
-  setLogout(state, route) { state.logoutRoute = route; },
+  // Setters
+  setInitialPosts(state, posts) { state.posts = posts; },
   setDestination(state, route) { state.destinationRoute = route; },
-
-  // Error
+  setLogout(state, route) { state.logoutRoute = route; },
+  setLogin(state, route) { state.loginRoute = route; },
   error(state, error) { state.error = error; },
+  setMe(state, me) { state.me = me; },
 };
 
+
+const state = {
+  posts: [
+
+  ],
+  me: null,
+  logoutRoute: null,
+  loginRoute: null,
+  destinationRoute: null,
+  error: null,
+};
+
+
+const getters = {
+  destinationRoute: state => { return state.destinationRoute; },
+  logoutRoute: state => { return state.logoutRoute; },
+  loginRoute: state => { return state.loginRoute; },
+  error: state => { return state.error; },
+  posts: state => { return state.posts; },
+  me: state => { return state.me; },
+};
+
+
 const actions = {
-
-  // Posts
-  deletePostById(context, id) { context.commit('deletePostById', id); },
-  addPost(context, post) { context.commit('addPost', post); },
-  addReply(context, post) { context.commit('addReply', post); },
-
-  // Me
-  setMe(context, me) { context.commit('setMe', me); },
-
-  // Destination
-  setLogin(context, route) { context.commit('setLogin', route); },
-  setLogout(context, route) { context.commit('setLogout', route); },
   setDestination(context, route) { context.commit('setDestination', route); },
-
-  // Error
+  deletePostById(context, id) { context.commit('deletePostById', id); },
+  setLogout(context, route) { context.commit('setLogout', route); },
+  setLogin(context, route) { context.commit('setLogin', route); },
+  addPost(context, post) { context.commit('addPost', post); },
+  setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
-}
+};
+
 
 export default new Vuex.Store({
   state,

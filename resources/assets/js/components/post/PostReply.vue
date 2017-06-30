@@ -68,10 +68,10 @@
 				}).then(response => {
 					const post = response.data.data;
 					this.submitted = false;
-					this.$store.dispatch('addReply', post);
+					this.$store.dispatch('addPost', post);
 				}).catch(error => {
 					this.submitted = false;
-					this.$store.dispatch('error', error);
+					// this.$store.dispatch('error', error);
 				});
 			}
 		}

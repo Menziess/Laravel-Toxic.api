@@ -12059,7 +12059,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     redirectDestination: function redirectDestination() {
       var destination = this.$store.getters.destinationRoute;
       if (destination) {
-        this.$store.dispatch.dispatch('setDestination', '/');
+        this.$store.dispatch('setDestination', '/');
         this.$router.push(destination);
       }
       this.$router.push('/');
@@ -12493,10 +12493,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.dispatch('addReply', post);
+				_this.$store.dispatch('addPost', post);
 			}).catch(function (error) {
 				_this.submitted = false;
-				_this.$store.dispatch('error', error);
+				// this.$store.dispatch('error', error);
 			});
 		}
 	}
@@ -13072,6 +13072,9 @@ window.onerror = function (msg, url, line, column, error) {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
+/**
+ * Contains methods to find elements in arrays.
+ */
 var find = {
   elementById: function elementById(array, id) {
     return array.find(function (element) {
@@ -13079,130 +13082,114 @@ var find = {
     });
   },
   indexById: function indexById(array, id) {
-    return find.elementById(array, id).indexOf(id);
+    return array.map(function (element) {
+      return element.id;
+    }).indexOf(id);
   }
 };
 
-var state = {
-  // Posts
-  posts: [],
-
-  // Me
-  me: null,
-
-  // Routes
-  logoutRoute: null,
-  loginRoute: null,
-  destinationRoute: null,
-
-  //Error
-  error: null
-};
-
-var getters = {
-  // Posts
-  posts: function posts(state) {
-    return state.posts;
-  },
-
-  // Me
-  me: function me(state) {
-    return state.me;
-  },
-
-  // Routes
-  loginRoute: function loginRoute(state) {
-    return state.loginRoute;
-  },
-  logoutRoute: function logoutRoute(state) {
-    return state.logoutRoute;
-  },
-  destinationRoute: function destinationRoute(state) {
-    return state.destinationRoute;
-  },
-
-  // Error
-  error: function error(state) {
-    return state.error;
-  }
-};
-
+/**
+ * Modifying store.
+ */
 var mutations = {
-  // Posts
-  setInitialPosts: function setInitialPosts(state, posts) {
-    state.posts = posts;
-  },
   deletePostById: function deletePostById(state, id) {
     var remove = find.indexById(state.posts, id);
     state.posts.splice(remove, 1);
   },
   addPost: function addPost(state, post) {
-    state.posts.unshift(post);
-  },
-  addReply: function addReply(state, post) {
-    var parentId = post.attributes.post_id;
-    var parent = find.elementById(state.posts, parentId);
-    parent.relationships.replies.push(post);
+    // If top parent
+    if (!post.attributes.post_id) {
+      state.posts.unshift(post);
+    }
+    // else reply to some parent
+    else {
+        var parentId = post.attributes.post_id;
+        var parent = find.elementById(state.posts, parentId);
+
+        if (!parent) return;
+
+        console.log(post);
+
+        if (parent.relationships.replies) {
+          parent.relationships.replies.push(post);
+        } else {
+          var replies = [post];
+          parent.relationships.replies = replies;
+        }
+      }
   },
 
 
-  // Me
-  setMe: function setMe(state, me) {
-    state.me = me;
-  },
-
-
-  // Routes
-  setLogin: function setLogin(state, route) {
-    state.loginRoute = route;
-  },
-  setLogout: function setLogout(state, route) {
-    state.logoutRoute = route;
+  // Setters
+  setInitialPosts: function setInitialPosts(state, posts) {
+    state.posts = posts;
   },
   setDestination: function setDestination(state, route) {
     state.destinationRoute = route;
   },
-
-
-  // Error
+  setLogout: function setLogout(state, route) {
+    state.logoutRoute = route;
+  },
+  setLogin: function setLogin(state, route) {
+    state.loginRoute = route;
+  },
   error: function error(state, _error) {
     state.error = _error;
+  },
+  setMe: function setMe(state, me) {
+    state.me = me;
+  }
+};
+
+var state = {
+  posts: [],
+  me: null,
+  logoutRoute: null,
+  loginRoute: null,
+  destinationRoute: null,
+  error: null
+};
+
+var getters = {
+  destinationRoute: function destinationRoute(state) {
+    return state.destinationRoute;
+  },
+  logoutRoute: function logoutRoute(state) {
+    return state.logoutRoute;
+  },
+  loginRoute: function loginRoute(state) {
+    return state.loginRoute;
+  },
+  error: function error(state) {
+    return state.error;
+  },
+  posts: function posts(state) {
+    return state.posts;
+  },
+  me: function me(state) {
+    return state.me;
   }
 };
 
 var actions = {
-
-  // Posts
+  setDestination: function setDestination(context, route) {
+    context.commit('setDestination', route);
+  },
   deletePostById: function deletePostById(context, id) {
     context.commit('deletePostById', id);
-  },
-  addPost: function addPost(context, post) {
-    context.commit('addPost', post);
-  },
-  addReply: function addReply(context, post) {
-    context.commit('addReply', post);
-  },
-
-
-  // Me
-  setMe: function setMe(context, me) {
-    context.commit('setMe', me);
-  },
-
-
-  // Destination
-  setLogin: function setLogin(context, route) {
-    context.commit('setLogin', route);
   },
   setLogout: function setLogout(context, route) {
     context.commit('setLogout', route);
   },
-  setDestination: function setDestination(context, route) {
-    context.commit('setDestination', route);
+  setLogin: function setLogin(context, route) {
+    context.commit('setLogin', route);
   },
-
-
-  // Error
+  addPost: function addPost(context, post) {
+    context.commit('addPost', post);
+  },
+  setMe: function setMe(context, me) {
+    context.commit('setMe', me);
+  },
   error: function error(context, _error2) {
     context.commit('error', _error2);
   }
@@ -44311,7 +44298,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "maxlength": "60",
-      "placeholder": '#' + _vm.defaultSubjectName() + ' - Post subject'
+      "placeholder": _vm.defaultSubjectName()
     },
     domProps: {
       "value": (_vm.subject)

@@ -6,7 +6,7 @@
 				<!-- Subject -->				
 				<div class="modal-header">
 					<input type="text" class="form-control" v-model="subject" maxlength="60"
-						:placeholder="'#' + defaultSubjectName() + ' - Post subject'">
+						:placeholder="defaultSubjectName()">
 				</div>
 				
 				<!-- Attachments -->

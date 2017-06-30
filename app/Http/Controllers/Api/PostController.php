@@ -36,7 +36,7 @@ class PostController extends Controller
         
         // Set ancestral data if this post is a child
         if ($post->post_id) {
-            $parent = Post::withTrashed()->find($post->post_id);
+            $parent = Post::withTrashed()->findOrFail($post->post_id);
             self::setMetaData($parent, $post);
         }
 
@@ -63,7 +63,7 @@ class PostController extends Controller
         if ($ancestors) {
             $child->setData('ancestor_ids', array_push($ancestors, $parent->id));            
         } else {
-            $child->setData('ancestor_ids', [$parent->id]);
+            $child->setData('ancestor_ids', array($parent->id));
         }
     }
 

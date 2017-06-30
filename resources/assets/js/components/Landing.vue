@@ -53,7 +53,7 @@ export default {
     redirectDestination() {
       const destination = this.$store.getters.destinationRoute;
       if (destination) {
-        this.$store.dispatch.dispatch('setDestination', '/');
+        this.$store.dispatch('setDestination', '/');
         this.$router.push(destination);
       }
       this.$router.push('/');
