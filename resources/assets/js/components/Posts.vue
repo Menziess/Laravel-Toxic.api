@@ -40,7 +40,7 @@
   import PostView from './post/PostView.vue';
   export default {
     name: 'posts',
-    props: ['json', 'slug', 'id'],
+    props: ['slug', 'id'],
     components: {
       PostView
     },

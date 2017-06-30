@@ -14,6 +14,7 @@ import PostNew from './components/post/PostNew.vue';
 import Landing from './components/Landing.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Posts from './components/Posts.vue';
+import Post from './components/Post.vue';
 
 import VueRouter from 'vue-router';
 import store from './store';
@@ -33,16 +34,25 @@ Vue.component('postnew', PostNew);
 Vue.component('landing', Landing);
 Vue.component('navbar', Navbar);
 Vue.component('posts', Posts);
+Vue.component('posts', Post);
 
 /**
  * Route components.
  */
 const routes = [
+
   { path: '/', component: Posts }, 
-	{ path: '/t/:slug/:id?', component: Posts, props: true },
+
+  { path: '/t/:slug', component: Posts, props: true }, //@TODO include child route /t/slug
+
+	{ path: '/t/:slug/:id', component: Post, props: true },
+
 	{ path: '/u/:slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } },
+
   { path: '/landing', component: Landing }, 
+
 	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }
+	
 ];
 
 /**

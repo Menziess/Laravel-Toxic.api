@@ -1,5 +1,5 @@
 <template>
-  <div class="post-details">
+  <div class="post-details" @click="showPost()">
 
 		<div class="left">
 			<img 
@@ -128,7 +128,11 @@ export default {
       } else {
 				callback();
 			}
-    }
+    },
+		showPost() {
+			window.scrollTo(0, 0);
+			this.$router.push('/t/' + this.post.attributes.slug + '/' + this.post.id);
+		}
 	},
 	mounted() {
 		switch (this.post.attributes.attachment) {

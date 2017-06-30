@@ -68,6 +68,7 @@ const mutations = {
   setDestination(state, route) { state.destinationRoute = route; },
   setLogout(state, route) { state.logoutRoute = route; },
   setLogin(state, route) { state.loginRoute = route; },
+  setPost(state, post) { state.post = post; },
   error(state, error) { state.error = error; },
   setMe(state, me) { state.me = me; },
 };
@@ -77,6 +78,7 @@ const state = {
   posts: [
 
   ],
+  post: null,
   me: null,
   logoutRoute: null,
   loginRoute: null,
@@ -91,6 +93,7 @@ const getters = {
   loginRoute: state => { return state.loginRoute; },
   error: state => { return state.error; },
   posts: state => { return state.posts; },
+  post: state => { return state.post; },
   me: state => { return state.me; },
 };
 
@@ -101,6 +104,7 @@ const actions = {
   setLogout(context, route) { context.commit('setLogout', route); },
   setLogin(context, route) { context.commit('setLogin', route); },
   addPost(context, post) { context.commit('addPost', post); },
+  setPost(context, post) { context.commit('setPost', post); },
   setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
 };
