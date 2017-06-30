@@ -13074,8 +13074,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 var find = {
   elementById: function elementById(array, id) {
-    return array.map(function (element) {
-      return element.id;
+    return array.find(function (element) {
+      return element.id === id;
     });
   },
   indexById: function indexById(array, id) {
@@ -13103,13 +13103,6 @@ var getters = {
   // Posts
   posts: function posts(state) {
     return state.posts;
-  },
-  getPostById: function getPostById(state, getters) {
-    return function (id) {
-      return state.posts.find(function (post) {
-        return post.id === id;
-      });
-    };
   },
 
   // Me
@@ -13149,8 +13142,7 @@ var mutations = {
   addReply: function addReply(state, post) {
     var parentId = post.attributes.post_id;
     var parent = find.elementById(state.posts, parentId);
-    console.log(parent);
-    parent.relationships.push(post);
+    parent.relationships.replies.push(post);
   },
 
 

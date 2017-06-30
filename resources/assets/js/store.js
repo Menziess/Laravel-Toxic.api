@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 const find = {
   elementById(array, id) {
-    return array.map(element => {
-      return element.id;
+    return array.find(element => {
+      return element.id === id;
     });
   },
   indexById(array, id) {
@@ -43,7 +43,6 @@ const state = {
 const getters = {
   // Posts
   posts: state => { return state.posts; },
-  getPostById: (state, getters) => (id) => { return state.posts.find(post => post.id === id); },
 
   // Me
   me: state => { return state.me; },
@@ -68,8 +67,7 @@ const mutations = {
   addReply(state, post) {
     const parentId = post.attributes.post_id;
     const parent = find.elementById(state.posts, parentId);
-    console.log(parent);
-    parent.relationships.push(post);
+    parent.relationships.replies.push(post);
   },
 
   // Me
