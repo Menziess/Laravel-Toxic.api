@@ -12820,11 +12820,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -12844,7 +12839,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					method: 'delete',
 					url: '/api/post/' + _this.post.id
 				}).then(function (response) {
-					_this.$store.dispatch('deletePostById', _this.post.id);
+					_this.$store.dispatch('deletePost', _this.post);
 				}).catch(function (error) {
 					console.log(error);
 					_this.$store.dispatch('error', error);
@@ -13093,9 +13088,23 @@ var find = {
  * Modifying store.
  */
 var mutations = {
-  deletePostById: function deletePostById(state, id) {
-    var remove = find.indexById(state.posts, id);
-    state.posts.splice(remove, 1);
+  deletePost: function deletePost(state, post) {
+    // If top parent
+    if (!post.attributes.post_id) {
+      var index = find.indexById(state.posts, post.id);
+      state.posts.splice(index, 1);
+    }
+    // else delete some child
+    else {
+        var parentId = post.attributes.post_id;
+        var parent = find.elementById(state.posts, parentId);
+
+        if (!parent) return;
+
+        var replies = parent.relationships.replies;
+        var _index = find.indexById(replies, post.id);
+        replies.splice(_index, 1);
+      }
   },
   addPost: function addPost(state, post) {
     // If top parent
@@ -13110,7 +13119,6 @@ var mutations = {
         if (!parent) return;
 
         if (parent.relationships.replies) {
-          console.log('has replies relation');
           parent.relationships.replies.unshift(post);
         } else {
           parent.relationships.replies = [post];
@@ -13174,8 +13182,8 @@ var actions = {
   setDestination: function setDestination(context, route) {
     context.commit('setDestination', route);
   },
-  deletePostById: function deletePostById(context, id) {
-    context.commit('deletePostById', id);
+  deletePost: function deletePost(context, post) {
+    context.commit('deletePost', post);
   },
   setLogout: function setLogout(context, route) {
     context.commit('setLogout', route);
@@ -15589,7 +15597,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.text[data-v-0689833e] {\r\n\tmargin-left: 1em;\n}\n.panel-buttons[data-v-0689833e] {\r\n\tmargin-bottom: auto;\n}\n.btn[data-v-0689833e]::focus {\r\n  color: red !important;\n}\n.btn[data-v-0689833e]::active {\r\n  color: blue !important;\n}\n.btn[data-v-0689833e]::hover {\r\n  color: yellow !important;\n}\n.post-details[data-v-0689833e] {\r\n\tpadding: 0.5em 0 0.5em 0.5em;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n  -webkit-box-flex:1;\r\n      -ms-flex:1;\r\n          flex:1;\n}\n.left[data-v-0689833e] {\r\n\ttext-align: center;\r\n\twidth: 50px;\r\n  -webkit-box-ordinal-group: 2;\r\n      -ms-flex-order: 1;\r\n          order: 1;\n}\n.mid[data-v-0689833e] {\r\n\t-webkit-box-flex: 1;\r\n\t    -ms-flex: 1;\r\n\t        flex: 1;\r\n  -webkit-box-ordinal-group: 3;\r\n      -ms-flex-order: 2;\r\n          order: 2;\n}\n.right[data-v-0689833e] {\r\n\tposition: absolute;\r\n\tright: 0.5em;\n}\r\n", ""]);
+exports.push([module.i, "\n.text[data-v-0689833e] {\r\n\tmargin-left: 1em;\n}\n.panel-buttons[data-v-0689833e] {\r\n\tmargin-bottom: auto;\n}\n.post-details[data-v-0689833e] {\r\n\tpadding: 0.5em 0 0.5em 0.5em;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n  -webkit-box-flex:1;\r\n      -ms-flex:1;\r\n          flex:1;\n}\n.left[data-v-0689833e] {\r\n\ttext-align: center;\r\n\twidth: 50px;\r\n  -webkit-box-ordinal-group: 2;\r\n      -ms-flex-order: 1;\r\n          order: 1;\n}\n.mid[data-v-0689833e] {\r\n\t-webkit-box-flex: 1;\r\n\t    -ms-flex: 1;\r\n\t        flex: 1;\r\n  -webkit-box-ordinal-group: 3;\r\n      -ms-flex-order: 2;\r\n          order: 2;\n}\n.right[data-v-0689833e] {\r\n\tposition: absolute;\r\n\tright: 0.5em;\n}\n.clickable[data-v-0689833e] {\r\n\tcursor: pointer;\n}\r\n", ""]);
 
 /***/ }),
 /* 55 */
@@ -43576,13 +43584,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', [_c('strong', [_vm._v(_vm._s(this.post.relationships.user.attributes.name))])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
     staticClass: "text"
-  }, [_vm._v("/u/" + _vm._s(this.post.relationships.user.attributes.slug))]), _vm._v(" "), (_vm.post.attributes.attachment === 'text') ? _c('Textbox', {
+  }, [_vm._v("/u/" + _vm._s(this.post.relationships.user.attributes.slug))]), _vm._v(" "), _c('div', {
+    staticClass: "clickable"
+  }, [(_vm.post.attributes.attachment === 'text') ? _c('Textbox', {
     attrs: {
       "text": _vm.post.attributes.text
     }
   }) : (_vm.post.attributes.attachment === 'drawing') ? _c('Drawing', {
     ref: "myDrawing"
-  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "panel-buttons"
   }, [_c('button', {
     staticClass: "btn",
@@ -43600,7 +43610,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "menu"
     }
-  }, [_c('li', {
+  }, [(_vm.$store.getters.me.id === _vm.post.attributes.user_id) ? _c('li', {
     attrs: {
       "role": "presentation"
     }
@@ -43613,7 +43623,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.deletePost()
       }
     }
-  }, [_vm._v("Delete")])])])])])
+  }, [_vm._v("Delete")])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
     staticClass: "btn"
@@ -43636,7 +43646,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-expanded": "false"
     }
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-remove"
+    staticClass: "glyphicon glyphicon-cog"
   })])
 }]}
 module.exports.render._withStripped = true

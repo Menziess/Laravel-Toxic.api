@@ -23,26 +23,28 @@
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>		-->
 
 			<!-- Post Content -->
-			<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
-			<Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
-			<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
-			<p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
-			<p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
+			<div class="clickable" >
+				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
+				<Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
+				<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
+				<p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
+				<p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
+			</div>
 
 			<!-- Buttons -->
 			<div class="panel-buttons">
-				<button class="btn" v-on:click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button>
+				<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button>
 			</div>
 		</div>
 		
 		<div class="right">
 			<button type="button" class="btn" data-toggle="dropdown" role="button" aria-expanded="false">
-				<i class="glyphicon glyphicon-remove"></i>
+				<i class="glyphicon glyphicon-cog"></i>
 			</button>
 			
 			<ul role="menu" class="dropdown-menu dropdown-menu-right">
 
-				<li role="presentation">
+				<li v-if="$store.getters.me.id === post.attributes.user_id" role="presentation">
 					<a v-on:click="deletePost()" role="menuitem">Delete</a>
 				</li>
 
@@ -63,16 +65,6 @@
 .panel-buttons {
 	margin-bottom: auto;
 }
-
-.btn::focus {
-  color: red !important;
-}
-.btn::active {
-  color: blue !important;
-}
-.btn::hover {
-  color: yellow !important;
-}
 .post-details {
 	padding: 0.5em 0 0.5em 0.5em;
 	display: flex;
@@ -90,6 +82,9 @@
 .right {
 	position: absolute;
 	right: 0.5em;
+}
+.clickable {
+	cursor: pointer;
 }
 </style>
 
@@ -111,7 +106,7 @@ export default {
 					method: 'delete',
 					url: '/api/post/' + this.post.id
 				}).then(response => {
-					this.$store.dispatch('deletePostById', this.post.id);
+					this.$store.dispatch('deletePost', this.post);
 				}).catch(error => {
 					console.log(error);
 					this.$store.dispatch('error', error);

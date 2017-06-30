@@ -24,9 +24,23 @@ const find = {
  */
 const mutations = {
 
-  deletePostById(state, id) {
-    const remove = find.indexById(state.posts, id);
-    state.posts.splice(remove, 1);
+  deletePost(state, post) {
+     // If top parent
+    if (!post.attributes.post_id) {
+      const index = find.indexById(state.posts, post.id);
+      state.posts.splice(index, 1);
+    } 
+    // else delete some child
+    else {
+      const parentId = post.attributes.post_id;
+      const parent = find.elementById(state.posts, parentId);
+
+      if (!parent) return;
+
+      const replies = parent.relationships.replies;
+      const index = find.indexById(replies, post.id);
+      replies.splice(index, 1);
+    }
   },
 
   addPost(state, post) { 
@@ -42,7 +56,6 @@ const mutations = {
       if (!parent) return;
 
       if (parent.relationships.replies) {
-        console.log('has replies relation');
         parent.relationships.replies.unshift(post);
       } else {
         parent.relationships.replies = [ post ];
@@ -84,7 +97,7 @@ const getters = {
 
 const actions = {
   setDestination(context, route) { context.commit('setDestination', route); },
-  deletePostById(context, id) { context.commit('deletePostById', id); },
+  deletePost(context, post) { context.commit('deletePost', post); },
   setLogout(context, route) { context.commit('setLogout', route); },
   setLogin(context, route) { context.commit('setLogin', route); },
   addPost(context, post) { context.commit('addPost', post); },
