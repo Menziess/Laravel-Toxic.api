@@ -6,12 +6,12 @@
 
         <!-- Posts Feed -->
         <router-link to="/" tag="li" class="btn btn-secondary navbar-btn">
-          <i class="glyphicon glyphicon-home"></i>
+          <i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span>
         </router-link>
 
         <!-- Something else -->
         <router-link to="/landing" tag="li" class="btn btn-secondary navbar-btn">
-          <i class="glyphicon glyphicon-heart-empty"></i>
+          <i class="glyphicon glyphicon-bell"></i>&ensp;<span class="mobile-hidden">Notifications</span>
         </router-link>
 
         <!-- New Post -->

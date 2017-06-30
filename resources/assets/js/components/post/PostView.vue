@@ -6,7 +6,7 @@
         <!-- Subject -->
         <div v-if="!post.attributes.post_id" class="panel-heading">
             <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
-              <span><strong>{{ post.attributes.subject }}</strong></span>
+              <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
             </router-link>
         </div>
 
@@ -63,5 +63,8 @@
 <style>
 .reply { 
   transform: scale(1, -1);
+}
+.heading-text {
+  margin-left: 4em;
 }
 </style>

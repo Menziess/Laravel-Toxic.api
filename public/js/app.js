@@ -11984,18 +11984,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'background',
   data: function data() {
     return {
-      viewbox: "0 0 400 400",
-      random: Math.random()
+      viewbox: "0 0 400 400"
     };
-  },
-
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -15636,7 +15632,7 @@ exports.push([module.i, "\ncanvas[data-v-3be1b44f] {\r\n  width: 100%;\r\n  heig
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.reply { \r\n  -webkit-transform: scale(1, -1); \r\n          transform: scale(1, -1);\n}\r\n", ""]);
+exports.push([module.i, "\n.reply { \r\n  -webkit-transform: scale(1, -1); \r\n          transform: scale(1, -1);\n}\n.heading-text {\r\n  margin-left: 4em;\n}\r\n", ""]);
 
 /***/ }),
 /* 62 */
@@ -43923,15 +43919,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-home"
-  })]), _vm._v(" "), _c('router-link', {
+  }), _vm._v(" "), _c('span', {
+    staticClass: "mobile-hidden"
+  }, [_vm._v("Home")])]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-secondary navbar-btn",
     attrs: {
       "to": "/landing",
       "tag": "li"
     }
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-heart-empty"
-  })]), _vm._v(" "), _c('button', {
+    staticClass: "glyphicon glyphicon-bell"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "mobile-hidden"
+  }, [_vm._v("Notifications")])]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-success navbar-btn pull-right",
     attrs: {
       "type": "button",
@@ -44231,7 +44231,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": '/t/' + _vm.post.attributes.slug + '/' + _vm.post.id
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.post.attributes.subject))])])])], 1) : _vm._e(), _vm._v(" "), _c('Attachments', {
+  }, [_c('strong', {
+    staticClass: "heading-text"
+  }, [_vm._v("/t/" + _vm._s(_vm.post.attributes.subject))])])], 1) : _vm._e(), _vm._v(" "), _c('Attachments', {
     attrs: {
       "post": _vm.post
     },

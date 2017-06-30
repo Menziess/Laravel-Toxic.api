@@ -93,6 +93,7 @@ html {
     overflow-x:hidden;
 }
 
+// Default icon color
 i {
   color: $text-color;
 }
@@ -105,6 +106,13 @@ blockquote {
 // Shorhand for inline
 .inline {
   display: inline-block;
+}
+
+// Hidden for mobile users
+.mobile-hidden {
+  @media only screen and (max-width: 768px) {
+    display: none !important;
+  }
 }
 
 // Navbar search element
