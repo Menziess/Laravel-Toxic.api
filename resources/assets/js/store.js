@@ -40,10 +40,10 @@ const mutations = {
       const parent = find.elementById(state.posts, parentId);
       
       if (!parent) return;
-      
+
       if (parent.relationships.replies) {
         console.log('has replies relation');
-        parent.relationships.replies.push(post);
+        parent.relationships.replies.unshift(post);
       } else {
         parent.relationships.replies = [ post ];
       }

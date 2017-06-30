@@ -28,36 +28,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.logo {
-  position: static;
-}
-.svg {
-  width: 160vw;
-  margin: auto; 
-  z-index: -2;  
-  display: block;
-  position: fixed;
-  opacity: 0.5;
-  will-change: opacity, transform;
-  -webkit-animation:spin 100s ease-in-out infinite;
-  -moz-animation:spin 100s ease-in-out infinite;
-  animation:spin 100s ease-in-out infinite;
-}
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
-.opacity-ease-out {
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
-}
-.opacity-ease-out:hover {
-  opacity: 1;
-  zoom: 1;
-}
-</style>

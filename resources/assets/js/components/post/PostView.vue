@@ -4,11 +4,11 @@
       <div>
 
         <!-- Subject -->
-        <!--<div class="panel-heading">
+        <div v-if="!post.attributes.post_id" class="panel-heading">
             <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
               <span><strong>{{ post.attributes.subject }}</strong></span>
             </router-link>
-        </div>-->
+        </div>
 
         <!-- Attachments -->
         <Attachments 

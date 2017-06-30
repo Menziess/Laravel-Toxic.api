@@ -13115,7 +13115,7 @@ var mutations = {
 
         if (parent.relationships.replies) {
           console.log('has replies relation');
-          parent.relationships.replies.push(post);
+          parent.relationships.replies.unshift(post);
         } else {
           parent.relationships.replies = [post];
         }
@@ -15631,13 +15631,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\ncanvas[data-v-3be1b44f] {\r\n  width: 100%;\r\n  height: 40vh;\n}\r\n", ""]);
 
 /***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.logo {\r\n  position: static;\n}\n.svg {\r\n  width: 160vw;\r\n  margin: auto; \r\n  z-index: -2;  \r\n  display: block;\r\n  position: fixed;\r\n  opacity: 0.5;\r\n  will-change: opacity, transform;\r\n  -webkit-animation:spin 100s ease-in-out infinite;\r\n  animation:spin 100s ease-in-out infinite;\n}\n@-webkit-keyframes spin {\n100% { -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin {\n100% { -webkit-transform: rotate(360deg); transform:rotate(360deg);\n}\n}\n.opacity-ease-out {\r\n  transition: opacity 1s ease-in-out;\n}\n.opacity-ease-out:hover {\r\n  opacity: 1;\r\n  zoom: 1;\n}\r\n", ""]);
-
-/***/ }),
+/* 60 */,
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43242,10 +43236,6 @@ module.exports = Component.exports
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(98)
-
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(37),
@@ -44235,7 +44225,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: [_vm.original ? ['col-md-8', 'col-md-offset-2'] : 'panel-separator']
   }, [_c('div', {
     class: [_vm.original ? ['panel', 'panel-default'] : '']
-  }, [_c('div', [_c('Attachments', {
+  }, [_c('div', [(!_vm.post.attributes.post_id) ? _c('div', {
+    staticClass: "panel-heading"
+  }, [_c('router-link', {
+    attrs: {
+      "to": '/t/' + _vm.post.attributes.slug + '/' + _vm.post.id
+    }
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.post.attributes.subject))])])])], 1) : _vm._e(), _vm._v(" "), _c('Attachments', {
     attrs: {
       "post": _vm.post
     },
@@ -47110,32 +47106,7 @@ if(false) {
 }
 
 /***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(60);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("33dee8e8", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ecaecf9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Background.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-4ecaecf9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Background.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 98 */,
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
