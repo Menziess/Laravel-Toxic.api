@@ -11955,7 +11955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
 
-    console.log(this.destination + ' is valid: ' + this.valid(this.destination));
+    // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {
       store.dispatch('setDestination', this.destination);
       this.$router.push('/landing');
@@ -12055,15 +12055,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'landing',
-  data: function data() {
-    return {
-      destination: '/'
-    };
-  },
-  mounted: function mounted() {
-    var destination = this.$store.getters.destinationRoute;
-    if (destination) {
-      this.destination = destination;
+  methods: {
+    redirectDestination: function redirectDestination() {
+      var destination = this.$store.getters.destinationRoute;
+      if (destination) {
+        this.$store.dispatch.dispatch('setDestination', '/');
+        this.$router.push(destination);
+      }
+      this.$router.push('/');
     }
   }
 });
@@ -44077,7 +44076,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-lg btn-danger",
     on: {
       "click": function($event) {
-        _vm.$router.push(_vm.destination)
+        _vm.redirectDestination()
       }
     }
   }, [_vm._v("\n            Continue\n          ")])])])]), _vm._v(" "), _c('div', {

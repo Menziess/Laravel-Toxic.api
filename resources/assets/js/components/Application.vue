@@ -72,7 +72,7 @@ export default {
 
     if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
 
-    console.log(this.destination + ' is valid: ' + this.valid(this.destination));
+    // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {
       store.dispatch('setDestination', this.destination);
       this.$router.push('/landing');
