@@ -12493,9 +12493,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				var post = response.data.data;
 				_this.submitted = false;
+				_this.$emit('submit');
 				_this.$store.dispatch('addPost', post);
 			}).catch(function (error) {
 				_this.submitted = false;
+				_this.$emit('submit');
 				// this.$store.dispatch('error', error);
 			});
 		}
@@ -12516,6 +12518,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__post_view_Drawing_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__post_view_Textbox_vue__);
+//
+//
+//
 //
 //
 //
@@ -13108,13 +13113,11 @@ var mutations = {
 
         if (!parent) return;
 
-        console.log(post);
-
         if (parent.relationships.replies) {
+          console.log('has replies relation');
           parent.relationships.replies.push(post);
         } else {
-          var replies = [post];
-          parent.relationships.replies = replies;
+          parent.relationships.replies = [post];
         }
       }
   },
@@ -43730,7 +43733,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "mySubmit",
     staticClass: "btn btn-primary",
     attrs: {
-      "data-dismiss": "modal",
       "type": "button"
     },
     on: {
@@ -44245,6 +44247,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.replying) ? _c('PostReply', {
     attrs: {
       "post": _vm.post
+    },
+    on: {
+      "submit": function($event) {
+        _vm.replying = !_vm.replying
+      }
     }
   }) : _vm._e(), _vm._v(" "), _vm._l((_vm.post.relationships.replies), function(post) {
     return _c('PostView', {

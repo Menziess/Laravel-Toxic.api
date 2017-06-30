@@ -17,7 +17,10 @@
         ></Attachments>
 
         <!-- Reply Form -->
-        <PostReply v-if="replying" :post="post"></PostReply>
+        <PostReply v-if="replying" 
+          :post="post"
+          v-on:submit="replying = !replying"
+        ></PostReply>
 
         <!-- Replies -->
         <PostView v-for="post in post.relationships.replies"

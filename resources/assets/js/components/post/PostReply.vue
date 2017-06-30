@@ -27,7 +27,7 @@
 				<i class="glyphicon glyphicon-paperclip"></i>
 			</button>
 
-			<button v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
+			<button v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
 		</div>
 	
 	</div>
@@ -68,9 +68,11 @@
 				}).then(response => {
 					const post = response.data.data;
 					this.submitted = false;
+					this.$emit('submit');
 					this.$store.dispatch('addPost', post);
 				}).catch(error => {
 					this.submitted = false;
+					this.$emit('submit');					
 					// this.$store.dispatch('error', error);
 				});
 			}
