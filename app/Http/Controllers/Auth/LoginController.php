@@ -56,14 +56,25 @@ class LoginController extends Controller
      */
     public function handleFacebookCallback(Request $request)
     {
-        $destination = $request->header('referer');
-        $server_name = \Config::get('services.server.name');
-        $php_self = \Config::get('services.server.php_self');
-        
-        dd($server_name . $php_self);
-        dd(str_replace($server_name . $php_self, "", $destination));
+        $destination = self::getDestination($request);
 
 		FacebookLogin::handleFacebookCallback();
 		return redirect($this->redirectTo)->with('destination', $destination);
 	}
+
+    /**
+     * Get destination from request referer.
+     */
+    private static function getDestination(Request $request) 
+    {
+        $referer = $request->header('referer');
+        $server_name = \Config::get('services.server.name');
+        $php_self = \Config::get('services.server.php_self');
+
+        $remove_all_before = $server_name . $php_self . '/';
+        $exploded = explode($remove_all_before, $referer);
+        $end = end($exploded);
+
+        return $end == "" ? null : $end;
+    }
 }
