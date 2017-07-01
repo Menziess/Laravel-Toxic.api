@@ -23,10 +23,12 @@
         ></PostReply>
 
         <!-- Replies -->
+        <div v-if="!hidereplies">
         <PostView v-for="post in post.relationships.replies"
           :key="post.id"
           :post="post"
         ></PostView>
+        </div>
 
       </div>
     </div>
@@ -40,7 +42,7 @@
   import Textbox from './post_view/Textbox.vue';
   export default {
     name: 'PostView',
-    props: ['post'],
+    props: ['post', 'hidereplies'],
     components: {
       Attachments,
       PostReply,
@@ -54,7 +56,7 @@
     },
     computed: {
       original() {
-        return !this.post.attributes.post_id;
+        return true || !this.post.attributes.post_id;
       }
     }
   }

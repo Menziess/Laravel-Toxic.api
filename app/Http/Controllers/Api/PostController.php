@@ -70,6 +70,22 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function slug($slug, $id = null)
+    {
+        if ($id) {
+            return $this->show($id);
+        }
+
+        return Post::whereNull('post_id')->where('slug', $slug)
+            ->with(['user', 'replies'])->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

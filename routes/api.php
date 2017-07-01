@@ -18,7 +18,10 @@ Route::namespace('Api')->group(function() {
     Route::post('/log', 'ErrorController@log');
     Route::post('/logout', 'LoginController@logout');
     Route::get('/login', 'LoginController@redirectToFacebook');
+    
     Route::get('post', 'PostController@index');
+    Route::get('post/{id}', 'PostController@show')->where('id', '[0-9]+');
+    Route::get('post/{slug}/{id?}', 'PostController@slug')->where('id', '[0-9]+');
 });
 
 /*
@@ -34,7 +37,6 @@ Route::namespace('Api')->group(function() {
 
 Route::middleware('auth:api')->namespace('Api')->group(function() {
     Route::post('post', 'PostController@store');
-    Route::get('post/{id}', 'PostController@show');
     Route::put('post/{id}', 'PostController@update');
     Route::delete('post/{id}', 'PostController@destroy');
 
