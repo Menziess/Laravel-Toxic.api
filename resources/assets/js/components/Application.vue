@@ -76,7 +76,6 @@ export default {
     if (this.valid(this.destination)) {
       if (this.$store.getters.me) {
       // If logged in, redirect to the page where user came from
-        this.$router.push(this.destination);
       } else {
       // Else, redirect to landing page, because the user is new
         store.dispatch('setDestination', this.destination);

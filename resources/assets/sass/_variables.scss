@@ -138,8 +138,14 @@ blockquote {
   background-color: transparent !important;
   color: black !important;
 }
+.reply { 
+  transform: scale(1, -1);
+}
 .col-md-8 {
   padding: 0 !important;
+}
+.heading-text {
+  margin-left: 4em;
 }
 .panel-separator {
   border-top: 1px solid $brand;  

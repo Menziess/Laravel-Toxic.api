@@ -1,6 +1,6 @@
 <template>
-	<div :class="[original ? ['col-md-8', 'col-md-offset-2'] : 'panel-separator']">
-		<div :class="[original ? ['panel', 'panel-default'] : '']">
+	<div :class="[ischild ? 'panel-separator' : ['col-md-8', 'col-md-offset-2']]">
+		<div :class="[ischild ? '' : ['panel', 'panel-default']]">
       <div>
 
         <!-- Subject -->
@@ -25,8 +25,9 @@
         <!-- Replies -->
         <div v-if="!hidereplies">
         <PostView v-for="post in post.relationships.replies"
-          :key="post.id"
+          :ischild="true"
           :post="post"
+          :key="post.id"
         ></PostView>
         </div>
 
@@ -42,7 +43,7 @@
   import Textbox from './post_view/Textbox.vue';
   export default {
     name: 'PostView',
-    props: ['post', 'hidereplies'],
+    props: ['post', 'hidereplies', 'ischild'],
     components: {
       Attachments,
       PostReply,
@@ -53,20 +54,6 @@
       return {
         replying: false
       }
-    },
-    computed: {
-      original() {
-        return true || !this.post.attributes.post_id;
-      }
     }
   }
 </script>
-
-<style>
-.reply { 
-  transform: scale(1, -1);
-}
-.heading-text {
-  margin-left: 4em;
-}
-</style>

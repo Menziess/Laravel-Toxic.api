@@ -44,7 +44,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function redirectToFacebook(Request $request)
+    public function redirectToFacebook()
     {
         return FacebookLogin::redirectToFacebook();
     }
@@ -54,27 +54,9 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function handleFacebookCallback(Request $request)
+    public function handleFacebookCallback()
     {
-        $destination = self::getDestination($request);
-
 		FacebookLogin::handleFacebookCallback();
-		return redirect($this->redirectTo)->with('destination', $destination);
+		return redirect($this->redirectTo);
 	}
-
-    /**
-     * Get destination from request referer.
-     */
-    private static function getDestination(Request $request) 
-    {
-        $referer = $request->header('referer');
-        $server_name = \Config::get('services.server.name');
-        $php_self = \Config::get('services.server.php_self');
-
-        $remove_all_before = $server_name . $php_self . '/';
-        $exploded = explode($remove_all_before, $referer);
-        $end = end($exploded);
-
-        return $end == "" ? null : $end;
-    }
 }

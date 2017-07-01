@@ -117,13 +117,11 @@
           });
 			},
 			allPostContainsSlug(slug) {
-				console.log("All posts contain slug.");
 				this.posts.every(post => {
 					return post.attributes.slug === slug;
 				});
 			},
 			onePostContainsId(id) {
-				console.log("One post contains id.");				
 				this.posts.find(post => {
 					return post.id === id;
 				});
