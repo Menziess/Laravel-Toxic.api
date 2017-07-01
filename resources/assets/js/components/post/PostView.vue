@@ -5,7 +5,7 @@
 
         <!-- Subject -->
         <div v-if="!post.attributes.post_id" class="panel-heading">
-            <router-link :to="'/t/' + post.attributes.slug + '/' + post.id">
+            <router-link :to="'/t/' + post.attributes.slug">
               <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
             </router-link>
         </div>

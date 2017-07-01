@@ -1,5 +1,5 @@
 <template>
-  <div class="post-details" @click="showPost()">
+  <div class="post-details">
 
 		<div class="left">
 			<img 
@@ -23,7 +23,7 @@
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>		-->
 
 			<!-- Post Content -->
-			<div class="clickable" >
+			<div class="clickable" @click="showPost()">
 				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
 				<Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
 				<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
@@ -40,7 +40,7 @@
 		
 		<div class="right">
 			<button type="button" class="btn" data-toggle="dropdown" role="button" aria-expanded="false">
-				<i class="glyphicon glyphicon-cog"></i>
+				<i class="glyphicon glyphicon-option-vertical"></i>
 			</button>
 			
 			<ul role="menu" class="dropdown-menu dropdown-menu-right">
