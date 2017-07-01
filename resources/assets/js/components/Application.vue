@@ -74,8 +74,14 @@ export default {
 
     // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {
-      store.dispatch('setDestination', this.destination);
-      this.$router.push('/landing');
+      if (this.$store.getters.me) {
+      // If logged in, redirect to the page where user came from
+        this.$router.push(this.destination);
+      } else {
+      // Else, redirect to landing page, because the user is new
+        store.dispatch('setDestination', this.destination);
+        this.$router.push('/landing');
+      }
     }
   }
 }

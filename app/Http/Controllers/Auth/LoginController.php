@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Helpers\FacebookLogin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -43,7 +44,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function redirectToFacebook()
+    public function redirectToFacebook(Request $request)
     {
         return FacebookLogin::redirectToFacebook();
     }
@@ -53,9 +54,16 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function handleFacebookCallback()
+    public function handleFacebookCallback(Request $request)
     {
+        $destination = $request->header('referer');
+        $server_name = \Config::get('services.server.name');
+        $php_self = \Config::get('services.server.php_self');
+        
+        dd($server_name . $php_self);
+        dd(str_replace($server_name . $php_self, "", $destination));
+
 		FacebookLogin::handleFacebookCallback();
-		return redirect($this->redirectTo);
+		return redirect($this->redirectTo)->with('destination', $destination);
 	}
 }

@@ -11995,8 +11995,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {
-      store.dispatch('setDestination', this.destination);
-      this.$router.push('/landing');
+      if (this.$store.getters.me) {
+        // If logged in, redirect to the page where user came from
+        this.$router.push(this.destination);
+      } else {
+        // Else, redirect to landing page, because the user is new
+        store.dispatch('setDestination', this.destination);
+        this.$router.push('/landing');
+      }
     }
   }
 });
@@ -12093,10 +12099,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     redirectDestination: function redirectDestination() {
       var destination = this.$store.getters.destinationRoute;
       if (destination) {
-        this.$store.dispatch('setDestination', '/');
+        this.$store.dispatch('setDestination', null);
         this.$router.push(destination);
+      } else {
+        this.$router.push('/');
       }
-      this.$router.push('/');
     }
   }
 });
