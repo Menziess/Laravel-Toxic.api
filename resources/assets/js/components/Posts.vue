@@ -69,21 +69,21 @@
     methods: {
 			init() {
 				// If id
-				if (this.id && this.posts.length < 1) {
+				if (this.id) {
 					// Check if posts contain id
-					if (!this.onePostContainsId(this.id)) {
+					if (this.posts.length < 1 || this.posts[0].id != this.id) {
 						this.fetchId();
 					}
 				}
 					
 				// If slug
-				else if (this.slug && this.posts.length < 1) {
+				else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
 					// Check if posts all contain slug
 					this.fetchSlug();
 				}
 
 				// If default
-				else {
+				else if (this.posts.length < 1) {
 					this.fetchDefault();
 				};
 			},
@@ -100,7 +100,6 @@
 			fetchSlug() {
 				axios.get('/api/post/' + this.slug)
           .then(response => {
-						console.log(response);
 						this.$store.commit('setInitialSearchPosts', response.data.data);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
