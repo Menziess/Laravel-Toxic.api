@@ -27,7 +27,7 @@
 textarea {
   padding: 0.5em;
   resize: none;
-  height: 40vh;
+  height: 30vh;
   width: 100%;
 
   outline: none;

@@ -114,7 +114,6 @@ export default {
 				}).then(response => {
 					this.$store.dispatch('deletePost', this.post);
 				}).catch(error => {
-					console.log(error);
 					this.$store.dispatch('error', error);
 				})
 			)

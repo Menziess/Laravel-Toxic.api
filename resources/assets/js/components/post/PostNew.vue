@@ -64,6 +64,7 @@
 					const post = response.data.data;
 					this.submitted = false;
 					this.$store.dispatch('addPost', post);
+					this.$router.push({ name: 'home' });
 				}).catch(error => {
 					this.submitted = false;
 					// this.$store.dispatch('error', error);

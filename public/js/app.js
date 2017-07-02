@@ -12433,6 +12433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				var post = response.data.data;
 				_this.submitted = false;
 				_this.$store.dispatch('addPost', post);
+				_this.$router.push({ name: 'home' });
 			}).catch(function (error) {
 				_this.submitted = false;
 				// this.$store.dispatch('error', error);
@@ -12560,7 +12561,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.submitted = false;
 				_this.$emit('submit');
 				_this.$store.dispatch('addPost', post);
-				console.log(_this.post);
 				_this.$router.push({
 					name: 'post_id',
 					params: {
@@ -12921,7 +12921,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}).then(function (response) {
 					_this.$store.dispatch('deletePost', _this.post);
 				}).catch(function (error) {
-					console.log(error);
 					_this.$store.dispatch('error', error);
 				});
 			});
@@ -15778,7 +15777,7 @@ exports.push([module.i, "\n.post-content[data-v-656544a2] {\r\n\tmargin: 1em 0 0
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 40vh;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 30vh;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
 
 /***/ }),
 /* 62 */
