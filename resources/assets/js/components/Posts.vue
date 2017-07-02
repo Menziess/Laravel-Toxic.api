@@ -17,7 +17,7 @@
 		<!-- Posts -->
 		<div class="row">
 			<PostView v-for="post in posts"
-					:hidereplies="!slug"
+					:hidereplies="!id"
 					:key="post.id"
 					:post="post"
 			></PostView>

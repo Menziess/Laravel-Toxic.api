@@ -16,42 +16,16 @@ const find = {
     return array.map(element => {
       return element.id;
     }).indexOf(id);
-  }
-}
-
-/**
- * Modifying store.
- */
-const mutations = {
-
-  deletePost(state, post) {
-     // If top parent
-    if (!post.attributes.post_id) {
-      const index = find.indexById(state.posts, post.id);
-      state.posts.splice(index, 1);
-    } 
-    // else delete some child
-    else {
-      const parentId = post.attributes.post_id;
-      const parent = find.elementById(state.posts, parentId);
-
-      if (!parent) return;
-
-      const replies = parent.relationships.replies;
-      const index = find.indexById(replies, post.id);
-      replies.splice(index, 1);
-    }
   },
-
-  addPost(state, post) { 
+  addPost(array, post) {
     // If top parent
     if (!post.attributes.post_id) {
-      state.posts.unshift(post); 
+      array.unshift(post); 
     } 
     // else reply to some parent
     else {
       const parentId = post.attributes.post_id;
-      const parent = find.elementById(state.posts, parentId);
+      const parent = find.elementById(array, parentId);
       
       if (!parent) return;
 
@@ -62,9 +36,40 @@ const mutations = {
       }
     }
   },
+  deletePost(array, post) {
+    // If top parent
+    if (!post.attributes.post_id) {
+      const index = find.indexById(array, post.id);
+      array.splice(index, 1);
+    } 
+    // else delete some child
+    else {
+      const parentId = post.attributes.post_id;
+      const parent = find.elementById(array, parentId);
+
+      if (!parent) return;
+
+      const replies = parent.relationships.replies;
+      const index = find.indexById(replies, post.id);
+      replies.splice(index, 1);
+    }
+  }
+}
+
+/**
+ * Modifying store.
+ */
+const mutations = {
+
+  deletePost(state, post) { find.deletePost(state.posts, post); },
+  addPost(state, post) { find.addPost(state.posts, post); },
+  deleteSearchPost(state, post) { find.deletePost(state.searchPosts, post); },
+  addSearchPost(state, post) { find.addPost(state.searchPosts, post); },
 
   // Setters
   setInitialPosts(state, posts) { state.posts = posts; },
+  setInitialSearchPosts(state, posts) { state.searchPosts = posts; },
+
   setDestination(state, route) { state.destinationRoute = route; },
   setLogout(state, route) { state.logoutRoute = route; },
   setLogin(state, route) { state.loginRoute = route; },
@@ -75,6 +80,9 @@ const mutations = {
 
 const state = {
   posts: [
+
+  ],
+  searchPosts: [
 
   ],
   me: null,
@@ -91,12 +99,15 @@ const getters = {
   loginRoute: state => { return state.loginRoute; },
   error: state => { return state.error; },
   posts: state => { return state.posts; },
+  searchPosts: state => { return state.searchPosts; },
   me: state => { return state.me; },
 };
 
 
 const actions = {
+  deleteSearchPost(context, post) { context.commit('deleteSearchPost', post); },
   setDestination(context, route) { context.commit('setDestination', route); },
+  addSearchPost(context, post) { context.commit('addSearchPost', post); },
   deletePost(context, post) { context.commit('deletePost', post); },
   setLogout(context, route) { context.commit('setLogout', route); },
   setLogin(context, route) { context.commit('setLogin', route); },
