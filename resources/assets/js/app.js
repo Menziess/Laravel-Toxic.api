@@ -39,13 +39,13 @@ Vue.component('posts', Posts);
  */
 const routes = [
 
-	{ path: '/t/:slug/:id?', component: Posts, props: true },
+	{ path: '/t/:slug/:id?', name: 'post_id', component: Posts, props: true },
 
-	{ path: '/u/:slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } },
+	{ path: '/u/:slug', name: 'post_slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } },
 
   { path: '/landing', component: Landing }, 
 
-  { path: '/', component: Posts }, 
+  { path: '/', name: 'post', component: Posts }, 
 
 	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }
 	

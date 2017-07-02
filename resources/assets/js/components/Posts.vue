@@ -38,17 +38,20 @@
     name: 'posts',
     props: ['slug', 'id'],
     components: { PostView },
-		watch: { '$route': 'init' },
+		watch: { '$route': 'init', 'search': 'init' },
     data() { return { loading: false } },
 		created() { this.init(); },
 
 		computed: {
 			posts() {
+				// If search query is filled in
+				if (this.$store.getters.search) {
+					return this.$store.getters.searchPosts;
 				// If showing one particular post
-				if (this.id) {
+				} else if (this.id) {
 					return this.$store.getters.post;
 				// If showing particular subject
-				} else if (this.slug || this.$store.getters.search) {
+				} else if (this.slug) {
 					return this.$store.getters.searchPosts;
 				}
 				// If showing default
@@ -65,6 +68,7 @@
 				this.loading = true;
 				if (this.id) {
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
+						this.$store.commit('setInitialPost', []);
 						this.fetchId();
 					} else {
 						this.loading = false;
@@ -73,11 +77,13 @@
 					
 				// If slug check if post contains slug
 				else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+					this.$store.commit('setInitialSearchPosts', []);
 					this.fetchSlug();
 				}
 
 				// If default
 				else if (this.posts.length < 1) {
+					this.$store.commit('setInitialPosts', []);
 					this.fetchDefault();
 				}
 
@@ -105,7 +111,22 @@
           });
 			},
 			fetchId() {
-				axios.get('/api/post/' + this.id)
+				// Try to find the post in one of the loaded arrays
+				let post = this.onePostContainsId(this.$store.getters.posts, this.id);
+				if (post) { 
+					this.$store.commit('setInitialPost', [post]); 
+					this.loading = false;
+					return; 
+				}
+				post = this.onePostContainsId(this.$store.getters.searchPosts, this.id);
+				if (post) { 
+					this.$store.commit('setInitialPost', [post]); 
+					this.loading = false;
+					return;
+				}
+
+				// Fetch the post
+				else axios.get('/api/post/' + this.id)
           .then(response => {
 						this.$store.commit('setInitialPost', [response.data.data]);
 						this.empty = this.posts.length === 0;
@@ -114,9 +135,9 @@
 						this.$store.dispatch('error', error);
           });
 			},
-			onePostContainsId(id) {
-				this.posts.find(post => {
-					return post.id === id;
+			onePostContainsId(array, id) {
+				return array.find(post => {
+					return post.id == id;
 				});
 			}
 		}

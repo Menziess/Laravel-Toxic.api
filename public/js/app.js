@@ -11008,7 +11008,7 @@ Vue.component('posts', __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___defau
 /**
  * Route components.
  */
-var routes = [{ path: '/t/:slug/:id?', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a, props: true }, { path: '/u/:slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } }, { path: '/landing', component: __WEBPACK_IMPORTED_MODULE_3__components_Landing_vue___default.a }, { path: '/', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a }, { path: '*', component: { template: '<div><h1>404</h1></div>' } }];
+var routes = [{ path: '/t/:slug/:id?', name: 'post_id', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a, props: true }, { path: '/u/:slug', name: 'post_slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } }, { path: '/landing', component: __WEBPACK_IMPORTED_MODULE_3__components_Landing_vue___default.a }, { path: '/', name: 'post', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a }, { path: '*', component: { template: '<div><h1>404</h1></div>' } }];
 
 /**
  * Router.
@@ -12118,7 +12118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	name: 'posts',
 	props: ['slug', 'id'],
 	components: { PostView: __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default.a },
-	watch: { '$route': 'init' },
+	watch: { '$route': 'init', 'search': 'init' },
 	data: function data() {
 		return { loading: false };
 	},
@@ -12129,11 +12129,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	computed: {
 		posts: function posts() {
-			// If showing one particular post
-			if (this.id) {
+			// If search query is filled in
+			if (this.$store.getters.search) {
+				return this.$store.getters.searchPosts;
+				// If showing one particular post
+			} else if (this.id) {
 				return this.$store.getters.post;
 				// If showing particular subject
-			} else if (this.slug || this.$store.getters.search) {
+			} else if (this.slug) {
 				return this.$store.getters.searchPosts;
 			}
 			// If showing default
@@ -12150,6 +12153,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.loading = true;
 			if (this.id) {
 				if (this.posts.length < 1 || this.posts[0].id != this.id) {
+					this.$store.commit('setInitialPost', []);
 					this.fetchId();
 				} else {
 					this.loading = false;
@@ -12158,11 +12162,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			// If slug check if post contains slug
 			else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+					this.$store.commit('setInitialSearchPosts', []);
 					this.fetchSlug();
 				}
 
 				// If default
 				else if (this.posts.length < 1) {
+						this.$store.commit('setInitialPosts', []);
 						this.fetchDefault();
 					}
 
@@ -12194,17 +12200,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		fetchId: function fetchId() {
 			var _this3 = this;
 
-			axios.get('/api/post/' + this.id).then(function (response) {
-				_this3.$store.commit('setInitialPost', [response.data.data]);
-				_this3.empty = _this3.posts.length === 0;
-				_this3.loading = false;
-			}).catch(function (error) {
-				_this3.$store.dispatch('error', error);
-			});
+			// Try to find the post in one of the loaded arrays
+			var post = this.onePostContainsId(this.$store.getters.posts, this.id);
+			if (post) {
+				this.$store.commit('setInitialPost', [post]);
+				this.loading = false;
+				return;
+			}
+			post = this.onePostContainsId(this.$store.getters.searchPosts, this.id);
+			if (post) {
+				this.$store.commit('setInitialPost', [post]);
+				this.loading = false;
+				return;
+			}
+
+			// Fetch the post
+			else axios.get('/api/post/' + this.id).then(function (response) {
+					_this3.$store.commit('setInitialPost', [response.data.data]);
+					_this3.empty = _this3.posts.length === 0;
+					_this3.loading = false;
+				}).catch(function (error) {
+					_this3.$store.dispatch('error', error);
+				});
 		},
-		onePostContainsId: function onePostContainsId(id) {
-			this.posts.find(function (post) {
-				return post.id === id;
+		onePostContainsId: function onePostContainsId(array, id) {
+			return array.find(function (post) {
+				return post.id == id;
 			});
 		}
 	}
