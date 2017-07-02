@@ -12077,6 +12077,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__post_PostView_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(52);
 //
 //
 //
@@ -12110,14 +12111,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'posts',
 	props: ['slug', 'id'],
-	components: {
-		PostView: __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default.a
+	components: { PostView: __WEBPACK_IMPORTED_MODULE_0__post_PostView_vue___default.a },
+	watch: { '$route': 'init' },
+	data: function data() {
+		return { loading: false };
 	},
+	created: function created() {
+		this.init();
+	},
+
+
 	computed: {
 		posts: function posts() {
 			// If showing one particular post
@@ -12134,38 +12143,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.posts.length < 1 && this.loading === false;
 		}
 	},
-	watch: {
-		'$route': 'init'
-	},
-	data: function data() {
-		return {
-			loading: true
-		};
-	},
-	created: function created() {
-		this.init();
-	},
 
 	methods: {
 		init: function init() {
-			// If id
+			// If id check if posts contain id
+			this.loading = true;
 			if (this.id) {
-				// Check if posts contain id
 				if (this.posts.length < 1 || this.posts[0].id != this.id) {
 					this.fetchId();
+				} else {
+					this.loading = false;
 				}
 			}
 
-			// If slug
+			// If slug check if post contains slug
 			else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
-					// Check if posts all contain slug
 					this.fetchSlug();
 				}
 
 				// If default
 				else if (this.posts.length < 1) {
 						this.fetchDefault();
-					};
+					}
+
+					// App is not loading
+					else this.loading = false;
 		},
 		fetchDefault: function fetchDefault() {
 			var _this = this;

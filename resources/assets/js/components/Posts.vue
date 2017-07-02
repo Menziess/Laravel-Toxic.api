@@ -33,12 +33,15 @@
 
 <script>
   import PostView from './post/PostView.vue';
+	import store from '../store';
   export default {
     name: 'posts',
     props: ['slug', 'id'],
-    components: {
-      PostView
-    },
+    components: { PostView },
+		watch: { '$route': 'init' },
+    data() { return { loading: false } },
+		created() { this.init(); },
+
 		computed: {
 			posts() {
 				// If showing one particular post
@@ -55,37 +58,31 @@
 				return this.posts.length < 1 && this.loading === false;
 			}
 		},
-		watch: {
-			'$route': 'init'
-		},
-    data() {
-			return {
-				loading: true
-			}
-    },
-		created() {
-			this.init();
-		},
+
     methods: {
 			init() {
-				// If id
+				// If id check if posts contain id
+				this.loading = true;
 				if (this.id) {
-					// Check if posts contain id
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
 						this.fetchId();
+					} else {
+						this.loading = false;
 					}
 				}
 					
-				// If slug
+				// If slug check if post contains slug
 				else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
-					// Check if posts all contain slug
 					this.fetchSlug();
 				}
 
 				// If default
 				else if (this.posts.length < 1) {
 					this.fetchDefault();
-				};
+				}
+
+				// App is not loading
+				else this.loading = false;
 			},
       fetchDefault() {
 				axios.get('/api/post')
