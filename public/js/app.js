@@ -12120,7 +12120,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	computed: {
 		posts: function posts() {
+			// If showing one particular post
+			if (this.id) {
+				return this.$store.getters.post;
+				// If showing particular subject
+			} else if (this.slug || this.$store.getters.search) {
+				return this.$store.getters.searchPosts;
+			}
+			// If showing default
 			return this.$store.getters.posts;
+		},
+		empty: function empty() {
+			return this.posts.length < 1 && this.loading === false;
 		}
 	},
 	watch: {
@@ -12128,8 +12139,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	data: function data() {
 		return {
-			loading: true,
-			empty: false
+			loading: true
 		};
 	},
 	created: function created() {
@@ -12139,19 +12149,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		init: function init() {
 			// If id
-			if (this.id && this.posts.length > 0) {
+			if (this.id && this.posts.length < 1) {
 				// Check if posts contain id
-				if (this.onePostContainsId(this.id)) {} else {
+				if (!this.onePostContainsId(this.id)) {
 					this.fetchId();
 				}
 			}
 
 			// If slug
-			else if (this.slug && this.posts.length > 0) {
+			else if (this.slug && this.posts.length < 1) {
 					// Check if posts all contain slug
-					if (this.allPostContainsSlug(this.slug)) {} else {
-						this.fetchSlug();
-					}
+					this.fetchSlug();
 				}
 
 				// If default
@@ -12167,7 +12175,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.empty = _this.posts.length === 0;
 				_this.loading = false;
 			}).catch(function (error) {
-				_this.loading = false;
 				_this.$store.dispatch('error', error);
 			});
 		},
@@ -12175,11 +12182,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			axios.get('/api/post/' + this.slug).then(function (response) {
-				_this2.$store.commit('setInitialPosts', response.data.data);
+				console.log(response);
+				_this2.$store.commit('setInitialSearchPosts', response.data.data);
 				_this2.empty = _this2.posts.length === 0;
 				_this2.loading = false;
 			}).catch(function (error) {
-				_this2.loading = false;
 				_this2.$store.dispatch('error', error);
 			});
 		},
@@ -12187,17 +12194,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this3 = this;
 
 			axios.get('/api/post/' + this.id).then(function (response) {
-				_this3.$store.commit('setInitialPosts', [response.data.data]);
+				_this3.$store.commit('setInitialPost', [response.data.data]);
 				_this3.empty = _this3.posts.length === 0;
 				_this3.loading = false;
 			}).catch(function (error) {
-				_this3.loading = false;
 				_this3.$store.dispatch('error', error);
-			});
-		},
-		allPostContainsSlug: function allPostContainsSlug(slug) {
-			this.posts.every(function (post) {
-				return post.attributes.slug === slug;
 			});
 		},
 		onePostContainsId: function onePostContainsId(id) {
@@ -13193,6 +13194,9 @@ var mutations = {
 
 
   // Setters
+  setInitialPost: function setInitialPost(state, post) {
+    state.post = post;
+  },
   setInitialPosts: function setInitialPosts(state, posts) {
     state.posts = posts;
   },
@@ -13208,6 +13212,9 @@ var mutations = {
   setLogin: function setLogin(state, route) {
     state.loginRoute = route;
   },
+  setSearch: function setSearch(state, search) {
+    state.search = search;
+  },
   error: function error(state, _error) {
     state.error = _error;
   },
@@ -13217,9 +13224,11 @@ var mutations = {
 };
 
 var state = {
-  posts: [],
   searchPosts: [],
+  posts: [],
+  post: [],
   me: null,
+  search: null,
   logoutRoute: null,
   loginRoute: null,
   destinationRoute: null,
@@ -13242,8 +13251,14 @@ var getters = {
   posts: function posts(state) {
     return state.posts;
   },
+  post: function post(state) {
+    return state.post;
+  },
   searchPosts: function searchPosts(state) {
     return state.searchPosts;
+  },
+  search: function search(state) {
+    return state.search;
   },
   me: function me(state) {
     return state.me;
@@ -13265,6 +13280,9 @@ var actions = {
   },
   setLogout: function setLogout(context, route) {
     context.commit('setLogout', route);
+  },
+  setSearch: function setSearch(context, search) {
+    context.commit('setSearch', search);
   },
   setLogin: function setLogin(context, route) {
     context.commit('setLogin', route);
@@ -44400,7 +44418,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "post": post
       }
     })
-  })), _vm._v(" "), (_vm.posts.length < 1 && _vm.loading === false) ? _c('div', [_c('h3', {
+  })), _vm._v(" "), (_vm.empty) ? _c('div', [_c('h3', {
     staticClass: "text-center",
     staticStyle: {
       "margin-top": "10vw"

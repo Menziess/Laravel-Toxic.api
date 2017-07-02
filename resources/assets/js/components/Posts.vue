@@ -24,7 +24,7 @@
 		</div>
 
 		<!-- Empty State -->
-		<div v-if="posts.length < 1 && loading === false">
+		<div v-if="empty">
 			<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
 		</div>
 
@@ -41,16 +41,26 @@
     },
 		computed: {
 			posts() {
+				// If showing one particular post
+				if (this.id) {
+					return this.$store.getters.post;
+				// If showing particular subject
+				} else if (this.slug || this.$store.getters.search) {
+					return this.$store.getters.searchPosts;
+				}
+				// If showing default
 				return this.$store.getters.posts;
 			},
+			empty() {
+				return this.posts.length < 1 && this.loading === false;
+			}
 		},
 		watch: {
 			'$route': 'init'
 		},
     data() {
 			return {
-				loading: true,
-				empty: false
+				loading: true
 			}
     },
 		created() {
@@ -59,23 +69,17 @@
     methods: {
 			init() {
 				// If id
-				if (this.id && this.posts.length > 0 ) {
+				if (this.id && this.posts.length < 1) {
 					// Check if posts contain id
-					if (this.onePostContainsId(this.id)) {
-
-					} else {
+					if (!this.onePostContainsId(this.id)) {
 						this.fetchId();
 					}
 				}
 					
 				// If slug
-				else if (this.slug && this.posts.length > 0) {
+				else if (this.slug && this.posts.length < 1) {
 					// Check if posts all contain slug
-					if (this.allPostContainsSlug(this.slug)) {
-
-					} else {
-						this.fetchSlug();
-					}
+					this.fetchSlug();
 				}
 
 				// If default
@@ -90,36 +94,29 @@
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.loading = false;
 						this.$store.dispatch('error', error);
           });
 			},
 			fetchSlug() {
 				axios.get('/api/post/' + this.slug)
           .then(response => {
-						this.$store.commit('setInitialPosts', response.data.data);
+						console.log(response);
+						this.$store.commit('setInitialSearchPosts', response.data.data);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.loading = false;
 						this.$store.dispatch('error', error);
           });
 			},
 			fetchId() {
 				axios.get('/api/post/' + this.id)
           .then(response => {
-						this.$store.commit('setInitialPosts', [response.data.data]);
+						this.$store.commit('setInitialPost', [response.data.data]);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.loading = false;
 						this.$store.dispatch('error', error);
           });
-			},
-			allPostContainsSlug(slug) {
-				this.posts.every(post => {
-					return post.attributes.slug === slug;
-				});
 			},
 			onePostContainsId(id) {
 				this.posts.find(post => {
