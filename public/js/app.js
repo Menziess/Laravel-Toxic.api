@@ -11008,7 +11008,7 @@ Vue.component('posts', __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___defau
 /**
  * Route components.
  */
-var routes = [{ path: '/t/:slug/:id?', name: 'post_id', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a, props: true }, { path: '/u/:slug', name: 'post_slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } }, { path: '/landing', component: __WEBPACK_IMPORTED_MODULE_3__components_Landing_vue___default.a }, { path: '/', name: 'post', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a }, { path: '*', component: { template: '<div><h1>404</h1></div>' } }];
+var routes = [{ path: '/t/:slug/:id?', name: 'post_id', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a, props: true }, { path: '/u/:slug', name: 'post_slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } }, { path: '/landing', name: 'landing', component: __WEBPACK_IMPORTED_MODULE_3__components_Landing_vue___default.a }, { path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_5__components_Posts_vue___default.a }, { path: '*', component: { template: '<div><h1>404</h1></div>' } }];
 
 /**
  * Router.
@@ -11962,7 +11962,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         // Else, redirect to landing page, because the user is new
         store.dispatch('setDestination', this.destination);
-        this.$router.push('/landing');
+        this.$router.push({ name: 'landing' });
       }
     }
   }
@@ -12063,7 +12063,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$store.dispatch('setDestination', null);
         this.$router.push(destination);
       } else {
-        this.$router.push('/');
+        this.$router.push({ name: 'home' });
       }
     }
   }
@@ -12560,6 +12560,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.submitted = false;
 				_this.$emit('submit');
 				_this.$store.dispatch('addPost', post);
+				console.log(_this.post);
+				_this.$router.push({
+					name: 'post_id',
+					params: {
+						slug: _this.post.attributes.slug,
+						id: _this.post.id
+					}
+				});
 			}).catch(function (error) {
 				_this.submitted = false;
 				_this.$emit('submit');
@@ -12937,7 +12945,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		showPost: function showPost() {
 			window.scrollTo(0, 0);
-			this.$router.push('/t/' + this.post.attributes.slug + '/' + this.post.id);
+			this.$router.push({
+				name: 'post_id',
+				params: {
+					slug: this.post.attributes.slug,
+					id: this.post.id
+				}
+			});
 		}
 	},
 	mounted: function mounted() {

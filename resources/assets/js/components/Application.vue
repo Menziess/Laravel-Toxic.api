@@ -79,7 +79,7 @@ export default {
       } else {
       // Else, redirect to landing page, because the user is new
         store.dispatch('setDestination', this.destination);
-        this.$router.push('/landing');
+        this.$router.push({ name: 'landing' });
       }
     }
   }

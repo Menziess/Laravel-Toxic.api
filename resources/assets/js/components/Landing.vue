@@ -56,7 +56,7 @@ export default {
         this.$store.dispatch('setDestination', null);
         this.$router.push(destination);
       } else {
-        this.$router.push('/');
+        this.$router.push({ name: 'home' });
       }
     }
   }

@@ -70,6 +70,14 @@
 					this.submitted = false;
 					this.$emit('submit');
 					this.$store.dispatch('addPost', post);
+					console.log(this.post);
+					this.$router.push({
+						name: 'post_id',
+						params: {
+							slug: this.post.attributes.slug,
+							id: this.post.id
+						}
+					});
 				}).catch(error => {
 					this.submitted = false;
 					this.$emit('submit');					

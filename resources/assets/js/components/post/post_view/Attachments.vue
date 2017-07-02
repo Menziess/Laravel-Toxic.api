@@ -137,7 +137,13 @@ export default {
     },
 		showPost() {
 			window.scrollTo(0, 0);
-			this.$router.push('/t/' + this.post.attributes.slug + '/' + this.post.id);
+			this.$router.push({
+				name: 'post_id',
+				params: {
+					slug: this.post.attributes.slug,
+					id: this.post.id
+				}
+			});
 		}
 	},
 	mounted() {

@@ -43,9 +43,9 @@ const routes = [
 
 	{ path: '/u/:slug', name: 'post_slug', component: { template: '<div><h1>User {{ $route.params.slug }}</h1></div>' } },
 
-  { path: '/landing', component: Landing }, 
+  { path: '/landing', name: 'landing', component: Landing }, 
 
-  { path: '/', name: 'post', component: Posts }, 
+  { path: '/', name: 'home', component: Posts }, 
 
 	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }
 	
