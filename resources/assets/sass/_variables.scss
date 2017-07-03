@@ -93,12 +93,6 @@ html {
     overflow-x:hidden;
 }
 
-body {
-  @media only screen and (max-width: 768px) {
-    margin-right: 1em !important;
-  }
-}
-
 // Default icon color
 i {
   color: $text-color !important;
@@ -141,6 +135,14 @@ blockquote {
   height: 36px;
   background-color: $body-bg;
   margin-top: -7px;
+}
+
+// Subject header
+.subject {
+	background-color: rgba(20, 20, 20, 0.06);
+	margin-top: 0.3em;
+	padding: 0.2em;
+	border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
 // Styling bootstrap a bit

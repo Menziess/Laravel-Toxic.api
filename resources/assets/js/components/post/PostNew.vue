@@ -65,6 +65,7 @@
 					this.submitted = false;
 					this.$store.dispatch('addPost', post);
 					this.$router.push({ name: 'home' });
+					window.scroll(0, 0);
 				}).catch(error => {
 					this.submitted = false;
 					// this.$store.dispatch('error', error);

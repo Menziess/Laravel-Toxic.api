@@ -12656,6 +12656,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.submitted = false;
 				_this.$store.dispatch('addPost', post);
 				_this.$router.push({ name: 'home' });
+				window.scroll(0, 0);
 			}).catch(function (error) {
 				_this.submitted = false;
 				// this.$store.dispatch('error', error);
@@ -12790,6 +12791,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						id: _this.post.id
 					}
 				});
+				window.scroll(0, 0);
 			}).catch(function (error) {
 				_this.submitted = false;
 				_this.$emit('submit');
@@ -44334,7 +44336,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', [(_vm.slug) ? _c('div', [_c('h1', {
+    staticClass: "text-center subject"
+  }, [_c('small', [_vm._v("/t/")]), _vm._v("\n\t\t\t\t" + _vm._s(_vm.slug) + " " + _vm._s(_vm.id) + "\n\t\t\t")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
   }, [_c('Left')], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"

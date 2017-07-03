@@ -1,20 +1,20 @@
 <template>
   <div>
 
+		<div v-if="slug">
+			<!-- Subject -->
+			<h1 class="text-center subject">
+				<small>/t/</small>
+				{{ slug }} {{ id }}
+			</h1>
+		</div>
+
 		<div class="col-md-3">
 			<!-- Left Nav -->
 			<Left></Left>
 		</div>
 
 		<div class="col-md-6">
-			<!-- Subject -->
-			<!--<div v-if="slug">
-				<h1 class="text-center" style="margin-top: 2vw;">
-					<small>/t/</small>
-					{{ slug }} {{ id }}
-				</h1>
-			</div>-->
-
 			<!-- Loading -->
 			<div v-if="loading">
 				<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>

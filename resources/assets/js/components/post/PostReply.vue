@@ -77,6 +77,7 @@
 							id: this.post.id
 						}
 					});
+					window.scroll(0, 0);
 				}).catch(error => {
 					this.submitted = false;
 					this.$emit('submit');					
