@@ -9,11 +9,13 @@
           >
             <strong>{{ topic.subject }}</strong><br>
           </router-link>
+          <br>
+          <router-link to="/trends">more...</router-link>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <!--<div class="row">
       <div class="panel panel-default">
         <div class="panel-body">
           <a>Test 1</a>
@@ -23,7 +25,7 @@
           <a>Test 3</a>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 

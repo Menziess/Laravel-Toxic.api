@@ -57,6 +57,8 @@ const routes = [
 
   { path: '/landing', name: 'landing', component: Landing }, 
 
+  { path: '/trends', name: 'trends', component: { template: '<div><h1>Trends</h1></div>' } }, 
+
   { path: '/', name: 'home', component: Posts }, 
 
 	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }

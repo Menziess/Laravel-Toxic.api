@@ -1,6 +1,8 @@
 <template>
   <div class="dropdown pull-right">
-    <a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+    <!--<a class="navbar-brand" href="#" data-toggle="dropdown" role="button" aria-expanded="false">-->
+
+    <router-link to="/u/" class="navbar-brand">
 
       <img v-if="me" class="img-circle noselect profile-pic-nav"                     
         :src="me.picture"
@@ -8,10 +10,11 @@
         alt="Profile picture">
 
       <span v-else title="Register / Login"><svg class="img-circle noselect profile-pic profile-pic-nav"/></span>
+    </router-link>
 
-    </a>
+    <!--</a>-->
     
-    <ul role="menu" class="dropdown-menu">
+    <!--<ul role="menu" class="dropdown-menu">
 
       <li v-if="me" role="presentation"><a role="menuitem" 
         v-on:click.prevent="submitLogout()">Logout</a>
@@ -23,7 +26,7 @@
         <input type="hidden" name="_token" :value="crsf_token">
       </form>
 
-    </ul>
+    </ul>-->
   </div>
 </template>
 
