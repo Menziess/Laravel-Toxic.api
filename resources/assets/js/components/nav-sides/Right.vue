@@ -33,7 +33,8 @@ export default {
 </script>
 
 <style scoped>
-.right {
-  margin-bottom: 5em;
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 </style>

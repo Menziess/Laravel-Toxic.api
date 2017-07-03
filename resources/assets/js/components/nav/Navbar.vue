@@ -10,12 +10,12 @@
         </router-link>
 
         <!-- Something else -->
-        <router-link to="/landing" tag="li" class="btn btn-secondary navbar-btn">
+        <!--<router-link to="/landing" tag="li" class="btn btn-secondary navbar-btn">
           <i class="glyphicon glyphicon-bell"></i>&ensp;<span class="mobile-hidden">Notifications</span>
-        </router-link>
+        </router-link>-->
 
         <!-- New Post -->
-        <button type="button" class="btn btn-success navbar-btn pull-right" 
+        <button type="button" class="btn btn-success navbar-btn pull-right mobile-hidden" 
           data-toggle="modal" data-target="#postModal"
           title="Create a new post" v-on:click="checkLoggedIn()">New</button>
 
@@ -24,7 +24,7 @@
 
         <!-- Search Field -->
         <div class="input-group nav-search pull-right">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" :placeholder="$route.params.slug || 'Search...'">
         </div>
 
       </div>
@@ -70,7 +70,9 @@ nav {
   background-color: transparent !important;
 }
 .nav-search input {
+  width: 31vw;
   border-radius: 20px !important;
+  text-transform: capitalize;
 }
 .nav-search {
   display: inline-block;

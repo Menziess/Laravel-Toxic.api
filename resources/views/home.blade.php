@@ -17,10 +17,12 @@
 <!-- Navigation -->
 <Navbar></Navbar>
 
+<!-- Subject Bar -->
+<Subject></Subject>
+
 <!-- Content -->
 <div class="container">
 	<div class="row">
-
 	
 		<!-- Hidden Modal -->
 		<PostNew></PostNew>

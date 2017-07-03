@@ -1,5 +1,5 @@
 <template>
-	<div :class="[ischild ? 'panel-separator' : ['col-md-12']]">
+	<div :class="[ischild ? 'panel-separator' : '']">
 		<div :class="[ischild ? '' : ['panel', 'panel-default']]">
       <div>
 

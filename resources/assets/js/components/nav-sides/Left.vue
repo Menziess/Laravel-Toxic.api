@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="row">
+    <div v-if="!$route.params.slug" class="row">
       <div class="panel panel-default">
         <div class="panel-body">
           <router-link v-for="topic in topics"
             :key="topic.id"
             :to="'/t/' + topic.slug"
           >
-            <strong>{{ topic.subject }}</strong><br>
+            <strong>{{ topic.subject }}</strong>&ensp;<i>({{ topic.posts_count }})</i><br>
           </router-link>
           <br>
           <router-link to="/trends">more...</router-link>
@@ -39,3 +39,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+</style>

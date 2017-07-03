@@ -1,33 +1,23 @@
 <template>
   <div>
 
-		<div v-if="slug && !id">
-			<!-- Subject -->
-			<h1 class="text-center subject">
-				<small>/t/</small>
-				{{ slug }}
-			</h1>
-		</div>
-
 		<div class="col-md-3">
 			<!-- Left Nav -->
 			<Left></Left>
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-6 bottomspace">
 			<!-- Loading -->
 			<div v-if="loading">
 				<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
 			</div>
 
 			<!-- Posts -->
-			<div class="row">
-				<PostView v-for="post in posts"
-						:hidereplies="!id"
-						:key="post.id"
-						:post="post"
-				></PostView>
-			</div>
+			<PostView v-for="post in posts"
+					:hidereplies="!id"
+					:key="post.id"
+					:post="post"
+			></PostView>
 
 			<!-- Empty State -->
 			<div v-if="empty">
@@ -157,3 +147,9 @@
 		}
   }
 </script>
+
+<style scoped>
+.bottomspace {
+	margin-bottom: 7em;
+}
+</style>

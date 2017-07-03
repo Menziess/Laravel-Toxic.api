@@ -12,11 +12,10 @@ import Application from './components/Application.vue';
 import Background from './components/Background.vue';
 import PostNew from './components/post/PostNew.vue';
 import Landing from './components/Landing.vue';
+import Subject from './components/nav/Subject.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Trends from './components/Trends.vue';
 import Posts from './components/Posts.vue';
-import Right from './components/nav-sides/Right.vue';
-import Left from './components/nav-sides/Left.vue';
 import User from './components/User.vue';
 
 import VueRouter from 'vue-router';
@@ -35,11 +34,10 @@ Vue.component('application', Application);
 Vue.component('background', Background);
 Vue.component('postnew', PostNew);
 Vue.component('landing', Landing);
+Vue.component('subject', Subject);
 Vue.component('navbar', Navbar);
 Vue.component('trends', Trends);
 Vue.component('posts', Posts);
-Vue.component('right', Right);
-Vue.component('left', Left);
 Vue.component('user', User);
 
 /**
