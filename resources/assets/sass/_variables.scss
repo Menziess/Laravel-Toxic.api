@@ -93,9 +93,19 @@ html {
     overflow-x:hidden;
 }
 
+body {
+  @media only screen and (max-width: 768px) {
+    margin-right: 1em !important;
+  }
+}
+
 // Default icon color
 i {
-  color: $text-color;
+  color: $text-color !important;
+}
+
+a {
+  color: $brand-success !important;
 }
 
 // Transparent blockquotes
@@ -141,8 +151,10 @@ blockquote {
 .reply { 
   transform: scale(1, -1);
 }
-.col-md-8 {
-  padding: 0 !important;
+.col-md-8, .col-md-12 {
+  @media only screen and (max-width: 991px) {  
+    padding: 0 !important;
+  }
 }
 .heading-text {
   margin-left: 4em;

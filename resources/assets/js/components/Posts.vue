@@ -1,31 +1,43 @@
 <template>
   <div>
 
-		<!-- Subject -->
-		<div v-if="slug">
-			<h1 class="text-center" style="margin-top: 2vw;">
-				<small>/t/</small>
-				{{ slug }} {{ id }}
-			</h1>
+		<div class="col-md-3">
+			<!-- Left Nav -->
+			<Left></Left>
 		</div>
 
-		<!-- Loading -->
-		<div v-if="loading">
-			<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
+		<div class="col-md-6">
+			<!-- Subject -->
+			<!--<div v-if="slug">
+				<h1 class="text-center" style="margin-top: 2vw;">
+					<small>/t/</small>
+					{{ slug }} {{ id }}
+				</h1>
+			</div>-->
+
+			<!-- Loading -->
+			<div v-if="loading">
+				<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
+			</div>
+
+			<!-- Posts -->
+			<div class="row">
+				<PostView v-for="post in posts"
+						:hidereplies="!id"
+						:key="post.id"
+						:post="post"
+				></PostView>
+			</div>
+
+			<!-- Empty State -->
+			<div v-if="empty">
+				<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
+			</div>
 		</div>
 
-		<!-- Posts -->
-		<div class="row">
-			<PostView v-for="post in posts"
-					:hidereplies="!id"
-					:key="post.id"
-					:post="post"
-			></PostView>
-		</div>
-
-		<!-- Empty State -->
-		<div v-if="empty">
-			<h3 class="text-center" style="margin-top: 10vw;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
+		<div class="col-md-3">
+			<!-- Right Nav -->
+			<Right></Right>
 		</div>
 
   </div>
@@ -33,11 +45,13 @@
 
 <script>
   import PostView from './post/PostView.vue';
+  import Right from './nav-sides/Right.vue';
+  import Left from './nav-sides/Left.vue';
 	import store from '../store';
   export default {
     name: 'posts',
     props: ['slug', 'id'],
-    components: { PostView },
+    components: { PostView, Left, Right },
 		watch: { '$route': 'init', 'search': 'init' },
     data() { return { loading: false } },
 		created() { this.init(); },

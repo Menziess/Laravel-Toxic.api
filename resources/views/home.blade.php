@@ -20,15 +20,13 @@
 <div class="container">
 	<div class="row">
 
-		<div class="container">
+	
+		<!-- Hidden Modal -->
+		<PostNew></PostNew>
 
-			<!-- Hidden Modal -->
-			<PostNew></PostNew>
-
-			<!-- Views -->
-			<router-view></router-view>
-
-		</div>
+		<!-- Views -->
+		<router-view></router-view>
+		
 
 	</div>
 </div>

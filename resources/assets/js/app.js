@@ -14,6 +14,8 @@ import PostNew from './components/post/PostNew.vue';
 import Landing from './components/Landing.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Posts from './components/Posts.vue';
+import Right from './components/nav-sides/Right.vue';
+import Left from './components/nav-sides/Left.vue';
 
 import VueRouter from 'vue-router';
 import store from './store';
@@ -33,6 +35,8 @@ Vue.component('postnew', PostNew);
 Vue.component('landing', Landing);
 Vue.component('navbar', Navbar);
 Vue.component('posts', Posts);
+Vue.component('right', Right);
+Vue.component('left', Left);
 
 /**
  * Route components.
