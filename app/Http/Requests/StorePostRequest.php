@@ -30,7 +30,7 @@ class StorePostRequest extends FormRequest
             'subject'       => 'bail|required|string|max:60',
             'attachment'    => 'bail|required|string|in:text,drawing,url,video,image',
             'text'          => 'bail|required_without_all:drawing,url|required_if:attachment,text|max:255',
-            'drawing'       => 'required_without_all:text,url|required_if:attachment,drawing|between:0,21844',
+            'drawing'       => 'required_without_all:text,url|required_if:attachment,drawing|between:0,16777215',
             'url'           => 'required_without_all:drawing,text|required_if:attachment,url|required_if:attachment,video|required_if:attachment,image|max:255',
         ];
     }
