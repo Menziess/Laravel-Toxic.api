@@ -10,10 +10,10 @@ require('./logging');
 
 import Application from './components/Application.vue';
 import Background from './components/Background.vue';
-import Settings from './components/user/Settings.vue';
 import PostNew from './components/post/PostNew.vue';
 import Landing from './components/Landing.vue';
 import Navbar from './components/nav/Navbar.vue';
+import Trends from './components/Trends.vue';
 import Posts from './components/Posts.vue';
 import Right from './components/nav-sides/Right.vue';
 import Left from './components/nav-sides/Left.vue';
@@ -33,10 +33,10 @@ Vue.use(VueRouter);
  */
 Vue.component('application', Application);
 Vue.component('background', Background);
-Vue.component('settings', Settings);
 Vue.component('postnew', PostNew);
 Vue.component('landing', Landing);
 Vue.component('navbar', Navbar);
+Vue.component('trends', Trends);
 Vue.component('posts', Posts);
 Vue.component('right', Right);
 Vue.component('left', Left);
@@ -47,9 +47,9 @@ Vue.component('user', User);
  */
 const routes = [
 
-	{ path: '/t/:slug/:id?', name: 'post_id', component: Posts, props: true },
+	{ path: '/t/:slug/:id?', name: 'post', component: Posts, props: true },
 
-	{ path: '/u/:slug?', name: 'post_slug', component: User,
+	{ path: '/u/:slug?', name: 'user', component: User,
 		children: [
 			{ path: 'posts', component: { template: '<div><h1>User Posts</h1></div>'} },
 		]
@@ -57,7 +57,7 @@ const routes = [
 
   { path: '/landing', name: 'landing', component: Landing }, 
 
-  { path: '/trends', name: 'trends', component: { template: '<div><h1>Trends</h1></div>' } }, 
+  { path: '/trends', name: 'trends', component: Trends }, 
 
   { path: '/', name: 'home', component: Posts }, 
 

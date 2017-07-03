@@ -132,7 +132,7 @@ export default {
 		showPost() {
 			window.scrollTo(0, 0);
 			this.$router.push({
-				name: 'post_id',
+				name: 'post',
 				params: {
 					slug: this.post.attributes.slug,
 					id: this.post.id

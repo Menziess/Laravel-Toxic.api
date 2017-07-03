@@ -71,7 +71,7 @@
 					this.$emit('submit');
 					this.$store.dispatch('addPost', post);
 					this.$router.push({
-						name: 'post_id',
+						name: 'post',
 						params: {
 							slug: this.post.attributes.slug,
 							id: this.post.id

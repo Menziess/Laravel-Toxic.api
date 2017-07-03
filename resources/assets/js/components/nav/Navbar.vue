@@ -46,6 +46,9 @@ export default {
           message: "You can draw and write, but you have to login in order to post.",
           redirect: this.$store.getters.loginRoute
         });
+        this.$router.push({
+          name: 'user'
+        });
       }
     }
   }

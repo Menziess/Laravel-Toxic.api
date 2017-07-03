@@ -33,25 +33,11 @@
 <script>
 export default {
   name: 'picture',
-  data() {
-    return {
-      crsf_token: null,
-      me: null,
-      login: null,
-      logout: null,
+  computed: {
+    me() {
+      return this.$store.getters.me;
     }
-  },
-  methods: {
-    submitLogout() {
-      this.$refs.logoutform.submit();
-    }
-  },
-  mounted() {
-    this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
-    this.me = this.$store.getters.me;
-    this.login = this.$store.getters.loginRoute;
-    this.logout = this.$store.getters.logoutRoute;
-  }
+  } 
 }
 </script>
 
