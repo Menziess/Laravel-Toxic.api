@@ -1,12 +1,11 @@
 <template>
   <div>
-    Settings
 
-    <li v-if="me" role="presentation"><a role="menuitem" 
+    <button v-if="me" role="presentation" class="btn"><a role="menuitem" 
       v-on:click.prevent="submitLogout()">Logout</a>
-    </li>
+    </button>
 
-    <li v-else role="presentation"><a :href="login" role="menuitem">Login</a></li>
+    <a v-else type="button" class="btn" :href="login" role="menuitem">Login</a>
 
     <form :action="logout" method="POST" style="display: none;" ref="logoutform">
       <input type="hidden" name="_token" :value="crsf_token">
