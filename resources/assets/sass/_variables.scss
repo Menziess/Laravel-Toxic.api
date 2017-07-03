@@ -145,6 +145,13 @@ blockquote {
 	border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
+// Fade up animation
+.fade-up {
+  -webkit-animation: panel-fade-up 0.4s ease;
+  -moz-animation: panel-fade-up 0.4s ease;
+  animation: panel-fade-up 0.4s ease;
+}
+
 // Styling bootstrap a bit
 .btn {
   background-color: transparent !important;
