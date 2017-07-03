@@ -5,7 +5,7 @@
 			<!-- Subject -->
 			<h1 class="text-center subject">
 				<small>/t/</small>
-				{{ slug }} {{ id }}
+				{{ slug }}
 			</h1>
 		</div>
 
