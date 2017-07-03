@@ -34,7 +34,7 @@
 			<!-- Buttons -->
 			<div class="panel-buttons">
 				<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
-				<strong>{{ nrReplies }}</strong>
+				<strong>{{ post.attributes.replies_count || 0 }}</strong>
 			</div>
 		</div>
 		
@@ -98,11 +98,6 @@ export default {
 	components: {
 		Drawing,
 		Textbox
-	},
-	computed: {
-		nrReplies() {
-			return this.post.relationships.replies ? this.post.relationships.replies.length : 0;
-		}
 	},
 	methods: {
 		deletePost() {

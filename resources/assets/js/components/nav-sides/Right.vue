@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="right">
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -33,5 +33,7 @@ export default {
 </script>
 
 <style scoped>
-
+.right {
+  margin-bottom: 5em;
+}
 </style>

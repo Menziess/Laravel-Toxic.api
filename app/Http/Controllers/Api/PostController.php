@@ -19,7 +19,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::orderBy('id', 'desc')->original()->with(['user', 'replies'])->get();
+        return Post::orderBy('id', 'desc')->original()
+            ->with(['user', 'replies'])
+            ->withCount('replies')
+            ->get();
     }
 
     /**
@@ -35,10 +38,10 @@ class PostController extends Controller
         $post->fill($request->all());
         
         // Set ancestral data if this post is a child
-        if ($post->post_id) {
-            $parent = Post::withTrashed()->findOrFail($post->post_id);
-            self::setMetaData($parent, $post);
-        }
+        // if ($post->post_id) {
+        //     $parent = Post::withTrashed()->findOrFail($post->post_id);
+        //     self::setMetaData($parent, $post);
+        // }
 
         // Set post owner
         $post->user()->associate($user)->save();
@@ -52,20 +55,20 @@ class PostController extends Controller
      * @param  \Illuminate\Database\Eloquent\Model $parent
      * @param  \Illuminate\Database\Eloquent\Model $child
      */
-    private function setMetaData(Model $parent, Model $child)
-    {
-        // Get ancestral data of parent, increment amount of children
-        $nrChildren = (int) $parent->getData('nr_of_children');
-        $ancestors = $parent->getData('ancestor_ids');
-        $parent->setData('nr_of_children', $nrChildren++)->save();
+    // private function setMetaData(Model $parent, Model $child)
+    // {
+    //     // Get ancestral data of parent, increment amount of children
+    //     $nrChildren = (int) $parent->getData('nr_of_children');
+    //     $ancestors = $parent->getData('ancestor_ids');
+    //     $parent->setData('nr_of_children', $nrChildren++)->save();
 
-        // Pass along ancestral tree
-        if ($ancestors) {
-            $child->setData('ancestor_ids', array_push($ancestors, $parent->id));            
-        } else {
-            $child->setData('ancestor_ids', array($parent->id));
-        }
-    }
+    //     // Pass along ancestral tree
+    //     if ($ancestors) {
+    //         $child->setData('ancestor_ids', array_push($ancestors, $parent->id));            
+    //     } else {
+    //         $child->setData('ancestor_ids', array($parent->id));
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -80,7 +83,9 @@ class PostController extends Controller
         }
 
         return Post::whereNull('post_id')->where('slug', $slug)
-            ->with(['user', 'replies'])->get();
+            ->with(['user', 'replies'])
+            ->withCount('replies')
+            ->get();
     }
 
     /**
@@ -91,7 +96,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::with(['user', 'replies'])->findOrFail($id);
+        return Post::with(['user', 'replies'])
+            ->withCount('replies')
+            ->findOrFail($id);
     }
 
     /**

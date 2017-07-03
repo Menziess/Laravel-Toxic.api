@@ -16,7 +16,7 @@ class Topic extends Model
      * @var array
      */
     protected $fillable = [
-        'slug',
+        'slug', 'subject',
     ];
 
     /**
@@ -63,13 +63,21 @@ class Topic extends Model
     }
 
     /*
-	 * Scope where slug is like
+	 * Scope where popular.
+	 */
+	public function scopePopular($query, string $search = null)
+	{
+		return $query->withCount('posts')->orderBy('posts_count', 'desc'); 
+	}
+
+    /*
+	 * Scope where slug is like.
 	 */
 	public function scopeSearch($query, string $search = null)
 	{
 		if (!$search) {
 			return $query;
 		}
-		return $query->where('slug', 'like', '%' . $search . '%');
+		return $query->where('subject', 'like', '%' . $search . '%');
 	}
 }

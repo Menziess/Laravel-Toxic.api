@@ -1168,6 +1168,9 @@ var mutations = {
   setDestination: function setDestination(state, route) {
     state.destinationRoute = route;
   },
+  setTopics: function setTopics(state, topics) {
+    state.topics = topics;
+  },
   setLogout: function setLogout(state, route) {
     state.logoutRoute = route;
   },
@@ -1186,6 +1189,7 @@ var mutations = {
 };
 
 var state = {
+  topics: [],
   searchPosts: [],
   posts: [],
   post: [],
@@ -1206,6 +1210,9 @@ var getters = {
   },
   loginRoute: function loginRoute(state) {
     return state.loginRoute;
+  },
+  topics: function topics(state) {
+    return state.topics;
   },
   error: function error(state) {
     return state.error;
@@ -1245,6 +1252,9 @@ var actions = {
   },
   setSearch: function setSearch(context, search) {
     context.commit('setSearch', search);
+  },
+  setTopics: function setTopics(context, topics) {
+    context.commit('setTopics', topics);
   },
   setLogin: function setLogin(context, route) {
     context.commit('setLogin', route);
@@ -12131,7 +12141,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'application',
-  props: ['me', 'login', 'logout', 'destination'],
+  props: ['me', 'login', 'logout', 'destination', 'topics'],
   computed: {
     error: function error() {
       return this.$store.getters.error;
@@ -12158,6 +12168,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     if (this.valid(this.login)) store.dispatch('setLogin', this.login);
 
     if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
+
+    if (this.valid(this.topics)) store.dispatch('setTopics', this.topics);
 
     // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {
@@ -13128,11 +13140,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	components: {
 		Drawing: __WEBPACK_IMPORTED_MODULE_0__Drawing_vue___default.a,
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__Textbox_vue___default.a
-	},
-	computed: {
-		nrReplies: function nrReplies() {
-			return this.post.relationships.replies ? this.post.relationships.replies.length : 0;
-		}
 	},
 	methods: {
 		deletePost: function deletePost() {
@@ -15805,7 +15812,7 @@ exports.push([module.i, "\n.post-content[data-v-656544a2] {\r\n\tmargin: 1em 0 0
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 30vh;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  height: 33vh;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
 
 /***/ }),
 /* 62 */
@@ -43755,7 +43762,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-share-alt reply"
-  })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.nrReplies))])])], 1), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.post.attributes.replies_count || 0))])])], 1), _vm._v(" "), _c('div', {
     staticClass: "right"
   }, [_vm._m(2), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu dropdown-menu-right",
@@ -44336,7 +44343,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.slug) ? _c('div', [_c('h1', {
+  return _c('div', [(_vm.slug && !_vm.id) ? _c('div', [_c('h1', {
     staticClass: "text-center subject"
   }, [_c('small', [_vm._v("/t/")]), _vm._v("\n\t\t\t\t" + _vm._s(_vm.slug) + " " + _vm._s(_vm.id) + "\n\t\t\t")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
@@ -44364,7 +44371,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("There doesn't seem to be anything here... Be the first one to make a post 😉")])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
-  }, [_c('Right')], 1)])
+  })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44383,7 +44390,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: [_vm.ischild ? 'panel-separator' : ['col-md-12']]
   }, [_c('div', {
     class: [_vm.ischild ? '' : ['panel', 'panel-default']]
-  }, [_c('div', [(!_vm.post.attributes.post_id) ? _c('div', {
+  }, [_c('div', [(!_vm.ischild && _vm.$router.history.current.name === 'home') ? _c('div', {
     staticClass: "panel-heading"
   }, [_c('router-link', {
     attrs: {
@@ -48241,9 +48248,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'left'
+  name: 'left',
+  computed: {
+    topics: function topics() {
+      return this.$store.getters.topics;
+    }
+  }
 });
 
 /***/ }),
@@ -48251,17 +48264,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(122)
-
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(109),
   /* template */
   __webpack_require__(112),
   /* scopeId */
-  "data-v-450f7b22",
+  null,
   /* cssModules */
   null
 )
@@ -48290,21 +48299,28 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('a', [_vm._v("Test 1")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 2")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 3")])])])]), _vm._v(" "), _c('div', {
+  }, _vm._l((_vm.topics), function(topic) {
+    return _c('router-link', {
+      key: topic.id,
+      attrs: {
+        "to": '/t/' + topic.slug
+      }
+    }, [_c('strong', [_vm._v(_vm._s(topic.subject))]), _c('br')])
+  }))])]), _vm._v(" "), _vm._m(0)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('a', [_vm._v("Test 1")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 2")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 3")])])])])])
+  }, [_c('a', [_vm._v("Test 1")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 2")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('a', [_vm._v("Test 3")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -48400,7 +48416,9 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "right"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "panel panel-default"
@@ -48428,7 +48446,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.right[data-v-0ed52564] {\r\n  margin-bottom: 5em;\n}\r\n", ""]);
 
 /***/ }),
 /* 120 */
@@ -48448,39 +48466,6 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-0ed52564\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Right.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-0ed52564\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Right.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(121);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("55640d17", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-450f7b22\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Left.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-450f7b22\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Left.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

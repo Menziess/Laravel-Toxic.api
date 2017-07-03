@@ -26,6 +26,7 @@ class CreateTopicTable extends Migration
             	  ->onDelete('cascade');
 
             // Additional Data
+            $table->string('subject')->unique();
             $table->string('slug')->unique();
             $table->text('data')->nullable();
 

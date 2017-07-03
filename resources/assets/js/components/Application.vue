@@ -44,7 +44,7 @@
 <script>
 export default {
   name: 'application',
-  props: ['me', 'login', 'logout', 'destination'],
+  props: ['me', 'login', 'logout', 'destination', 'topics'],
   computed: {
     error() {
       return this.$store.getters.error;
@@ -71,6 +71,8 @@ export default {
     if (this.valid(this.login)) store.dispatch('setLogin', this.login);
 
     if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
+
+    if (this.valid(this.topics)) store.dispatch('setTopics', this.topics);
 
     // Contains a redirect, should be at the bottom of mounted
     if (this.valid(this.destination)) {

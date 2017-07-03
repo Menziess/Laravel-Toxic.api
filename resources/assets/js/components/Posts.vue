@@ -1,7 +1,7 @@
 <template>
   <div>
 
-		<div v-if="slug">
+		<div v-if="slug && !id">
 			<!-- Subject -->
 			<h1 class="text-center subject">
 				<small>/t/</small>
@@ -37,7 +37,7 @@
 
 		<div class="col-md-3">
 			<!-- Right Nav -->
-			<Right></Right>
+			<!--<Right></Right>-->
 		</div>
 
   </div>

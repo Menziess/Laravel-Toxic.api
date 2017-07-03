@@ -4,7 +4,7 @@
       <div>
 
         <!-- Subject -->
-        <div v-if="!post.attributes.post_id" class="panel-heading">
+        <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
             <router-link :to="'/t/' + post.attributes.slug">
               <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
             </router-link>

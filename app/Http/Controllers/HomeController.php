@@ -20,6 +20,8 @@ class HomeController extends Controller
         if (!$request->cookie(env('session.cookie'))) 
             $request->session()->flash('destination', $request->path());
         
-        return view('home');
+        $topics = \App\Topic::popular()->take(7)->get();
+
+        return view('home')->with('topics', $topics);
     }
 }

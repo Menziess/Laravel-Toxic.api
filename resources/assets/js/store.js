@@ -72,6 +72,7 @@ const mutations = {
   setInitialSearchPosts(state, posts) { state.searchPosts = posts; },
 
   setDestination(state, route) { state.destinationRoute = route; },
+  setTopics(state, topics) { state.topics = topics; },
   setLogout(state, route) { state.logoutRoute = route; },
   setLogin(state, route) { state.loginRoute = route; },
   setSearch(state, search) { state.search = search; },
@@ -81,6 +82,9 @@ const mutations = {
 
 
 const state = {
+  topics: [
+
+  ],
   searchPosts: [
 
   ],
@@ -103,6 +107,7 @@ const getters = {
   destinationRoute: state => { return state.destinationRoute; },
   logoutRoute: state => { return state.logoutRoute; },
   loginRoute: state => { return state.loginRoute; },
+  topics: state => { return state.topics; },
   error: state => { return state.error; },
   posts: state => { return state.posts; },
   post: state => { return state.post; },
@@ -119,6 +124,7 @@ const actions = {
   deletePost(context, post) { context.commit('deletePost', post); },
   setLogout(context, route) { context.commit('setLogout', route); },
   setSearch(context, search) { context.commit('setSearch', search); },
+  setTopics(context, topics) { context.commit('setTopics', topics); },
   setLogin(context, route) { context.commit('setLogin', route); },
   addPost(context, post) { context.commit('addPost', post); },
   setMe(context, me) { context.commit('setMe', me); },

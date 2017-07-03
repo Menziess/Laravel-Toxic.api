@@ -7,6 +7,7 @@
 	logout="{{ route('logout') }}"
 	login="{{ route('login') }}"
 	destination="{{ Session::has('destination') ? Session::get('destination') : 'undefined' }}"
+	:topics="{{ json_encode($topics) }}"
 	:me="{{ Auth::check() ? Auth::user() : 'undefined' }}" 
 ></Application>
 
@@ -27,7 +28,6 @@
 		<!-- Views -->
 		<router-view></router-view>
 		
-
 	</div>
 </div>
 @endsection
