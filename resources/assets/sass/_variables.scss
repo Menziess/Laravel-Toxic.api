@@ -142,6 +142,11 @@ blockquote {
   background-color: transparent !important;
   color: black !important;
 }
+.mobile-new-button {
+  position: fixed;
+  bottom: 1em ;
+  right: 1.5em;
+}
 .reply { 
   transform: scale(1, -1);
 }

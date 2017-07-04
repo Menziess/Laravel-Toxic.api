@@ -1,5 +1,9 @@
 <template>
   <div class="navigation">
+    <!-- New Post -->
+        <button type="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button" 
+          data-toggle="modal" data-target="#postModal"
+          title="Create a new post" v-on:click="checkLoggedIn()">New</button>
     <nav class="navbar navbar-default navbar-static-top">
         
       <div class="container">
