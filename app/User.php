@@ -88,9 +88,13 @@ class User extends Authenticatable implements SlugAble
 	/**
 	 * Users relation.
 	 */
-	public function followedBy()
+	public function followers($type = null)
 	{
-		return $this->belongsToMany('App\User', 'user_user', 'user_id', 'related_id');
+		$query = $this->belongsToMany('App\User', 'user_user', 'user_id', 'related_id');
+
+		if ($type) return $query->wherePivot('type', $type);
+		
+		return $query->withTimestamps();
 	}
 
     /*
@@ -98,8 +102,11 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function following($type = null)
 	{
-		return $this->hasMany('App\User', 'user_user', 'related_id', 'user_id')
-			->where('type', $type);
+		$query = $this->belongsToMany('App\User', 'user_user', 'related_id', 'user_id');
+
+		if ($type) return $query->wherePivot('type', $type);
+		
+		return $query;
 	}
 
     /*

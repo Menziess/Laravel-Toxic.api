@@ -24,7 +24,10 @@ Route::namespace('Api')->group(function() {
     Route::get('post/{slug}/{id?}', 'PostController@slug')->where('id', '[0-9]+');
 
     Route::get('t/{slug?}', 'TopicController@slug');
+
     Route::get('u/{slug?}', 'UserController@slug');
+    Route::get('u/{slug}/followers', 'UserController@followers');
+    Route::get('u/{slug}/following', 'UserController@following');
 });
 
 /*

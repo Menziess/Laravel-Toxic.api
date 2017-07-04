@@ -21,6 +21,8 @@ class CreateUserUserTable extends Migration
             $table->foreign('related_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('type')->nullable();
+
+            $table->timestamps();
         });
     }
 
