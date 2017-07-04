@@ -43,6 +43,10 @@ Route::namespace('Api')->group(function() {
 
 Route::middleware('auth:api')->namespace('Api')->group(function() {
     Route::post('post', 'PostController@store');
-    Route::put('post/{id}', 'PostController@update');
-    Route::delete('post/{id}', 'PostController@destroy');
+    Route::put('post/{id}', 'PostController@update')->where('id', '[0-9]+');
+    Route::delete('post/{id}', 'PostController@destroy')->where('id', '[0-9]+');
+
+    Route::post('post/like/{id}', 'PostController@like')->where('id', '[0-9]+');
+
+    Route::post('u/follow/{id}', 'UserController@follow')->where('id', '[0-9]+');
 });

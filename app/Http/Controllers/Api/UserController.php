@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,9 +36,9 @@ class UserController extends Controller
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function followers(String $type = null)
+    public function followers(int $type = null)
     {
-        return User::findOrFail($this->id)->followers($type)->get();
+        return User::findOrFail($this->id)->followedByUsers($type)->get();
     }
 
     /**
@@ -46,8 +47,27 @@ class UserController extends Controller
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function following(String $type = null)
+    public function following(int $type = null)
     {
-        return User::findOrFail($this->id)->following($type)->get();
+        return User::findOrFail($this->id)->followsUsers($type)->get();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function follow($id, Request $request)
+    {
+        User::findOrFail($id);
+
+        $type = $request->input['type'];
+
+        $result = User::findOrFail(Auth::id())
+            ->followsUsers()
+            ->toggle([$id, ['type' => $type]]);
+
+        return response($result, 201);
     }
 }

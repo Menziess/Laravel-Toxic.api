@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use \Illuminate\Database\Eloquent\Model;
 
-use App\Post, Auth;
+use App\Post, App\User, Auth;
 
 class PostController extends Controller
 {
@@ -127,5 +127,24 @@ class PostController extends Controller
         $post = Post::findOrFail($id)->delete();
         
         return response("Deleted", 200);
+    }
+
+    /**
+     * Adds action on post by user, for example like.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function like($id, Request $request)
+    {
+        Post::findOrFail($id);
+
+        $type = $request->input['type'];
+
+        $result = User::findOrFail(Auth::id())
+            ->likesPosts()
+            ->toggle([$id, ['type' => $type]]);
+
+        return response($result, 201);
     }
 }
