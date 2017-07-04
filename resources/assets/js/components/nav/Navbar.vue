@@ -16,7 +16,7 @@
 
         <!-- Posts Feed -->
         <router-link to="/" tag="li" class="btn btn-secondary navbar-btn">
-          <i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span>
+          <span @click="scrollTop()"><i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span></span>
         </router-link>
 
         <!-- Something else -->
@@ -59,6 +59,11 @@ export default {
         this.$router.push({
           name: 'user'
         });
+      }
+    },
+    scrollTop() {
+      if (this.$route.name === 'home') {
+        window.scrollTo(0, 0);
       }
     }
   }
