@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown pull-right">
 
-    <router-link to="/settings" class="navbar-brand">
+    <router-link :to="pictureRoute" class="navbar-brand">
       <img v-if="me" class="img-circle noselect profile-pic-nav"                     
         :src="me.picture"
         :title="me.name"
@@ -19,6 +19,9 @@ export default {
   computed: {
     me() {
       return this.$store.getters.me;
+    },
+    pictureRoute() {
+      return this.$route.name === 'settings' ? '/' : '/settings';
     }
   } 
 }

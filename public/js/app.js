@@ -12496,6 +12496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'user'
@@ -12769,6 +12770,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     me: function me() {
       return this.$store.getters.me;
+    },
+    pictureRoute: function pictureRoute() {
+      return this.$route.name === 'settings' ? '/' : '/settings';
     }
   }
 });
@@ -44219,7 +44223,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('router-view')], 1)
+  return _c('div', [_c('router-view'), _vm._v(" "), _c('h1', [_vm._v("User " + _vm._s(_vm.$route.params.slug))])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44409,7 +44413,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('router-link', {
     staticClass: "navbar-brand",
     attrs: {
-      "to": "/settings"
+      "to": _vm.pictureRoute
     }
   }, [(_vm.me) ? _c('img', {
     staticClass: "img-circle noselect profile-pic-nav",
