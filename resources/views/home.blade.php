@@ -24,9 +24,19 @@
 		<!-- Hidden Modal -->
 		<PostNew></PostNew>
 
+		<!-- Left Nav -->
+		<div class="col-md-3">
+			<Left></Left>
+		</div>
+
 		<!-- Views -->
 		<router-view></router-view>
+
+		<!-- Right Nav -->
+		<div class="col-md-3">
+			<Right></Right>
+		</div>
 		
 	</div>
-</div>
+</div style="margin-bottom: 5em;">
 @endsection

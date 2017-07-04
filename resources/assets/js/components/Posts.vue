@@ -1,12 +1,7 @@
 <template>
   <div>
 
-		<div class="col-md-3">
-			<!-- Left Nav -->
-			<Left></Left>
-		</div>
-
-		<div class="col-md-6 bottomspace">
+		<div class="col-md-6">
 			<!-- Loading -->
 			<div v-if="loading">
 				<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
@@ -25,23 +20,16 @@
 			</div>
 		</div>
 
-		<div class="col-md-3">
-			<!-- Right Nav -->
-			<Right></Right>
-		</div>
-
   </div>
 </template>
 
 <script>
   import PostView from './post/PostView.vue';
-  import Right from './nav-sides/Right.vue';
-  import Left from './nav-sides/Left.vue';
 	import store from '../store';
   export default {
     name: 'posts',
     props: ['slug', 'id'],
-    components: { PostView, Left, Right },
+    components: { PostView },
 		watch: { '$route': 'init', 'search': 'init' },
     data() { return { loading: false } },
 		created() { this.init(); },
@@ -147,9 +135,3 @@
 		}
   }
 </script>
-
-<style scoped>
-.bottomspace {
-	margin-bottom: 7em;
-}
-</style>

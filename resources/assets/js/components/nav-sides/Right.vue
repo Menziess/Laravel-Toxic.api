@@ -14,12 +14,40 @@
       </div>
     </div>
 
+    <!-- Login Options -->
+    <div v-if="showLoginOptions">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          
+          <!-- Login -->
+          <a v-if="showLogin" type="button" class="btn btn-success" :href="login" role="menuitem"
+          >Login</a>
+
+          <!-- Logout -->
+          <a v-if="showLogout" role="presentation" class="btn btn-danger" 
+            v-on:click.prevent="submitLogout()"
+          >Logout</a>
+
+          <form :action="logout" method="POST" style="display: none;" ref="logoutform">
+            <input type="hidden" name="_token" :value="crsf_token">
+          </form>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'right',
+  data() {
+    return {
+      crsf_token: null,
+      login: null,
+      logout: null,
+    }
+  },
   computed: {
 
     me() {
@@ -43,6 +71,22 @@ export default {
       return this.myPost 
         && this.$route.name === "post"
         && this.$route.params.id;
+    },
+
+    /**
+     * Only show logout when sitting on settings page
+     */
+    showLoginOptions() {
+      return this.showLogin || this.showLogout;
+    },
+    showLogin() {
+      return !this.me;
+    },
+    showLogout() {
+      return this.me && this.$route.name === 'settings';
+    },
+    submitLogout() {
+      this.$refs.logoutform.submit();
     }
   },
   methods: {
@@ -57,6 +101,11 @@ export default {
           this.$store.dispatch('error', error);
         });
 		}
+  },
+  mounted() {
+    this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
+    this.login = this.$store.getters.loginRoute;
+    this.logout = this.$store.getters.logoutRoute;
   }
 }
 </script>
