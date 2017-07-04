@@ -27,7 +27,7 @@
 
 		<div class="col-md-3">
 			<!-- Right Nav -->
-			<!--<Right></Right>-->
+			<Right></Right>
 		</div>
 
   </div>

@@ -99,6 +99,14 @@ class Post extends Model implements SlugAble
         return $query->whereNull('post_id');
     }
 
+    /**
+     * Mutator for subject attribute.
+     */
+    public function setSubjectAttribute($value)
+    {
+        $this->attributes['subject'] = ucwords($value);
+    }
+
     /*
 	 * Make slug to access original topic.
 	 */

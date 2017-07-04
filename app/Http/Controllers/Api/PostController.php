@@ -35,15 +35,21 @@ class PostController extends Controller
     {
         $post = new Post;
         $user = Auth::user();
-        $post->fill($request->all());
-        
-        // Set ancestral data if this post is a child
-        // if ($post->post_id) {
-        //     $parent = Post::withTrashed()->findOrFail($post->post_id);
-        //     self::setMetaData($parent, $post);
-        // }
+        $removed = [];
 
-        // Set post owner
+        switch ($request->input('attachment')) {
+            case 'text':
+                $removed = ['drawing', 'url'];
+                break;
+            case 'drawing':
+                $removed = ['text', 'url'];
+                break;
+            case 'url':
+                $removed = ['drawing', 'text'];
+                break;
+        }
+        
+        $post->fill($request->except($removed));
         $post->user()->associate($user)->save();
 
         return response($post, 201);

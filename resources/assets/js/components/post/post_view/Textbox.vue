@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="col-md-6 post-content">
+		<div class="post-content">
 			<p>{{ text }}</p>
 		</div>
 		<div class="clearfix"></div>
@@ -16,7 +16,7 @@
 
 <style scoped>
 .post-content {
-	margin: 1em 0 0 0;
+	margin: 1em 0 0 1em;
 	font-size: initial;
 	word-wrap: break-word;
 }

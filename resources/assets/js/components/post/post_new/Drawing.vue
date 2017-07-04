@@ -64,16 +64,6 @@
           this.context.moveTo(x, y);
         }
       },
-      loadDataUrl() { //TODO
-        let api_token = sessionStorage.getItem('api_token');
-        axios.get('/toxic.api/public/api/post/1')
-          .then(response => {
-            console.log(response);
-            this.renderDataUrl(response.data.data.attributes.drawing);
-          }).catch(error => {
-            console.error(error);
-          });
-      },
       getDataUrl() {
         return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
       },

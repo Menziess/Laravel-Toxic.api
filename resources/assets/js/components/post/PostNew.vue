@@ -6,7 +6,7 @@
 				<!-- Subject -->				
 				<div class="modal-header">
 					<input type="text" class="form-control" v-model="subject" maxlength="60"
-						:placeholder="defaultSubjectName()">
+						:placeholder="this.$route.params.slug || defaultSubject()">
 				</div>
 				
 				<!-- Attachments -->
@@ -68,7 +68,7 @@
 					window.scroll(0, 0);
 				}).catch(error => {
 					this.submitted = false;
-					// this.$store.dispatch('error', error);
+					this.$store.dispatch('error', error);
 				});
 			},
 			getForm() {
@@ -81,7 +81,7 @@
 					url: null
 				}
 			},
-			defaultSubjectName() {
+			defaultSubject() {
 				switch (this.attachment) {
 					case 'drawing':
 						return "Drawings";
@@ -99,10 +99,16 @@
 			},
 			getSubject(subject) {
 				if (!subject) {
-					return this.defaultSubjectName();
+					return this.defaultSubject();
 				}
 				return subject.replace(/[^a-z0-9]/gi,' ');
 			}
 		}
   }
 </script>
+
+<style scoped>
+input {
+  text-transform: capitalize;
+}
+</style>
