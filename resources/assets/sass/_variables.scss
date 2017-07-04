@@ -143,9 +143,9 @@ blockquote {
   color: black !important;
 }
 .mobile-new-button {
-  position: fixed;
-  bottom: 1em ;
-  right: 1.5em;
+  @media all and (min-width: 769px) {
+    display: none !important;
+  }
 }
 .reply { 
   transform: scale(1, -1);

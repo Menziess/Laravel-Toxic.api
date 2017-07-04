@@ -1,9 +1,15 @@
 <template>
   <div class="navigation">
-    <!-- New Post -->
-        <button type="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button" 
-          data-toggle="modal" data-target="#postModal"
-          title="Create a new post" v-on:click="checkLoggedIn()">New</button>
+
+    <!-- New Post Mobile -->
+    <button type="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button" 
+      data-toggle="modal" data-target="#postModal"
+      title="Create a new post" v-on:click="checkLoggedIn()"
+    >
+      <i class="glyphicon glyphicon-plus"></i>
+    </button>
+
+    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top">
         
       <div class="container">
@@ -81,5 +87,19 @@ nav {
 .nav-search {
   display: inline-block;
   margin: 8px 15px;
+}
+.mobile-new-button {
+  position: fixed;
+  bottom: 0;
+  right: .5em;
+  z-index: 999;
+  background-color: rgba(255,255,255,0.98) !important;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  outline: none;
 }
 </style>
