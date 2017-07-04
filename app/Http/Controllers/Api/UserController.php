@@ -14,10 +14,16 @@ class UserController extends Controller
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function slug(String $slug)
+    public function slug(String $slug = null, Request $request)
     {
-        $user = User::where('slug', $slug)->first();
-        abort(401, "Not allowed!");
-        return $user;
+        if ($slug)
+            return User::where('slug', $slug)->firstOrFail();
+
+        return User::findOrFail($request->user('api')->id);
+    }
+
+    public function myFollowers(String $type = null)
+    {
+        return User::followedBy()->get();
     }
 }

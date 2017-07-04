@@ -21,6 +21,8 @@ class HomeController extends Controller
             $request->session()->flash('destination', $request->path());
         
         $topics = \App\Topic::popular()->take(7)->get();
+        
+        if ($topics->isEmpty()) $topics = \App\Topic::top()->take(7)->get();
 
         return view('home')->with('topics', $topics);
     }

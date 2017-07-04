@@ -65,10 +65,25 @@ class Topic extends Model
     /*
 	 * Scope where popular.
 	 */
-	public function scopePopular($query, string $search = null)
+	public function scopePopular($query)
 	{
-		return $query->withCount('posts')->orderBy('posts_count', 'desc'); 
+        $yesterday = \Carbon\Carbon::now()->subDays(1);
+
+		return $query->whereHas('posts', function($query) use ($yesterday) {
+            $query->where('created_at', '>=', $yesterday);
+        })->withCount('posts')
+          ->orderBy('posts_count', 'desc'); 
 	}
+
+    /*
+	 * Scope where popular all time.
+	 */
+    public function scopeTop($query)
+    {
+        return $query->has('posts')
+            ->withCount('posts')
+            ->orderBy('posts_count', 'desc');
+    }
 
     /*
 	 * Scope where slug is like.

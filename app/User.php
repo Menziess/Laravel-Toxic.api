@@ -29,7 +29,7 @@ class User extends Authenticatable implements SlugAble
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token',
+        'password', 'remember_token', 'api_token', 'email', 'latitude', 'longitude',
     ];
 
 	/**
@@ -76,12 +76,29 @@ class User extends Authenticatable implements SlugAble
         return $this->hasMany('App\Topic');
     }
 
-    /*
+	/*
 	 * User resources.
 	 */
 	public function resources($type = null)
 	{
 		return $this->hasMany('App\Resource')
+			->where('type', $type);
+	}
+
+	/**
+	 * Users relation.
+	 */
+	public function followedBy()
+	{
+		return $this->belongsToMany('App\User', 'user_user', 'user_id', 'related_id');
+	}
+
+    /*
+	 * Users liked profiles.
+	 */
+	public function following($type = null)
+	{
+		return $this->hasMany('App\User', 'user_user', 'related_id', 'user_id')
 			->where('type', $type);
 	}
 

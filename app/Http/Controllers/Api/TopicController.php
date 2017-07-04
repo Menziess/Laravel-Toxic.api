@@ -11,16 +11,33 @@ use Illuminate\Database\Eloquent\Collection;
 class TopicController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Retrieve popular topics.
      *
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function slug(String $slug)
+    public function index()
     {
-        $topic = Topic::where('slug', $slug)->with('posts.user')->first();
-        if (!isset($topic->posts))
-            return new Collection();
-        return $topic->posts;
+        $topics = Topic::popular()->take(7)->get();
+
+        if ($topics->isEmpty()) $topics = Topic::top()->take(7)->get();
+
+        return $topics;
+    }
+
+    /**
+     * Retrieve topic information.
+     *
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function slug(String $slug = null)
+    {
+        if (!$slug) return self::index();
+
+        return Topic::where('slug', $slug)
+            ->withCount('posts')
+            ->with('user')
+            ->first();
     }
 }

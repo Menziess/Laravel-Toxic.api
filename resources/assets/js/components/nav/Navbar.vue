@@ -80,7 +80,7 @@ nav {
   background-color: transparent !important;
 }
 .nav-search input {
-  width: 31vw;
+  width: 12em;
   border-radius: 20px !important;
   text-transform: capitalize;
 }
