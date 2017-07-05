@@ -53,11 +53,7 @@ const routes = [
 
 	{ path: '/t/:slug/:id?', name: 'post', component: Posts, props: true },
 
-	{ path: '/u/:slug?', name: 'user', component: User,
-		children: [
-			{ path: 'posts', component: { template: '<div><h1>User Posts</h1></div>'} },
-		]
-	},
+	{ path: '/u/:slug?', name: 'user', component: User },
 
 	{ path: '/settings', name: 'settings', component: Settings },
 

@@ -25,7 +25,12 @@ class UserController extends Controller
     public function slug(String $slug = null)
     {
         if ($slug)
-            return User::where('slug', $slug)->firstOrFail();
+            return User::where('slug', $slug)
+                ->with(['posts' => function($query) {
+                    $query->orderBy('id', 'desc')->take(7);
+                }])
+                ->withCount('posts')
+                ->firstOrFail();
 
         return User::findOrFail($this->id);
     }

@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<div class="post-content">
-			<p>{{ text }}</p>
-		</div>
+		<p class="post-content">{{ text }}</p>
 		<div class="clearfix"></div>
 	</div>
 </template>

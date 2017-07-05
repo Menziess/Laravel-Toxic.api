@@ -192,6 +192,35 @@ blockquote {
   padding: 5px !important;
 }
 
+// Flexbox
+.text {
+	margin-left: 1em;
+}
+.panel-buttons {
+	margin-bottom: auto;
+}
+.details {
+	padding: 0.5em 0 0.5em 0.5em;
+	display: flex;
+  flex:1;
+}
+.leftist {
+	text-align: center;
+	width: 50px;
+  order: 1;
+}
+.mid {
+	flex: 1;
+  order: 2;
+}
+.rightwing {
+	position: absolute;
+	right: 0.5em;
+}
+.clickable {
+	cursor: pointer;
+}
+
 // Svg animation
 .svg {
   width: 160vw;

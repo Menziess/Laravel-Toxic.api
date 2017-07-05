@@ -1,14 +1,16 @@
 <template>
-  <div class="post-details">
+  <div class="details">
 
-		<div class="left">
-			<img 
-				class="img-circle noselect profile-pic"
-				:src="post.relationships.user.attributes.picture"
-				:title="post.relationships.user.attributes.name" 
-				width="48"
-				height="48"
-			>
+		<div class="leftist">
+			<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
+				<img 
+					class="img-circle noselect profile-pic"
+					:src="post.relationships.user.attributes.picture"
+					:title="post.relationships.user.attributes.name" 
+					width="48"
+					height="48"
+				>
+			</router-link>
 			<li class="btn"><i class="glyphicon glyphicon-menu-up"></i></li>
 			<span>24234</span>
 			<li class="btn"><i class="glyphicon glyphicon-menu-down"></i></li>
@@ -34,7 +36,7 @@
 			<!-- Buttons -->
 			<div class="panel-buttons">
 				<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
-				<strong>{{ post.attributes.replies_count || '?' }}</strong>
+				<strong>{{ post.attributes.replies_count || 0 }}</strong>
 			</div>
 		</div>
 
@@ -89,33 +91,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.text {
-	margin-left: 1em;
-}
-.panel-buttons {
-	margin-bottom: auto;
-}
-.post-details {
-	padding: 0.5em 0 0.5em 0.5em;
-	display: flex;
-  flex:1;
-}
-.left {
-	text-align: center;
-	width: 50px;
-  order: 1;
-}
-.mid {
-	flex: 1;
-  order: 2;
-}
-.right {
-	position: absolute;
-	right: 0.5em;
-}
-.clickable {
-	cursor: pointer;
-}
-</style>

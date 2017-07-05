@@ -65,7 +65,8 @@ class User extends Authenticatable implements SlugAble
      */
     public function posts()
     {
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Post')
+			->with('user');
     }
 
 	/**

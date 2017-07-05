@@ -89,7 +89,9 @@ class PostController extends Controller
             return $this->show($id);
         }
 
-        return Post::whereNull('post_id')->where('slug', $slug)
+        return Post::whereNull('post_id')
+            ->orderBy('id', 'desc')
+            ->where('slug', $slug)
             ->with(['user', 'replies'])
             ->withCount('replies')
             ->get();
