@@ -19,10 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::orderBy('id', 'desc')->original()
+        return Post::orderBy('id', 'desc')
+            ->original()
             ->with(['user', 'replies'])
             ->withCount('replies')
-            ->get();
+            ->simplePaginate(7);
+            // ->get();
     }
 
     /**

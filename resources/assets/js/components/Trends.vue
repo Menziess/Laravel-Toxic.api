@@ -1,12 +1,14 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <router-link v-for="topic in topics"
-        :key="topic.id"
-        :to="'/t/' + topic.slug"
-      >
-        <strong>{{ topic.subject }}</strong><br>
-      </router-link>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <router-link v-for="topic in topics"
+          :key="topic.id"
+          :to="'/t/' + topic.slug"
+        >
+          <strong>{{ topic.subject }}</strong><br>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

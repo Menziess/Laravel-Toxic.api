@@ -15,8 +15,8 @@
       <div class="container">
 
         <!-- Posts Feed -->
-        <router-link to="/" tag="li" class="btn btn-secondary navbar-btn">
-          <span @click="scrollTop()"><i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span></span>
+        <router-link :to="homeRoute" tag="li" class="btn btn-secondary navbar-btn">
+          <i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span>
         </router-link>
 
         <!-- Something else -->
@@ -49,6 +49,11 @@ export default {
   components: {
     Picture
   },
+  computed: {
+    homeRoute() {
+      return this.$route.name === 'home' ? '/trends' : '/';
+    }
+  },
   methods: {
     checkLoggedIn() {
       if (!this.$store.getters.me) {
@@ -59,11 +64,6 @@ export default {
         this.$router.push({
           name: 'user'
         });
-      }
-    },
-    scrollTop() {
-      if (this.$route.name === 'home') {
-        window.scrollTo(0, 0);
       }
     }
   }

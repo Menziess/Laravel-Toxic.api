@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App, Closure;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use \Illuminate\Pagination\Paginator;
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Collection;
@@ -28,21 +29,13 @@ class JsonSpec
         // Contains the response content
         $content = [];
 
-        // Adds links
-        $links = [
-            'self' => $request->url(),
-            // 'first' => '',
-            // 'prev' => '',
-            // 'next' => '',
-            // 'last' => '',
-        ];
-        $content['links'] = $links;
-        
         // Extract content
         $data = isset($response->original)
             ? self::transform($response->original) 
-            : $response;  
-        $content['data'] = $data;
+            : $response;
+
+        $content['data'] = $this->finalizeData($data, $request);
+        $content['links'] = $this->finalizeLinks($data, $request);
 
         // When an exception is included
         if (isset($response->exception)) {
@@ -67,6 +60,37 @@ class JsonSpec
         // Manually arranges content
         $response->setContent(json_encode($content));
         return $response;
+    }
+
+    /**
+     * Extracts data from transformed content.
+     */
+    private function finalizeData($data)
+    {
+        switch ($data) {
+            case $data instanceof Paginator:
+                return $data->getCollection();
+                break;
+            case $data instanceof Model:
+                return [$data];
+                break;
+            default:
+                return $data;
+                break;
+        }
+    }
+
+    private function finalizeLinks($data, Request $request)
+    {
+        if (!$data instanceof Paginator)
+            return ['self' => $request->url()];
+        return [
+            'self' => $data->currentPage(),
+            'first' => null,
+            'prev' => $data->previousPageUrl(),
+            'next' => $data->nextPageUrl(),
+            'last' => null,
+        ];
     }
 
     /**
@@ -98,7 +122,13 @@ class JsonSpec
      */
     private static function transformPaginator(Paginator $paginator)
     {
-        dd("This is a paginator");
+        $collection = $paginator->map(function($item, $key) {
+            return self::transformModel($item);
+        });
+
+        $paginator->setCollection($collection);
+
+        return $paginator;
     }
 
     /**
