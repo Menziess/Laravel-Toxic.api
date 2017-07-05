@@ -15,16 +15,23 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('Api')->group(function() {
+
+    // Error
     Route::post('/log', 'ErrorController@log');
+
+    // Login
     // Route::post('/logout', 'LoginController@logout');
     // Route::get('/login', 'LoginController@redirectToFacebook');
     
+    // Post
     Route::get('post', 'PostController@index');
     Route::get('post/{id}', 'PostController@show')->where('id', '[0-9]+');
     Route::get('post/{slug}/{id?}', 'PostController@slug')->where('id', '[0-9]+');
 
+    // Topic
     Route::get('t/{slug?}', 'TopicController@slug');
 
+    // User
     Route::get('u/{slug?}', 'UserController@slug');
     Route::get('u/{slug}/followers', 'UserController@followers');
     Route::get('u/{slug}/following', 'UserController@following');
@@ -42,11 +49,16 @@ Route::namespace('Api')->group(function() {
 */
 
 Route::middleware('auth:api')->namespace('Api')->group(function() {
+    
+    // Create Update
     Route::post('post', 'PostController@store');
     Route::put('post/{id}', 'PostController@update')->where('id', '[0-9]+');
+
+    // Delete
     Route::delete('post/{id}', 'PostController@destroy')->where('id', '[0-9]+');
+    Route::delete('user/{id}', 'UserController@destroy')->where('id', '[0-9]+');
 
+    // Follow Like
     Route::post('post/like/{id}', 'PostController@like')->where('id', '[0-9]+');
-
     Route::post('u/follow/{id}', 'UserController@follow')->where('id', '[0-9]+');
 });

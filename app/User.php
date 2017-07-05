@@ -163,7 +163,8 @@ class User extends Authenticatable implements SlugAble
 	/*
 	 * Make slug to access user profile.
 	 */
-	public function makeSlug() {
+	public function makeSlug() 
+	{
 		$slug = strtolower($this->first_name . '-' . $this->last_name);
 		$ext = null;
 		while (self::where('slug', $slug . $ext)->exists()) {
@@ -172,5 +173,13 @@ class User extends Authenticatable implements SlugAble
 			}
 		}
 		$this->slug = $slug . $ext;
+	}
+
+	/*
+	 * Called when a user is deleted.
+	 */
+	public function deletePersonalData()
+	{
+		//
 	}
 }

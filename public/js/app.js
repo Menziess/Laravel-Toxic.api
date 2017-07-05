@@ -12599,6 +12599,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'right',
@@ -12638,12 +12643,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Only show logout when sitting on settings page
      */
     showLoginOptions: function showLoginOptions() {
-      return this.showLogin || this.showLogout;
+      return this.showLogin || this.showUserSettings;
     },
     showLogin: function showLogin() {
       return !this.me;
     },
-    showLogout: function showLogout() {
+    showUserSettings: function showUserSettings() {
       return this.me && this.$route.name === 'settings';
     },
     submitLogout: function submitLogout() {
@@ -12661,6 +12666,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$store.dispatch('deletePost', _this.post);
       }).catch(function (error) {
         _this.$store.dispatch('error', error);
+      });
+    },
+    deleteUser: function deleteUser() {
+      var _this2 = this;
+
+      if (confirm("Delete account?")) axios({
+        method: 'delete',
+        url: '/api/user/' + this.me.id
+      }).then(function (response) {
+        _this2.$router.push('/');
+      }).catch(function (error) {
+        _this2.$store.dispatch('error', error);
       });
     }
   },
@@ -44193,7 +44210,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.login,
       "role": "menuitem"
     }
-  }, [_vm._v("Login")]) : _vm._e(), _vm._v(" "), (_vm.showLogout) ? _c('a', {
+  }, [_vm._v("Login")]) : _vm._e(), _vm._v(" "), (_vm.showUserSettings) ? _c('a', {
     staticClass: "btn btn-danger",
     attrs: {
       "role": "presentation"
@@ -44204,7 +44221,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submitLogout()
       }
     }
-  }, [_vm._v("Logout")]) : _vm._e(), _vm._v(" "), _c('form', {
+  }, [_vm._v("Logout")]) : _vm._e(), _vm._v(" "), (_vm.showUserSettings) ? _c('a', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "role": "presentation"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.deleteUser()
+      }
+    }
+  }, [_vm._v("Disable Account")]) : _vm._e(), _vm._v(" "), _c('form', {
     ref: "logoutform",
     staticStyle: {
       "display": "none"

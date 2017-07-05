@@ -24,9 +24,14 @@
           >Login</a>
 
           <!-- Logout -->
-          <a v-if="showLogout" role="presentation" class="btn btn-danger" 
+          <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
             v-on:click.prevent="submitLogout()"
           >Logout</a>
+
+          <!-- Delete Account -->
+          <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
+            v-on:click.prevent="deleteUser()"
+          >Disable Account</a>
 
           <form :action="logout" method="POST" style="display: none;" ref="logoutform">
             <input type="hidden" name="_token" :value="crsf_token">
@@ -77,12 +82,12 @@ export default {
      * Only show logout when sitting on settings page
      */
     showLoginOptions() {
-      return this.showLogin || this.showLogout;
+      return this.showLogin || this.showUserSettings;
     },
     showLogin() {
       return !this.me;
     },
-    showLogout() {
+    showUserSettings() {
       return this.me && this.$route.name === 'settings';
     },
     submitLogout() {
@@ -97,6 +102,17 @@ export default {
           url: '/api/post/' + this.post.id
         }).then(response => {
           this.$store.dispatch('deletePost', this.post);
+        }).catch(error => {
+          this.$store.dispatch('error', error);
+        });
+		},
+    deleteUser() {
+      if (confirm("Delete account?"))
+        axios({
+          method: 'delete',
+          url: '/api/user/' + this.me.id
+        }).then(response => {
+          this.$router.push('/');
         }).catch(error => {
           this.$store.dispatch('error', error);
         });

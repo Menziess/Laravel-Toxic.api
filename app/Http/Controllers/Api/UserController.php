@@ -74,4 +74,19 @@ class UserController extends Controller
 
         return response($result, 201);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
+    {
+        if (Auth::id() !== $id) abort(403);
+
+        $user = User::findOrFail($id)->delete();
+        
+        return response("Deleted", 200);
+    }
 }

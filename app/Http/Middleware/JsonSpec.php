@@ -20,21 +20,24 @@ class JsonSpec
      */
     public function handle($request, Closure $next)
     {
-        // Set Json-API spec header
+        // Sets up Json-API spec response
         $response = $next($request);
         $response->headers->set('Content-Type', 'application/vnd.api+json');
-        
-        // Contains the response content
         $content = [];
 
-        // Extract content
-        $data = isset($response->original)
-            ? self::transform($response->original) 
+        $inputData = $response->original;
+
+        // Extract content from request and tranforms it
+        $links = self::extractLinksFromPaginator($inputData)
+            ?? ['self' => $request->url()];
+        $data = isset($inputData)
+            ? self::transform($inputData) 
             : $response;
+
         
-        // If data is object
-        $content['data'] = is_object($data) ? $this->finalizeData($data) : $data;
-        $content['links'] = $this->finalizeLinks($data, $request);
+        // Sets up keys for data and links
+        $content['data'] = $data;
+        $content['links'] = $links;
 
         // When an exception is included
         if (isset($response->exception)) {
@@ -62,35 +65,16 @@ class JsonSpec
     }
 
     /**
-     * Extracts data from transformed content.
-     */
-    private function finalizeData($data)
-    {
-        switch ($data) {
-            case $data instanceof Paginator:
-                return $data->getCollection();
-                break;
-            case $data instanceof Model:
-                return [$data];
-                break;
-            default:
-                return $data;
-                break;
-        }
-    }
-
-    /**
      * Extracts links from paginator.
      */
-    private function finalizeLinks($data, Request $request)
+    private static function extractLinksFromPaginator($paginator)
     {
-        if (!$data instanceof Paginator)
-            return ['self' => $request->url()];
+        if ($paginator instanceof Paginator)
         return [
-            'self' => $data->currentPage(),
-            'first' => null,
-            'prev' => $data->previousPageUrl(),
-            'next' => $data->nextPageUrl(),
+            'self' => $paginator->url($paginator->currentPage()),
+            'first' => $paginator->url(1),
+            'prev' => $paginator->previousPageUrl(),
+            'next' => $paginator->nextPageUrl(),
             'last' => null,
         ];
     }
@@ -121,6 +105,8 @@ class JsonSpec
 
     /**
      * Transform paginator.
+     * 
+     * @return Array
      */
     private static function transformPaginator(Paginator $paginator)
     {
@@ -128,13 +114,13 @@ class JsonSpec
             return self::transformModel($item);
         });
 
-        $paginator->setCollection($collection);
-
-        return $paginator;
+        return $collection;
     }
 
     /**
      * Transform collection.
+     *
+     * @return Array
      */
     private static function transformCollection(Collection $collection, $recursive = true)
     {
@@ -148,6 +134,8 @@ class JsonSpec
 
     /**
      * Transform model.
+     * 
+     * @return Array
      */
     private static function transformModel(Model $model, $recursive = true)
     {
@@ -169,10 +157,15 @@ class JsonSpec
 
         } else {
             $relations = array_map(function($relation) {
-                // return $relation;
+                if (!$relation) return;
                 return self::transform($relation, false);
             }, $model->getRelations());
 
+            $relations = array_filter($relations, function($relation) {
+                return ($relation);
+            });
+
+            if (!$relations) return $array;
             return array_merge($array, [
                 'relationships' => $relations
             ]);
