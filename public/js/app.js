@@ -12740,6 +12740,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12747,12 +12749,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Picture: __WEBPACK_IMPORTED_MODULE_0__Picture___default.a
   },
+  data: function data() {
+    return {
+      search: null
+    };
+  },
+
   computed: {
     homeRoute: function homeRoute() {
       return this.$route.name === 'home' ? '/trends' : '/';
     }
   },
   methods: {
+    submitSearch: function submitSearch() {
+      alert(this.search);
+    },
     checkLoggedIn: function checkLoggedIn() {
       if (!this.$store.getters.me) {
         this.$store.dispatch('error', {
@@ -13032,8 +13043,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					post_id: this.post.id,
 					subject: this.post.attributes.subject,
 					attachment: this.attachment,
-					drawing: this.$refs.myDrawing.getDataUrl(),
-					text: this.$refs.myTextbox.text,
+					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
+					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
 					url: null
 				}
 			}).then(function (response) {
@@ -44572,13 +44583,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("New")]), _vm._v(" "), _c('Picture'), _vm._v(" "), _c('div', {
     staticClass: "input-group nav-search pull-right"
+  }, [_c('form', {
+    staticStyle: {
+      "margin": "0",
+      "padding": "0"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submitSearch()
+      }
+    }
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search),
+      expression: "search"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": _vm.$route.params.slug || 'Search...'
+    },
+    domProps: {
+      "value": (_vm.search)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search = $event.target.value
+      }
     }
-  })])], 1)])])
+  })])])], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

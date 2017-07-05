@@ -72,8 +72,8 @@
 						post_id: this.post.id,
 						subject: this.post.attributes.subject,
 						attachment: this.attachment,
-						drawing: this.$refs.myDrawing.getDataUrl(),
-						text: this.$refs.myTextbox.text,
+						drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
+						text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
 						url: null
 					}
 				}).then(response => {

@@ -34,7 +34,9 @@
 
         <!-- Search Field -->
         <div class="input-group nav-search pull-right">
-          <input type="text" class="form-control" :placeholder="$route.params.slug || 'Search...'">
+          <form v-on:submit.prevent="submitSearch()" style="margin: 0; padding: 0;">
+            <input type="text" class="form-control" :placeholder="$route.params.slug || 'Search...'" v-model="search">
+          </form>
         </div>
 
       </div>
@@ -49,12 +51,20 @@ export default {
   components: {
     Picture
   },
+  data() {
+    return {
+      search: null
+    }
+  },
   computed: {
     homeRoute() {
       return this.$route.name === 'home' ? '/trends' : '/';
     }
   },
   methods: {
+    submitSearch() {
+      alert(this.search);
+    },
     checkLoggedIn() {
       if (!this.$store.getters.me) {
         this.$store.dispatch('error', {
