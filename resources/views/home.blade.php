@@ -15,7 +15,7 @@
 <Background></Background>
 
 <!-- Navigation -->
-<Navbar></Navbar>
+<Navbar v-if="$route.name !== 'landing'"></Navbar>
 
 <!-- Content -->
 <div class="container">
@@ -25,7 +25,7 @@
 		<PostNew></PostNew>
 
 		<!-- Left Nav -->
-		<div class="col-md-3">
+		<div class="col-md-3" v-if="$route.name !== 'landing'">
 			<Left></Left>
 		</div>
 
@@ -33,7 +33,7 @@
 		<router-view></router-view>
 
 		<!-- Right Nav -->
-		<div class="col-md-3">
+		<div class="col-md-3" v-if="$route.name !== 'landing'">
 			<Right></Right>
 		</div>
 		
