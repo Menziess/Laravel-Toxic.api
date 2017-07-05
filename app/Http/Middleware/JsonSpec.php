@@ -11,8 +11,6 @@ use \Illuminate\Database\Eloquent\Collection;
 
 class JsonSpec
 {
-    const APPLICATION_JSON = 'application/json';
-
     /**
      * Handle an incoming request.
      *
@@ -33,8 +31,9 @@ class JsonSpec
         $data = isset($response->original)
             ? self::transform($response->original) 
             : $response;
-
-        $content['data'] = $this->finalizeData($data, $request);
+        
+        // If data is object
+        $content['data'] = is_object($data) ? $this->finalizeData($data) : $data;
         $content['links'] = $this->finalizeLinks($data, $request);
 
         // When an exception is included
@@ -80,6 +79,9 @@ class JsonSpec
         }
     }
 
+    /**
+     * Extracts links from paginator.
+     */
     private function finalizeLinks($data, Request $request)
     {
         if (!$data instanceof Paginator)

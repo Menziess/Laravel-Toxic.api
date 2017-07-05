@@ -58,7 +58,7 @@ class Post extends Model implements SlugAble
     /**
 	 * Users that liked post.
 	 */
-	public function likedByUsers($type = null)
+	public function likedByUsers(int $type = null)
 	{
 		$query = $this->belongsToMany('App\User');
 

@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function() {
     Route::post('/log', 'ErrorController@log');
-    Route::post('/logout', 'LoginController@logout');
-    Route::get('/login', 'LoginController@redirectToFacebook');
+    // Route::post('/logout', 'LoginController@logout');
+    // Route::get('/login', 'LoginController@redirectToFacebook');
     
     Route::get('post', 'PostController@index');
     Route::get('post/{id}', 'PostController@show')->where('id', '[0-9]+');

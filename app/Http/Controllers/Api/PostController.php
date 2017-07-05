@@ -24,7 +24,6 @@ class PostController extends Controller
             ->with(['user', 'replies'])
             ->withCount('replies')
             ->simplePaginate(7);
-            // ->get();
     }
 
     /**
@@ -147,11 +146,11 @@ class PostController extends Controller
     {
         Post::findOrFail($id);
 
-        $type = $request->input['type'];
+        $type = (int) $request->input('type');
 
         $result = User::findOrFail(Auth::id())
             ->likesPosts()
-            ->toggle([$id, ['type' => $type]]);
+            ->toggle([$id, ['type' => $type ?? 0]]);
 
         return response($result, 201);
     }

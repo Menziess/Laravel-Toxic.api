@@ -36,8 +36,10 @@ class UserController extends Controller
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function followers(int $type = null)
+    public function followers(Request $request)
     {
+        $type = (int) $request->input('type');
+        
         return User::findOrFail($this->id)->followedByUsers($type)->get();
     }
 
@@ -47,8 +49,10 @@ class UserController extends Controller
      * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function following(int $type = null)
+    public function following(Request $request)
     {
+        $type = (int) $request->input('type');
+
         return User::findOrFail($this->id)->followsUsers($type)->get();
     }
 
@@ -62,11 +66,11 @@ class UserController extends Controller
     {
         User::findOrFail($id);
 
-        $type = $request->input['type'];
+        $type = (int) $request->input('type');
 
         $result = User::findOrFail(Auth::id())
             ->followsUsers()
-            ->toggle([$id, ['type' => $type]]);
+            ->toggle([$id, ['type' => $type ?? 0]]);
 
         return response($result, 201);
     }

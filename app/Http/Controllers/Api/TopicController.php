@@ -33,7 +33,7 @@ class TopicController extends Controller
      */
     public function slug(String $slug = null)
     {
-        if (!$slug) return self::index();
+        if (!$slug) return $this->index();
 
         return Topic::where('slug', $slug)
             ->withCount('posts')
