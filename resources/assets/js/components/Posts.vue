@@ -2,17 +2,19 @@
   <div>
 
 		<div class="col-md-6">
+
+			<!-- Posts -->
+			<PostView v-for="post in posts"
+				v-if="post.relationships && post.relationships.user" 
+				:hidereplies="!id"
+				:key="post.id"
+				:post="post"
+			></PostView>
+
 			<!-- Loading -->
 			<div v-if="loading">
 				<h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
 			</div>
-
-			<!-- Posts -->
-			<PostView v-for="post in posts"
-					:hidereplies="!id"
-					:key="post.id"
-					:post="post"
-			></PostView>
 
 			<!-- Empty State -->
 			<div v-if="empty">
@@ -31,16 +33,24 @@
     props: ['slug', 'id'],
     components: { PostView },
 		watch: { '$route': 'init', 'search': 'init' },
-    data() { return { loading: false } },
-		created() { this.init(); },
+    data() { 
+			return { 
+				loading: false,
+				scrollPos: null
+			} 
+		},
+		created() { 
+			this.init();
+    	window.addEventListener('scroll', this.handleScroll);
+		},
+		destroyed() {
+			window.removeEventListener('scroll', this.handleScroll);
+		},
 
 		computed: {
 			posts() {
-				// If search query is filled in
-				if (this.$store.getters.search) {
-					return this.$store.getters.searchPosts;
 				// If showing one particular post
-				} else if (this.id) {
+				if (this.id) {
 					return this.$store.getters.post;
 				// If showing particular subject
 				} else if (this.slug) {
@@ -55,9 +65,21 @@
 		},
 
     methods: {
+			handleScroll() {
+				this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
+					console.log(this.scrollPos);
+				// if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == -10) {
+				if (this.scrollPos < 200) {
+					console.log("load");
+						// load more data here...
+				}
+			},
 			init() {
+				// Protecting rapid init calls
+				if (this.loading) return;
+				else this.loading = true;
+
 				// If id check if posts contain id
-				this.loading = true;
 				if (this.id) {
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
 						this.$store.commit('setInitialPost', []);
@@ -90,6 +112,7 @@
 						this.loading = false;
           }).catch(error => {
 						this.$store.dispatch('error', error);
+						this.$router.push({ name: 'error' });
           });
 			},
 			fetchSlug() {
@@ -100,6 +123,7 @@
 						this.loading = false;
           }).catch(error => {
 						this.$store.dispatch('error', error);
+						this.$router.push({ name: 'error' });
           });
 			},
 			fetchId() {
@@ -125,6 +149,7 @@
 						this.loading = false;
           }).catch(error => {
 						this.$store.dispatch('error', error);
+						this.$router.push({ name: 'error' });
           });
 			},
 			onePostContainsId(array, id) {

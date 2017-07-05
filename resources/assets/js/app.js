@@ -16,6 +16,7 @@ import Landing from './components/Landing.vue';
 import Navbar from './components/nav/Navbar.vue';
 import Trends from './components/Trends.vue';
 import Posts from './components/Posts.vue';
+import ErrorPage from './components/ErrorPage.vue';
 import Right from './components/nav-sides/Right.vue';
 import User from './components/User.vue';
 import Left from './components/nav-sides/Left.vue';
@@ -41,6 +42,7 @@ Vue.component('navbar', Navbar);
 Vue.component('trends', Trends);
 Vue.component('posts', Posts);
 Vue.component('right', Right);
+Vue.component('error', ErrorPage);
 Vue.component('user', User);
 Vue.component('left', Left);
 
@@ -63,9 +65,11 @@ const routes = [
 
   { path: '/trends', name: 'trends', component: Trends }, 
 
+	{ path: '/error', name: 'error', component: ErrorPage },
+
   { path: '/', name: 'home', component: Posts }, 
 
-	{ path: '*', component: { template: '<div><h1>404</h1></div>' } }
+	{ path: '*', name: '404', redirect: 'error' }
 	
 ];
 

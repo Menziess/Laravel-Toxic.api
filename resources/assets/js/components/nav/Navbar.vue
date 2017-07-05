@@ -67,13 +67,8 @@ export default {
     },
     checkLoggedIn() {
       if (!this.$store.getters.me) {
-        this.$store.dispatch('error', {
-          message: "You can draw and write, but you have to login in order to post.",
-          redirect: this.$store.getters.loginRoute
-        });
-        this.$router.push({
-          name: 'user'
-        });
+        this.$store.dispatch('error', "You can draw and write, but you have to login in order to post.");
+        this.$router.push({ name: 'error' });
       }
     }
   }

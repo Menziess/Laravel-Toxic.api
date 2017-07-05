@@ -1,43 +1,6 @@
 <template>
-  <div class="application">
+  <div>
     <!-- Application -->
-    <div v-if="error" class="error">
-
-      <div v-if="typeof error === 'string' || error instanceof String" class="alert alert-success" role="alert">
-        {{ error }}
-        <li class="inline pull-right" v-on:click="clearError()">
-          <i class="glyphicon glyphicon-remove"></i>
-        </li>
-      </div>
-
-      <div v-else-if="error.redirect" class="alert alert-success" role="alert">
-        {{ error.message }}
-        <li class="inline pull-right" v-on:click="clearError()">
-          <i class="glyphicon glyphicon-remove"></i>
-        </li>
-        <br><br>
-        <button class="btn btn-success" v-on:click="redirect(error.redirect)">
-          Continue
-        </button>
-      </div>
-
-      <div v-else class="alert alert-danger" role="alert">
-        {{ error.name }}: {{ error.message }}
-        <br><br>
-        <button class="btn btn-warning" data-toggle="collapse" data-target="#stack">
-          <i class="glyphicon glyphicon-wrench"></i>
-        </button>
-        <button class="btn btn-success" v-on:click="clearError()">
-          <i class="glyphicon glyphicon-ok"></i>
-        </button>
-      </div>
-
-      <div id="stack" class="collapse">
-        <p v-if="error.stack">{{ error.stack }}</p>
-        <p v-else>{{ error }}</p>
-      </div>
-    </div>
-    
   </div>
 </template>
 
@@ -45,26 +8,13 @@
 export default {
   name: 'application',
   props: ['me', 'login', 'logout', 'destination', 'topics'],
-  computed: {
-    error() {
-      return this.$store.getters.error;
-    }
-  },
   methods: {
-    redirect(url) {
-      this.clearError();
-      window.location.replace(url);
-    },
-    clearError() {
-      this.$store.dispatch('error', null);
-    },
     valid(value) {
       return (value && value != undefined && value != "undefined");
     }
   },
   mounted() {
     const store = this.$store;
-    this.error = store.getters.error;
 
     if (this.valid(this.me)) store.dispatch('setMe', this.me);
 
@@ -87,24 +37,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-i:hover {
-  color: black;
-}
-.application {
-  position: fixed;
-  z-index: 9999;
-  width: 55vh;
-  left: 50%;
-  top: 20%;
-}
-.error {
-  position: relative;
-  left: -50%;
-}
-.collapse {
-  background-color: #272822;
-  color: #F92672;
-}
-</style>

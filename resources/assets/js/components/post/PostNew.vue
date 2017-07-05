@@ -88,6 +88,7 @@
 				}).catch(error => {
 					this.submitted = false;
 					this.$store.dispatch('error', error);
+          this.$router.push({ name: 'error' });
 				});
 			},
 			getForm() {

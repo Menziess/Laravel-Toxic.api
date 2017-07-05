@@ -92,7 +92,8 @@
 				}).catch(error => {
 					this.submitted = false;
 					this.$emit('submit');					
-					// this.$store.dispatch('error', error);
+					this.$store.dispatch('error', error);
+					this.$router.push({ name: 'error' });
 				});
 			}
 		}

@@ -127,8 +127,8 @@ const actions = {
   setTopics(context, topics) { context.commit('setTopics', topics); },
   setLogin(context, route) { context.commit('setLogin', route); },
   addPost(context, post) { context.commit('addPost', post); },
-  setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
+  setMe(context, me) { context.commit('setMe', me); },
 };
 
 

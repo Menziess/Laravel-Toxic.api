@@ -104,6 +104,7 @@ export default {
           this.$store.dispatch('deletePost', this.post);
         }).catch(error => {
           this.$store.dispatch('error', error);
+          this.$router.push({ name: 'error' });
         });
 		},
     deleteUser() {
@@ -115,6 +116,7 @@ export default {
           this.$router.push('/');
         }).catch(error => {
           this.$store.dispatch('error', error);
+          this.$router.push({ name: 'error' });
         });
 		}
   },
