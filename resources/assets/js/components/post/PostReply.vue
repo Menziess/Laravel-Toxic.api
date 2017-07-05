@@ -3,12 +3,14 @@
 		class="panel-separator">
 		
 		<!-- Contents -->
-		<Textbox v-show="attachment === 'text'" 
+		<Textbox v-if="attachment === 'text'" 
+			@hasInput="enableSubmit"
 			ref="myTextbox" 
 			placeholder="Write your reply here..."
 		></Textbox>
 
-		<Drawing v-show="attachment === 'drawing'" 
+		<Drawing v-if="attachment === 'drawing'" 
+			@hasInput="enableSubmit"
 			ref="myDrawing"
 		></Drawing>
 
@@ -27,7 +29,7 @@
 				<i class="glyphicon glyphicon-paperclip"></i>
 			</button>
 
-			<button v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
+			<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
 		</div>
 	
 	</div>
@@ -43,14 +45,23 @@
       return {
         subject: null,
 				submitted: false,
-        attachment: "text"
+        attachment: "text",
+				submitEnabled: false
 			}
     },
     components: {
       Drawing,
       Textbox
     },
+		watch: {
+			attachment() {
+				this.enableSubmit(false);
+			}
+		},
 		methods: {
+			enableSubmit(enable) {
+				this.submitEnabled = enable;
+			},
 			submit() {
 				if (this.submitted) { return false; }
 				this.submitted = true;

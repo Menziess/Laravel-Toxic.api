@@ -9,9 +9,17 @@
 						:placeholder="this.$route.params.slug || defaultSubject()">
 				</div>
 				
-				<!-- Attachments -->
-				<Textbox v-if="attachment === 'text'" @hasInput="enableSubmit" ref="myTextbox"></Textbox>  
-				<Drawing v-if="attachment === 'drawing'" @hasInput="enableSubmit" ref="myDrawing"></Drawing>
+				<!-- Contents -->
+				<Textbox v-if="attachment === 'text'" 
+					@hasInput="enableSubmit" 
+					ref="myTextbox"
+					placeholder="Write your message here..."
+				></Textbox>  
+
+				<Drawing v-if="attachment === 'drawing'" 
+					@hasInput="enableSubmit" 
+					ref="myDrawing"
+				></Drawing>
 
 				<!-- Buttons -->
 				<div class="modal-footer">
@@ -57,7 +65,7 @@
     },
 		watch: {
 			attachment() {
-				this.enableSubmit(false)
+				this.enableSubmit(false);
 			}
 		},
 		methods: {
@@ -87,8 +95,8 @@
 					post_id: null,
 					subject: this.getSubject(this.subject),
 					attachment: this.attachment,
-					drawing: this.$refs.myDrawing.getDataUrl(),
-					text: this.$refs.myTextbox.text,
+					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
+					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
 					url: null
 				}
 			},
