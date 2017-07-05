@@ -19,6 +19,17 @@
         maxlength: 255,
         text: this.$parent.text
       }
+    },
+    watch: {
+      'text': 'hasInput'
+    },
+    methods: {
+      hasInput() {
+        if (this.text.length !== 0)
+          this.$emit('hasInput', true);
+        else
+          this.$emit('hasInput', false);
+      }
     }
   }
 </script>

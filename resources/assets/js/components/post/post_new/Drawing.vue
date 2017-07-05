@@ -32,13 +32,24 @@
         dragging: false,
         rect: null,
         radius: 2,
+        userHasDrawn: false
       }
     },
+    watch: {
+      'userHasDrawn': 'hasInput'
+    },
     methods: {
+      hasInput() {
+        if (this.hasInput)
+          this.$emit('hasInput', true);
+        else
+          this.$emit('hasInput', false);
+      },
       start(e) {
         // Make sure canvas is properly rendered
         if (this.canvas.width === 0) { this.init(); } 
         this.dragging = true;
+        this.userHasDrawn = true;
         this.putPoint(e);
       },
       stop(e) { 

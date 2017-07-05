@@ -12849,6 +12849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -12858,7 +12860,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			subject: null,
 			submitted: false,
-			attachment: "text"
+			attachment: "text",
+			submitEnabled: false
 		};
 	},
 
@@ -12866,7 +12869,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Drawing: __WEBPACK_IMPORTED_MODULE_0__post_new_Drawing_vue___default.a,
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__post_new_Textbox_vue___default.a
 	},
+	watch: {
+		attachment: function attachment() {
+			this.enableSubmit(false);
+		}
+	},
 	methods: {
+		enableSubmit: function enableSubmit(enable) {
+			this.submitEnabled = enable;
+		},
 		submit: function submit() {
 			var _this = this;
 
@@ -13140,17 +13151,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       endAngle: 2 * Math.PI,
       dragging: false,
       rect: null,
-      radius: 2
+      radius: 2,
+      userHasDrawn: false
     };
   },
 
+  watch: {
+    'userHasDrawn': 'hasInput'
+  },
   methods: {
+    hasInput: function hasInput() {
+      if (this.hasInput) this.$emit('hasInput', true);else this.$emit('hasInput', false);
+    },
     start: function start(e) {
       // Make sure canvas is properly rendered
       if (this.canvas.width === 0) {
         this.init();
       }
       this.dragging = true;
+      this.userHasDrawn = true;
       this.putPoint(e);
     },
     stop: function stop(e) {
@@ -13230,6 +13249,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       maxlength: 255,
       text: this.$parent.text
     };
+  },
+
+  watch: {
+    'text': 'hasInput'
+  },
+  methods: {
+    hasInput: function hasInput() {
+      if (this.text.length !== 0) this.$emit('hasInput', true);else this.$emit('hasInput', false);
+    }
   }
 });
 
@@ -44919,23 +44947,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.subject = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('Textbox', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.attachment === 'text'),
-      expression: "attachment === 'text'"
-    }],
-    ref: "myTextbox"
-  }), _vm._v(" "), _c('Drawing', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.attachment === 'drawing'),
-      expression: "attachment === 'drawing'"
-    }],
-    ref: "myDrawing"
-  }), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), (_vm.attachment === 'text') ? _c('Textbox', {
+    ref: "myTextbox",
+    on: {
+      "hasInput": _vm.enableSubmit
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.attachment === 'drawing') ? _c('Drawing', {
+    ref: "myDrawing",
+    on: {
+      "hasInput": _vm.enableSubmit
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-info pull-left",
@@ -44974,6 +44996,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "mySubmit",
     staticClass: "btn btn-primary",
     attrs: {
+      "disabled": !_vm.submitEnabled,
       "data-dismiss": "modal",
       "type": "button"
     },
@@ -44982,7 +45005,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submit()
       }
     }
-  }, [_vm._v("Post")])])], 1)])])
+  }, [_vm._v("\n\t\t\t\t\tPost\n\t\t\t\t")])])], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
