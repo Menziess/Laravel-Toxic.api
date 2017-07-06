@@ -1253,7 +1253,6 @@ var actions = {
   fetch: function fetch(context, data) {
     return new Promise(function (resolve, reject) {
       axios.get(data.endpoint).then(function (response) {
-        console.log(response);
         context.commit(data.mutation, {
           name: data.store,
           collection: response.data.data
@@ -12464,36 +12463,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	computed: {
 		posts: function posts() {
-			// If showing one particular post
 			if (this.id) {
 				return this.$store.getters.post;
-				// If showing particular subject
 			} else if (this.slug) {
 				return this.$store.getters.searchPosts;
 			}
-			// If showing default
 			return this.$store.getters.posts;
 		},
 		empty: function empty() {
 			return this.posts.length < 1 && this.loading === false;
+		},
+		notlastpage: function notlastpage() {
+			return true;
+			// if (this.id) {
+
+			// } else if (this.slug) {
+
+			// }
+			// return true;
 		}
 	},
 
 	methods: {
 		handleScroll: function handleScroll() {
 			this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;
-			console.log(this.scrollPos);
-			// if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == -10) {
-			if (this.scrollPos < 200) {
-				console.log("load");
-				// load more data here...
-			}
+			if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0 && this.notlastpage
+			// @TODO: check paginator					
+			) {
+					this.infiniteScroll();
+				}
 		},
-		init: function init() {
-			// Protecting rapid init calls
-			if (this.loading) return;else this.loading = true;
 
-			// If id check if posts contain id
+
+		/**
+   * Called when this componens is created or recreated to 
+   * fetch initial content from the API.
+   */
+		init: function init() {
+			if (this.loading) return;else this.loading = true;
 			if (this.id) {
 				if (this.posts.length < 1 || this.posts[0].id != this.id) {
 					this.$store.commit('replace', { name: 'post', collection: [] });
@@ -12501,57 +12508,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				} else {
 					this.loading = false;
 				}
-			}
-
-			// If slug check if post contains slug
-			else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
-					this.$store.commit('replace', { name: 'searchPosts', collection: [] });
-					this.fetchSlug();
-				}
-
-				// If default
-				else if (this.posts.length < 1) {
-						this.fetchDefault();
-					}
-
-					// App is not loading
-					else this.loading = false;
+			} else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+				this.$store.commit('replace', { name: 'searchPosts', collection: [] });
+				this.fetchSlug();
+			} else if (this.posts.length < 1) {
+				this.fetchDefault();
+			} else this.loading = false;
 		},
+		infiniteScroll: function infiniteScroll() {
+			if (this.loading) return;else this.loading = true;
+			if (this.id) {
+				this.fetchIdReplies();
+			} else if (this.slug) {
+				this.fetchSlug();
+			} else this.fetchDefault();
+		},
+
+
+		/**
+   * Generic fetch methods.
+   */
 		fetch: function fetch(endpoint, mutation, store) {
-			return this.$store.dispatch('fetch', {
-				endpoint: endpoint, mutation: mutation, store: store
-			});
-		},
-		fetchDefault: function fetchDefault() {
 			var _this = this;
 
-			this.fetch('/api/post', 'push', 'posts').then(function (response) {
+			return this.$store.dispatch('fetch', {
+				endpoint: endpoint, mutation: mutation, store: store
+			}).then(function (response) {
 				_this.empty = _this.posts.length === 0;
 				_this.loading = false;
 			}).catch(function (error) {
 				_this.$router.push({ name: 'error' });
 			});
 		},
+		fetchDefault: function fetchDefault() {
+			this.fetch('/api/post', 'push', 'posts');
+		},
 		fetchSlug: function fetchSlug() {
-			var _this2 = this;
-
-			this.fetch('/api/post/' + this.slug, 'push', 'searchPosts').then(function (response) {
-				_this2.empty = _this2.posts.length === 0;
-				_this2.loading = false;
-			}).catch(function (error) {
-				_this2.$router.push({ name: 'error' });
-			});
+			this.fetch('/api/post/' + this.slug, 'push', 'searchPosts');
 		},
 		fetchId: function fetchId() {
-			var _this3 = this;
-
-			this.fetch('/api/post/' + this.id, 'replace', 'post').then(function (response) {
-				console.log(_this3.$store.getters.post);
-				_this3.empty = _this3.posts.length === 0;
-				_this3.loading = false;
-			}).catch(function (error) {
-				_this3.$router.push({ name: 'error' });
-			});
+			this.fetch('/api/post/' + this.id, 'replace', 'post');
+		},
+		fetchIdReplies: function fetchIdReplies() {
+			//@TODO: make endpoint this.fetch('/api/post/' + this.id + '@TODO', 'replace', 'post');
 		},
 		onePostContainsId: function onePostContainsId(array, id) {
 			return array.find(function (post) {

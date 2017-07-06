@@ -145,7 +145,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(data.endpoint)
       .then(response => {
-        console.log(response);
         context.commit(data.mutation, {
           name: data.store, 
           collection: response.data.data
