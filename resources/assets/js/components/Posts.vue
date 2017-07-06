@@ -4,7 +4,8 @@
 		<div class="col-md-6">
 
 			<!-- Posts -->
-			<PostView v-for="post in posts"
+			<PostView 
+				v-for="post in posts"
 				v-if="post.relationships && post.relationships.user" 
 				:hidereplies="!id"
 				:key="post.id"
@@ -82,7 +83,7 @@
 				// If id check if posts contain id
 				if (this.id) {
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
-						this.$store.commit('setInitialPost', []);
+						this.$store.commit('replace', { name: 'post', collection: [] });						
 						this.fetchId();
 					} else {
 						this.loading = false;
@@ -91,64 +92,48 @@
 					
 				// If slug check if post contains slug
 				else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
-					this.$store.commit('setInitialSearchPosts', []);
+					this.$store.commit('replace', { name: 'searchPosts', collection: [] });
 					this.fetchSlug();
 				}
 
 				// If default
 				else if (this.posts.length < 1) {
-					this.$store.commit('setInitialPosts', []);
 					this.fetchDefault();
 				}
 
 				// App is not loading
 				else this.loading = false;
 			},
+			fetch(endpoint, mutation, store) {
+				return this.$store.dispatch('fetch', {
+					endpoint, mutation, store
+				});
+			},
       fetchDefault() {
-				axios.get('/api/post')
+				this.fetch('/api/post', 'push', 'posts')
           .then(response => {
-						this.$store.commit('setInitialPosts', response.data.data);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.$store.dispatch('error', error);
 						this.$router.push({ name: 'error' });
           });
 			},
 			fetchSlug() {
-				axios.get('/api/post/' + this.slug)
+				this.fetch('/api/post/' + this.slug, 'push', 'searchPosts')
           .then(response => {
-						this.$store.commit('setInitialSearchPosts', response.data.data);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.$store.dispatch('error', error);
 						this.$router.push({ name: 'error' });
           });
 			},
 			fetchId() {
-				// Try to find the post in one of the loaded arrays
-				let post = this.onePostContainsId(this.$store.getters.posts, this.id);
-				if (post) { 
-					this.$store.commit('setInitialPost', [post]); 
-					this.loading = false;
-					return; 
-				}
-				post = this.onePostContainsId(this.$store.getters.searchPosts, this.id);
-				if (post) { 
-					this.$store.commit('setInitialPost', [post]); 
-					this.loading = false;
-					return;
-				}
-
-				// Fetch the post
-				else axios.get('/api/post/' + this.id)
+				this.fetch('/api/post/' + this.id, 'replace', 'post')
           .then(response => {
-						this.$store.commit('setInitialPost', [response.data.data]);
+						console.log(this.$store.getters.post);
 						this.empty = this.posts.length === 0;
 						this.loading = false;
           }).catch(error => {
-						this.$store.dispatch('error', error);
 						this.$router.push({ name: 'error' });
           });
 			},

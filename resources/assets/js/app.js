@@ -79,6 +79,30 @@ const router = new VueRouter({
   routes: routes
 });
 
+
+/**
+ * Axios interceptor.
+ */
+axios.interceptors.response.use(
+	response => {
+		return Promise.resolve(response);
+	}, error => {
+		store.dispatch('error', error);
+		router.replace({ name: 'error' });
+		return Promise.reject(error);
+	});
+
+
+/**
+ * Vue directives.
+ */
+// Vue.directive('store', function(el, binding) {
+// 	console.log(binding.endpoint);
+// 	console.log(binding);
+// 	console.log(store);
+// });
+
+
 /**
  * Vue app.
  */

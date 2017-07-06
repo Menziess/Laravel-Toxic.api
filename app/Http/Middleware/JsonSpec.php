@@ -33,6 +33,8 @@ class JsonSpec
         $data = isset($inputData)
             ? self::transform($inputData) 
             : $response;
+        $data = $inputData instanceof Model
+            ? [$data] : $data;
 
         
         // Sets up keys for data and links
@@ -85,14 +87,14 @@ class JsonSpec
     private static function transform($content) 
     {
         switch ($content) {
+            case $content instanceof Model:
+                return self::transformModel($content);
+                break;
             case $content instanceof Paginator:
                 return self::transformPaginator($content);
                 break;
             case $content instanceof Collection:
                 return self::transformCollection($content);
-                break;
-            case $content instanceof Model:
-                return self::transformModel($content);
                 break;
             case is_array($content):
                 return $content;
@@ -108,10 +110,10 @@ class JsonSpec
      * 
      * @return Array
      */
-    private static function transformPaginator(Paginator $paginator)
+    private static function transformPaginator(Paginator $paginator, $recursive = true)
     {
-        $collection = $paginator->map(function($item, $key) {
-            return self::transformModel($item);
+        $collection = $paginator->map(function($item, $key) use ($recursive) {
+            return self::transformModel($item, $recursive);
         });
 
         return $collection;
@@ -152,7 +154,7 @@ class JsonSpec
         ];
 
         if (!$recursive) {
-          
+            
             return $array;
 
         } else {

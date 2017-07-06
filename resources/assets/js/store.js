@@ -56,31 +56,10 @@ const find = {
   }
 }
 
+
 /**
- * Modifying store.
+ * Store data.
  */
-const mutations = {
-
-  deletePost(state, post) { find.deletePost(state.posts, post); },
-  addPost(state, post) { find.addPost(state.posts, post); },
-  deleteSearchPost(state, post) { find.deletePost(state.searchPosts, post); },
-  addSearchPost(state, post) { find.addPost(state.searchPosts, post); },
-
-  // Setters
-  setInitialPost(state, post) { state.post = post; },
-  setInitialPosts(state, posts) { state.posts = posts; },
-  setInitialSearchPosts(state, posts) { state.searchPosts = posts; },
-
-  setDestination(state, route) { state.destinationRoute = route; },
-  setTopics(state, topics) { state.topics = topics; },
-  setLogout(state, route) { state.logoutRoute = route; },
-  setLogin(state, route) { state.loginRoute = route; },
-  setSearch(state, search) { state.search = search; },
-  error(state, error) { state.error = error; },
-  setMe(state, me) { state.me = me; },
-};
-
-
 const state = {
   topics: [
 
@@ -103,6 +82,9 @@ const state = {
 };
 
 
+/**
+ * Getters.
+ */
 const getters = {
   destinationRoute: state => { return state.destinationRoute; },
   logoutRoute: state => { return state.logoutRoute; },
@@ -117,18 +99,77 @@ const getters = {
 };
 
 
+/**
+ * Modifying store.
+ */
+const mutations = {
+
+  // New
+  push(state, data) {
+    state[data.name].push.apply(state[data.name], data.collection); 
+  },
+  replace(state, data) { 
+    state[data.name] = data.collection; 
+  },
+
+  // Create
+  // setInitialSearchPosts(state, posts) { state.searchPosts = posts; },
+  // setInitialPosts(state, posts) { state.posts = posts; },
+  // setInitialPost(state, post) { state.post = post; },
+
+  // addSearchPost(state, post) { find.addPost(state.searchPosts, post); },
+  // addPost(state, post) { find.addPost(state.posts, post); },
+
+  // Delete
+  deleteSearchPost(state, post) { find.deletePost(state.searchPosts, post); },
+  deletePost(state, post) { find.deletePost(state.posts, post); },
+
+  // Other
+  setDestination(state, route) { state.destinationRoute = route; },
+  setTopics(state, topics) { state.topics = topics; },
+  setLogout(state, route) { state.logoutRoute = route; },
+  setLogin(state, route) { state.loginRoute = route; },
+  setSearch(state, search) { state.search = search; },
+  setMe(state, me) { state.me = me; },
+  error(state, error) { state.error = error; },
+};
+
+
+/**
+ * API for talking to store.
+ */
 const actions = {
-  deleteSearchPost(context, post) { context.commit('deleteSearchPost', post); },
+
+  // Create
+  fetch(context, data) { 
+    return new Promise((resolve, reject) => {
+      axios.get(data.endpoint)
+      .then(response => {
+        console.log(response);
+        context.commit(data.mutation, {
+          name: data.store, 
+          collection: response.data.data
+        });
+        resolve(response);
+      }).catch(error => {
+        state.error = error;
+        reject(error);
+      });
+    })
+  },
+
+  // Delete
+  // deleteSearchPost(context, post) { context.commit('deleteSearchPost', post); },
+  // deletePost(context, post) { context.commit('deletePost', post); },
+
+  // Other
   setDestination(context, route) { context.commit('setDestination', route); },
-  addSearchPost(context, post) { context.commit('addSearchPost', post); },
-  deletePost(context, post) { context.commit('deletePost', post); },
   setLogout(context, route) { context.commit('setLogout', route); },
   setSearch(context, search) { context.commit('setSearch', search); },
   setTopics(context, topics) { context.commit('setTopics', topics); },
   setLogin(context, route) { context.commit('setLogin', route); },
-  addPost(context, post) { context.commit('addPost', post); },
-  error(context, error) { context.commit('error', error); },
   setMe(context, me) { context.commit('setMe', me); },
+  error(context, error) { context.commit('error', error); },
 };
 
 
