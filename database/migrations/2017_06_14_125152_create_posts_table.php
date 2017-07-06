@@ -26,6 +26,9 @@ class CreatePostsTable extends Migration
             $table->integer('post_id')
 				  ->unsigned()
 				  ->nullable();
+            $table->integer('resource_id')
+				  ->unsigned()
+				  ->nullable();
 
             $table->foreign('user_id')
 				  ->references('id')->on('users')
@@ -36,6 +39,10 @@ class CreatePostsTable extends Migration
             $table->foreign('post_id')
 				  ->references('id')->on('posts')
             	  ->onDelete('cascade');
+			$table->foreign('resource_id')
+				  ->references('id')
+				  ->on('resources')
+				  ->onDelete('set null');
 
             // Content
             $table->string('attachment');
@@ -52,7 +59,6 @@ class CreatePostsTable extends Migration
             $table->text('data')->nullable();
 
             // Timestamps & Tokens
-            $table->softDeletes();
             $table->timestamps();
         });
     }

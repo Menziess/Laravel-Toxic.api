@@ -78,6 +78,14 @@ class User extends Authenticatable implements SlugAble
     }
 
 	/*
+	 * User profile picture.
+	 */
+	public function resource()
+	{
+		return $this->belongsTo('App\Resource');
+	}
+
+	/*
 	 * User resources.
 	 */
 	public function resources($type = null)
@@ -120,14 +128,6 @@ class User extends Authenticatable implements SlugAble
 		if ($type) return $query->wherePivot('type', $type);
 		
 		return $query->withTimestamps();
-	}
-
-    /*
-	 * User profile picture.
-	 */
-	public function resource()
-	{
-		return $this->belongsTo('App\Resource');
 	}
 
     /*
@@ -181,6 +181,9 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function deletePersonalData()
 	{
-		//
+		if ($this->resource) {
+            $this->resource->removeFromStorage();
+			$this->resource->delete();
+        }
 	}
 }

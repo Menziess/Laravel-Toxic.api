@@ -65,6 +65,14 @@ class Resource extends Model
 	}
 
 	/*
+	 * Relation with post.
+	 */
+	public function post()
+	{
+		return $this->belongsTo('App\Post');
+	}
+
+	/*
 	 * Scope where type is.
 	 */
 	public function scopeWhereType($query, string $type)

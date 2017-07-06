@@ -36,21 +36,21 @@ class PostController extends Controller
     {
         $post = new Post;
         $user = Auth::user();
-        $removed = [];
 
-        switch ($request->input('attachment')) {
-            case 'text':
-                $removed = ['drawing', 'url'];
-                break;
-            case 'drawing':
-                $removed = ['text', 'url'];
-                break;
-            case 'url':
-                $removed = ['drawing', 'text'];
-                break;
+        # Drawings have to be uploaded
+        if ($request->input('attachment') == "drawing") {
+            $drawing = $request->input('drawing');
+            $uri = substr($drawing, strpos($drawing,",") + 1);
+            $resource = new \App\Resource;
+            $filepath = $resource->uploadImagePath($uri, 522, 522);
+
+            # Persist if uploaded succesfully
+            if (\Storage::exists($filepath)) {
+                $post->resource()->associate($resource);
+            }
         }
-        
-        $post->fill($request->except($removed));
+
+        $post->fill($request->all());
         $post->user()->associate($user)->save();
 
         return response($post, 201);

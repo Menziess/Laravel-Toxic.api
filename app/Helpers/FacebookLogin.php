@@ -62,7 +62,7 @@ class FacebookLogin
 		if ($user->trashed()) $user->restore();
 
 		# Check if user needs to be updated
-		if ($user->updated_at && !\Carbon\Carbon::parse($fb->user['updated_time'])->gt($user->updated_at)) {
+		if ($user->updated_at && !\Carbon\Carbon::parse($fb->user['updated_time'])->gt($user->updated_at) && count($user->resource)) {
 			$user->save();
 			return;
 		}
@@ -109,6 +109,10 @@ class FacebookLogin
 
 		# Persist if uploaded succesfully
 		if (\Storage::exists($filepath)) {
+			if ($user->resource) {
+				$user->resource->removeFromStorage();
+				$user->resource->delete();
+			}
 			$resource->user()->associate($user)->save();
 			$user->resource()->associate($resource)->save();
 		}

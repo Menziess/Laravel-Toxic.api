@@ -39,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
             // Associate topic
             $post->topic()->associate($topic);
         });
+
+        Post::deleting(function ($post) {
+            $post->deletePersonalData();
+        });
     }
 
     /**

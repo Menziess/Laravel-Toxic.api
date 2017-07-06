@@ -5,11 +5,10 @@ namespace App;
 use App\Helpers\JsonAble;
 use App\Helpers\SlugAble;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model implements SlugAble
 {
-    use JsonAble, SoftDeletes;
+    use JsonAble;
     
     /**
      * The attributes that are mass assignable.
@@ -17,7 +16,7 @@ class Post extends Model implements SlugAble
      * @var array
      */
     protected $fillable = [
-        'post_id', 'attachment', 'subject', 'text', 'drawing', 'url',
+        'post_id', 'attachment', 'subject', 'text', 'url',
     ];
 
     /**
@@ -55,16 +54,12 @@ class Post extends Model implements SlugAble
         return $this->belongsTo('App\User');
     }
 
-    /**
-	 * Users that liked post.
+    /*
+	 * Post drawing.
 	 */
-	public function likedByUsers(int $type = null)
+	public function resource()
 	{
-		$query = $this->belongsToMany('App\User');
-
-		if ($type) return $query->wherePivot('type', $type);
-		
-		return $query->withTimestamps();
+		return $this->belongsTo('App\Resource');
 	}
 
     /**
@@ -90,6 +85,18 @@ class Post extends Model implements SlugAble
     {
         return $this->belongsTo('App\Topic');
     }
+
+    /**
+	 * Users that liked post.
+	 */
+	public function likedByUsers(int $type = null)
+	{
+		$query = $this->belongsToMany('App\User');
+
+		if ($type) return $query->wherePivot('type', $type);
+		
+		return $query->withTimestamps();
+	}
 
     /**
      * Scope original posts. 
@@ -122,4 +129,15 @@ class Post extends Model implements SlugAble
         
 		return $this->slug = $string;
 	}
+
+    /*
+	 * Called when a post is deleted.
+	 */
+    public function deletePersonalData()
+    {
+        if ($this->resource) {
+            $this->resource->removeFromStorage();
+            $this->resource->delete();
+        }
+    }
 }
