@@ -81,6 +81,15 @@ const router = new VueRouter({
 
 
 /**
+ * Router behaviour.
+ */
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
+	next();
+});
+
+
+/**
  * Axios interceptor.
  */
 axios.interceptors.response.use(

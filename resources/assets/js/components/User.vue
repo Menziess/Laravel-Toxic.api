@@ -65,14 +65,13 @@ export default {
     init() {
       this.loading = true;
       axios.get('/api/u/' + this.$route.params.slug)
-        .then(response => {
-          this.user = response.data.data;
-          console.log(response.data.data);
-          this.loading = false;
-        }).catch(error => {
-          this.$store.dispatch('error', error);
-          this.$router.push({ name: 'error' });
-        });
+      .then(response => {
+        this.user = response.data.data.pop();
+        this.loading = false;
+      }).catch(error => {
+        this.$store.dispatch('error', error);
+        this.$router.push({ name: 'error' });
+      });
     }
   }
 }

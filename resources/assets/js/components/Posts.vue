@@ -34,12 +34,10 @@
     props: ['slug', 'id'],
     components: { PostView },
 		watch: { '$route': 'init', 'search': 'init' },
-    data() { 
-			return { 
-				loading: false,
-				scrollPos: null
-			} 
-		},
+    data: () => ({ 
+			loading: false,
+			scrollPos: null
+		}),
 
 		created() { 
 			this.init();
@@ -48,6 +46,12 @@
 
 		destroyed() {
 			window.removeEventListener('scroll', this.handleScroll);
+		},
+
+		beforeRouteLeave(to, from, next) {
+			let name = (this.slug && !this.id) ? 'searchPosts' : 'posts';			
+			this.cleanup(name);
+			next();
 		},
 
 		computed: {
@@ -62,7 +66,7 @@
 			empty() {
 				return this.posts.length < 1 && this.loading === false;
 			},
-			notlastpage() {
+			morepages() {
 				return true;
 				// if (this.id) {
 					
@@ -75,11 +79,9 @@
 
     methods: {
 			handleScroll() {
+				if (!this.morepages || this.loading) return;
 				this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
-				if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0
-					&& this.notlastpage
-					// @TODO: check paginator					
-				) {
+				if (this.scrollPos < 120) {
 					this.infiniteScroll();
 				}
 			},
@@ -116,16 +118,15 @@
 					this.fetchIdReplies();
 				} else if (this.slug) {
 					this.fetchSlug();
-				} 
-				else this.fetchDefault();
+				} else this.fetchDefault();
 			},
 
 			/**
 			 * Generic fetch methods.
 			 */
-			fetch(endpoint, mutation, store) {
+			api(endpoint, mutation, name) {
 				return this.$store.dispatch('fetch', {
-					endpoint, mutation, store
+					endpoint, mutation, name
 				}).then(response => {
 					this.empty = this.posts.length === 0;
 					this.loading = false;
@@ -134,20 +135,25 @@
 				});
 			},
       fetchDefault() {
-				this.fetch('/api/post', 'push', 'posts');
+				this.api('/api/post', 'push', 'posts');
 			},
 			fetchSlug() {
-				this.fetch('/api/post/' + this.slug, 'push', 'searchPosts');
+				this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 			},
 			fetchId() {
-				this.fetch('/api/post/' + this.id, 'replace', 'post');
+				this.api('/api/post/' + this.id, 'replace', 'post');
 			},
 			fetchIdReplies() {
-				//@TODO: make endpoint this.fetch('/api/post/' + this.id + '@TODO', 'replace', 'post');
+				//@TODO: make endpoint this.api('/api/post/' + this.id + '@TODO', 'replace', 'post');
 			},
 			onePostContainsId(array, id) {
 				return array.find(post => {
 					return post.id == id;
+				});
+			},
+			cleanup(name) {
+				this.$store.dispatch('cleanup', { 
+					name: name
 				});
 			}
 		}

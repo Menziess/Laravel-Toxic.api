@@ -97,27 +97,14 @@ export default {
   methods: {
     deletePost() {
       if (confirm("Delete post?"))
-        axios({
-          method: 'delete',
-          url: '/api/post/' + this.post.id
-        }).then(response => {
-          this.$store.dispatch('deletePost', this.post);
-        }).catch(error => {
-          this.$store.dispatch('error', error);
-          this.$router.push({ name: 'error' });
-        });
+      this.$store.dispatch('delete', {
+        endpoint: '/api/post/' + this.post.id,
+        post: this.post,
+      });
 		},
     deleteUser() {
       if (confirm("Delete account?"))
-        axios({
-          method: 'delete',
-          url: '/api/user/' + this.me.id
-        }).then(response => {
-          this.$router.push('/');
-        }).catch(error => {
-          this.$store.dispatch('error', error);
-          this.$router.push({ name: 'error' });
-        });
+      this.$store.dispatch('deleteUser', this.me.id);
 		}
   },
   mounted() {

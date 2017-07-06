@@ -65,37 +65,33 @@
 			submit() {
 				if (this.submitted) { return false; }
 				this.submitted = true;
-				axios({
-					method: 'post',
-					url: '/api/post',
-					data: {
-						post_id: this.post.id,
-						subject: this.post.attributes.subject,
-						attachment: this.attachment,
-						drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
-						text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
-						url: null
-					}
+				this.$store.dispatch('create', {
+					endpoint: 'api/post',
+					post: this.getForm(),
 				}).then(response => {
-					const post = response.data.data;
 					this.submitted = false;
 					this.$emit('submit');
-					this.$store.dispatch('addPost', post);
 					this.$router.push({
 						name: 'post',
-						params: {
-							slug: this.post.attributes.slug,
-							id: this.post.id
-						}
+						params: { slug: this.post.attributes.slug, id: this.post.id }
 					});
 					window.scroll(0, 0);
 				}).catch(error => {
 					this.submitted = false;
-					this.$emit('submit');					
-					this.$store.dispatch('error', error);
-					this.$router.push({ name: 'error' });
-				});
-			}
+					this.$router.push({ name: 'error'});
+				})
+			},
+			getForm() {
+				return {
+					post_id: this.post.id,
+					subject: this.post.attributes.subject,
+					attachment: this.attachment,
+					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
+					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
+					url: null
+				}
+			},
+
 		}
   }
 </script>

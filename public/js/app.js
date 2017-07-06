@@ -1087,55 +1087,56 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Contains methods to find elements in arrays.
  */
-var find = {
-  elementById: function elementById(array, id) {
-    return array.find(function (element) {
-      return element.id === id;
-    });
-  },
-  indexById: function indexById(array, id) {
-    return array.map(function (element) {
-      return element.id;
-    }).indexOf(id);
-  },
-  addPost: function addPost(array, post) {
-    // If top parent
-    if (!post.attributes.post_id) {
-      array.unshift(post);
-    }
-    // else reply to some parent
-    else {
-        var parentId = post.attributes.post_id;
-        var parent = find.elementById(array, parentId);
+// const find = {
+//   elementById(array, id) {
+//     return array.find(element => {
+//       return element.id === id;
+//     });
+//   },
+//   indexById(array, id) {
+//     return array.map(element => {
+//       return element.id;
+//     }).indexOf(id);
+//   },
+//   addPost(array, post) {
+//     // If top parent
+//     if (!post.attributes.post_id) {
+//       array.unshift(post); 
+//     } 
+//     // else reply to some parent
+//     else {
+//       const parentId = post.attributes.post_id;
+//       const parent = find.elementById(array, parentId);
 
-        if (!parent) return;
+//       if (!parent) return;
 
-        if (parent.relationships.replies) {
-          parent.relationships.replies.unshift(post);
-        } else {
-          parent.relationships.replies = [post];
-        }
-      }
-  },
-  deletePost: function deletePost(array, post) {
-    // If top parent
-    if (!post.attributes.post_id) {
-      var index = find.indexById(array, post.id);
-      array.splice(index, 1);
-    }
-    // else delete some child
-    else {
-        var parentId = post.attributes.post_id;
-        var parent = find.elementById(array, parentId);
+//       if (parent.relationships.replies) {
+//         parent.relationships.replies.unshift(post);
+//       } else {
+//         parent.relationships.replies = [ post ];
+//       }
+//     }
+//   },
+//   deletePost(array, post) {
+//     // If top parent
+//     if (!post.attributes.post_id) {
+//       const index = find.indexById(array, post.id);
+//       array.splice(index, 1);
+//     } 
+//     // else delete some child
+//     else {
+//       const parentId = post.attributes.post_id;
+//       const parent = find.elementById(array, parentId);
 
-        if (!parent) return;
+//       if (!parent) return;
 
-        var replies = parent.relationships.replies;
-        var _index = find.indexById(replies, post.id);
-        replies.splice(_index, 1);
-      }
-  }
-};
+//       const replies = parent.relationships.replies;
+//       const index = find.indexById(replies, post.id);
+//       replies.splice(index, 1);
+//     }
+//   }
+// }
+
 
 /**
  * Store data.
@@ -1194,7 +1195,16 @@ var getters = {
  */
 var mutations = {
 
-  // New
+  // Get
+  unshift: function unshift(state, data) {
+    var post = data[0];
+
+    if (post.attributes.post_id) {
+      alert("tba");
+    } else {
+      state.posts.unshift(data[0]);
+    }
+  },
   push: function push(state, data) {
     state[data.name].push.apply(state[data.name], data.collection);
   },
@@ -1203,22 +1213,17 @@ var mutations = {
   },
 
 
-  // Create
-  // setInitialSearchPosts(state, posts) { state.searchPosts = posts; },
-  // setInitialPosts(state, posts) { state.posts = posts; },
-  // setInitialPost(state, post) { state.post = post; },
+  // Delete
+  cleanup: function cleanup(state, data) {
+    if (state[data.name].length > 7) state[data.name] = state[data.name].splice(0, 7);
+  },
+  delete: function _delete(state, post) {
+    alert("tba");
+  },
+
 
   // addSearchPost(state, post) { find.addPost(state.searchPosts, post); },
   // addPost(state, post) { find.addPost(state.posts, post); },
-
-  // Delete
-  deleteSearchPost: function deleteSearchPost(state, post) {
-    find.deletePost(state.searchPosts, post);
-  },
-  deletePost: function deletePost(state, post) {
-    find.deletePost(state.posts, post);
-  },
-
 
   // Other
   setDestination: function setDestination(state, route) {
@@ -1250,16 +1255,37 @@ var mutations = {
 var actions = {
 
   // Create
+  new: function _new(data) {
+    return axios({
+      method: 'post',
+      url: data.endpoint,
+      data: data.post
+    });
+  },
+  create: function create(context, data) {
+    return new Promise(function (resolve, reject) {
+      actions.new(data).then(function (response) {
+        context.commit('unshift', response.data.data);
+        resolve(response);
+      }).catch(function (error) {
+        context.commit('error', error);
+        reject(error);
+      });
+    });
+  },
+
+
+  // Get
   fetch: function fetch(context, data) {
     return new Promise(function (resolve, reject) {
       axios.get(data.endpoint).then(function (response) {
         context.commit(data.mutation, {
-          name: data.store,
+          name: data.name,
           collection: response.data.data
         });
         resolve(response);
       }).catch(function (error) {
-        state.error = error;
+        context.commit('error', error);
         reject(error);
       });
     });
@@ -1267,8 +1293,38 @@ var actions = {
 
 
   // Delete
-  // deleteSearchPost(context, post) { context.commit('deleteSearchPost', post); },
-  // deletePost(context, post) { context.commit('deletePost', post); },
+  cleanup: function cleanup(context, data) {
+    context.commit('cleanup', data);
+  },
+  delete: function _delete(context, data) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'delete',
+        url: data.endpoint
+      }).then(function (response) {
+        context.commit('delete', data.post);
+        resolve(response);
+      }).catch(function (error) {
+        context.commit('error', error);
+        reject(error);
+      });
+    });
+  },
+  deleteUser: function deleteUser(context, id) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'delete',
+        url: '/api/user/' + id
+      }).then(function (response) {
+        context.commit('setMe', null);
+        resolve(response);
+      }).catch(function (error) {
+        context.commit('error', error);
+        reject(error);
+      });
+    });
+  },
+
 
   // Other
   setDestination: function setDestination(context, route) {
@@ -11309,6 +11365,14 @@ var router = new __WEBPACK_IMPORTED_MODULE_12_vue_router__["a" /* default */]({
 });
 
 /**
+ * Router behaviour.
+ */
+router.beforeEach(function (to, from, next) {
+  window.scrollTo(0, 0);
+  next();
+});
+
+/**
  * Axios interceptor.
  */
 axios.interceptors.response.use(function (response) {
@@ -12452,12 +12516,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			scrollPos: null
 		};
 	},
+
 	created: function created() {
 		this.init();
 		window.addEventListener('scroll', this.handleScroll);
 	},
 	destroyed: function destroyed() {
 		window.removeEventListener('scroll', this.handleScroll);
+	},
+	beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+		var name = this.slug && !this.id ? 'searchPosts' : 'posts';
+		this.cleanup(name);
+		next();
 	},
 
 
@@ -12473,7 +12543,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		empty: function empty() {
 			return this.posts.length < 1 && this.loading === false;
 		},
-		notlastpage: function notlastpage() {
+		morepages: function morepages() {
 			return true;
 			// if (this.id) {
 
@@ -12486,12 +12556,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		handleScroll: function handleScroll() {
+			if (!this.morepages || this.loading) return;
 			this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;
-			if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0 && this.notlastpage
-			// @TODO: check paginator					
-			) {
-					this.infiniteScroll();
-				}
+			if (this.scrollPos < 120) {
+				this.infiniteScroll();
+			}
 		},
 
 
@@ -12528,11 +12597,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		/**
    * Generic fetch methods.
    */
-		fetch: function fetch(endpoint, mutation, store) {
+		api: function api(endpoint, mutation, name) {
 			var _this = this;
 
 			return this.$store.dispatch('fetch', {
-				endpoint: endpoint, mutation: mutation, store: store
+				endpoint: endpoint, mutation: mutation, name: name
 			}).then(function (response) {
 				_this.empty = _this.posts.length === 0;
 				_this.loading = false;
@@ -12541,20 +12610,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		fetchDefault: function fetchDefault() {
-			this.fetch('/api/post', 'push', 'posts');
+			this.api('/api/post', 'push', 'posts');
 		},
 		fetchSlug: function fetchSlug() {
-			this.fetch('/api/post/' + this.slug, 'push', 'searchPosts');
+			this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 		},
 		fetchId: function fetchId() {
-			this.fetch('/api/post/' + this.id, 'replace', 'post');
+			this.api('/api/post/' + this.id, 'replace', 'post');
 		},
 		fetchIdReplies: function fetchIdReplies() {
-			//@TODO: make endpoint this.fetch('/api/post/' + this.id + '@TODO', 'replace', 'post');
+			//@TODO: make endpoint this.api('/api/post/' + this.id + '@TODO', 'replace', 'post');
 		},
 		onePostContainsId: function onePostContainsId(array, id) {
 			return array.find(function (post) {
 				return post.id == id;
+			});
+		},
+		cleanup: function cleanup(name) {
+			this.$store.dispatch('cleanup', {
+				name: name
 			});
 		}
 	}
@@ -12669,8 +12743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.loading = true;
       axios.get('/api/u/' + this.$route.params.slug).then(function (response) {
-        _this.user = response.data.data;
-        console.log(response.data.data);
+        _this.user = response.data.data.pop();
         _this.loading = false;
       }).catch(function (error) {
         _this.$store.dispatch('error', error);
@@ -12833,30 +12906,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     deletePost: function deletePost() {
-      var _this = this;
-
-      if (confirm("Delete post?")) axios({
-        method: 'delete',
-        url: '/api/post/' + this.post.id
-      }).then(function (response) {
-        _this.$store.dispatch('deletePost', _this.post);
-      }).catch(function (error) {
-        _this.$store.dispatch('error', error);
-        _this.$router.push({ name: 'error' });
+      if (confirm("Delete post?")) this.$store.dispatch('delete', {
+        endpoint: '/api/post/' + this.post.id,
+        post: this.post
       });
     },
     deleteUser: function deleteUser() {
-      var _this2 = this;
-
-      if (confirm("Delete account?")) axios({
-        method: 'delete',
-        url: '/api/user/' + this.me.id
-      }).then(function (response) {
-        _this2.$router.push('/');
-      }).catch(function (error) {
-        _this2.$store.dispatch('error', error);
-        _this2.$router.push({ name: 'error' });
-      });
+      if (confirm("Delete account?")) this.$store.dispatch('deleteUser', this.me.id);
     }
   },
   mounted: function mounted() {
@@ -13077,19 +13133,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				return false;
 			}
 			this.submitted = true;
-			axios({
-				method: 'post',
-				url: '/api/post',
-				data: this.getForm()
+			this.$store.dispatch('create', {
+				endpoint: 'api/post',
+				post: this.getForm()
 			}).then(function (response) {
-				var post = response.data.data;
 				_this.submitted = false;
-				_this.$store.dispatch('addPost', post);
 				_this.$router.push({ name: 'home' });
 				window.scroll(0, 0);
 			}).catch(function (error) {
 				_this.submitted = false;
-				_this.$store.dispatch('error', error);
 				_this.$router.push({ name: 'error' });
 			});
 		},
@@ -13210,36 +13262,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				return false;
 			}
 			this.submitted = true;
-			axios({
-				method: 'post',
-				url: '/api/post',
-				data: {
-					post_id: this.post.id,
-					subject: this.post.attributes.subject,
-					attachment: this.attachment,
-					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
-					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
-					url: null
-				}
+			this.$store.dispatch('create', {
+				endpoint: 'api/post',
+				post: this.getForm()
 			}).then(function (response) {
-				var post = response.data.data;
 				_this.submitted = false;
 				_this.$emit('submit');
-				_this.$store.dispatch('addPost', post);
 				_this.$router.push({
 					name: 'post',
-					params: {
-						slug: _this.post.attributes.slug,
-						id: _this.post.id
-					}
+					params: { slug: _this.post.attributes.slug, id: _this.post.id }
 				});
 				window.scroll(0, 0);
 			}).catch(function (error) {
 				_this.submitted = false;
-				_this.$emit('submit');
-				_this.$store.dispatch('error', error);
 				_this.$router.push({ name: 'error' });
 			});
+		},
+		getForm: function getForm() {
+			return {
+				post_id: this.post.id,
+				subject: this.post.attributes.subject,
+				attachment: this.attachment,
+				drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
+				text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
+				url: null
+			};
 		}
 	}
 });

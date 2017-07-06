@@ -75,21 +75,17 @@
 			submit() {
 				if (this.submitted) { return false; }
 				this.submitted = true;
-				axios({
-					method: 'post',
-					url: '/api/post',
-					data: this.getForm()
+				this.$store.dispatch('create', {
+					endpoint: 'api/post',
+					post: this.getForm(),
 				}).then(response => {
-					const post = response.data.data;
 					this.submitted = false;
-					this.$store.dispatch('addPost', post);
 					this.$router.push({ name: 'home' });
 					window.scroll(0, 0);
 				}).catch(error => {
 					this.submitted = false;
-					this.$store.dispatch('error', error);
-          this.$router.push({ name: 'error' });
-				});
+					this.$router.push({ name: 'error'});
+				})
 			},
 			getForm() {
 				return {
