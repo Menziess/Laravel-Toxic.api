@@ -27,7 +27,7 @@
 			<!-- Post Content -->
 			<div class="clickable" @click="clickGotoPost()">
 				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
-				<Drawing v-else-if="post.attributes.attachment === 'drawing'" ref="myDrawing"></Drawing>
+				<Drawing v-else-if="post.attributes.attachment === 'drawing'" :post="post"></Drawing>
 				<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
 				<p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
 				<p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
@@ -53,9 +53,9 @@ export default {
 		Drawing,
 		Textbox
 	},
-	data() {
-		return {
-			me: null
+	computed: {
+		me() {
+			this.$store.getters.me
 		}
 	},
 	methods: {
@@ -75,18 +75,6 @@ export default {
 				name: 'post',
 				params: { slug: this.post.attributes.slug, id: this.post.id }
 			});
-		}
-	},
-	mounted() {
-		this.me = this.$store.getters.me;
-		switch (this.post.attributes.attachment) {
-			case 'text':
-				break;
-			case 'drawing':
-				this.$refs.myDrawing.renderDataUrl(this.post.attributes.drawing);
-				break;
-			default:
-				break;
 		}
 	}
 }

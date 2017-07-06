@@ -106,6 +106,17 @@ class Post extends Model implements SlugAble
         return $query->whereNull('post_id');
     }
 
+    /*
+	 * Get drawing.
+	 */
+	public function getDrawingAttribute()
+	{
+		$image = $this->resource
+			? 'storage/images/' . $this->resource->url . $this->resource->extension
+			: self::PLACEHOLDER_PICTURE;
+		return asset($image);
+	}
+
     /**
      * Mutator for subject attribute.
      */

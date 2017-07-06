@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         return Post::orderBy('id', 'desc')
             ->original()
-            ->with(['user', 'replies'])
+            ->with(['user', 'replies', 'resource'])
             ->withCount('replies')
             ->simplePaginate(7);
     }
@@ -35,6 +35,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = new Post;
+        $post->fill($request->all());
         $user = Auth::user();
 
         # Drawings have to be uploaded
@@ -46,11 +47,11 @@ class PostController extends Controller
 
             # Persist if uploaded succesfully
             if (\Storage::exists($filepath)) {
-                $post->resource()->associate($resource);
+                $resource->save();
+                $post->resource()->associate($resource)->save();
             }
         }
 
-        $post->fill($request->all());
         $post->user()->associate($user)->save();
 
         return response($post, 201);
@@ -92,7 +93,7 @@ class PostController extends Controller
         return Post::whereNull('post_id')
             ->orderBy('id', 'desc')
             ->where('slug', $slug)
-            ->with(['user', 'replies'])
+            ->with(['user', 'replies', 'resource'])
             ->withCount('replies')
             ->get();
     }
@@ -105,7 +106,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::with(['user', 'replies'])
+        return Post::with(['user', 'replies', 'resource'])
             ->withCount('replies')
             ->findOrFail($id);
     }

@@ -1471,17 +1471,13 @@ module.exports = Component.exports
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(115)
-
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(55),
   /* template */
   __webpack_require__(99),
   /* scopeId */
-  "data-v-3be1b44f",
+  null,
   /* cssModules */
   null
 )
@@ -13581,12 +13577,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Drawing: __WEBPACK_IMPORTED_MODULE_0__Drawing_vue___default.a,
 		Textbox: __WEBPACK_IMPORTED_MODULE_1__Textbox_vue___default.a
 	},
-	data: function data() {
-		return {
-			me: null
-		};
+	computed: {
+		me: function me() {
+			this.$store.getters.me;
+		}
 	},
-
 	methods: {
 		authorized: function authorized() {
 			return this.me;
@@ -13603,18 +13598,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: 'post',
 				params: { slug: this.post.attributes.slug, id: this.post.id }
 			});
-		}
-	},
-	mounted: function mounted() {
-		this.me = this.$store.getters.me;
-		switch (this.post.attributes.attachment) {
-			case 'text':
-				break;
-			case 'drawing':
-				this.$refs.myDrawing.renderDataUrl(this.post.attributes.drawing);
-				break;
-			default:
-				break;
 		}
 	}
 });
@@ -13635,34 +13618,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'drawing',
-  data: function data() {
-    return {
-      canvas: null,
-      context: null
-    };
-  },
-
-  methods: {
-    renderDataUrl: function renderDataUrl(drawing) {
-      var img = new Image();
-      var self = this;
-      img.onload = function () {
-        self.context.drawImage(img, 0, 0);
-      };
-      img.src = drawing;
-    }
-  },
-  mounted: function mounted() {
-    this.canvas = this.$refs.myCanvas;
-
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
-
-    this.context = this.canvas.getContext('2d');
-  }
+  props: ['post']
 });
 
 /***/ }),
@@ -16238,13 +16200,7 @@ exports = module.exports = __webpack_require__(2)();
 exports.push([module.i, "\ncanvas[data-v-24accfb8] {\r\n  width: 100%;\r\n  height: 40vh;\n}\ncanvas.mouseDown[data-v-24accfb8]:hover {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 /***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\ncanvas[data-v-3be1b44f] {\r\n  width: 100%;\r\n  height: 40vh;\n}\r\n", ""]);
-
-/***/ }),
+/* 65 */,
 /* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44408,7 +44364,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "text": _vm.post.attributes.text
     }
   }) : (_vm.post.attributes.attachment === 'drawing') ? _c('Drawing', {
-    ref: "myDrawing"
+    attrs: {
+      "post": _vm.post
+    }
   }) : (_vm.post.attributes.attachment === 'url') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'video') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : (_vm.post.attributes.attachment === 'image') ? _c('p', [_vm._v(_vm._s(_vm.post.attributes.url))]) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "panel-buttons"
   }, [_c('button', {
@@ -44923,10 +44881,16 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "panel-content"
-  }, [_c('canvas', {
-    ref: "myCanvas",
-    staticClass: "noselect"
-  }, [_vm._v("\n      Sorry, your browser sucks.\n  ")])])
+  }, [(_vm.post) ? _c('div', {
+    staticClass: "leftist"
+  }, [_c('img', {
+    staticClass: "img-responsive",
+    attrs: {
+      "src": _vm.post.attributes.drawing,
+      "width": "200px",
+      "height": "200px"
+    }
+  })]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -48004,32 +47968,7 @@ if(false) {
 }
 
 /***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(65);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("59b9f9a0", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3be1b44f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Drawing.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3be1b44f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Drawing.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 115 */,
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
