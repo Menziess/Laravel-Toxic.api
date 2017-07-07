@@ -58,7 +58,7 @@ export default {
 			return this.$store.getters.me
 		},
 		score() {
-			return this.post.attributes.upvotes - this.post.attributes.downvotes;
+			return this.post.attributes.upvotes - this.post.attributes.downvotes || 0;
 		}
 	},
 	methods: {
@@ -81,9 +81,17 @@ export default {
 		},
 		upvote() {
 			alert("upvote");
+			this.$store.dispatch('like', {
+				id: this.post.id,
+				type: 1
+			});
 		},
 		downvote() {
 			alert("downvote");
+			this.$store.dispatch('like', {
+				id: this.post.id,
+				type: -1
+			});
 		}
 	}
 }

@@ -104,7 +104,7 @@ const getters = {
  */
 const mutations = {
 
-  // Get
+  // Create
   unshift(state, data) {
     const post = data[0];
 
@@ -121,13 +121,17 @@ const mutations = {
   replace(state, data) { 
     state[data.name] = data.collection;
   },
+  updateLikes(state, post) {
+    console.log(post);
+    alert('tba');
+  },
 
   // Delete
   cleanup(state, data) {
     if (state[data.name].length > 7)
     state[data.name] = state[data.name].splice(0, 7);
   },
-  delete(state, post) { 
+  delete(state, post) {
     alert("tba");
   },
 
@@ -163,9 +167,18 @@ const actions = {
       actions.new(data).then(response => {
         context.commit('unshift', response.data.data);
         resolve(response);
-      }).catch(error => {
-        context.commit('error', error);
-        reject(error);
+      });
+    });
+  },
+  like(context, data) {
+    return new Promise((resolve, reject) => {
+      return axios({
+        method: 'post',
+        url: 'api/post/like/' + data.id,
+        data: data.type
+      }).then(response => {
+        context.commit('updateLikes', response.data.data);
+        resolve(response);
       });
     });
   },
@@ -180,9 +193,6 @@ const actions = {
           collection: response.data.data
         });
         resolve(response);
-      }).catch(error => {
-        context.commit('error', error);
-        reject(error);
       });
     })
   },
@@ -197,13 +207,9 @@ const actions = {
       }).then(response => {
         context.commit('delete', data.post);
         resolve(response);
-      }).catch(error => {
-        context.commit('error', error);
-        reject(error);
       });
     })
   },
-
   deleteUser(context, id) {
     return new Promise((resolve, reject) => {
       axios({
@@ -212,9 +218,6 @@ const actions = {
       }).then(response => {
         context.commit('setMe', null);
         resolve(response);
-      }).catch(error => {
-        context.commit('error', error);
-        reject(error);
       });
     })
   },

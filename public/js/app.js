@@ -1195,7 +1195,7 @@ var getters = {
  */
 var mutations = {
 
-  // Get
+  // Create
   unshift: function unshift(state, data) {
     var post = data[0];
 
@@ -1210,6 +1210,10 @@ var mutations = {
   },
   replace: function replace(state, data) {
     state[data.name] = data.collection;
+  },
+  updateLikes: function updateLikes(state, post) {
+    console.log(post);
+    alert('tba');
   },
 
 
@@ -1267,9 +1271,18 @@ var actions = {
       actions.new(data).then(function (response) {
         context.commit('unshift', response.data.data);
         resolve(response);
-      }).catch(function (error) {
-        context.commit('error', error);
-        reject(error);
+      });
+    });
+  },
+  like: function like(context, data) {
+    return new Promise(function (resolve, reject) {
+      return axios({
+        method: 'post',
+        url: 'api/post/like/' + data.id,
+        data: data.type
+      }).then(function (response) {
+        context.commit('updateLikes', response.data.data);
+        resolve(response);
       });
     });
   },
@@ -1284,9 +1297,6 @@ var actions = {
           collection: response.data.data
         });
         resolve(response);
-      }).catch(function (error) {
-        context.commit('error', error);
-        reject(error);
       });
     });
   },
@@ -1304,9 +1314,6 @@ var actions = {
       }).then(function (response) {
         context.commit('delete', data.post);
         resolve(response);
-      }).catch(function (error) {
-        context.commit('error', error);
-        reject(error);
       });
     });
   },
@@ -1318,9 +1325,6 @@ var actions = {
       }).then(function (response) {
         context.commit('setMe', null);
         resolve(response);
-      }).catch(function (error) {
-        context.commit('error', error);
-        reject(error);
       });
     });
   },
@@ -13584,7 +13588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.$store.getters.me;
 		},
 		score: function score() {
-			return this.post.attributes.upvotes - this.post.attributes.downvotes;
+			return this.post.attributes.upvotes - this.post.attributes.downvotes || 0;
 		}
 	},
 	methods: {
@@ -13606,9 +13610,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		upvote: function upvote() {
 			alert("upvote");
+			this.$store.dispatch('like', {
+				id: this.post.id,
+				type: 1
+			});
 		},
 		downvote: function downvote() {
 			alert("downvote");
+			this.$store.dispatch('like', {
+				id: this.post.id,
+				type: -1
+			});
 		}
 	}
 });
