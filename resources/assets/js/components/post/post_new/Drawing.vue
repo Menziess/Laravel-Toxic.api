@@ -14,6 +14,8 @@
       
       v-bind:class="{ mouseDown: dragging }"
       class="noselect"
+      width="522" 
+      height="294"
     >
         Sorry, your browser sucks.
     </canvas>
@@ -87,8 +89,8 @@
         img.src = drawing;
       },
       init() {
-        this.canvas.width = this.canvas.offsetWidth;
-        this.canvas.height = this.canvas.offsetHeight;
+        this.canvas.width = this.canvas.parentElement.clientWidth;
+        this.canvas.height = this.canvas.parentElement.clientHeight;
 
         this.context = this.canvas.getContext('2d');
         this.context.lineWidth = this.radius * 2;
@@ -106,7 +108,8 @@
 <style scoped>
 canvas {
   width: 100%;
-  height: 40vh;
+  height: 56%;
+  display: block;
 }
 canvas.mouseDown:hover {
   cursor: pointer;

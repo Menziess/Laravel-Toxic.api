@@ -2,9 +2,8 @@
   <div>
     <div v-if="post">
       <img 
-        class="img-responsive image-border"
+        class="image-drawing image-border"
         :src="post.attributes.drawing"
-        width="304" height="236"
       >
     </div>
   </div>
@@ -16,3 +15,10 @@
     props: ['post']
   }
 </script>
+
+<style scoped>
+.image-drawing {
+  display: block;
+  width: 100%;
+}
+</style>

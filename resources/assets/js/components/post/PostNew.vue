@@ -117,7 +117,7 @@
 				if (!subject) {
 					return this.defaultSubject();
 				}
-				return subject.replace(/[^a-z0-9]/gi,' ');
+				return subject.replace(/^[a-z0-9-]+$/, ' ');
 			}
 		}
   }

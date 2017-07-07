@@ -37,6 +37,15 @@ class Post extends Model implements SlugAble
         'data' => 'array',
     ];
 
+    /**
+     * The attributes that are mutated with the model.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'drawing',
+    ];
+
 	/**
 	 * Cast dates to Carbon instance.
 	 *
@@ -111,7 +120,7 @@ class Post extends Model implements SlugAble
 	 */
 	public function getDrawingAttribute()
 	{
-        if (!$this->resource) return null;
+        if (!count($this->resource)) return null;
 		$image = $this->resource
 			? 'storage/images/' . $this->resource->url . $this->resource->extension
 			: self::PLACEHOLDER_PICTURE;

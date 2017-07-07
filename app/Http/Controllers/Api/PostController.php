@@ -43,12 +43,12 @@ class PostController extends Controller
             $drawing = $request->input('drawing');
             $uri = substr($drawing, strpos($drawing,",") + 1);
             $resource = new \App\Resource;
-            $filepath = $resource->uploadImagePath($uri, 522, 522);
+            $filepath = $resource->uploadImagePath($uri, 522, 294);
 
             # Persist if uploaded succesfully
             if (\Storage::exists($filepath)) {
                 $resource->save();
-                $post->resource()->associate($resource)->save();
+                $post->resource()->associate($resource);
             }
         }
 
