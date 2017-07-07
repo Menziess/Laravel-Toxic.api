@@ -111,6 +111,7 @@ class Post extends Model implements SlugAble
 	 */
 	public function getDrawingAttribute()
 	{
+        if (!$this->resource) return null;
 		$image = $this->resource
 			? 'storage/images/' . $this->resource->url . $this->resource->extension
 			: self::PLACEHOLDER_PICTURE;

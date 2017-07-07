@@ -10,7 +10,7 @@
           <div class="details">
             <div v-if="user" class="leftist">
               <img 
-                class="img-circle noselect profile-pic"
+                class="img-circle noselect image-border"
                 :src="user.attributes.picture"
                 :title="user.attributes.name" 
                 width="200px"

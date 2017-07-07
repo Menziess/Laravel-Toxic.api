@@ -4,7 +4,7 @@
 		<div class="leftist">
 			<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
 				<img 
-					class="img-circle noselect profile-pic"
+					class="img-circle noselect image-border"
 					:src="post.relationships.user.attributes.picture"
 					:title="post.relationships.user.attributes.name" 
 					width="48"
@@ -25,7 +25,7 @@
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>		-->
 
 			<!-- Post Content -->
-			<div class="clickable" @click="clickGotoPost()">
+			<div class="clickable post-content" @click="clickGotoPost()">
 				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
 				<Drawing v-else-if="post.attributes.attachment === 'drawing'" :post="post"></Drawing>
 				<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
@@ -79,3 +79,11 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.post-content {
+	margin-top: 0.5em;
+	font-size: initial;
+	word-wrap: break-word;
+}
+</style>

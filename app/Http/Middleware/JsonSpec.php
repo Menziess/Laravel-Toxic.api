@@ -35,7 +35,6 @@ class JsonSpec
             : $response;
         $data = $inputData instanceof Model
             ? [$data] : $data;
-
         
         // Sets up keys for data and links
         $content['data'] = $data;

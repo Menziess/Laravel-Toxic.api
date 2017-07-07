@@ -98,6 +98,7 @@ i {
   color: $text-color !important;
 }
 
+// Links
 a {
   color: $brand-success !important;
   cursor: pointer;
@@ -127,18 +128,29 @@ blockquote {
   }
 }
 
-// Profile pic style
-.profile-pic {
+
+/**
+ * Images attachments.
+ */
+.image-border {
   border: 1px solid $brand;
+  border-radius: 3px;
 }
-.profile-pic-nav {
+
+/**
+ * Profile picture.
+ */
+.profile-pic {
   width: 36px; 
   height: 36px;
   background-color: $body-bg;
   margin-top: -7px;
 }
 
-// Styling bootstrap a bit
+
+/**
+ * Bootstrap overrides.
+ */
 .btn {
   background-color: transparent !important;
   color: black !important;
@@ -192,10 +204,10 @@ blockquote {
   padding: 5px !important;
 }
 
-// Flexbox
-.text {
-	margin-left: 1em;
-}
+
+/**
+ * Flexbox 3-col holy grail.
+ */
 .panel-buttons {
 	margin-bottom: auto;
 }
@@ -210,6 +222,7 @@ blockquote {
   order: 1;
 }
 .mid {
+  margin: 0 0 0 1em;
 	flex: 1;
   order: 2;
 }
@@ -221,7 +234,10 @@ blockquote {
 	cursor: pointer;
 }
 
-// Svg animation
+
+/**
+ * SVG animation background.
+ */
 .svg {
   width: 160vw;
   margin: auto; 
@@ -254,6 +270,7 @@ blockquote {
   opacity: 1;
   zoom: 1;
 }
+
 
 // Prevents selecting element
 .noselect {

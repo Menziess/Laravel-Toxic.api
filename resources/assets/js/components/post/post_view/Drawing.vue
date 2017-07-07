@@ -1,11 +1,10 @@
 <template>
-  <div class="panel-content">
-    <div v-if="post" class="leftist">
+  <div>
+    <div v-if="post">
       <img 
-        class="img-responsive"
+        class="img-responsive image-border"
         :src="post.attributes.drawing"
-        width="200px"
-        height="200px"
+        width="304" height="236"
       >
     </div>
   </div>

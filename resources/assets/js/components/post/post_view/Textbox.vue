@@ -11,11 +11,3 @@
     props: ['text']
   }
 </script>
-
-<style scoped>
-.post-content {
-	margin: 1em 0 0 1em;
-	font-size: initial;
-	word-wrap: break-word;
-}
-</style>
