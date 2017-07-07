@@ -20,11 +20,7 @@ window.onerror = function (msg, url, line, column, error) {
         data: message
       };
 
-      axios(request).then(response => {
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      });
+      axios(request);
     }
 
     return false;

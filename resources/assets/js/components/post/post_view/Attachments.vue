@@ -11,9 +11,9 @@
 					height="48"
 				>
 			</router-link>
-			<li class="btn"><i class="glyphicon glyphicon-menu-up"></i></li>
-			<span>24234</span>
-			<li class="btn"><i class="glyphicon glyphicon-menu-down"></i></li>
+			<li class="btn" @click="upvote()"><i class="glyphicon glyphicon-menu-up"></i></li>
+			<span>{{ score }}</span>
+			<li class="btn" @click="downvote()"><i class="glyphicon glyphicon-menu-down"></i></li>
 		</div>
 		
 		<div class="mid">
@@ -55,7 +55,10 @@ export default {
 	},
 	computed: {
 		me() {
-			this.$store.getters.me
+			return this.$store.getters.me
+		},
+		score() {
+			return this.post.attributes.upvotes - this.post.attributes.downvotes;
 		}
 	},
 	methods: {
@@ -75,6 +78,12 @@ export default {
 				name: 'post',
 				params: { slug: this.post.attributes.slug, id: this.post.id }
 			});
+		},
+		upvote() {
+			alert("upvote");
+		},
+		downvote() {
+			alert("downvote");
 		}
 	}
 }
@@ -82,7 +91,7 @@ export default {
 
 <style scoped>
 .post-content {
-	margin-top: 0.5em;
+	margin: 0.5em 0.5em 0 0;
 	font-size: initial;
 	word-wrap: break-word;
 }

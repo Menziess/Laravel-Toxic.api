@@ -13575,7 +13575,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	computed: {
 		me: function me() {
-			this.$store.getters.me;
+			return this.$store.getters.me;
+		},
+		score: function score() {
+			return this.post.attributes.upvotes - this.post.attributes.downvotes;
 		}
 	},
 	methods: {
@@ -13594,6 +13597,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: 'post',
 				params: { slug: this.post.attributes.slug, id: this.post.id }
 			});
+		},
+		upvote: function upvote() {
+			alert("upvote");
+		},
+		downvote: function downvote() {
+			alert("downvote");
 		}
 	}
 });
@@ -13773,11 +13782,7 @@ window.onerror = function (msg, url, line, column, error) {
             data: message
         };
 
-        axios(request).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+        axios(request);
     }
 
     return false;
@@ -44335,7 +44340,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "48",
       "height": "48"
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', [_vm._v("24234")]), _vm._v(" "), _vm._m(1)], 1), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('li', {
+    staticClass: "btn",
+    on: {
+      "click": function($event) {
+        _vm.upvote()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-menu-up"
+  })]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.score))]), _vm._v(" "), _c('li', {
+    staticClass: "btn",
+    on: {
+      "click": function($event) {
+        _vm.downvote()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-menu-down"
+  })])], 1), _vm._v(" "), _c('div', {
     staticClass: "mid"
   }, [_c('router-link', {
     staticClass: "text",
@@ -44371,19 +44394,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-share-alt reply"
   })]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.post.attributes.replies_count || 0))])])], 1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "btn"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-menu-up"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "btn"
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-menu-down"
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -48982,7 +48993,7 @@ module.exports = __webpack_require__(19);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-content[data-v-0689833e] {\r\n\tmargin-top: 0.5em;\r\n\tfont-size: initial;\r\n\tword-wrap: break-word;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-0689833e] {\r\n\tmargin: 0.5em 0.5em 0 0;\r\n\tfont-size: initial;\r\n\tword-wrap: break-word;\n}\r\n", ""]);
 
 /***/ }),
 /* 134 */
