@@ -97,19 +97,17 @@ class User extends Authenticatable implements SlugAble
 	/**
 	 * Uses likes on posts.
 	 */
-	public function likesPosts(int $type = null)
+	public function likes(int $type = null)
 	{
 		$query = $this->belongsToMany('App\Post');
-
-		if ($type) return $query->wherePivot('type', $type);
-		
+		if ($type) $query->wherePivot('type', $type);
 		return $query->withTimestamps();
 	}
 
 	/**
 	 * Users relation.
 	 */
-	public function followsUsers(int $type = null)
+	public function follows(int $type = null)
 	{
 		$query = $this->belongsToMany('App\User', 'user_user', 'user_id', 'related_id');
 
@@ -121,7 +119,7 @@ class User extends Authenticatable implements SlugAble
     /*
 	 * Users liked profiles.
 	 */
-	public function followedByUsers(int $type = null)
+	public function followedBy(int $type = null)
 	{
 		$query = $this->belongsToMany('App\User', 'user_user', 'related_id', 'user_id');
 

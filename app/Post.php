@@ -96,14 +96,12 @@ class Post extends Model implements SlugAble
     }
 
     /**
-	 * Users that liked post.
+	 * Post liked by user.
 	 */
-	public function likedByUsers(int $type = null)
+	public function likes(int $type = null)
 	{
 		$query = $this->belongsToMany('App\User');
-
-		if ($type) return $query->wherePivot('type', $type);
-		
+		if ($type) $query->wherePivot('type', $type);
 		return $query->withTimestamps();
 	}
 

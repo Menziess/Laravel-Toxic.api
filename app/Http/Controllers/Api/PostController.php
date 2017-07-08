@@ -140,21 +140,43 @@ class PostController extends Controller
     }
 
     /**
-     * Adds action on post by user, for example like.
+     * User likes a post.
      *
-     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function like($id, Request $request)
+    public function like($id)
     {
-        Post::findOrFail($id);
+        return $this->likeOrDislike($id, 1);
+    }
 
-        $type = (int) $request->input('type');
+    /**
+     * User dislikes a post.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dislike($id)
+    {
+        return $this->likeOrDislike($id, 0);
+    }
 
-        $result = User::findOrFail(Auth::id())
-            ->likesPosts()
-            ->toggle([$id, ['type' => $type ?? 0]]);
+    /**
+     * Query setting the like or dislike on a post.
+     */
+    private function likeOrDislike($id, $like)
+    {
+        // Check like or dislike
+        $user = Post::findOrFail($id)
+            ->likes()
+            ->where('id', Auth::id())
+            ->withPivot('type')
+            ->get();
 
-        return response($result, 201);
+        // If no like or dislike
+        if (!count($user))
+            User::findOrFail(Auth::id())->likes()->attach($id, ['type' => $like]);
+        else
+            User::findOrFail(Auth::id())->likes()->updateExistingPivot($id, ['type' => $like]);
+            
+        return response($user, 201);
     }
 }

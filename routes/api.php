@@ -60,5 +60,6 @@ Route::middleware('auth:api')->namespace('Api')->group(function() {
 
     // Follow Like
     Route::post('post/like/{id}', 'PostController@like')->where('id', '[0-9]+');
+    Route::post('post/dislike/{id}', 'PostController@dislike')->where('id', '[0-9]+');
     Route::post('u/follow/{id}', 'UserController@follow')->where('id', '[0-9]+');
 });
