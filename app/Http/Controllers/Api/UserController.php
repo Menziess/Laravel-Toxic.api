@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->id = $request->user('api')->id;
+        $this->id = $request->user('api') ? $request->user('api')->id : null;
     }
 
     /**

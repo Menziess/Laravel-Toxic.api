@@ -1212,11 +1212,9 @@ var mutations = {
     state[data.name] = data.collection;
   },
   like: function like(state, post) {
-    console.log(post);
     alert('tba');
   },
   dislike: function dislike(state, post) {
-    console.log(post);
     alert('tba');
   },
 
@@ -13411,8 +13409,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'drawing',
@@ -13481,7 +13477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     init: function init() {
       this.canvas.width = this.canvas.parentElement.clientWidth;
-      this.canvas.height = this.canvas.parentElement.clientHeight;
+      this.canvas.height = this.canvas.width / 2.031;
 
       this.context = this.canvas.getContext('2d');
       this.context.lineWidth = this.radius * 2;
@@ -13589,6 +13585,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -13605,6 +13605,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		score: function score() {
 			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;
+		},
+		userHasLiked: function userHasLiked() {
+			return this.post.relationships.likes;
+		},
+		liked: function liked() {
+			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 1;
+		},
+		disliked: function disliked() {
+			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
 		}
 	},
 	mounted: function mounted() {
@@ -13629,13 +13638,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		upvote: function upvote() {
-			alert("upvote");
 			this.$store.dispatch('like', {
 				id: this.post.id
 			});
 		},
 		downvote: function downvote() {
-			alert("downvote");
 			this.$store.dispatch('dislike', {
 				id: this.post.id
 			});
@@ -16211,7 +16218,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.post-content[data-v-0689833e] {\r\n\tmargin: 0.5em 0.5em 0 0;\r\n\tfont-size: initial;\r\n\tword-wrap: break-word;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-content[data-v-0689833e] {\r\n\tmargin: 0.5em 0.5em 0 0;\r\n\tfont-size: initial;\r\n\tword-wrap: break-word;\n}\n.clicked[data-v-0689833e] {\r\n\tfont-weight: bold;\r\n\tfont-size: larger;\r\n\tcolor: #2baf43 !important;\n}\r\n", ""]);
 
 /***/ }),
 /* 62 */
@@ -16239,7 +16246,7 @@ exports.push([module.i, "\nnav[data-v-2320b172] {\r\n  background-color: rgba(25
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\ncanvas[data-v-24accfb8] {\r\n  width: 100%;\r\n  height: 56%;\r\n  display: block;\n}\ncanvas.mouseDown[data-v-24accfb8]:hover {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\ncanvas.mouseDown[data-v-24accfb8]:hover {\r\n  cursor: pointer;\n}\ncanvas[data-v-24accfb8] {\r\n  width: 100%;\n}\r\n", ""]);
 
 /***/ }),
 /* 66 */
@@ -44396,7 +44403,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-menu-up"
+    class: [{
+      'clicked': _vm.liked
+    }, 'glyphicon glyphicon-menu-up']
   })]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.score))]), _vm._v(" "), _c('li', {
     staticClass: "btn",
     on: {
@@ -44405,7 +44414,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "glyphicon glyphicon-menu-down"
+    class: [{
+      'clicked': _vm.disliked
+    }, 'glyphicon glyphicon-menu-down']
   })])], 1), _vm._v(" "), _c('div', {
     staticClass: "mid"
   }, [_c('router-link', {
@@ -44820,10 +44831,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "noselect",
     class: {
       mouseDown: _vm.dragging
-    },
-    attrs: {
-      "width": "522",
-      "height": "294"
     },
     on: {
       "mouseup": function($event) {

@@ -11,9 +11,13 @@
 					height="48"
 				>
 			</router-link>
-			<li class="btn" @click="upvote()"><i class="glyphicon glyphicon-menu-up"></i></li>
+			<li class="btn" @click="upvote()">
+				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
+			</li>
 			<span>{{ score }}</span>
-			<li class="btn" @click="downvote()"><i class="glyphicon glyphicon-menu-down"></i></li>
+			<li class="btn" @click="downvote()">
+				<i :class="[{ 'clicked': disliked }, 'glyphicon glyphicon-menu-down']"></i>
+			</li>
 		</div>
 		
 		<div class="mid">
@@ -59,6 +63,17 @@ export default {
 		},
 		score() {
 			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;
+		},
+		userHasLiked() {
+			return (this.post.relationships.likes);
+		},
+		liked() {
+			return this.userHasLiked &&
+			this.post.relationships.likes[0].relationships.pivot.attributes.type == 1;
+		},
+		disliked() {
+			return this.userHasLiked && 
+			this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
 		}
 	},
 	mounted() {
@@ -83,13 +98,11 @@ export default {
 			});
 		},
 		upvote() {
-			alert("upvote");
 			this.$store.dispatch('like', {
 				id: this.post.id,
 			});
 		},
 		downvote() {
-			alert("downvote");
 			this.$store.dispatch('dislike', {
 				id: this.post.id,
 			});
@@ -103,5 +116,10 @@ export default {
 	margin: 0.5em 0.5em 0 0;
 	font-size: initial;
 	word-wrap: break-word;
+}
+.clicked {
+	font-weight: bold;
+	font-size: larger;
+	color: #2baf43 !important;
 }
 </style>

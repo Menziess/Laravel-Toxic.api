@@ -115,7 +115,7 @@ class Post extends Model implements SlugAble
             }]);
         if ($userId)
             $query->with(['likes' => function($query) use ($userId) {
-                $query->where('id', $userId);
+                $query->where('id', $userId)->withPivot('type');
             }]);
         return $query;
     }

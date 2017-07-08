@@ -122,11 +122,9 @@ const mutations = {
     state[data.name] = data.collection;
   },
   like(state, post) {
-    console.log(post);
     alert('tba');
   },
   dislike(state, post) {
-    console.log(post);
     alert('tba');
   },
 
