@@ -55,12 +55,6 @@ class CreatePostsTable extends Migration
                 ->nullable();
 
             // Additional Data
-            $table->integer('upvotes')
-                ->unsigned()
-                ->default(0);
-            $table->integer('downvotes')
-                ->unsigned()
-                ->default(0);
             $table->string('slug');
             $table->text('data')->nullable();
 

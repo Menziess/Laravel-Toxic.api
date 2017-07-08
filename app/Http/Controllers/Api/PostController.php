@@ -12,6 +12,13 @@ use App\Post, App\User, Auth;
 
 class PostController extends Controller
 {
+    private $id;
+
+    public function __construct(Request $request)
+    {
+        $this->id = $request->user('api')->id;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +30,7 @@ class PostController extends Controller
             ->original()
             ->with(['user', 'replies', 'resource'])
             ->withCount('replies')
+            ->withLikes($this->id)
             ->simplePaginate(7);
     }
 
@@ -95,6 +103,7 @@ class PostController extends Controller
             ->where('slug', $slug)
             ->with(['user', 'replies', 'resource'])
             ->withCount('replies')
+            ->withLikes($this->id)
             ->get();
     }
 
@@ -108,6 +117,7 @@ class PostController extends Controller
     {
         return Post::with(['user', 'replies', 'resource'])
             ->withCount('replies')
+            ->withLikes($this->id)
             ->findOrFail($id);
     }
 

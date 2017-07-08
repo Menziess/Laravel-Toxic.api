@@ -105,6 +105,21 @@ class Post extends Model implements SlugAble
 		return $query->withTimestamps();
 	}
 
+    public function scopeWithLikes($query, int $userId = null)
+    {
+        $query->withCount(['likes', 'likes AS dislikes' => function($query) {
+                $query->where('type', 0);
+            }])
+            ->withCount(['likes', 'likes AS likes' => function($query) {
+                $query->where('type', 1);
+            }]);
+        if ($userId)
+            $query->with(['likes' => function($query) use ($userId) {
+                $query->where('id', $userId);
+            }]);
+        return $query;
+    }
+
     /**
      * Scope original posts. 
      */
