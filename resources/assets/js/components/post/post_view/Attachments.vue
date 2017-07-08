@@ -58,8 +58,11 @@ export default {
 			return this.$store.getters.me
 		},
 		score() {
-			return this.post.attributes.upvotes - this.post.attributes.downvotes || 0;
+			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;
 		}
+	},
+	mounted() {
+		console.log(this.post);
 	},
 	methods: {
 		authorized() {
@@ -83,14 +86,12 @@ export default {
 			alert("upvote");
 			this.$store.dispatch('like', {
 				id: this.post.id,
-				type: 1
 			});
 		},
 		downvote() {
 			alert("downvote");
-			this.$store.dispatch('like', {
+			this.$store.dispatch('dislike', {
 				id: this.post.id,
-				type: -1
 			});
 		}
 	}

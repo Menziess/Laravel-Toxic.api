@@ -121,7 +121,11 @@ const mutations = {
   replace(state, data) { 
     state[data.name] = data.collection;
   },
-  updateLikes(state, post) {
+  like(state, post) {
+    console.log(post);
+    alert('tba');
+  },
+  dislike(state, post) {
     console.log(post);
     alert('tba');
   },
@@ -177,7 +181,19 @@ const actions = {
         url: 'api/post/like/' + data.id,
         data: data.type
       }).then(response => {
-        context.commit('updateLikes', response.data.data);
+        context.commit('like', data.id);
+        resolve(response);
+      });
+    });
+  },
+  dislike(context, data) {
+    return new Promise((resolve, reject) => {
+      return axios({
+        method: 'post',
+        url: 'api/post/dislike/' + data.id,
+        data: data.type
+      }).then(response => {
+        context.commit('dislike', data.id);
         resolve(response);
       });
     });

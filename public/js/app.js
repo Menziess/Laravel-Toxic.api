@@ -1211,7 +1211,11 @@ var mutations = {
   replace: function replace(state, data) {
     state[data.name] = data.collection;
   },
-  updateLikes: function updateLikes(state, post) {
+  like: function like(state, post) {
+    console.log(post);
+    alert('tba');
+  },
+  dislike: function dislike(state, post) {
     console.log(post);
     alert('tba');
   },
@@ -1281,7 +1285,19 @@ var actions = {
         url: 'api/post/like/' + data.id,
         data: data.type
       }).then(function (response) {
-        context.commit('updateLikes', response.data.data);
+        context.commit('like', data.id);
+        resolve(response);
+      });
+    });
+  },
+  dislike: function dislike(context, data) {
+    return new Promise(function (resolve, reject) {
+      return axios({
+        method: 'post',
+        url: 'api/post/dislike/' + data.id,
+        data: data.type
+      }).then(function (response) {
+        context.commit('dislike', data.id);
         resolve(response);
       });
     });
@@ -13588,9 +13604,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.$store.getters.me;
 		},
 		score: function score() {
-			return this.post.attributes.upvotes - this.post.attributes.downvotes || 0;
+			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;
 		}
 	},
+	mounted: function mounted() {
+		console.log(this.post);
+	},
+
 	methods: {
 		authorized: function authorized() {
 			return this.me;
@@ -13611,15 +13631,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		upvote: function upvote() {
 			alert("upvote");
 			this.$store.dispatch('like', {
-				id: this.post.id,
-				type: 1
+				id: this.post.id
 			});
 		},
 		downvote: function downvote() {
 			alert("downvote");
-			this.$store.dispatch('like', {
-				id: this.post.id,
-				type: -1
+			this.$store.dispatch('dislike', {
+				id: this.post.id
 			});
 		}
 	}
