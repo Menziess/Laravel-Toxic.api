@@ -15,7 +15,7 @@
 			<!-- Loading -->
 			<div v-if="loading">
 				<div class="panel panel-default" style="text-align: center;">
-					<img width="100" height="100" src="./img/ticking.gif"></img>
+					<img width="100" height="100" src="/img/ticking.gif"></img>
 				</div>
 			</div>
 
