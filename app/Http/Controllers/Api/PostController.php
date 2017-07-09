@@ -24,14 +24,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::orderBy('id', 'desc')
+        $query = Post::orderBy('id', 'desc')
             ->original()
             ->with(['user', 'replies', 'resource'])
             ->withCount('replies')
-            ->withLikes($this->id)
-            ->simplePaginate(7);
+            ->withLikes($this->id);
+
+        if ($after = $request->input('after'))
+        $query->where('id', '<', $after);
+        if ($amount = $request->input('amount'))
+        return $query->simplePaginate($amount);
+        return $query->simplePaginate(7);
     }
 
     /**
