@@ -26,17 +26,14 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::orderBy('id', 'desc')
-            ->original()
-            ->with(['user', 'replies', 'resource'])
-            ->withCount('replies')
-            ->withLikes($this->id);
+        // Adding reply_count, likes_count and dislikes_count
+        $query = $this->startQuery();
 
-        if ($after = $request->input('after'))
-        $query->where('id', '<', $after);
-        if ($amount = $request->input('amount'))
-        return $query->simplePaginate($amount);
-        return $query->simplePaginate(7);
+        // Only get original posts with relations
+        $query->original()->with(['user', 'replies', 'resource']);
+
+        // Paginate using query params
+        return $this->finishQuery($query, $request);
     }
 
     /**
@@ -97,19 +94,20 @@ class PostController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function slug($slug, $id = null)
+    public function slug($slug, $id = null, Request $request)
     {
         if ($id) {
             return $this->show($id);
         }
 
-        return Post::whereNull('post_id')
-            ->orderBy('id', 'desc')
-            ->where('slug', $slug)
-            ->with(['user', 'replies', 'resource'])
-            ->withCount('replies')
-            ->withLikes($this->id)
-            ->get();
+        // Adding reply_count, likes_count and dislikes_count
+        $query = $this->startQuery();
+
+        // Only get original posts with relations
+        $query->where('slug', $slug)->with('user');
+
+        // Paginate using query params
+        return $this->finishQuery($query, $request);
     }
 
     /**
@@ -193,5 +191,27 @@ class PostController extends Controller
             User::findOrFail(Auth::id())->likes()->updateExistingPivot($id, ['type' => $like]);
             
         return response($user, 201);
+    }
+
+    /**
+     * Generic setup querying post resources.
+     */
+    private function startQuery()
+    {
+        return Post::orderBy('id', 'desc')
+            ->withCount('replies')
+            ->withLikes($this->id);
+    }
+
+    /**
+     * Generic pagination for post resources.
+     */
+    private function finishQuery($query, Request $request)
+    {
+        if ($after = $request->input('after'))
+        $query->where('id', '<', $after);
+        if ($amount = $request->input('amount'))
+        return $query->simplePaginate($amount);
+        return $query->simplePaginate(7);
     }
 }
