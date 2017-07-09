@@ -7,7 +7,7 @@
 			<PostView 
 				v-for="post in posts"
 				v-if="post.relationships && post.relationships.user" 
-				:hidereplies="!id"
+				:hidereplies="!atDetail"
 				:key="post.id"
 				:post="post"
 			></PostView>
@@ -49,18 +49,27 @@
 		},
 
 		beforeRouteLeave(to, from, next) {
-			let name = (this.slug && !this.id) ? 'searchPosts' : 'posts';			
+			let name = this.atSearch ? 'searchPosts' : 'posts';			
 			this.cleanup(name);
 			next();
 		},
 
 		computed: {
+			atHome() {
+				return !this.id && !this.slug;
+			},
+			atSearch() {
+				return !this.id && this.slug;
+			},
+			atDetail() {
+				return this.id && this.slug;
+			},
 			posts() {
-				if (this.id) {
+				if (this.atDetail) {
 					return this.$store.getters.post;
-				} else if (this.slug) {
+				} else if (this.atSearch) {
 					return this.$store.getters.searchPosts;
-				}
+				} else
 				return this.$store.getters.posts;
 			},
 			empty() {
@@ -93,7 +102,7 @@
 			init() {
 				if (this.loading) return;
 				else this.loading = true;
-				if (this.id) {
+				if (this.atDetail) {
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
 						this.$store.commit('replace', { name: 'post', collection: [] });						
 						this.fetchId();
@@ -101,7 +110,7 @@
 						this.loading = false;
 					}
 				}
-				else if (this.slug && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+				else if (this.atSearch && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
 					this.$store.commit('replace', { name: 'searchPosts', collection: [] });
 					this.fetchSlug();
 				}
@@ -111,14 +120,19 @@
 				else this.loading = false;
 			},
 
+			/**
+			 * Fetching more content where possible.
+			 */
 			infiniteScroll() {
 				if (this.loading) return;
 				else this.loading = true;
-				if (this.id) {
+
+				if (this.atDetail)
 					this.fetchIdReplies();
-				} else if (this.slug) {
+				else if (this.atSlug)
 					this.fetchSlug();
-				} else this.fetchDefault();
+				else
+					this.fetchDefault();
 			},
 
 			/**
