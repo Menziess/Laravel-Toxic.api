@@ -19,8 +19,5 @@
     "vue": "^2.1.10",
     "vue-router": "^2.6.0",
     "vuex": "^2.3.1"
-  },
-  "dependencies": {
-    "link-preview": "^1.0.0"
   }
 }

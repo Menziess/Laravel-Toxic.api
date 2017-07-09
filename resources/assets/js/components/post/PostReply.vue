@@ -14,6 +14,12 @@
 			ref="myDrawing"
 		></Drawing>
 
+		<Linkbox v-if="attachment === 'url'" 
+			@hasInput="enableSubmit" 
+			ref="myLinkbox"
+			placeholder="www..."
+		></Linkbox>	
+
 		<!-- Buttons -->
 		<div class="modal-footer">
 
@@ -38,6 +44,7 @@
 <script>
   import Drawing from './post_new/Drawing.vue';
   import Textbox from './post_new/Textbox.vue';
+  import Linkbox from './post_new/Linkbox.vue';
   export default {
     name: 'postreply',
 		props: ['post'],
@@ -51,7 +58,8 @@
     },
     components: {
       Drawing,
-      Textbox
+      Textbox,
+			Linkbox
     },
 		watch: {
 			attachment() {
@@ -88,7 +96,7 @@
 					attachment: this.attachment,
 					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
 					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
-					url: null
+					url: this.$refs.myLinkbox ? this.$refs.myLinkbox.url : null
 				}
 			},
 

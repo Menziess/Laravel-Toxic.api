@@ -28,15 +28,15 @@
         </div>
       </div>
 
-    </div>
+      <!-- Posts -->
+      <div v-if="userHasPosts">
+        <PostView v-for="post in user.relationships.posts"
+          :hidereplies="true"
+          :key="post.id"
+          :post="post"
+        ></PostView>
+      </div>
 
-    <!-- Posts -->
-    <div class="col-md-6 col-md-offset-3" v-if="userHasPosts">
-      <PostView v-for="post in user.relationships.posts"
-        :hidereplies="true"
-        :key="post.id"
-        :post="post"
-      ></PostView>
     </div>
   </div>
 </template>

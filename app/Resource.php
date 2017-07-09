@@ -111,7 +111,9 @@ class Resource extends Model
 	 */
 	public function uploadImagePath($path, $width = 256, $height = 256)
 	{
-		$image = Image::make($path)->orientate()->resize($width, $height);
+		$image = Image::make($path)->orientate()->fit($width, $height, function ($constraint) {
+			$constraint->aspectRatio();
+		});
 
 		$this->url = self::generateName();
 		$this->type = self::TYPES[0];

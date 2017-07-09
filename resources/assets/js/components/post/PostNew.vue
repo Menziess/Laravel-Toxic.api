@@ -21,6 +21,12 @@
 					ref="myDrawing"
 				></Drawing>
 
+				<Linkbox v-if="attachment === 'url'" 
+					@hasInput="enableSubmit" 
+					ref="myLinkbox"
+					placeholder="www..."
+				></Linkbox>				
+
 				<!-- Buttons -->
 				<div class="modal-footer">
 
@@ -32,7 +38,7 @@
 						Draw
 					</button>
 
-					<button disabled type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
+					<button type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
 						<i class="glyphicon glyphicon-paperclip"></i>
 					</button>
 
@@ -49,6 +55,7 @@
 <script>
   import Drawing from './post_new/Drawing.vue';
   import Textbox from './post_new/Textbox.vue';
+  import Linkbox from './post_new/Linkbox.vue';
   export default {
     name: 'postmodal',
     data() {
@@ -61,7 +68,8 @@
     },
     components: {
       Drawing,
-      Textbox
+      Textbox,
+			Linkbox
     },
 		watch: {
 			attachment() {
@@ -94,7 +102,7 @@
 					attachment: this.attachment,
 					drawing: this.$refs.myDrawing ? this.$refs.myDrawing.getDataUrl() : null,
 					text: this.$refs.myTextbox ? this.$refs.myTextbox.text : null,
-					url: null
+					url: this.$refs.myLinkbox ? this.$refs.myLinkbox.url : null
 				}
 			},
 			defaultSubject() {
