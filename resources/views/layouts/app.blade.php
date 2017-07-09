@@ -15,8 +15,9 @@
     <title>{{ config('app.name', 'Toxic') }}</title>
     <meta name="description" content="Censorship feeds the dirty mind more than the four-letter word itself." />
     <meta property="og:description" content="Censorship feeds the dirty mind more than the four-letter word itself." />
+    <meta property="og:image" content="{{ asset('img/ticking.gif') }}" />
     <meta property="og:title" content="Combating Censorship" />
-    <meta property="og:image" content="" />
+    <meta property="fb:app_id" content="297069167386750" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

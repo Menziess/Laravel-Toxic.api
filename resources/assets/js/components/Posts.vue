@@ -54,6 +54,7 @@
 			let name = this.atSearch ? 'searchPosts' : 'posts';			
 			this.$store.dispatch('resetHasMore');
 			this.cleanup(name);
+			this.resetMeta();
 			next();
 		},
 
@@ -130,6 +131,36 @@
 			},
 
 			/**
+			 * Update meta information in head of page.
+			 */
+			updateMeta() {
+				if (this.posts.length < 1) return;
+				const image = this.posts[0].attributes.drawing;
+				const text = this.posts[0].attributes.text;
+				const title = this.posts[0].attributes.subject;
+				if (this.atDetail) {
+					if (text) {
+						document.querySelector('meta[name="description"]').setAttribute("content", text);
+						document.querySelector('meta[property="og:description"]').setAttribute("content", text);
+					}
+					if (image)
+					document.querySelector('meta[property="og:image"]').setAttribute("content", image);
+					document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+				}
+				document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+			},
+			resetMeta() {
+				const text = "Censorship feeds the dirty mind more than the four-letter word itself.";
+				const image = window.location.hostname + "/favicons/apple-touch-icon.png";
+				const title = "Combating Censorship";
+				document.querySelector('meta[name="description"]').setAttribute("content", text);
+				document.querySelector('meta[property="og:description"]').setAttribute("content", text);
+				document.querySelector('meta[property="og:image"]').setAttribute("content", image);
+				document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+				document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+			},
+
+			/**
 			 * Generic fetch methods.
 			 */
 			api(endpoint, mutation, name) {
@@ -138,6 +169,7 @@
 				}).then(response => {
 					this.empty = this.posts.length === 0;
 					this.loading = false;
+					this.updateMeta();
 				}).catch(error => {
 					this.$router.push({ name: 'error' });
 				});
