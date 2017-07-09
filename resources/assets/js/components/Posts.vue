@@ -118,7 +118,6 @@
 			infiniteScroll() {
 				if (this.loading) return;
 				else this.loading = true;
-				console.log(this.atSearch);
 
 				if (this.atDetail)
 					this.fetchIdReplies();
@@ -142,14 +141,14 @@
 				});
 			},
       fetchDefault() {
-				if (this.$store.getters.posts.length > 0)
+				if (this.posts.length > 0)
 				this.api('/api/post?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'posts');
 				else
 				this.api('/api/post', 'push', 'posts');
 			},
 			fetchSlug() {
-				if (this.$store.getters.posts.length > 0)
-				this.api('/api/post/' + this.slug + '?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'searchPosts');
+				if (this.posts.length > 0)
+				this.api('/api/post/' + this.slug + '?amount=14&after=' + this.$store.getters.searchPostsLast.id, 'push', 'searchPosts');
 				else
 				this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 			},

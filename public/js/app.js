@@ -12716,7 +12716,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    */
 		infiniteScroll: function infiniteScroll() {
 			if (this.loading) return;else this.loading = true;
-			console.log(this.atSearch);
 
 			if (this.atDetail) this.fetchIdReplies();else if (this.atSearch) this.fetchSlug();else this.fetchDefault();
 		},
@@ -12738,10 +12737,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		},
 		fetchDefault: function fetchDefault() {
-			if (this.$store.getters.posts.length > 0) this.api('/api/post?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'posts');else this.api('/api/post', 'push', 'posts');
+			if (this.posts.length > 0) this.api('/api/post?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'posts');else this.api('/api/post', 'push', 'posts');
 		},
 		fetchSlug: function fetchSlug() {
-			if (this.$store.getters.posts.length > 0) this.api('/api/post/' + this.slug + '?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'searchPosts');else this.api('/api/post/' + this.slug, 'push', 'searchPosts');
+			if (this.posts.length > 0) this.api('/api/post/' + this.slug + '?amount=14&after=' + this.$store.getters.searchPostsLast.id, 'push', 'searchPosts');else this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 		},
 		fetchId: function fetchId() {
 			this.api('/api/post/' + this.id, 'replace', 'post');
