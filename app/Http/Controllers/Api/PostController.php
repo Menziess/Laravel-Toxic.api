@@ -199,6 +199,7 @@ class PostController extends Controller
     private function startQuery()
     {
         return Post::orderBy('id', 'desc')
+            ->original()
             ->withCount('replies')
             ->withLikes($this->id);
     }
@@ -211,7 +212,7 @@ class PostController extends Controller
         if ($after = $request->input('after'))
         $query->where('id', '<', $after);
         else if ($before = $request->input('before'))
-        $query->where('id', '<', $before);
+        $query->where('id', '>', $before);
         if ($amount = $request->input('amount'))
         return $query->take($amount)->get();
         return $query->take(7)->get();

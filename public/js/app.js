@@ -12716,8 +12716,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    */
 		infiniteScroll: function infiniteScroll() {
 			if (this.loading) return;else this.loading = true;
+			console.log(this.atSearch);
 
-			if (this.atDetail) this.fetchIdReplies();else if (this.atSlug) this.fetchSlug();else this.fetchDefault();
+			if (this.atDetail) this.fetchIdReplies();else if (this.atSearch) this.fetchSlug();else this.fetchDefault();
 		},
 
 

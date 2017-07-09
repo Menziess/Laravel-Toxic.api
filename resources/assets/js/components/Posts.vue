@@ -96,7 +96,7 @@
 				else this.loading = true;
 				if (this.atDetail) {
 					if (this.posts.length < 1 || this.posts[0].id != this.id) {
-						this.$store.commit('replace', { name: 'post', collection: [] });						
+						this.$store.commit('replace', { name: 'post', collection: [] });
 						this.fetchId();
 					} else {
 						this.loading = false;
@@ -118,10 +118,11 @@
 			infiniteScroll() {
 				if (this.loading) return;
 				else this.loading = true;
+				console.log(this.atSearch);
 
 				if (this.atDetail)
 					this.fetchIdReplies();
-				else if (this.atSlug)
+				else if (this.atSearch)
 					this.fetchSlug();
 				else
 					this.fetchDefault();
