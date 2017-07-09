@@ -21,7 +21,9 @@
 
           <!-- Loading -->
           <div v-if="loading">
-            <h3 class="text-center" style="margin-top: 10vw;">Loading posts...</h3>
+            <div class="panel panel-default" style="text-align: center;">
+              <img width="100" height="100" src="img/ticking.gif"></img>
+            </div>
           </div>
           
         </div>
