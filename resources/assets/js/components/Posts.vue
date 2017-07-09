@@ -50,6 +50,7 @@
 
 		beforeRouteLeave(to, from, next) {
 			let name = this.atSearch ? 'searchPosts' : 'posts';			
+			this.$store.dispatch('resetHasMore');
 			this.cleanup(name);
 			next();
 		},
@@ -74,23 +75,14 @@
 			},
 			empty() {
 				return this.posts.length < 1 && this.loading === false;
-			},
-			morepages() {
-				return true;
-				// if (this.id) {
-					
-				// } else if (this.slug) {
-
-				// }
-				// return true;
 			}
 		},
 
     methods: {
 			handleScroll() {
-				if (!this.morepages || this.loading) return;
+				if (this.loading || !this.$store.getters.hasMore) return;
 				this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
-				if (this.scrollPos < 120) {
+				if (this.scrollPos < 200) {
 					this.infiniteScroll();
 				}
 			},
@@ -149,9 +141,15 @@
 				});
 			},
       fetchDefault() {
+				if (this.$store.getters.posts.length > 0)
+				this.api('/api/post?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'posts');
+				else
 				this.api('/api/post', 'push', 'posts');
 			},
 			fetchSlug() {
+				if (this.$store.getters.posts.length > 0)
+				this.api('/api/post/' + this.slug + '?amount=14&after=' + this.$store.getters.postsLast.id, 'push', 'searchPosts');
+				else
 				this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 			},
 			fetchId() {
@@ -159,11 +157,6 @@
 			},
 			fetchIdReplies() {
 				//@TODO: make endpoint this.api('/api/post/' + this.id + '@TODO', 'replace', 'post');
-			},
-			onePostContainsId(array, id) {
-				return array.find(post => {
-					return post.id == id;
-				});
 			},
 			cleanup(name) {
 				this.$store.dispatch('cleanup', { 

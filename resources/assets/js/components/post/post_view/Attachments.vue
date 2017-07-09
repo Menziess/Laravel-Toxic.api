@@ -76,9 +76,6 @@ export default {
 			this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
 		}
 	},
-	mounted() {
-		console.log(this.post);
-	},
 	methods: {
 		authorized() {
       return (this.me);

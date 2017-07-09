@@ -75,6 +75,7 @@ const state = {
   ],
   me: null,
   search: null,
+  hasMore: true,
   logoutRoute: null,
   loginRoute: null,
   destinationRoute: null,
@@ -91,9 +92,12 @@ const getters = {
   loginRoute: state => { return state.loginRoute; },
   topics: state => { return state.topics; },
   error: state => { return state.error; },
+  hasMore: state => { return state.hasMore; },
   posts: state => { return state.posts; },
+  postsLast: state => { return state.posts[state.posts.length - 1]; },
   post: state => { return state.post; },
   searchPosts: state => { return state.searchPosts; },
+  searchPostsLast: state => { return state.searchPosts[state.searchPosts.length - 1]; },
   search: state => { return state.search; }, 
   me: state => { return state.me; },
 };
@@ -141,6 +145,7 @@ const mutations = {
   // addPost(state, post) { find.addPost(state.posts, post); },
 
   // Other
+  hasMore(state, boolean) {state.hasMore = boolean; },
   setDestination(state, route) { state.destinationRoute = route; },
   setTopics(state, topics) { state.topics = topics; },
   setLogout(state, route) { state.logoutRoute = route; },
@@ -165,79 +170,64 @@ const actions = {
     });
   },
   create(context, data) {
-    return new Promise((resolve, reject) => {
-      actions.new(data).then(response => {
-        context.commit('unshift', response.data.data);
-        resolve(response);
-      });
+    return actions.new(data).then(response => {
+      context.commit('unshift', response.data.data);
     });
   },
   like(context, data) {
-    return new Promise((resolve, reject) => {
-      return axios({
-        method: 'post',
-        url: 'api/post/like/' + data.id,
-        data: data.type
-      }).then(response => {
-        context.commit('like', data.id);
-        resolve(response);
-      });
+    return axios({
+      method: 'post',
+      url: 'api/post/like/' + data.id,
+      data: data.type
+    }).then(response => {
+      context.commit('like', data.id);
     });
   },
   dislike(context, data) {
-    return new Promise((resolve, reject) => {
-      return axios({
-        method: 'post',
-        url: 'api/post/dislike/' + data.id,
-        data: data.type
-      }).then(response => {
-        context.commit('dislike', data.id);
-        resolve(response);
-      });
+    return axios({
+      method: 'post',
+      url: 'api/post/dislike/' + data.id,
+      data: data.type
+    }).then(response => {
+      context.commit('dislike', data.id);
     });
   },
 
   // Get
-  fetch(context, data) { 
-    return new Promise((resolve, reject) => {
-      axios.get(data.endpoint)
-      .then(response => {
-        context.commit(data.mutation, {
-          name: data.name, 
-          collection: response.data.data
-        });
-        resolve(response);
+  fetch(context, data) {
+    return axios.get(data.endpoint)
+    .then(response => {
+      if (response.data.data.length > 0)
+      context.commit(data.mutation, {
+        name: data.name, 
+        collection: response.data.data
       });
-    })
+      else context.commit('hasMore', false);
+    });
   },
 
   // Delete
   cleanup(context, data) { context.commit('cleanup', data); },
   delete(context, data) {
-    return new Promise((resolve, reject) => {
-      axios({
-        method: 'delete',
-        url: data.endpoint
-      }).then(response => {
-        context.commit('delete', data.post);
-        resolve(response);
-      });
-    })
+    return axios({
+      method: 'delete',
+      url: data.endpoint
+    }).then(response => {
+      context.commit('delete', data.post);
+    });
   },
   deleteUser(context, id) {
-    return new Promise((resolve, reject) => {
-      axios({
-        method: 'delete',
-        url: '/api/user/' + id
-      }).then(response => {
-        context.commit('setMe', null);
-        resolve(response);
-      });
-    })
+    return axios({
+      method: 'delete',
+      url: '/api/user/' + id
+    }).then(response => {
+      context.commit('setMe', null);
+    });
   },
 
 
   // Other
+  resetHasMore(context) { context.commit('hasMore', true); },
   setDestination(context, route) { context.commit('setDestination', route); },
   setLogout(context, route) { context.commit('setLogout', route); },
   setSearch(context, search) { context.commit('setSearch', search); },
