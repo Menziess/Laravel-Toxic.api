@@ -30,7 +30,7 @@ class PostController extends Controller
         $query = $this->startQuery();
 
         // Only get original posts with relations
-        $query->original()->with(['user', 'replies', 'resource']);
+        $query->original()->with(['user']);
 
         // Paginate using query params
         return $this->finishQuery($query, $request);
@@ -210,8 +210,10 @@ class PostController extends Controller
     {
         if ($after = $request->input('after'))
         $query->where('id', '<', $after);
+        else if ($before = $request->input('before'))
+        $query->where('id', '<', $before);
         if ($amount = $request->input('amount'))
-        return $query->simplePaginate($amount);
-        return $query->simplePaginate(7);
+        return $query->take($amount)->get();
+        return $query->take(7)->get();
     }
 }
