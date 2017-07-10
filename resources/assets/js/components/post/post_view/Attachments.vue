@@ -26,7 +26,7 @@
 			</router-link>
 			<br>
 			<span class="text">/u/{{ this.post.relationships.user.attributes.slug }}</span>
-			<!--<span class="text">{{ this.post.attributes.created_at }}</span>		-->
+			<!--<span class="text">{{ this.post.attributes.created_at }}</span>-->
 
 			<!-- Post Content -->
 			<div class="clickable post-content" @click="clickGotoPost()">
@@ -36,13 +36,11 @@
 			</div>
 
 			<!-- Buttons -->
-			<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
-			{{ post.attributes.replies_count || 0 }}
-			&nbsp;
+			<button class="btn" data-toggle="modal" data-target="#postModal" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
+			{{ post.attributes.replies_count || 0 }}&nbsp;
 
 			<button class="btn" @click="resend()"><i class="glyphicon glyphicon-repeat"></i></button>
-			{{ post.attributes.resend_count || 0 }}
-			&nbsp;
+			{{ post.attributes.resend_count || 0 }}&nbsp;
 		</div>
 
   </div>

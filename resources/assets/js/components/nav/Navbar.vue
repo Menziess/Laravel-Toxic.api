@@ -2,16 +2,13 @@
   <div class="navigation">
 
     <!-- New Post Mobile -->
-    <button type="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button" 
-      data-toggle="modal" data-target="#postModal"
-      title="Create a new post" v-on:click="checkLoggedIn()"
-    >
+    <router-link :to="newRoute" tag="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
+      title="Create a new post" v-on:click="checkLoggedIn()">
       <i class="glyphicon glyphicon-plus"></i>
-    </button>
+    </router-link>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top">
-        
+    <nav class="navbar navbar-default navbar-static-top"> 
       <div class="container">
 
         <!-- Posts Feed -->
@@ -25,9 +22,10 @@
         </router-link>-->
 
         <!-- New Post -->
-        <button type="button" class="btn btn-success navbar-btn pull-right mobile-hidden" 
-          data-toggle="modal" data-target="#postModal"
-          title="Create a new post" v-on:click="checkLoggedIn()">New</button>
+        <router-link :to="newRoute" tag="button" class="btn btn-success navbar-btn pull-right mobile-hidden"
+          title="Create a new post" v-on:click="checkLoggedIn()">
+          New
+        </router-link>
 
         <!-- Profile Picture -->
         <Picture></Picture>
@@ -59,6 +57,9 @@ export default {
   computed: {
     homeRoute() {
       return this.$route.name === 'home' ? '/trends' : '/';
+    },
+    newRoute() {
+      return this.$route.name === 'new' ? '/' : '/new';
     }
   },
   methods: {

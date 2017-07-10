@@ -1,10 +1,9 @@
 <template>
-	<div id="postModal" class="modal fade" role="dialog">
-		<div v-on:keyup.ctrl.enter="$refs.mySubmit.click()" class="modal-dialog">
-			<div class="modal-content">
+	<div class="col-md-6">
+    <div class="panel panel-default" v-on:keyup.ctrl.enter="$refs.mySubmit.click()">
 
 				<!-- Subject -->				
-				<div class="modal-header">
+				<div class="panel-header">
 					<input type="text" class="form-control" v-model="subject" maxlength="60"
 						:placeholder="this.$route.params.slug || defaultSubject()">
 				</div>
@@ -28,7 +27,7 @@
 				></Linkbox>				
 
 				<!-- Buttons -->
-				<div class="modal-footer">
+				<div class="panel-footer">
 
 					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">
 						Write
@@ -42,14 +41,13 @@
 						<i class="glyphicon glyphicon-paperclip"></i>
 					</button>
 
-					<button :disabled="!submitEnabled" v-on:click="submit()" data-dismiss="modal" type="button" class="btn btn-primary" ref="mySubmit">
+					<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">
 						Post
 					</button>
 				</div>
 			
 			</div>
 		</div>
-	</div>
 </template>
 
 <script>

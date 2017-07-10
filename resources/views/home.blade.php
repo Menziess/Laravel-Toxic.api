@@ -20,9 +20,6 @@
 <!-- Content -->
 <div class="container">
 	<div class="row">
-	
-		<!-- Hidden Modal -->
-		<PostNew></PostNew>
 
 		<!-- Left Nav -->
 		<div class="col-md-3" v-if="$route.name !== 'landing'">

@@ -1,43 +1,41 @@
 <template>
-  <div>
-    <div class="col-md-6">
+  <div class="col-md-6">
 
-      <!-- User Details -->
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1>{{ $route.params.slug }}</h1>
-          <hr>
-          <div class="details">
-            <div v-if="user" class="leftist">
-              <img 
-                class="img-circle noselect image-border"
-                :src="user.attributes.picture"
-                :title="user.attributes.name" 
-                width="200px"
-                height="200px"
-              >
-            </div>
+    <!-- User Details -->
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>{{ $route.params.slug }}</h1>
+        <hr>
+        <div class="details">
+          <div v-if="user" class="leftist">
+            <img 
+              class="img-circle noselect image-border"
+              :src="user.attributes.picture"
+              :title="user.attributes.name" 
+              width="200px"
+              height="200px"
+            >
           </div>
         </div>
       </div>
-
-      <!-- Loading -->
-      <div v-if="loading">
-        <div class="panel panel-default" style="text-align: center;">
-          <img width="100" height="100" src="/img/ticking.gif"></img>
-        </div>
-      </div>
-
-      <!-- Posts -->
-      <div v-if="userHasPosts">
-        <PostView v-for="post in user.relationships.posts"
-          :hidereplies="true"
-          :key="post.id"
-          :post="post"
-        ></PostView>
-      </div>
-
     </div>
+
+    <!-- Loading -->
+    <div v-if="loading">
+      <div class="panel panel-default" style="text-align: center;">
+        <img width="100" height="100" src="/img/ticking.gif"></img>
+      </div>
+    </div>
+
+    <!-- Posts -->
+    <div v-if="userHasPosts">
+      <PostView v-for="post in user.relationships.posts"
+        :hidereplies="true"
+        :key="post.id"
+        :post="post"
+      ></PostView>
+    </div>
+
   </div>
 </template>
 

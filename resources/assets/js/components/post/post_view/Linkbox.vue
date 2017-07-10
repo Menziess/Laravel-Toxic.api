@@ -15,7 +15,6 @@
               :src="'https://www.youtube.com/embed/' + embed + '?playlist=' + embed + 'rel=0&modestbranding=0&autohide=1&showinfo=0&controls=1'" 
               frameborder="0"/>
           </div>
-              <!--:src="'https://www.youtube.com/embed/' + embed + '?rel=0&modestbranding=0&autohide=1&showinfo=0&controls=0'" -->
         </div>
         <div class="image-info">
           <strong>{{ resource.attributes.title }}</strong>
