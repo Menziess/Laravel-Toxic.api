@@ -88,7 +88,7 @@ class PostController extends Controller
             
             # Adds youtube embed
             if ($link instanceof VideoLink) {
-                $resource->embed = $link->getEmbedCode();
+                $resource->embed = $link->getVideoId();
             }
         }
 
