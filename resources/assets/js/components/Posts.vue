@@ -21,7 +21,9 @@
 
 			<!-- Empty State -->
 			<div v-if="empty">
-				<h3 class="text-center" style="margin: 10vw 0 10vw 0;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
+				<div class="panel panel-default" style="text-align: center;">
+					<h3 class="text-center" style="margin: 10vw 0 10vw 0;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
+				</div>
 			</div>
 		</div>
 

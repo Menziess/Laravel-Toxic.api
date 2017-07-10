@@ -11,10 +11,11 @@
         <!-- Embed -->
         <div v-else class="embed-responsive embed-responsive-16by9">
           <div class="embed-responsive-item video">
-            <iframe id="ytplayer" type="text/html" width="640" height="390" 
-              :src="'https://www.youtube.com/embed/' + embed + '?rel=0&modestbranding=0&autohide=1&showinfo=0&controls=0'" 
+            <iframe id="ytplayer" type="text/html" width="640" height="390"
+              :src="'https://www.youtube.com/embed/' + embed + '?playlist=' + embed + 'rel=0&modestbranding=0&autohide=1&showinfo=0&controls=1'" 
               frameborder="0"/>
           </div>
+              <!--:src="'https://www.youtube.com/embed/' + embed + '?rel=0&modestbranding=0&autohide=1&showinfo=0&controls=0'" -->
         </div>
         <div class="image-info">
           <strong>{{ resource.attributes.title }}</strong>
@@ -37,9 +38,6 @@ export default {
     embed() {
       return this.resource.attributes.embed
     }
-  },
-  mounted() {
-    console.log(this.post);
   }
 }
 </script>

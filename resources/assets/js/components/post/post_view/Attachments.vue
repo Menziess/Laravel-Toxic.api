@@ -36,10 +36,13 @@
 			</div>
 
 			<!-- Buttons -->
-			<div class="panel-buttons">
-				<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
-				<strong>{{ post.attributes.replies_count || 0 }}</strong>
-			</div>
+			<button class="btn" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
+			{{ post.attributes.replies_count || 0 }}
+			&nbsp;
+
+			<button class="btn" @click="resend()"><i class="glyphicon glyphicon-repeat"></i></button>
+			{{ post.attributes.resend_count || 0 }}
+			&nbsp;
 		</div>
 
   </div>
@@ -86,6 +89,9 @@ export default {
 		reply() {
 			if (this.authorized) this.$emit('reply')
 			else this.$router.push({ name: 'user' });
+		},
+		resend() {
+			alert("tba");
 		},
 		clickGotoPost() {
 			window.scrollTo(0, 0);

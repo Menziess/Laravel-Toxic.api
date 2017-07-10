@@ -49,7 +49,6 @@
         // Make sure canvas is properly rendered
         if (this.canvas.width === 0) { this.init(); } 
         this.dragging = true;
-        this.userHasDrawn = true;
         this.putPoint(e);
       },
       stop(e) { 
@@ -63,9 +62,10 @@
       },
       putPoint(e) {
         if (this.dragging) {  
-          let x = (e.pageX - this.rect.left) * this.canvas.width / this.rect.width;
-          let y = (e.pageY - this.rect.top) * this.canvas.height / this.rect.height;
+          let x = (e.screenX - this.rect.left) * this.canvas.width / this.rect.width;
+          let y = (e.screenY - this.rect.top) * this.canvas.height / this.rect.height;
 
+          this.userHasDrawn = true;
           this.context.lineTo(x, y);
           this.context.stroke();
           this.context.beginPath();
