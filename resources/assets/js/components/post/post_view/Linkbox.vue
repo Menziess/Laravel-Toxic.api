@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="post">
+    <div v-if="post" class="image-overlay">
       <img 
         class="image-drawing image-border"
         :src="post.attributes.drawing"
@@ -23,5 +23,8 @@ export default {
 .image-drawing {
   display: block;
   width: 100%;
+}
+.image-overlay {
+
 }
 </style>
