@@ -110,11 +110,8 @@
 					case 'drawing':
 						return "Drawings";
 						break;
-					case 'video':
-						return "Videos";
-						break;
-					case 'image':
-						return 'Images';
+					case 'url':
+						return "Links";
 						break;
 					default:
 						return "General";

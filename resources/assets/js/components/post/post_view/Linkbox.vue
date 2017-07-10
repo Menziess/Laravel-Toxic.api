@@ -1,10 +1,25 @@
 <template>
   <div>
-    <div v-if="post" class="image-overlay">
-      <img 
-        class="image-drawing image-border"
-        :src="post.attributes.drawing"
-      >
+    <div v-if="post">
+
+      <!-- No Embed -->
+      <div v-if="!embed" class="image-border">
+        <img 
+          class="image-drawing"
+          :src="post.attributes.drawing"
+        >
+        <div class="image-info">
+          <strong>{{ resource.attributes.title }}</strong>
+          <br>
+          <span>{{ resource.attributes.description }}</span>
+        </div>
+      </div>
+
+
+      <!-- Embed -->
+      <div v-else class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive-item" v-html="embed"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -13,18 +28,27 @@
 export default {
   name: 'linkbox',
   props: ['post'],
+  computed: {
+    resource() {
+      return this.post.relationships.resource;
+    },
+    embed() {
+      return this.resource.attributes.embed
+    }
+  },
   mounted() {
     console.log(this.post);
   }
 }
 </script>
 
-<style>
+<style scoped>
 .image-drawing {
   display: block;
   width: 100%;
 }
-.image-overlay {
-
+.image-info {
+  background-color: rgba(255,255,255,0.98);
+  padding: 0.5em;
 }
 </style>

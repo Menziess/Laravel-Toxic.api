@@ -74,23 +74,27 @@ class PostController extends Controller
             $resource->title = $link->getTitle();
             $resource->description = $link->getDescription();
 
-            if ($image = $link->getImage())
-            if (substr($image, 0, 4) !== "http") {
-                $realurl = $link->getRealUrl();
-                $image = $realurl->getScheme() . '://' . $realurl->getHost() . $image;
+            # If a image is given, otherwise a default is set
+            if ($image = $link->getImage()) {
+                if (substr($image, 0, 4) !== "http") {
+                    $realurl = $link->getRealUrl();
+                    $image = $realurl->getScheme() . '://' . $realurl->getHost() . $image;
+                }
+                $image = preg_replace('"\.jpg:large$"', '.jpg', $image);
+                $filepath = $resource->uploadImagePath($image, 522, 200, true);
+            } else {
+                $filepath = $resource->uploadImagePath(asset('img/no-image.jpg'), 522, 200, true);
             }
-            $filepath = $resource->uploadImagePath($image, 522, 294, true);
             
+            # Adds youtube embed
             if ($link instanceof VideoLink) {
                 $resource->embed = $link->getEmbedCode();
             }
         }
 
-        # Persist if uploaded succesfully
-        if (\Storage::exists($filepath)) {
-            $resource->save();
-            $post->resource()->associate($resource);
-        }
+        # Persist
+        $resource->save();
+        $post->resource()->associate($resource);
     }
 
     /**
