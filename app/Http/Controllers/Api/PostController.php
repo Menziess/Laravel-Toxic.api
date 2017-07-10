@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use LinkPreview\LinkPreview;
+use LinkPreview\Model\VideoLink;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use \Illuminate\Database\Eloquent\Model;
-
 use App\Post, App\User, Auth;
 
 class PostController extends Controller
@@ -42,29 +43,67 @@ class PostController extends Controller
      * @param  \App\Http\Request\StorePostRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, LinkPreview $linkPreview)
     {
         $post = new Post;
         $post->fill($request->all());
         $user = Auth::user();
 
-        # Drawings have to be uploaded
-        if ($request->input('attachment') == "drawing") {
-            $drawing = $request->input('drawing');
-            $uri = substr($drawing, strpos($drawing,",") + 1);
-            $resource = new \App\Resource;
-            $filepath = $resource->uploadImagePath($uri, 522, 294);
-
-            # Persist if uploaded succesfully
-            if (\Storage::exists($filepath)) {
-                $resource->save();
-                $post->resource()->associate($resource);
-            }
-        }
+        if ($request->input('attachment') == "drawing")
+            self::addDrawing($request, $post);
+        if ($request->input('attachment') == "url")        
+            self::addLink($request, $post, $linkPreview);
 
         $post->user()->associate($user)->save();
 
         return response($post, 201);
+    }
+
+    /**
+     * Parses url and adds information to the post.
+     */
+    private static function addLink($request, $post, $linkPreview)
+    {
+        # URL's have to be parsed and previewed
+        $resource = new \App\Resource;
+        $linkPreview = new LinkPreview($request->input('url'));
+        $parsed = $linkPreview->getParsed();
+
+        foreach ($parsed as $parserName => $link) {
+            $resource->realurl = $link->getUrl();
+            $resource->title = $link->getTitle();
+            $resource->description = $link->getDescription();
+
+            $filepath = $resource->uploadImagePath($link->getImage(), 522, 294, true);
+            
+            if ($link instanceof VideoLink) {
+                $resource->embed = $link->getEmbedCode();
+            }
+        }
+
+        # Persist if uploaded succesfully
+        if (\Storage::exists($filepath)) {
+            $resource->save();
+            $post->resource()->associate($resource);
+        }
+    }
+
+    /**
+     * Stores drawing and adds url to post.
+     */
+    private static function addDrawing($request, $post)
+    {
+        # Drawings have to be uploaded
+        $drawing = $request->input('drawing');
+        $uri = substr($drawing, strpos($drawing,",") + 1);
+        $resource = new \App\Resource;
+        $filepath = $resource->uploadImagePath($uri, 522, 294);
+
+        # Persist if uploaded succesfully
+        if (\Storage::exists($filepath)) {
+            $resource->save();
+            $post->resource()->associate($resource);
+        }
     }
 
     /**

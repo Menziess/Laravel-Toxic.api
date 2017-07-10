@@ -109,11 +109,14 @@ class Resource extends Model
 	 * @param  integer $height
 	 * @return string  $filepath
 	 */
-	public function uploadImagePath($path, $width = 256, $height = 256)
+	public function uploadImagePath($path, $width = 256, $height = 256, $aspectratio = false)
 	{
+		if ($aspectratio)
 		$image = Image::make($path)->orientate()->fit($width, $height, function ($constraint) {
 			$constraint->aspectRatio();
 		});
+		else 
+		$image = Image::make($path)->orientate()->resize($width, $height);
 
 		$this->url = self::generateName();
 		$this->type = self::TYPES[0];

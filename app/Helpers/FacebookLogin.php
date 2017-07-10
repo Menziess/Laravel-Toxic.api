@@ -105,7 +105,7 @@ class FacebookLogin
 		$path =  $fb->avatar_original ?: $path =  $fb->avatar;
 
 		$resource = new Resource;
-		$filepath = $resource->uploadImagePath($path, 522, 522);
+		$filepath = $resource->uploadImagePath($path, 522, 522, true);
 
 		# Persist if uploaded succesfully
 		if (\Storage::exists($filepath)) {

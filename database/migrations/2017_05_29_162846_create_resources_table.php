@@ -29,6 +29,12 @@ class CreateResourcesTable extends Migration
             $table->string('mime')->nullable();
             $table->string('extension')->nullable();
 
+            $table->string('title')->nullable();
+            $table->string('realurl')->nullable();
+            $table->string('description')->nullable();
+            $table->string('embed')->nullable();
+
+
             $table->softDeletes();
             $table->timestamps();
         });
