@@ -85,7 +85,12 @@ export default {
       return this.me.id === this.post.attributes.user_id;
     },
 		reply() {
-			if (this.authorized) this.$emit('reply')
+			if (this.authorized) {
+				if (this.$store.getters.replying === this.post.id)
+					this.$store.dispatch('toggleReplying', null);
+				else
+					this.$store.dispatch('toggleReplying', this.post.id);
+			} 
 			else this.$router.push({ name: 'user' });
 		},
 		resend() {

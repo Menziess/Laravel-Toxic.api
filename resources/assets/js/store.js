@@ -76,6 +76,7 @@ const state = {
   me: null,
   search: null,
   hasMore: true,
+  replying: null,
   logoutRoute: null,
   loginRoute: null,
   destinationRoute: null,
@@ -87,6 +88,7 @@ const state = {
  * Getters.
  */
 const getters = {
+  replying: state => { return state.replying; },
   destinationRoute: state => { return state.destinationRoute; },
   logoutRoute: state => { return state.logoutRoute; },
   loginRoute: state => { return state.loginRoute; },
@@ -145,6 +147,7 @@ const mutations = {
   // addPost(state, post) { find.addPost(state.posts, post); },
 
   // Other
+  toggleReplying(state, id) { state.replying = id; },
   hasMore(state, boolean) {state.hasMore = boolean; },
   setDestination(state, route) { state.destinationRoute = route; },
   setTopics(state, topics) { state.topics = topics; },
@@ -227,6 +230,7 @@ const actions = {
 
 
   // Other
+  toggleReplying(context, id) { context.commit('toggleReplying', id); },
   resetHasMore(context) { context.commit('hasMore', true); },
   setDestination(context, route) { context.commit('setDestination', route); },
   setLogout(context, route) { context.commit('setLogout', route); },

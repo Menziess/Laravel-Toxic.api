@@ -1,12 +1,15 @@
 <template>
   <div class="panel-content">
-    <input class="form-control"
-      :placeholder="placeholder ? placeholder : 'www...'"
-      :maxlength="maxlength"
-      autofocus="autofocus"
-      v-model="url" 
-      type="url" 
-    >
+    <div class="inputs">
+
+      <input class="form-control"
+        :placeholder="placeholder ? placeholder : 'Enter url here...'"
+        :maxlength="maxlength"
+        autofocus="autofocus"
+        v-model="url" 
+        type="url" 
+      >
+    </div>
   </div>
 </template>
 
@@ -33,3 +36,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.inputs {
+  padding: 0.5em;
+  height: 272px;
+  width: 100%;
+}
+</style>

@@ -37,7 +37,12 @@
     name: 'posts',
     props: ['slug', 'id'],
     components: { PostView },
-		watch: { '$route': 'init', 'search': 'init' },
+
+		watch: { 
+			'$route': 'init', 
+			'search': 'init',
+		},
+
     data: () => ({ 
 			loading: false,
 			scrollPos: null

@@ -15,9 +15,8 @@
 		></Drawing>
 
 		<Linkbox v-if="attachment === 'url'" 
-			@hasInput="enableSubmit" 
+			@hasInput="enableSubmit"
 			ref="myLinkbox"
-			placeholder="www..."
 		></Linkbox>	
 
 		<!-- Buttons -->
@@ -31,7 +30,7 @@
 				Draw
 			</button>
 
-			<button disabled type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
+			<button type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
 				<i class="glyphicon glyphicon-paperclip"></i>
 			</button>
 
@@ -78,7 +77,7 @@
 					post: this.getForm(),
 				}).then(response => {
 					this.submitted = false;
-					this.$emit('submit');
+					this.$store.dispatch('toggleReplying', null);
 					this.$router.push({
 						name: 'post',
 						params: { slug: this.post.attributes.slug, id: this.post.id }

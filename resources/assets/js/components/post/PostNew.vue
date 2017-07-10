@@ -69,6 +69,12 @@
       Textbox,
 			Linkbox
     },
+		created() {
+			this.$store.dispatch('toggleReplying', -1);
+		},
+		destroyed() {
+			this.$store.dispatch('toggleReplying', null);
+		},
 		watch: {
 			attachment() {
 				this.enableSubmit(false);

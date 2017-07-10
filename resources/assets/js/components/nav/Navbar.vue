@@ -2,7 +2,8 @@
   <div class="navigation">
 
     <!-- New Post Mobile -->
-    <router-link :to="newRoute" tag="button" class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
+    <router-link :to="newRoute" tag="button" v-if="!this.$store.getters.replying"
+      class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
       title="Create a new post" v-on:click="checkLoggedIn()">
       <i class="glyphicon glyphicon-plus"></i>
     </router-link>

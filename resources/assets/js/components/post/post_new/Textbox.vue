@@ -38,7 +38,7 @@
 textarea {
   padding: 0.5em;
   resize: none;
-  height: 33vh;
+  height: 272px;
   width: 100%;
 
   outline: none;

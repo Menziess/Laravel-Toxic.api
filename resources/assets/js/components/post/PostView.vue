@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="postview">
     <div :class="[ischild ? 'panel-separator' : '']">
       <div :class="[ischild ? '' : ['panel', 'panel-default']]">
         <div>
@@ -14,13 +14,11 @@
           <!-- Attachments -->
           <Attachments 
             :post="post"
-            v-on:reply="replying = !replying"
           ></Attachments>
 
           <!-- Reply Form -->
-          <PostReply v-if="replying" 
+          <PostReply v-if="replying === post.id" 
             :post="post"
-            v-on:submit="replying = !replying"
           ></PostReply>
 
           <!-- Replies -->
@@ -53,9 +51,9 @@
       Drawing,
       Textbox
     },
-    data() {
-      return {
-        replying: false
+    computed: {
+      replying() {
+        return this.$store.getters.replying;
       }
     }
   }
