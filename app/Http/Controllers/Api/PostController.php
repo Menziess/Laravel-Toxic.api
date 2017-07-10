@@ -74,7 +74,12 @@ class PostController extends Controller
             $resource->title = $link->getTitle();
             $resource->description = $link->getDescription();
 
-            $filepath = $resource->uploadImagePath($link->getImage(), 522, 294, true);
+            if ($image = $link->getImage())
+            if (substr($image, 0, 4) !== "http") {
+                $realurl = $link->getRealUrl();
+                $image = $realurl->getScheme() . '://' . $realurl->getHost() . $image;
+            }
+            $filepath = $resource->uploadImagePath($image, 522, 294, true);
             
             if ($link instanceof VideoLink) {
                 $resource->embed = $link->getEmbedCode();
