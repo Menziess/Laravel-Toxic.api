@@ -121,7 +121,7 @@ class Resource extends Model
 		$this->url = self::generateName();
 		$this->type = self::TYPES[0];
 		$this->mime = $image->mime();
-		$this->extension = pathinfo($path, PATHINFO_EXTENSION)
+		$this->extension = '.' . pathinfo($path, PATHINFO_EXTENSION)
 			?: $this->getExtension($this->mime);
 		return self::storeImage($image);
 	}

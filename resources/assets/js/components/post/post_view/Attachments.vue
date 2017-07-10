@@ -32,9 +32,7 @@
 			<div class="clickable post-content" @click="clickGotoPost()">
 				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
 				<Drawing v-else-if="post.attributes.attachment === 'drawing'" :post="post"></Drawing>
-				<p v-else-if="post.attributes.attachment === 'url'">{{ post.attributes.url }}</p>
-				<p v-else-if="post.attributes.attachment === 'video'">{{ post.attributes.url }}</p>
-				<p v-else-if="post.attributes.attachment === 'image'">{{ post.attributes.url }}</p>
+				<Linkbox v-else-if="post.attributes.attachment === 'url'" :post="post"></Linkbox>
 			</div>
 
 			<!-- Buttons -->
@@ -50,12 +48,14 @@
 <script>
 import Drawing from './Drawing.vue';
 import Textbox from './Textbox.vue';
+import Linkbox from './Linkbox.vue';
 export default {
 	name: 'attachments',
 	props: ['post'],
 	components: {
 		Drawing,
-		Textbox
+		Textbox,
+		Linkbox
 	},
 	computed: {
 		me() {
