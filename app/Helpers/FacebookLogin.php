@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class FacebookLogin
 {
-	const FACEBOOK_SCOPES = ['public_profile', 'email', 'user_birthday', 'user_location'];
+	const FACEBOOK_SCOPES = ['public_profile', 'email' /*, 'user_birthday', 'user_location'*/];
 	const FACEBOOK_FIELDS = ['first_name', 'last_name', 'email', 'location', 'birthday', 'gender', 'updated_time'];
 
 	/**

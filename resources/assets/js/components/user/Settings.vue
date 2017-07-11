@@ -21,7 +21,32 @@
     <!-- Support -->
     <div v-if="!me" class="panel panel-default text-left">
       <div class="panel-body">
-        <h3>Please login 🕵️‍</h3>
+        <h3>🕵️‍👉<br><br>Please Login</h3>
+
+        <hr>
+
+        <h4 class="text-left">Why facebook login?</h4>
+        <ul class="privacy text-left">
+          <li>Most online platforms get swarmed by bots.</li>
+          <li>Bots can heavily influence popularity, direction and influence of posts.</li>
+          <li>It takes significantly more effort to generate lots of facebook bot accounts.</li>
+          <li>Your user profile is automatically created upon logging in.</li>
+        </ul>
+
+        <hr>
+
+        <h4 class="text-left">What about my privacy?</h4>
+        <ul class="privacy text-left">
+          <li><strong>Email:</strong> Like any registration, an email address is used to identify a user.</li>
+          <li><strong>Public Profile:</strong> Public profile data is used to create a user profile:
+            <ol class="privacy">
+              <li>Profile picture</li>
+              <li>First and last name</li>
+              <li>Gender</li>              
+            </ol>
+          </li>
+        </ul>
+
       </div>
     </div>
 
@@ -66,6 +91,9 @@ export default {
 </script>
 
 <style scoped>
+.privacy {
+  margin-left: 2em;
+}
 .panel-body {
   text-align: center;
 }
