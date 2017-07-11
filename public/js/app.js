@@ -1282,6 +1282,7 @@ var actions = {
 
   // Create
   new: function _new(data) {
+    console.log(data);
     return axios({
       method: 'post',
       url: data.endpoint,
@@ -13718,7 +13719,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	methods: {
 		authorized: function authorized(action) {
-			console.log(this.me);
 			this.me ? this[action]() : this.$router.push({ name: 'settings' });
 		},
 		myPost: function myPost() {

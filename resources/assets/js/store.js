@@ -166,6 +166,7 @@ const actions = {
 
   // Create
   new(data) {
+    console.log(data);
     return axios({
       method: 'post',
       url: data.endpoint,

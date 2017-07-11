@@ -79,7 +79,6 @@ export default {
 	},
 	methods: {
 		authorized(action) {
-			console.log((this.me));
       (this.me) ?
 				this[action]() :
 				this.$router.push({ name: 'settings' });
