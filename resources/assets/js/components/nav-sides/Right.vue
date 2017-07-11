@@ -3,7 +3,7 @@
 
     <!-- Post Options -->
     <div v-if="showPostOptions" class="row">
-      <div class="panel panel-default">
+      <div class="panel">
         <div class="panel-body">
           
 					<a v-if="showDeletePost"
@@ -16,7 +16,7 @@
 
     <!-- Login Options -->
     <div v-if="showLoginOptions">
-      <div class="panel panel-default">
+      <div class="panel">
         <div class="panel-body">
           
           <!-- Login -->

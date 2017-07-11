@@ -1,5 +1,5 @@
 <template>
-  <div class="panel panel-default text-center">
+  <div class="panel text-center">
     <img v-if="loading" width="100" height="100" src="/img/ticking.gif"></img>
     <h3 v-else class="min-height" v-text="message"></h3>
   </div>

@@ -3,7 +3,7 @@
 
     <!-- Popular Topics -->
     <div v-if="showPopularTopics" class="row">
-      <div class="panel panel-default">
+      <div class="panel">
         <div class="panel-body">
 
           <router-link v-for="topic in topics"

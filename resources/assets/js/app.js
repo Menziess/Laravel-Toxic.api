@@ -74,7 +74,7 @@ const routes = [
 /**
  * Router.
  */
-const history = domain_ext.content === "";
+const history = domain_ext.content === "/";
 
 const router = new VueRouter({
 	mode: history ? 'history' : '',

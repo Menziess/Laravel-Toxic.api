@@ -2,7 +2,7 @@
   <div class="col-md-6">
 
     <!-- User Details -->
-    <div class="panel panel-default">
+    <div class="panel">
       <div class="panel-body">
         <h1>{{ $route.params.slug }}</h1>
         <hr>

@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-6">
-    <div class="panel panel-default">
+    <div class="panel">
       <div class="panel-body">
         <router-link v-for="topic in topics"
           :key="topic.id"

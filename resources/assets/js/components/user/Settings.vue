@@ -2,7 +2,7 @@
   <div class="col-md-6">
 
     <!-- Settings -->
-    <div v-if="me" class="panel panel-default">
+    <div v-if="me" class="panel">
       <div class="panel-body">
         <div class="details">
           <div class="leftist">
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Support -->
-    <div v-if="!me" class="panel panel-default text-left">
+    <div v-if="!me" class="panel text-left">
       <div class="panel-body">
         <h3>🕵️‍👉&ensp;<a type="button" class="btn btn-primary" :href="login" role="menuitem">Login</a>
         <br><br>Please Login</h3>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Support -->
-    <div class="panel panel-default">
+    <div class="panel">
       <div class="panel-body">
         <p>Become a patreon and support the development and upkeep of this application!</p>
         <hr>
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Deactivate Account -->
-    <div v-if="me" class="panel panel-default">
+    <div v-if="me" class="panel">
       <div class="panel-body">
         <p>If you decide to no longer make use of this app, you may deactivate your account,
           which will hide your posts and profile information from other users.</p>
