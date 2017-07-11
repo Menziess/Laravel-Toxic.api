@@ -16,19 +16,21 @@
     props: ['placeholder'],
     data() {
       return {
+        text: this.$parent.text,
         maxlength: 255,
-        text: this.$parent.text
+        hasInput: false
       }
     },
     watch: {
-      'text': 'hasInput'
-    },
-    methods: {
-      hasInput() {
-        if (this.text.length !== 0)
-          this.$emit('hasInput', true);
-        else
-          this.$emit('hasInput', false);
+      text() {
+        if (this.text.length !== 0 && !this.hasInput) {
+          this.hasInput = true;
+          this.$emit('hasInput', this.hasInput);
+        }
+        if (this.text.length < 1) {
+          this.hasInput = false;
+          this.$emit('hasInput', this.hasInput)
+        }
       }
     }
   }

@@ -1282,7 +1282,6 @@ var actions = {
 
   // Create
   new: function _new(data) {
-    console.log(data);
     return axios({
       method: 'post',
       url: data.endpoint,
@@ -13171,7 +13170,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (!subject) {
 				subject = this.defaultSubject();
 			}
-			return subject.replace(/^[a-z0-9-]+$/, ' ');
+			return subject.replace(/[^a-zA-Z0-9]+/g, " ");
 		}
 	}
 });
@@ -13385,17 +13384,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       dragging: false,
       rect: null,
       radius: 2,
-      userHasDrawn: false
+      hasInput: false
     };
   },
 
   watch: {
-    'userHasDrawn': 'hasInput'
+    hasInput: function hasInput() {
+      this.$emit('hasInput', true);
+    }
   },
   methods: {
-    hasInput: function hasInput() {
-      if (this.hasInput) this.$emit('hasInput', true);else this.$emit('hasInput', false);
-    },
     start: function start(e) {
       // Make sure canvas is properly rendered
       if (this.canvas.width === 0) {
@@ -13418,7 +13416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var x = (e.screenX - this.rect.left) * this.canvas.width / this.rect.width;
         var y = (e.screenY - this.rect.top) * this.canvas.height / this.rect.height;
 
-        this.userHasDrawn = true;
+        this.hasInput = true;
         this.context.lineTo(x, y);
         this.context.stroke();
         this.context.beginPath();
@@ -13525,8 +13523,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	data: function data() {
 		return {
-			subject: null,
-			submitted: false,
 			attachment: "text",
 			submitEnabled: false
 		};
@@ -13575,16 +13571,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       maxlength: 255,
-      url: this.$parent.url
+      url: this.$parent.url,
+      hasInput: false
     };
   },
 
   watch: {
-    'url': 'hasInput'
-  },
-  methods: {
-    hasInput: function hasInput() {
-      if (this.url.length !== 0) this.$emit('hasInput', true);else this.$emit('hasInput', false);
+    url: function url() {
+      if (this.url.length !== 0 && !this.hasInput) {
+        this.hasInput = true;
+        this.$emit('hasInput', this.hasInput);
+      }
+      if (this.url.length < 1) {
+        this.hasInput = false;
+        this.$emit('hasInput', this.hasInput);
+      }
     }
   }
 });
@@ -13613,17 +13614,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['placeholder'],
   data: function data() {
     return {
+      text: this.$parent.text,
       maxlength: 255,
-      text: this.$parent.text
+      hasInput: false
     };
   },
 
   watch: {
-    'text': 'hasInput'
-  },
-  methods: {
-    hasInput: function hasInput() {
-      if (this.text.length !== 0) this.$emit('hasInput', true);else this.$emit('hasInput', false);
+    text: function text() {
+      if (this.text.length !== 0 && !this.hasInput) {
+        this.hasInput = true;
+        this.$emit('hasInput', this.hasInput);
+      }
+      if (this.text.length < 1) {
+        this.hasInput = false;
+        this.$emit('hasInput', this.hasInput);
+      }
     }
   }
 });

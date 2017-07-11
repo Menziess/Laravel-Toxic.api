@@ -56,8 +56,6 @@ export default {
 	},
 	data() {
 		return {
-			subject: null,
-			submitted: false,
 			attachment: "text",
 			submitEnabled: false
 		}

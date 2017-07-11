@@ -86,7 +86,7 @@ export default {
 			if (!subject) {
 				subject = this.defaultSubject();
 			}
-			return subject.replace(/^[a-z0-9-]+$/, ' ');
+			return subject.replace(/[^a-zA-Z0-9]+/g, " ");
 		}
 	}
 }

@@ -32,19 +32,15 @@
         dragging: false,
         rect: null,
         radius: 2,
-        userHasDrawn: false
+        hasInput: false
       }
     },
     watch: {
-      'userHasDrawn': 'hasInput'
+      hasInput() {
+        this.$emit('hasInput', true);        
+      }
     },
     methods: {
-      hasInput() {
-        if (this.hasInput)
-          this.$emit('hasInput', true);
-        else
-          this.$emit('hasInput', false);
-      },
       start(e) {
         // Make sure canvas is properly rendered
         if (this.canvas.width === 0) { this.init(); } 
@@ -65,7 +61,7 @@
           let x = (e.screenX - this.rect.left) * this.canvas.width / this.rect.width;
           let y = (e.screenY - this.rect.top) * this.canvas.height / this.rect.height;
 
-          this.userHasDrawn = true;
+          this.hasInput = true;
           this.context.lineTo(x, y);
           this.context.stroke();
           this.context.beginPath();

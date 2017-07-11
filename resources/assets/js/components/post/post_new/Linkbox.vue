@@ -23,18 +23,20 @@ export default {
   data() {
     return {
       maxlength: 255,
-      url: this.$parent.url
+      url: this.$parent.url,
+      hasInput: false
     }
   },
   watch: {
-    'url': 'hasInput'
-  },
-  methods: {
-    hasInput() {
-      if (this.url.length !== 0)
-        this.$emit('hasInput', true);
-      else
-        this.$emit('hasInput', false);
+    url() {
+      if (this.url.length !== 0 && !this.hasInput) {
+        this.hasInput = true;
+        this.$emit('hasInput', this.hasInput);
+      }
+      if (this.url.length < 1) {
+        this.hasInput = false;
+        this.$emit('hasInput', this.hasInput)
+      }
     }
   }
 }
