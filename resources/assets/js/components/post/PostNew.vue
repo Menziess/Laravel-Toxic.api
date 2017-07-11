@@ -84,7 +84,7 @@ export default {
 		},
 		getSubject(subject) {
 			if (!subject) {
-				return this.defaultSubject();
+				subject = this.defaultSubject();
 			}
 			return subject.replace(/^[a-z0-9-]+$/, ' ');
 		}
