@@ -1,15 +1,43 @@
 <template>
-  <div>
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-body">
+  <div class="col-md-6">
 
-          <!-- Support -->
-          <a class="btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
-
+    <!-- Settings -->
+    <div v-if="me" class="panel panel-default">
+      <div class="panel-body">
+        <div class="details">
+          <div class="leftist">
+            <img 
+              class="img-circle noselect image-border"
+              :src="me.picture"
+              :title="me.name" 
+              width="200px"
+              height="200px"
+            >
+          </div>
         </div>
       </div>
-		</div>
+    </div>
+
+    <!-- Support -->
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>Become a patreon and support the development and upkeep of this application!</p>
+        <hr>
+        <a class="btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+      </div>
+    </div>
+
+    <!-- Deactivate Account -->
+    <div v-if="me" class="panel panel-default">
+      <div class="panel-body">
+        <p>If you decide to no longer make use of this app, you may deactivate your account,
+          which will hide your posts and profile information from other users.</p>
+        <hr>
+        <a role="presentation" class="btn btn-danger" 
+          v-on:click.prevent="deleteUser()"
+        >Disable Account</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,11 +48,20 @@ export default {
     me() {
       return this.$store.getters.me;
     }
-  } 
+  },
+  methods: {
+    deleteUser() {
+      if (confirm("Delete account?"))
+      this.$store.dispatch('deleteUser', this.me.id);
+		}
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.panel-body {
+  text-align: center;
+}
 .btn-patreon {
   font-family: 'America', sans-serif;
   background-color: #F96854;

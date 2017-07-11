@@ -28,11 +28,6 @@
             v-on:click.prevent="submitLogout()"
           >Logout</a>
 
-          <!-- Delete Account -->
-          <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
-            v-on:click.prevent="deleteUser()"
-          >Disable Account</a>
-
           <form :action="logout" method="POST" style="display: none;" ref="logoutform">
             <input type="hidden" name="_token" :value="crsf_token">
           </form>
@@ -101,10 +96,6 @@ export default {
         endpoint: '/api/post/' + this.post.id,
         post: this.post,
       });
-		},
-    deleteUser() {
-      if (confirm("Delete account?"))
-      this.$store.dispatch('deleteUser', this.me.id);
 		}
   },
   mounted() {
