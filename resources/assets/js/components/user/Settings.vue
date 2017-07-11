@@ -19,6 +19,13 @@
     </div>
 
     <!-- Support -->
+    <div v-if="!me" class="panel panel-default text-left">
+      <div class="panel-body">
+        <h3>Please login 🕵️‍</h3>
+      </div>
+    </div>
+
+    <!-- Support -->
     <div class="panel panel-default">
       <div class="panel-body">
         <p>Become a patreon and support the development and upkeep of this application!</p>

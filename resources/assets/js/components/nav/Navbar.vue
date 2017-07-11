@@ -2,11 +2,11 @@
   <div class="navigation">
 
     <!-- New Post Mobile -->
-    <router-link :to="newRoute" tag="button" v-if="!this.$store.getters.replying"
+    <button v-if="!this.$store.getters.replying"
       class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
-      title="Create a new post" v-on:click="checkLoggedIn()">
+      title="Create a new post" v-on:click="authorized()">
       <i class="glyphicon glyphicon-plus"></i>
-    </router-link>
+    </button>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top"> 
@@ -23,10 +23,10 @@
         </router-link>-->
 
         <!-- New Post -->
-        <router-link :to="newRoute" tag="button" class="btn btn-success navbar-btn pull-right mobile-hidden"
-          title="Create a new post" v-on:click="checkLoggedIn()">
+        <button class="btn btn-success navbar-btn pull-right mobile-hidden"
+          title="Create a new post" v-on:click="authorized()">
           New
-        </router-link>
+        </button>
 
         <!-- Profile Picture -->
         <Picture></Picture>
@@ -56,22 +56,27 @@ export default {
     }
   },
   computed: {
+    me() {
+      return this.$store.getters.me;
+    },
     homeRoute() {
       return this.$route.name === 'home' ? '/trends' : '/';
     },
-    newRoute() {
-      return this.$route.name === 'new' ? '/' : 
-        this.$route.params.slug ? '/t/' + this.$route.params.slug + '/new' : '/t/general/new';
-    }
   },
   methods: {
     submitSearch() {
       alert(this.search);
     },
-    checkLoggedIn() {
-      if (!this.$store.getters.me) {
-        this.$store.dispatch('error', "You can draw and write, but you have to login in order to post.");
-        this.$router.push({ name: 'error' });
+    authorized() {
+      if (!this.me)
+      this.$router.push({ name: 'settings' });
+      else {
+        if (this.$route.name === 'new')
+          this.$router.push('/');
+        else if (this.$route.params.slug)
+          this.$router.push('/t/' + this.$route.params.slug + '/new') ;
+        else
+          this.$router.push('/t/general/new');
       }
     }
   }

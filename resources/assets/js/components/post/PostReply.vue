@@ -20,21 +20,21 @@
 		></Linkbox>	
 
 		<!-- Buttons -->
-		<div class="modal-footer">
+		<div class="panel-footer">
 
-			<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">
+			<button type="button" v-on:click="attachment = 'text'" class="btn btn-info">
 				Write
 			</button>
 
-			<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info pull-left">
+			<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info">
 				Draw
 			</button>
 
-			<button type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
+			<button type="button" v-on:click="attachment = 'url'" class="btn btn-info">
 				<i class="glyphicon glyphicon-paperclip"></i>
 			</button>
 
-			<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">Post</button>
+			<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">Post</button>
 		</div>
 	
 	</div>

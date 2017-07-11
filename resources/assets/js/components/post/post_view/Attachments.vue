@@ -11,11 +11,11 @@
 					height="48"
 				>
 			</router-link>
-			<li class="btn" @click="upvote()">
+			<li class="btn" @click="authorized('upvote')">
 				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
 			</li>
 			<span>{{ score }}</span>
-			<li class="btn" @click="downvote()">
+			<li class="btn" @click="authorized('downvote')">
 				<i :class="[{ 'clicked': disliked }, 'glyphicon glyphicon-menu-down']"></i>
 			</li>
 		</div>
@@ -36,10 +36,10 @@
 			</div>
 
 			<!-- Buttons -->
-			<button class="btn" data-toggle="modal" data-target="#postModal" @click="reply()"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
+			<button class="btn" data-toggle="modal" data-target="#postModal" @click="authorized('reply')"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
 			{{ post.attributes.replies_count || 0 }}&nbsp;
 
-			<button class="btn" @click="resend()"><i class="glyphicon glyphicon-repeat"></i></button>
+			<button class="btn" @click="authorized('resend')"><i class="glyphicon glyphicon-repeat"></i></button>
 			{{ post.attributes.resend_count || 0 }}&nbsp;
 		</div>
 
@@ -78,23 +78,23 @@ export default {
 		}
 	},
 	methods: {
-		authorized() {
-      return (this.me);
+		authorized(action) {
+			console.log((this.me));
+      (this.me) ?
+				this[action]() :
+				this.$router.push({ name: 'settings' });
     },
     myPost() {
       return this.me.id === this.post.attributes.user_id;
     },
 		reply() {
-			if (this.authorized) {
-				if (this.$store.getters.replying === this.post.id)
-					this.$store.dispatch('toggleReplying', null);
-				else
-					this.$store.dispatch('toggleReplying', this.post.id);
-			} 
-			else this.$router.push({ name: 'user' });
+			if (this.$store.getters.replying === this.post.id)
+				this.$store.dispatch('toggleReplying', null);
+			else
+				this.$store.dispatch('toggleReplying', this.post.id);
 		},
 		resend() {
-			alert("tba");
+			alert("tba");	
 		},
 		clickGotoPost() {
 			window.scrollTo(0, 0);

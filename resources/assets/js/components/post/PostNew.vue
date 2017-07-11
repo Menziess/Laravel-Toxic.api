@@ -7,8 +7,12 @@
 					<div class="input-group">
 						<span class="input-group-addon" id="subject-addon">/ t /</span>
 						<input type="text" class="form-control" v-model="subject" maxlength="60"
+							ref="subject"
 							aria-describedby="subject-addon"
 							:placeholder="defaultSubject()">
+						<div class="input-group-btn" @click="$refs.subject.value = ''">
+							<button class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
+						</div>
 					</div>
 				</div>
 				
@@ -32,15 +36,15 @@
 				<!-- Buttons -->
 				<div class="panel-footer">
 
-					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info pull-left">
+					<button type="button" v-on:click="attachment = 'text'" class="btn btn-info">
 						Write
 					</button>
 
-					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info pull-left">
+					<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info">
 						Draw
 					</button>
 
-					<button type="button" v-on:click="attachment = 'url'" class="btn btn-info pull-left">
+					<button type="button" v-on:click="attachment = 'url'" class="btn btn-info">
 						<i class="glyphicon glyphicon-paperclip"></i>
 					</button>
 
