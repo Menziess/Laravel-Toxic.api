@@ -46,7 +46,7 @@ Route::get('/templogout', function() {
 */
 
 Route::middleware('web')->group(function() {
-    
+
     Route::namespace('Auth')->group(function() {
         Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
         Route::post('/logout', 'LoginController@logout')->name('logout');
