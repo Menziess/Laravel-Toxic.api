@@ -51,6 +51,8 @@ Vue.component('left', Left);
  */
 const routes = [
 
+	{ path: '/t/:slug/new', name: 'new', component: PostNew },
+
 	{ path: '/t/:slug/:id?', name: 'post', component: Posts, props: true },
 
 	{ path: '/u/:slug?', name: 'user', component: User },
@@ -62,8 +64,6 @@ const routes = [
   { path: '/trends', name: 'trends', component: Trends }, 
 
 	{ path: '/error', name: 'error', component: ErrorPage },
-
-	{ path: '/new', name: 'new', component: PostNew },
 
   { path: '/', name: 'home', component: Posts }, 
 

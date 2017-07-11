@@ -60,7 +60,8 @@ export default {
       return this.$route.name === 'home' ? '/trends' : '/';
     },
     newRoute() {
-      return this.$route.name === 'new' ? '/' : '/new';
+      return this.$route.name === 'new' ? '/' : 
+        this.$route.params.slug ? '/t/' + this.$route.params.slug + '/new' : '/t/general/new';
     }
   },
   methods: {

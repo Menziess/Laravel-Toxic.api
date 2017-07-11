@@ -1,14 +1,17 @@
 <template>
   <div class="panel-content">
     <div class="inputs">
-
-      <input class="form-control"
-        :placeholder="placeholder ? placeholder : 'Enter url here...'"
-        :maxlength="maxlength"
-        autofocus="autofocus"
-        v-model="url" 
-        type="url" 
-      >
+      <div class="input-group">
+        <span class="input-group-addon" id="url-addon">url</span>
+        <input class="form-control"
+          aria-describedby="url-addon"
+          :placeholder="placeholder ? placeholder : 'Enter attachment url'"
+          :maxlength="maxlength"
+          autofocus="autofocus"
+          v-model="url" 
+          type="url" 
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -42,5 +45,8 @@ export default {
   padding: 0.5em;
   height: 272px;
   width: 100%;
+}
+.input-group {
+  margin: 4em;
 }
 </style>

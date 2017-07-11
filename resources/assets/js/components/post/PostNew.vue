@@ -8,7 +8,7 @@
 						<span class="input-group-addon" id="subject-addon">/ t /</span>
 						<input type="text" class="form-control" v-model="subject" maxlength="60"
 							aria-describedby="subject-addon"
-							:placeholder="this.$route.params.slug || defaultSubject()">
+							:placeholder="defaultSubject()">
 					</div>
 				</div>
 				
@@ -47,6 +47,7 @@
 					<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">
 						Post
 					</button>
+					<div class="clearfix"></div>
 				</div>
 			
 			</div>
@@ -113,6 +114,7 @@
 				}
 			},
 			defaultSubject() {
+				if (this.$route.params.slug) return this.$route.params.slug;
 				switch (this.attachment) {
 					case 'drawing':
 						return "Drawings";

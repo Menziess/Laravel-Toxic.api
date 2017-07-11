@@ -10,11 +10,9 @@
         >
         <!-- Embed -->
         <div v-else class="embed-responsive embed-responsive-16by9">
-          <div class="video">
-            <iframe type="text/html" width="640" height="390"
-              :src="'https://www.youtube.com/embed/' + embed + '?playlist=' + embed + 'rel=0&modestbranding=0&autohide=1&showinfo=0&controls=1'" 
-              frameborder="0"/>
-          </div>
+          <iframe type="text/html" width="640" height="390"
+            :src="'https://www.youtube.com/embed/' + embed + '?playlist=' + embed + 'rel=0&modestbranding=0&autohide=1&showinfo=0&controls=1'" 
+            frameborder="0"/>
         </div>
         <div class="image-info">
           <strong>{{ resource.attributes.title }}</strong>
@@ -50,5 +48,8 @@ export default {
   background-color: rgba(255,255,255,0.98);
   word-break: break-all;
   padding: 0.5em;
+}
+.embed-responsive {
+  background-color: black;
 }
 </style>
