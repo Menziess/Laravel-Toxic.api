@@ -43,13 +43,16 @@ export default {
   name: 'right',
   data() {
     return {
-      crsf_token: null,
-      login: null,
-      logout: null,
+      crsf_token: null
     }
   },
   computed: {
-
+    login() {
+      return this.$store.getters.loginRoute;
+    },
+    logout() {
+      return this.$store.getters.logoutRoute;
+    },
     me() {
       return this.$store.getters.me;
     },
@@ -80,7 +83,7 @@ export default {
       return this.showLogin || this.showUserSettings;
     },
     showLogin() {
-      return !this.me;
+      return !this.me && this.$route.name !== 'settings';
     },
     showUserSettings() {
       return this.me && this.$route.name === 'settings';
@@ -100,8 +103,6 @@ export default {
   },
   mounted() {
     this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
-    this.login = this.$store.getters.loginRoute;
-    this.logout = this.$store.getters.logoutRoute;
   }
 }
 </script>

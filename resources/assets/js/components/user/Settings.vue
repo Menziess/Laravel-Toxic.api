@@ -21,7 +21,9 @@
     <!-- Support -->
     <div v-if="!me" class="panel panel-default text-left">
       <div class="panel-body">
-        <h3>🕵️‍👉<br><br>Please Login</h3>
+        <h3>🕵️‍👉&ensp;<a type="button" class="btn btn-primary" :href="login" role="menuitem">Login</a>
+        <br><br>Please Login</h3>
+        
 
         <hr>
 
@@ -79,7 +81,10 @@ export default {
   computed: {
     me() {
       return this.$store.getters.me;
-    }
+    },
+    login() {
+      return this.$store.getters.loginRoute;
+    },
   },
   methods: {
     deleteUser() {

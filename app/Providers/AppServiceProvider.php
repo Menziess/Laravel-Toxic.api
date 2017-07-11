@@ -29,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
             
             // Create slug, then check if a topic exists with that slug
             $post->makeSlug();
-            $topic = Topic::firstOrNew(['slug' => $post->slug, 'subject' => $post->subject]);
+            $topic = Topic::firstOrNew(['slug' => $post->slug]);
+            $topic->subject = $post->subject;
             
             // If not persisted yet, assign user owner
             if ($topic->posts->count() < 1) {
