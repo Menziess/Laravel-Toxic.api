@@ -3,9 +3,13 @@
     <div class="panel panel-default" v-on:keyup.ctrl.enter="$refs.mySubmit.click()">
 
 				<!-- Subject -->				
-				<div class="panel-header">
-					<input type="text" class="form-control" v-model="subject" maxlength="60"
-						:placeholder="this.$route.params.slug || defaultSubject()">
+				<div class="panel-heading">
+					<div class="input-group">
+						<span class="input-group-addon" id="subject-addon">/ t /</span>
+						<input type="text" class="form-control" v-model="subject" maxlength="60"
+							aria-describedby="subject-addon"
+							:placeholder="this.$route.params.slug || defaultSubject()">
+					</div>
 				</div>
 				
 				<!-- Contents -->
@@ -23,7 +27,6 @@
 				<Linkbox v-if="attachment === 'url'" 
 					@hasInput="enableSubmit" 
 					ref="myLinkbox"
-					placeholder="www..."
 				></Linkbox>				
 
 				<!-- Buttons -->
@@ -41,7 +44,7 @@
 						<i class="glyphicon glyphicon-paperclip"></i>
 					</button>
 
-					<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary" ref="mySubmit">
+					<button :disabled="!submitEnabled" v-on:click="submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">
 						Post
 					</button>
 				</div>

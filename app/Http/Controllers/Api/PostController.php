@@ -71,8 +71,8 @@ class PostController extends Controller
 
         foreach ($parsed as $parserName => $link) {
             $resource->realurl = $link->getUrl();
-            $resource->title = $link->getTitle();
-            $resource->description = $link->getDescription();
+            $resource->title = utf8_decode($link->getTitle());
+            $resource->description = utf8_decode($link->getDescription());
 
             # If a image is given, otherwise a default is set
             if ($image = $link->getImage()) {

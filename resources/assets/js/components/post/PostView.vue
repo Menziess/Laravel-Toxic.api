@@ -16,7 +16,6 @@
         ></Attachments>
 
         <!-- Reply Form -->
-
         <div ref="postreply">
           <PostReply
             v-if="replying === post.id" 
