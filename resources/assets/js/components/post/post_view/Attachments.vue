@@ -1,6 +1,7 @@
 <template>
   <div class="details">
 
+		<!-- Left Side -->
 		<div class="leftist">
 			<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
 				<img 
@@ -20,6 +21,7 @@
 			</li>
 		</div>
 		
+		<!-- Right Mid Side -->
 		<div class="mid">
 			<router-link class="text" :to="'/u/' + this.post.relationships.user.attributes.slug">
 				<span><strong>{{ this.post.relationships.user.attributes.name }}</strong></span>

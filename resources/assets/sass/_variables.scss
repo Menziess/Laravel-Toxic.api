@@ -118,13 +118,17 @@ blockquote {
   }
 }
 
-// Navbar search element
+// Navbar
+nav {
+  @media all and (min-width: 500px) {
+    position: fixed !important;
+  }
+}
 .nav-search {
   @media only screen and (max-width: 500px) {
     margin: 8px 0px !important;
   }
 }
-
 
 /**
  * Images attachments.

@@ -86,8 +86,6 @@ export default {
 <style scoped>
 nav {
   background-color: rgba(255,255,255,0.9);
-  transform: translateZ(0);
-  position: fixed;
   width: 100vw;
 }
 .navigation {

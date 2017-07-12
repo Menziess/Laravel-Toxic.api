@@ -62,7 +62,7 @@
     </div>
 
     <!-- Deactivate Account -->
-    <div v-if="me" class="panel">
+    <div v-if="me" class="panel text-center">
       <div class="panel-body">
         <p>If you decide to no longer make use of this app, you may deactivate your account,
           which will hide your posts and profile information from other users.</p>

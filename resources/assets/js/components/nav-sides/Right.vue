@@ -2,36 +2,33 @@
   <div class="right">
 
     <!-- Post Options -->
-    <div v-if="showPostOptions" class="row">
-      <div class="panel">
-        <div class="panel-body">
-          
-					<a v-if="showDeletePost"
-             v-on:click="deletePost()" role="menuitem"
-          >Delete</a>
+    <div v-if="showPostOptions" class="panel">
+      <div class="panel-body">
+        
+        <!-- Delete Post -->
+        <a v-if="showDeletePost"
+            v-on:click="deletePost()" role="menuitem"
+        >Delete</a>
 
-        </div>
       </div>
     </div>
 
     <!-- Login Options -->
-    <div v-if="showLoginOptions">
-      <div class="panel">
-        <div class="panel-body">
-          
-          <!-- Login -->
-          <a v-if="showLogin" type="button" class="btn btn-success" :href="login" role="menuitem"
-          >Login</a>
+    <div v-if="showLoginOptions" class="panel text-center">
+      <div class="panel-body">
+        
+        <!-- Login -->
+        <a v-if="showLogin" type="button" class="btn btn-success" :href="login" role="menuitem"
+        >Login</a>
 
-          <!-- Logout -->
-          <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
-            v-on:click.prevent="submitLogout()"
-          >Logout</a>
+        <!-- Logout -->
+        <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
+          v-on:click.prevent="submitLogout()"
+        >Logout</a>
 
-          <form :action="logout" method="POST" style="display: none;" ref="logoutform">
-            <input type="hidden" name="_token" :value="crsf_token">
-          </form>
-        </div>
+        <form :action="logout" method="POST" style="display: none;" ref="logoutform">
+          <input type="hidden" name="_token" :value="crsf_token">
+        </form>
       </div>
     </div>
 
