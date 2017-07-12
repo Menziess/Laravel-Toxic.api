@@ -78,23 +78,15 @@ const history = domain_ext.content === "/";
 
 const router = new VueRouter({
 	mode: history ? 'history' : '',
+	query: { redirect: 'test' },
 	scrollBehavior: function(to, from, savedPosition) {
 		if (to.hash) {
 			return {selector: to.hash}
 		} else {
-			return { x: 0, y: 0 }
+			// return { x: 0, y: 0 }
 		}
 	},
   routes: routes
-});
-
-
-/**
- * Router behaviour.
- */
-router.beforeEach((to, from, next) => {
-  window.scrollTo(0, 0);
-	next();
 });
 
 

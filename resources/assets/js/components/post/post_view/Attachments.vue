@@ -29,8 +29,8 @@
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>-->
 
 			<!-- Post Content -->
-			<div class="clickable post-content" @click="clickGotoPost()">
-				<Textbox      v-if="post.attributes.attachment === 'text'" :text="post.attributes.text"></Textbox>
+			<div class="clickable post-content">
+				<Textbox      v-if="post.attributes.attachment === 'text'" :post="post"></Textbox>
 				<Drawing v-else-if="post.attributes.attachment === 'drawing'" :post="post"></Drawing>
 				<Linkbox v-else-if="post.attributes.attachment === 'url'" :post="post"></Linkbox>
 			</div>
@@ -94,13 +94,6 @@ export default {
 		},
 		resend() {
 			alert("tba");	
-		},
-		clickGotoPost() {
-			window.scrollTo(0, 0);
-			this.$router.push({ 
-				name: 'post',
-				params: { slug: this.post.attributes.slug, id: this.post.id }
-			});
 		},
 		upvote() {
 			this.$store.dispatch('like', {

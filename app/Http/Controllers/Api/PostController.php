@@ -81,9 +81,9 @@ class PostController extends Controller
                     $image = $realurl->getScheme() . '://' . $realurl->getHost() . $image;
                 }
                 $image = preg_replace('"\.jpg:large$"', '.jpg', $image);
-                $filepath = $resource->uploadImagePath($image, 522, 200, true);
+                $filepath = $resource->uploadImagePath($image, 522, 294, true);
             } else {
-                $filepath = $resource->uploadImagePath(asset('img/no-image.jpg'), 522, 200, true);
+                $filepath = $resource->uploadImagePath(asset('img/no-image.jpg'), 522, 294, true);
             }
             
             # Adds youtube embed

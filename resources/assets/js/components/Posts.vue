@@ -43,8 +43,11 @@
 			scrollPos: null
 		}),
 
+		mounted() {
+			this.init();			
+		},
+
 		created() { 
-			this.init();
     	window.addEventListener('scroll', this.handleScroll);
 		},
 
@@ -114,6 +117,7 @@
 					this.fetchDefault();
 				}
 				else this.loading = false;
+				this.handleScroll();
 			},
 
 			/**

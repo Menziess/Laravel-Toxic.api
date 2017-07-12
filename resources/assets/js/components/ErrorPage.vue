@@ -1,8 +1,8 @@
 <template>
   <div class="col-md-6">
-    <div class="panel">
 
-      <!-- Error -->
+    <!-- Error -->
+    <div class="panel">
       <div class="panel-body" v-if="error">
         <h1>Error</h1>
 
@@ -40,8 +40,21 @@
           Back
         </a>
       </div>
-
     </div>
+
+    <!-- Feedback -->
+    <div v-if="me" class="panel text-center">
+      <div class="panel-body">
+        <h3>🔨💀🔧
+        <br><br>Let me know what went wrong.</h3>
+        <p>I can read error reports all day, but sometimes it's more usefull to know what actually happened! Thank you.</p>
+        <hr>
+        <router-link to="/t/feedback/new" tag="button" class="btn btn-warning" role="menuitem">Give Feedback</router-link>
+
+      </div>
+    </div>
+
+
   </div>
 </template>
 

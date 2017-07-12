@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<p class="post-content">{{ text }}</p>
+	<div @click="checkout()">
+		<p class="post-content">{{ post.attributes.text }}</p>
 		<div class="clearfix"></div>
 	</div>
 </template>
@@ -8,6 +8,14 @@
 <script>
   export default {
     name: 'textbox',
-    props: ['text']
+    props: ['post'],
+    methods: {
+      checkout() {
+        this.$router.push({ 
+          name: 'post',
+          params: { slug: this.post.attributes.slug, id: this.post.id }
+        });
+      },
+    }
   }
 </script>

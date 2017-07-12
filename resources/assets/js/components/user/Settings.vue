@@ -20,7 +20,7 @@
 
     <!-- Support -->
     <div v-if="!me" class="panel text-left">
-      <div class="panel-body">
+      <div class="panel-body text-center">
         <h3>🕵️‍👉&ensp;<a type="button" class="btn btn-primary" :href="login" role="menuitem">Login</a>
         <br><br>Please Login</h3>
         
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Support -->
-    <div class="panel">
+    <div class="panel text-center">
       <div class="panel-body">
         <p>Become a patreon and support the development and upkeep of this application!</p>
         <hr>
@@ -98,9 +98,6 @@ export default {
 <style scoped>
 .privacy {
   margin-left: 2em;
-}
-.panel-body {
-  text-align: center;
 }
 .btn-patreon {
   font-family: 'America', sans-serif;

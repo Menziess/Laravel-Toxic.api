@@ -183,12 +183,14 @@ blockquote {
   @media only screen and (max-width: 500px) {
     background-color: transparent !important;
   }
-  -webkit-animation: move 0.4s ease;
-  -moz-animation: move 0.4s ease;
-  animation: move 0.4s ease;
-  @keyframes move {
-    25% {
-      transform: translateY(-0.4em);
+  @media all and (min-width: 500px) { 
+    -webkit-animation: move 0.4s ease;
+    -moz-animation: move 0.4s ease;
+    animation: move 0.4s ease;
+    @keyframes move {
+      25% {
+        transform: translateY(-0.4em);
+      }
     }
   }
 }
