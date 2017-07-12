@@ -6,6 +6,8 @@ use App\Helpers\JsonAble;
 use App\Helpers\SlugAble;
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+
 class Post extends Model implements SlugAble
 {
     use JsonAble;
@@ -43,7 +45,7 @@ class Post extends Model implements SlugAble
      * @var array
      */
     protected $appends = [
-        'drawing',
+        'drawing', 'replies_count',
     ];
 
 	/**
@@ -64,7 +66,7 @@ class Post extends Model implements SlugAble
     }
 
     /*
-	 * Post drawing.
+	 * Post drawing or attachment.
 	 */
 	public function resource()
 	{
@@ -72,7 +74,7 @@ class Post extends Model implements SlugAble
 	}
 
     /**
-     * Get the owner.
+     * Get post that has been replied to.
      */
     public function parent()
     {
@@ -80,15 +82,7 @@ class Post extends Model implements SlugAble
     }
 
     /**
-     * Get the owner.
-     */
-    public function replies()
-    {
-        return $this->hasMany('App\Post')->with('user');
-    }
-
-    /**
-     * Get the owner.
+     * Get related topic.
      */
     public function topic()
     {
@@ -96,7 +90,26 @@ class Post extends Model implements SlugAble
     }
 
     /**
-	 * Post liked by user.
+     * Get replies on post.
+     */
+    public function replies()
+    {
+        return $this->hasMany('App\Post')
+            ->with('user')
+            ->withConversations(6)
+            ->withLikes(Auth::id());
+    }
+
+    /**
+     * Get replies in the form of a conversation on post.
+     */
+    public function conversation()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    /**
+	 * Users who liked post.
 	 */
 	public function likes(int $type = null)
 	{
@@ -105,6 +118,34 @@ class Post extends Model implements SlugAble
 		return $query->withTimestamps();
 	}
 
+    /**
+     * Scope original posts. 
+     */
+    public function scopeOriginal($query)
+    {
+        return $query->whereNull('post_id');
+    }
+
+    /**
+     * Loads conversation replies.
+     */
+    public function scopeWithConversations($query, int $depth = 6)
+    {
+        if ($depth < 1) return $query; // Prevent endless depth of conversations
+        return $query->with(['conversation' => function($query) use ($depth) {
+            $query->withCount('likes')
+                ->orderBy('likes_count', 'desc')
+                ->with('user')
+                ->withCount('replies')
+                ->withConversations(--$depth)
+                ->withLikes(Auth::id())
+                ->take(1);
+        }]);
+    }
+
+    /**
+	 * Add like and dislike counts, as well as authenticated user like.
+	 */
     public function scopeWithLikes($query, int $userId = null)
     {
         $query->withCount(['likes', 'likes AS dislikes' => function($query) {
@@ -121,11 +162,11 @@ class Post extends Model implements SlugAble
     }
 
     /**
-     * Scope original posts. 
+     * Get reply count.
      */
-    public function scopeOriginal($query)
+    public function getRepliesCountAttribute()
     {
-        return $query->whereNull('post_id');
+        return $this->replies()->count();
     }
 
     /*

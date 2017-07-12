@@ -1,29 +1,25 @@
 <template>
-  <div>
+	<div class="col-md-6">
 
-		<div class="col-md-6">
+		<!-- Posts -->
+		<PostView 
+			v-for="post in posts"
+			v-if="post.relationships && post.relationships.user" 
+			:hidereplies="!atDetail"
+			:key="post.id"
+			:post="post"
+		></PostView>
 
-			<!-- Posts -->
-			<PostView 
-				v-for="post in posts"
-				v-if="post.relationships && post.relationships.user" 
-				:hidereplies="!atDetail"
-				:key="post.id"
-				:post="post"
-			></PostView>
+		<!-- Loading -->
+		<Loading v-if="!empty" :loading="loading" message="No more posts"></Loading>
 
-			<!-- Loading -->
-			<Loading v-if="!empty" :loading="loading" message="No more posts"></Loading>
-
-			<!-- Empty State -->
-			<div v-if="empty">
-				<div class="panel" style="text-align: center;">
-					<h3 class="text-center" style="margin: 10vw 0 10vw 0;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
-				</div>
+		<!-- Empty State -->
+		<div v-if="empty">
+			<div class="panel" style="text-align: center;">
+				<h3 class="text-center" style="margin: 10vw 0 10vw 0;">There doesn't seem to be anything here... Be the first one to make a post 😉</h3>
 			</div>
 		</div>
-
-  </div>
+	</div>
 </template>
 
 <script>
@@ -31,7 +27,6 @@
 	import Loading from './utils/Loading.vue';
 	import store from '../store';
   export default {
-    name: 'posts',
     props: ['slug', 'id'],
     components: {
 			PostView, 
@@ -145,6 +140,8 @@
 				}).then(response => {
 					this.empty = this.posts.length === 0;
 					this.loading = false;
+			console.log(this.posts);
+					
 				}).catch(error => {
 					this.$router.push({ name: 'error' });
 				});
