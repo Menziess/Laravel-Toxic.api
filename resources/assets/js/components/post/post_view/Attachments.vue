@@ -24,7 +24,6 @@
 			<router-link class="text" :to="'/u/' + this.post.relationships.user.attributes.slug">
 				<span><strong>{{ this.post.relationships.user.attributes.name }}</strong></span>
 			</router-link>
-			<br>
 			<span class="text">/u/{{ this.post.relationships.user.attributes.slug }}</span>
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>-->
 
@@ -36,11 +35,15 @@
 			</div>
 
 			<!-- Buttons -->
-			<button class="btn" data-toggle="modal" data-target="#postModal" @click="authorized('reply')"><i class="glyphicon glyphicon-share-alt reply"></i></button> 
-			{{ post.attributes.replies_count || 0 }}&nbsp;
+			<div class="button-bar">
+				<button class="btn" data-toggle="modal" data-target="#postModal" @click="authorized('reply')">
+					<i class="glyphicon glyphicon-share-alt reply"></i>
+				</button>{{ post.attributes.replies_count || 0 }}&nbsp;
 
-			<button class="btn" @click="authorized('resend')"><i class="glyphicon glyphicon-repeat"></i></button>
-			{{ post.attributes.resend_count || 0 }}&nbsp;
+				<button class="btn" @click="authorized('resend')">
+					<i class="glyphicon glyphicon-repeat"></i>
+				</button>{{ post.attributes.resend_count || 0 }}&nbsp;
+			</div>
 		</div>
 
   </div>
@@ -110,6 +113,9 @@ export default {
 </script>
 
 <style scoped>
+.button-bar {
+	margin-top: auto;
+}
 .post-content {
 	margin: 0.5em 0.5em 0 0;
 	font-size: initial;

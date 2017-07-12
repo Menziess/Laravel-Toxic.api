@@ -219,9 +219,11 @@ blockquote {
   order: 1;
 }
 .mid {
-  margin: 0 0 0 0.7em;
 	flex: 1;
   order: 2;
+  margin: 0 0 0 0.7em;
+  display: flex;
+  flex-direction: column;
 }
 .rightwing {
 	position: absolute;

@@ -8,6 +8,7 @@
           <img v-if="!embedSrc"
             class="image-drawing"
             @click="interact()"
+            :title="post.relationships.resource.attributes.realurl"
             :src="post.attributes.drawing"
           >
           <button v-if="embed && !embedSrc" class="btn-video" @click="interact()"><i class="glyphicon glyphicon-play"></i></button>
@@ -59,7 +60,7 @@ export default {
       });
     },
     loadVideo() {
-      this.embedSrc = 'https://www.youtube.com/embed/' + this.embed + '?playlist=' + this.embed + 'rel=0&autoplay=1&modestbranding=0&autohide=1&showinfo=0&controls=1';
+      this.embedSrc = 'https://www.youtube-nocookie.com/embed/' + this.embed + '?playlist=' + this.embed + 'rel=0&autoplay=1&modestbranding=0&autohide=1&showinfo=0&controls=1';
     },
     openLink() {
       window.location.href = this.post.relationships.resource.attributes.realurl;
@@ -71,23 +72,23 @@ export default {
 <style scoped>
 .glyphicon-play {
   color: #30cf4f !important;
+  font-size: xx-large;
   text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
 }
 .btn-video {
   position: absolute;
   bottom: 50%;
-  margin: 0px -37px -37px 0px;
-  width: 75px;
-  height: 75px;
+  margin: 0px -35px -35px 0px;
+  width: 70px;
+  height: 70px;
   right: 50%;
   border: 6px solid #30cf4f;
   border-radius: 50%;
   background-color: rgba(255,255,255,0.8);
-  font-size: 2em;
-  line-height: 1em;
   font-weight: bold;
   transition: all 0.3s ease;
   outline: none;
+  text-align: center;
 }
 .btn-video:hover {
   background-color: rgba(255,255,255,0.5);

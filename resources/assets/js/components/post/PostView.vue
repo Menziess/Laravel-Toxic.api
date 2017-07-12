@@ -63,7 +63,6 @@
     watch:  {
       replying() {
         if (this.replying !== this.post.id) return;
-        this.scrollTo(window, this.$refs.postreply.offsetTop - 50, 2000);
       }
     },
     computed: {
@@ -72,19 +71,6 @@
       },
       conversation() {
         return this.post.relationships.conversation;
-      }
-    },
-    methods: {
-      scrollTo(element, to, duration) {
-        if (duration <= 0) return;
-        const difference = to - element.scrollTop;
-        const perTick = difference / duration * 10;
-
-        setTimeout(function() {
-            element.scrollTop = element.scrollTop + perTick;
-            if (element.scrollTop === to) return;
-            scrollTo(element, to, duration - 10);
-        }, 10);
       }
     }
   }
