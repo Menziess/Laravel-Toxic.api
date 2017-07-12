@@ -140,8 +140,6 @@
 				}).then(response => {
 					this.empty = this.posts.length === 0;
 					this.loading = false;
-			console.log(this.posts);
-					
 				}).catch(error => {
 					this.$router.push({ name: 'error' });
 				});

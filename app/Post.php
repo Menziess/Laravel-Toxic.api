@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Http\Request;
 use App\Helpers\JsonAble;
 use App\Helpers\SlugAble;
 use Illuminate\Database\Eloquent\Model;
@@ -95,9 +96,11 @@ class Post extends Model implements SlugAble
     public function replies()
     {
         return $this->hasMany('App\Post')
+            ->withCount('likes')
+            ->orderBy('likes_count', 'desc')
             ->with('user')
-            ->withConversations(6)
-            ->withLikes(Auth::id());
+            ->withConversations(4)
+            ->withLikes();
     }
 
     /**
@@ -129,7 +132,7 @@ class Post extends Model implements SlugAble
     /**
      * Loads conversation replies.
      */
-    public function scopeWithConversations($query, int $depth = 6)
+    public function scopeWithConversations($query, int $depth = 4)
     {
         if ($depth < 1) return $query; // Prevent endless depth of conversations
         return $query->with(['conversation' => function($query) use ($depth) {
@@ -138,15 +141,15 @@ class Post extends Model implements SlugAble
                 ->with('user')
                 ->withCount('replies')
                 ->withConversations(--$depth)
-                ->withLikes(Auth::id())
-                ->take(1);
+                ->withLikes()
+                ->get();
         }]);
     }
 
     /**
 	 * Add like and dislike counts, as well as authenticated user like.
 	 */
-    public function scopeWithLikes($query, int $userId = null)
+    public function scopeWithLikes($query)
     {
         $query->withCount(['likes', 'likes AS dislikes' => function($query) {
                 $query->where('type', 0);
@@ -154,9 +157,9 @@ class Post extends Model implements SlugAble
             ->withCount(['likes', 'likes AS likes' => function($query) {
                 $query->where('type', 1);
             }]);
-        if ($userId)
-            $query->with(['likes' => function($query) use ($userId) {
-                $query->where('id', $userId)->withPivot('type');
+        if (auth('api')->id())
+            $query->with(['likes' => function($query) {
+                $query->where('id', auth('api')->id())->withPivot('type');
             }]);
         return $query;
     }
