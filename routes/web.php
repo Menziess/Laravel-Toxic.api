@@ -35,6 +35,21 @@ Route::get('/templogout', function() {
 
 /*
 |--------------------------------------------------------------------------
+| Secure Routes
+|--------------------------------------------------------------------------
+|
+| After logging in, the authentication routes should be accessible for
+| registered users. 
+|
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/logs', 'HomeController@getLogs');
+    Route::delete('/logs', 'HomeController@deleteLogs');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 |
@@ -61,18 +76,8 @@ Route::middleware('web')->group(function() {
     Route::get('/{vue_capture?}', 'HomeController@index')
         ->where('vue_capture', '[\/\w\.-]*')
         ->name('home');
+
+    Route::get('{catchall}', 'HomeController@index')
+        ->name('home');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Secure Routes
-|--------------------------------------------------------------------------
-|
-| After logging in, the authentication routes should be accessible for
-| registered users. 
-|
-*/
-
-Route::middleware('auth')->group(function () {
-    //
-});
