@@ -58,9 +58,9 @@
       },
       putPoint(e) {
         if (this.dragging) {  
-          let x = (e.screenX - this.rect.left) * this.canvas.width / this.rect.width;
-          let y = (e.screenY - this.rect.top) * this.canvas.height / this.rect.height;
-
+          let x = (e.clientX - this.rect.left);
+          let y = (e.clientY - this.rect.top);
+          
           this.hasInput = true;
           this.context.lineTo(x, y);
           this.context.stroke();
