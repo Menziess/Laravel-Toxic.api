@@ -141,8 +141,7 @@ class Post extends Model implements SlugAble
                 ->with('user')
                 ->withCount('replies')
                 ->withConversations(--$depth)
-                ->withLikes()
-                ->get();
+                ->withLikes();
         }]);
     }
 

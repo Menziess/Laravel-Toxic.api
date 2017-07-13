@@ -60,7 +60,7 @@
         if (this.dragging) {  
           let x = (e.clientX - this.rect.left);
           let y = (e.clientY - this.rect.top);
-          
+
           this.hasInput = true;
           this.context.lineTo(x, y);
           this.context.stroke();
@@ -73,14 +73,6 @@
       },
       getDataUrl() {
         return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
-      },
-      renderDataUrl(drawing) {
-        let img = new Image;
-        let self = this;
-        img.onload = function() {
-          this.context.drawImage(img,0,0);
-        }
-        img.src = drawing;
       },
       init() {
         this.canvas.width = this.canvas.parentElement.clientWidth;
@@ -98,12 +90,3 @@
     }
   }
 </script>
-
-<style scoped>
-canvas.mouseDown:hover {
-  cursor: pointer;
-}
-canvas {
-  width: 100%;
-}
-</style>

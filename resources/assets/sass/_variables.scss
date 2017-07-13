@@ -139,6 +139,16 @@ nav {
 }
 
 /**
+ * Canvas.
+ */
+canvas.mouseDown:hover {
+  cursor: pointer;
+}
+canvas {
+  width: 100%;
+}
+
+/**
  * Profile picture.
  */
 .profile-pic {
@@ -147,7 +157,6 @@ nav {
   background-color: $body-bg;
   margin-top: -7px;
 }
-
 
 /**
  * Bootstrap overrides.
