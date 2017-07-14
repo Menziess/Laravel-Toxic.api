@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { Post, Drawing, Link } from './Models/Post';
+import Post from './Models/Post';
 
 Vue.use(Vuex);
 
@@ -110,31 +110,19 @@ const find = {
  * Helpers for manipulating posts.
  */
 const execute = {
-  objectifyJsonArray: jsonArray => { 
-    return jsonArray.map(jsonObject => { 
-      return execute.objectifyJsonObject(jsonObject);
-    }); 
-  },
-  objectifyJsonObject: jsonObject => {
-    if (jsonObject.attributes.attachment === 'drawing')
-      return new Drawing(jsonObject);
-    if (jsonObject.attributes.attachment === 'url')
-      return new Link(jsonObject);
-    return new Post(jsonObject);
-  },
+  objectifyJsonArray: jsonArray => jsonArray.map(post => new Post(post)),
   original(post) {
+    if (!post instanceof Post) throw Error('post instanceof Post');
     return (!post.parent);
   },
   slugSameAsSearch(slug) {
     return state.searchPosts[0] ?
       slug === state.searchPosts[0].slug : false;
   },
-  
   // Determines whether an id exists in any of the three views
   existsInView(id, view) {
     return find.indexById(state[view], id);
   },
-
   // Generic callback function applied to all posts with same id
   // that are found in any of the views defined in the view
   // array located at the top of this file.
@@ -143,11 +131,17 @@ const execute = {
     views.map(view => {
       index = execute.existsInView(id, view);
       if (index !== -1)
-        func(state[view][index]);
+        func(state[view], index);
     })
   },
 
-  addReplyDetailPage(post) {
+  addReplyDetailPage(post) {          //TODO
+    alert('tba');
+  },
+  deleteReplyDetailPage(post) {       //TODO
+    alert('tba');
+  },
+  updateLikesDetailPage(post) {       //TODO
     alert('tba');
   }
 }
@@ -156,35 +150,49 @@ const execute = {
  * Modifying store state.
  */
 const mutations = {
-  like(state, post) {
-    alert('tba');
-  },
-  dislike(state, post) {
-    alert('tba');
+  likeDislike(state, post) {
+    Post.parsePost(post);
+    if (execute.original(post)) {
+      execute.forEachViewHavingId(
+        post.id,
+        (array, index) => {
+          array[index].copyLikeDislike(post);
+        }
+      )
+    } else {
+      execute.updateLikesDetailPage(post);
+    }
   },
   delete(state, post) {
-    alert("tba");
-  },
-
-  // If it's not an original post, the reply count must
-  // be updated of the parent post for every view.
-  unshift(state, jsonPost) {
-    const post = execute.objectifyJsonObject(jsonPost);
-    if (!execute.original(post)) {
+    Post.parsePost(post);
+    if (execute.original(post)) {
       execute.forEachViewHavingId(
-        post.parent,
-        parent => parent.attributes.replies_count++
+        post.id,
+        (array, index) => {
+          array.splice(index, 1)
+        }
       )
-      execute.addReplyDetailPage(post);
     } else {
-      // It must be added to home and search views as a brand
-      // new copy of the original object!
-      if (execute.slugSameAsSearch(post.slug))
-        state.searchPosts.unshift(Object.assign({}, post));
-      state.posts.unshift(Object.assign({}, post));
+      execute.deleteReplyDetailPage(post);
     }
   },
 
+  // If it's an original post, it's added to views, else
+  // it's parents reply_count is updated in all views
+  unshift(state, jsonPost) {
+    const post = new Post(jsonPost);
+    if (execute.original(post)) {
+      if (execute.slugSameAsSearch(post.slug))
+        state.searchPosts.unshift(new Post(jsonPost));
+      state.posts.unshift(new Post(jsonPost));
+    } else {
+      execute.addReplyDetailPage(new Post(jsonPost));
+      execute.forEachViewHavingId(
+        post.parent,
+        (array, index) => array[index].attributes.replies_count++
+      )
+    }
+  },
   push(state, data) {
     state[data.name].push.apply(state[data.name], execute.objectifyJsonArray(data.collection)); 
   },
@@ -228,7 +236,7 @@ const actions = {
       url: 'api/post/like/' + data.id,
       data: data.type
     }).then(response => {
-      context.commit('like', data.id);
+      context.commit('likeDislike', response.data.data[0]);
     });
   },
   dislike(context, data) {
@@ -237,7 +245,7 @@ const actions = {
       url: 'api/post/dislike/' + data.id,
       data: data.type
     }).then(response => {
-      context.commit('dislike', data.id);
+      context.commit('likeDislike', response.data.data[0]);
     });
   },
   fetch(context, data) {

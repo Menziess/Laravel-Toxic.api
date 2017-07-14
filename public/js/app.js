@@ -1175,28 +1175,22 @@ var find = {
  */
 var execute = {
   objectifyJsonArray: function objectifyJsonArray(jsonArray) {
-    return jsonArray.map(function (jsonObject) {
-      return execute.objectifyJsonObject(jsonObject);
+    return jsonArray.map(function (post) {
+      return new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */](post);
     });
   },
-  objectifyJsonObject: function objectifyJsonObject(jsonObject) {
-    if (jsonObject.attributes.attachment === 'drawing') return new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* Drawing */](jsonObject);
-    if (jsonObject.attributes.attachment === 'url') return new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["b" /* Link */](jsonObject);
-    return new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["c" /* Post */](jsonObject);
-  },
   original: function original(post) {
+    if (!post instanceof __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */]) throw Error('post instanceof Post');
     return !post.parent;
   },
   slugSameAsSearch: function slugSameAsSearch(slug) {
     return state.searchPosts[0] ? slug === state.searchPosts[0].slug : false;
   },
 
-
   // Determines whether an id exists in any of the three views
   existsInView: function existsInView(id, view) {
     return find.indexById(state[view], id);
   },
-
 
   // Generic callback function applied to all posts with same id
   // that are found in any of the views defined in the view
@@ -1205,10 +1199,19 @@ var execute = {
     var index = -1;
     views.map(function (view) {
       index = execute.existsInView(id, view);
-      if (index !== -1) func(state[view][index]);
+      if (index !== -1) func(state[view], index);
     });
   },
   addReplyDetailPage: function addReplyDetailPage(post) {
+    //TODO
+    alert('tba');
+  },
+  deleteReplyDetailPage: function deleteReplyDetailPage(post) {
+    //TODO
+    alert('tba');
+  },
+  updateLikesDetailPage: function updateLikesDetailPage(post) {
+    //TODO
     alert('tba');
   }
 };
@@ -1217,31 +1220,40 @@ var execute = {
  * Modifying store state.
  */
 var mutations = {
-  like: function like(state, post) {
-    alert('tba');
-  },
-  dislike: function dislike(state, post) {
-    alert('tba');
+  likeDislike: function likeDislike(state, post) {
+    __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */].parsePost(post);
+    if (execute.original(post)) {
+      execute.forEachViewHavingId(post.id, function (array, index) {
+        array[index].copyLikeDislike(post);
+      });
+    } else {
+      execute.updateLikesDetailPage(post);
+    }
   },
   delete: function _delete(state, post) {
-    alert("tba");
+    __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */].parsePost(post);
+    if (execute.original(post)) {
+      execute.forEachViewHavingId(post.id, function (array, index) {
+        array.splice(index, 1);
+      });
+    } else {
+      execute.deleteReplyDetailPage(post);
+    }
   },
 
 
-  // If it's not an original post, the reply count must
-  // be updated of the parent post for every view.
+  // If it's an original post, it's added to views, else
+  // it's parents reply_count is updated in all views
   unshift: function unshift(state, jsonPost) {
-    var post = execute.objectifyJsonObject(jsonPost);
-    if (!execute.original(post)) {
-      execute.forEachViewHavingId(post.parent, function (parent) {
-        return parent.attributes.replies_count++;
-      });
-      execute.addReplyDetailPage(post);
+    var post = new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */](jsonPost);
+    if (execute.original(post)) {
+      if (execute.slugSameAsSearch(post.slug)) state.searchPosts.unshift(new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */](jsonPost));
+      state.posts.unshift(new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */](jsonPost));
     } else {
-      // It must be added to home and search views as a brand
-      // new copy of the original object!
-      if (execute.slugSameAsSearch(post.slug)) state.searchPosts.unshift(Object.assign({}, post));
-      state.posts.unshift(Object.assign({}, post));
+      execute.addReplyDetailPage(new __WEBPACK_IMPORTED_MODULE_2__Models_Post__["a" /* default */](jsonPost));
+      execute.forEachViewHavingId(post.parent, function (array, index) {
+        return array[index].attributes.replies_count++;
+      });
     }
   },
   push: function push(state, data) {
@@ -1304,7 +1316,7 @@ var actions = {
       url: 'api/post/like/' + data.id,
       data: data.type
     }).then(function (response) {
-      context.commit('like', data.id);
+      context.commit('likeDislike', response.data.data[0]);
     });
   },
   dislike: function dislike(context, data) {
@@ -1313,7 +1325,7 @@ var actions = {
       url: 'api/post/dislike/' + data.id,
       data: data.type
     }).then(function (response) {
-      context.commit('dislike', data.id);
+      context.commit('likeDislike', response.data.data[0]);
     });
   },
   fetch: function fetch(context, data) {
@@ -49753,14 +49765,7 @@ module.exports = __webpack_require__(19);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Post; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Drawing; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Link; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -49781,6 +49786,13 @@ var Post = function () {
   }
 
   _createClass(Post, [{
+    key: 'copyLikeDislike',
+    value: function copyLikeDislike(post) {
+      this.attributes.likes_count = post.attributes.likes_count;
+      this.attributes.dislikes_count = post.attributes.dislikes_count;
+      this.relationships.likes[0].relationships.pivot.attributes.type = post.relationships.likes[0].relationships.pivot.attributes.type;
+    }
+  }, {
     key: 'slug',
     get: function get() {
       return this.attributes.slug;
@@ -49790,41 +49802,22 @@ var Post = function () {
     get: function get() {
       return this.attributes.post_id;
     }
+  }, {
+    key: 'drawing',
+    get: function get() {
+      return this.attributes.drawing;
+    }
+  }], [{
+    key: 'parsePost',
+    value: function parsePost(data) {
+      if (!data instanceof Post) data = new self(data);
+    }
   }]);
 
   return Post;
 }();
 
-var Drawing = function (_Post) {
-  _inherits(Drawing, _Post);
-
-  function Drawing(data) {
-    _classCallCheck(this, Drawing);
-
-    return _possibleConstructorReturn(this, (Drawing.__proto__ || Object.getPrototypeOf(Drawing)).call(this, data));
-  }
-
-  _createClass(Drawing, [{
-    key: 'drawing',
-    get: function get() {
-      return this.attributes.drawing;
-    }
-  }]);
-
-  return Drawing;
-}(Post);
-
-var Link = function (_Post2) {
-  _inherits(Link, _Post2);
-
-  function Link(data) {
-    _classCallCheck(this, Link);
-
-    return _possibleConstructorReturn(this, (Link.__proto__ || Object.getPrototypeOf(Link)).call(this, data));
-  }
-
-  return Link;
-}(Post);
+/* harmony default export */ __webpack_exports__["a"] = (Post);
 
 /***/ })
 /******/ ]);

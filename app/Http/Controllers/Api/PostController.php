@@ -226,19 +226,26 @@ class PostController extends Controller
     private function likeOrDislike($id, $like)
     {
         // Check like or dislike
-        $user = Post::findOrFail($id)
+        $post = User::findOrFail(Auth::id())
             ->likes()
-            ->where('id', Auth::id())
+            ->where('id', $id)
             ->withPivot('type')
             ->get();
 
         // If no like or dislike
-        if (!count($user))
+        if (!count($post))
             User::findOrFail(Auth::id())->likes()->attach($id, ['type' => $like]);
         else
             User::findOrFail(Auth::id())->likes()->updateExistingPivot($id, ['type' => $like]);
-            
-        return response($user, 201);
+
+        $post = User::findOrFail(Auth::id())
+            ->likes()
+            ->where('id', $id)
+            ->withPivot('type')
+            ->withLikes($this->id)
+            ->get();
+
+        return response($post, 201);
     }
 
     /**

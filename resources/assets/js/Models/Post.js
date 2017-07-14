@@ -1,5 +1,5 @@
 
-export class Post {
+export default class Post {
   
   constructor(data) {
     if (data.type !== 'posts') 
@@ -22,20 +22,20 @@ export class Post {
   get parent() {
     return this.attributes.post_id;
   }
-}
-
-export class Drawing extends Post {
-  constructor(data) {
-    super(data);
-  }
 
   get drawing() {
     return this.attributes.drawing;
   }
-}
 
-export class Link extends Post {
-  constructor(data) {
-    super(data);
+  static parsePost(data) {
+    if (!data instanceof Post)
+      data = new self(data);
+  }
+
+  copyLikeDislike(post) {
+    this.attributes.likes_count = post.attributes.likes_count;
+    this.attributes.dislikes_count = post.attributes.dislikes_count;
+    this.relationships.likes[0].relationships.pivot.attributes.type 
+      = post.relationships.likes[0].relationships.pivot.attributes.type;
   }
 }
