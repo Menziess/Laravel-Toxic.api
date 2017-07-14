@@ -3,7 +3,7 @@
     <div v-if="post">
       <img 
         class="image-drawing image-border"
-        :src="post.drawing"
+        :src="post.attributes.drawing"
       >
     </div>
   </div>

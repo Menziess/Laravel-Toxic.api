@@ -156,7 +156,7 @@ const mutations = {
       execute.forEachViewHavingId(
         post.id,
         (array, index) => {
-          array[index].copyLikeDislike(post);
+          array[index].copyLikesDislikes(post);
         }
       )
     } else {

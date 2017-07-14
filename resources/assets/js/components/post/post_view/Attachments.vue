@@ -74,12 +74,10 @@ export default {
 			return (this.post.relationships.likes);
 		},
 		liked() {
-			return this.userHasLiked &&
-			this.post.relationships.likes[0].relationships.pivot.attributes.type == 1;
+			return this.userHasLiked && this.post.isLiked;
 		},
 		disliked() {
-			return this.userHasLiked && 
-			this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
+			return this.userHasLiked && this.post.isDisliked;
 		}
 	},
 	methods: {
