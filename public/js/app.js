@@ -1086,6 +1086,8 @@ module.exports = function bind(fn, thisArg) {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
+var views = ['posts', 'searchPosts', 'post'];
+
 /**
  * Store data.
  */
@@ -1188,34 +1190,23 @@ var execute = {
   slugSameAsSearch: function slugSameAsSearch(slug) {
     return state.searchPosts[0] ? slug === state.searchPosts[0].slug : false;
   },
-  existsInHome: function existsInHome(id) {
-    return find.indexById(state.posts, id);
+
+
+  // Determines whether an id exists in any of the three views
+  existsInView: function existsInView(id, view) {
+    return find.indexById(state[view], id);
   },
-  existsInSearch: function existsInSearch(id) {
-    return find.indexById(state.searchPosts, id);
-  },
-  existsInDetail: function existsInDetail(id) {
-    return find.indexById(state.post, id);
-  },
-  updateReplyCount: function updateReplyCount(post) {
-    var index = execute.existsInHome(post.parent);
-    if (index !== -1) {
-      var parent = state.posts[index];
-      parent.attributes.replies_count++;
-      state.posts[index] = parent;
-    }
-    index = execute.existsInSearch(post.parent);
-    if (index !== -1) {
-      var _parent = state.searchPosts[index];
-      _parent.attributes.replies_count++;
-      state.searchPosts[index] = _parent;
-    }
-    index = execute.existsInDetail(post.parent);
-    if (index !== -1) {
-      var _parent2 = state.post[index];
-      _parent2.attributes.replies_count++;
-      state.post[index] = _parent2;
-    }
+
+
+  // Generic callback function applied to all posts with same id
+  // that are found in any of the views defined in the view
+  // array located at the top of this file.
+  forEachViewHavingId: function forEachViewHavingId(id, func) {
+    var index = -1;
+    views.map(function (view) {
+      index = execute.existsInView(id, view);
+      if (index !== -1) func(state[view][index]);
+    });
   },
   addReplyDetailPage: function addReplyDetailPage(post) {
     alert('tba');
@@ -1235,17 +1226,22 @@ var mutations = {
   delete: function _delete(state, post) {
     alert("tba");
   },
+
+
+  // If it's not an original post, the reply count must
+  // be updated of the parent post for every view.
   unshift: function unshift(state, jsonPost) {
-    // If it's not an original post, the reply count must
-    // be updated of the parent post for every view.
     var post = execute.objectifyJsonObject(jsonPost);
     if (!execute.original(post)) {
-      execute.updateReplyCount(post);
+      execute.forEachViewHavingId(post.parent, function (parent) {
+        return parent.attributes.replies_count++;
+      });
       execute.addReplyDetailPage(post);
     } else {
-      // It must be added to home and search views
-      if (execute.slugSameAsSearch(post.slug)) state.searchPosts.unshift(post);
-      state.posts.unshift(post);
+      // It must be added to home and search views as a brand
+      // new copy of the original object!
+      if (execute.slugSameAsSearch(post.slug)) state.searchPosts.unshift(Object.assign({}, post));
+      state.posts.unshift(Object.assign({}, post));
     }
   },
   push: function push(state, data) {
@@ -12615,7 +12611,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				} else {
 					this.loading = false;
 				}
-			} else if (this.atSearch && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+			} else if (this.atSearch && (this.posts.length < 1 || this.posts[0].slug != this.slug)) {
 				this.$store.commit('replace', { name: 'searchPosts', collection: [] });
 				this.fetchSlug();
 			} else if (this.posts.length < 1) {

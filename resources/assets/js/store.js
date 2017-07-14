@@ -4,6 +4,8 @@ import { Post, Drawing, Link } from './Models/Post';
 
 Vue.use(Vuex);
 
+const views = ['posts', 'searchPosts', 'post'];
+
 /**
  * Store data.
  */
@@ -127,35 +129,24 @@ const execute = {
     return state.searchPosts[0] ?
       slug === state.searchPosts[0].slug : false;
   },
-  existsInHome(id) {
-    return find.indexById(state.posts, id);
+  
+  // Determines whether an id exists in any of the three views
+  existsInView(id, view) {
+    return find.indexById(state[view], id);
   },
-  existsInSearch(id) {
-    return find.indexById(state.searchPosts, id);
+
+  // Generic callback function applied to all posts with same id
+  // that are found in any of the views defined in the view
+  // array located at the top of this file.
+  forEachViewHavingId(id, func) {
+    let index = -1;
+    views.map(view => {
+      index = execute.existsInView(id, view);
+      if (index !== -1)
+        func(state[view][index]);
+    })
   },
-  existsInDetail(id) {
-    return find.indexById(state.post, id);
-  },
-  updateReplyCount(post) {
-    let index = execute.existsInHome(post.parent);
-    if (index !== -1) {
-      const parent = state.posts[index];
-      parent.attributes.replies_count++;
-      state.posts[index] = parent;
-    }
-    index = execute.existsInSearch(post.parent);
-    if (index !== -1) {
-      const parent = state.searchPosts[index];
-      parent.attributes.replies_count++;
-      state.searchPosts[index] = parent;
-    }
-    index = execute.existsInDetail(post.parent);
-    if (index !== -1) {
-      const parent = state.post[index];
-      parent.attributes.replies_count++;
-      state.post[index] = parent;
-    }
-  },
+
   addReplyDetailPage(post) {
     alert('tba');
   }
@@ -174,20 +165,26 @@ const mutations = {
   delete(state, post) {
     alert("tba");
   },
+
+  // If it's not an original post, the reply count must
+  // be updated of the parent post for every view.
   unshift(state, jsonPost) {
-    // If it's not an original post, the reply count must
-    // be updated of the parent post for every view.
     const post = execute.objectifyJsonObject(jsonPost);
     if (!execute.original(post)) {
-      execute.updateReplyCount(post);
+      execute.forEachViewHavingId(
+        post.parent,
+        parent => parent.attributes.replies_count++
+      )
       execute.addReplyDetailPage(post);
     } else {
-      // It must be added to home and search views
+      // It must be added to home and search views as a brand
+      // new copy of the original object!
       if (execute.slugSameAsSearch(post.slug))
-        state.searchPosts.unshift(post);
-      state.posts.unshift(post);
+        state.searchPosts.unshift(Object.assign({}, post));
+      state.posts.unshift(Object.assign({}, post));
     }
   },
+
   push(state, data) {
     state[data.name].push.apply(state[data.name], execute.objectifyJsonArray(data.collection)); 
   },

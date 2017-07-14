@@ -109,7 +109,7 @@
 						this.loading = false;
 					}
 				}
-				else if (this.atSearch && (this.posts.length < 1 || this.posts[0].attributes.slug != this.slug)) {
+				else if (this.atSearch && (this.posts.length < 1 || this.posts[0].slug != this.slug)) {
 					this.$store.commit('replace', { name: 'searchPosts', collection: [] });
 					this.fetchSlug();
 				}
