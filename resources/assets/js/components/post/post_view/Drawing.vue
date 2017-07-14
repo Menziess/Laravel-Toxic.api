@@ -3,7 +3,7 @@
     <div v-if="post">
       <img 
         class="image-drawing image-border"
-        :src="post.attributes.drawing"
+        :src="post.drawing"
       >
     </div>
   </div>
@@ -17,7 +17,7 @@
       checkout() {
         this.$router.push({ 
           name: 'post',
-          params: { slug: this.post.attributes.slug, id: this.post.id }
+          params: { slug: this.post.slug, id: this.post.id }
         });
       },
     }

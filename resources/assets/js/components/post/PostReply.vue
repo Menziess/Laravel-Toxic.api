@@ -27,11 +27,6 @@ export default {
 			}).then(response => {
 				this.submitted = false;
 				this.$store.dispatch('toggleReplying', null);
-				this.$router.push({
-					name: 'post',
-					params: { slug: this.post.attributes.slug, id: this.post.id }
-				});
-				window.scroll(0, 0);
 			}).catch(error => {
 				this.submitted = false;
 				this.$router.push({ name: 'error'});

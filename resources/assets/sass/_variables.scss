@@ -120,12 +120,12 @@ blockquote {
 
 // Navbar
 nav {
-  @media all and (min-width: 500px) {
+  @media all and (min-width: 768px) {
     position: fixed !important;
   }
 }
 .nav-search {
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 768px) {
     margin: 8px 0px !important;
   }
 }
@@ -166,7 +166,7 @@ canvas {
   color: black !important;
 }
 .mobile-new-button {
-  @media all and (min-width: 769px) {
+  @media all and (min-width: 768px) {
     display: none !important;
   }
 }
