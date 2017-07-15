@@ -121,19 +121,12 @@ const mutations = {
     }
   },
   delete(state, post) {
+    const func = (array, index) => array.splice(index, 1)    
     if (!Post.isPost(post)) post = new Post(post);
     if (execute.original(post)) {
-      execute.forEachViewHavingId(
-        post.id,
-        (array, index) => {
-          array.splice(index, 1)
-        }
-      )
+      execute.forEachViewHavingId(post.id, func);
     } else {
-      execute.repliesHavingId(
-        1,
-        () => {}
-      )
+      execute.repliesHavingId(post.id, func);
     }
   },
 
@@ -150,7 +143,12 @@ const mutations = {
       if (execute.idSameAsDetail(post.parent))
         state.post[0].replies.unshift(new Post(jsonPost));
       else
-        execute.addReplyToConversation(new Post(jsonPost));
+        execute.repliesHavingId(
+          post.parent, 
+          (array, index) => {
+            array[index].replaceConversation(new Post(jsonPost));
+          }
+        )
       execute.forEachViewHavingId(
         post.parent,
         (array, index) => array[index].attributes.replies_count++

@@ -156,9 +156,10 @@ class Post extends Model implements SlugAble
             ->withCount(['likes', 'likes AS likes' => function($query) {
                 $query->where('type', 1);
             }]);
-        if (auth('api')->id())
-            $query->with(['likes' => function($query) {
-                $query->where('id', auth('api')->id())->withPivot('type');
+        $id = auth('api')->id() ?: Auth::id();
+        if ($id)
+            $query->with(['likes' => function($query) use ($id) {
+                $query->where('id', $id)->withPivot('type');
             }]);
         return $query;
     }

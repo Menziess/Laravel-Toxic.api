@@ -10,7 +10,7 @@
 					:title="post.relationships.user.attributes.name" 
 					width="48"
 					height="48"
-				>
+				>{{ 'id: ' + post.id }}
 			</router-link>
 			<li class="btn" @click="authorized('upvote')">
 				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
@@ -74,10 +74,10 @@ export default {
 			return (this.post.relationships.likes);
 		},
 		liked() {
-			return this.userHasLiked && this.post.isLiked;
+			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 1;
 		},
 		disliked() {
-			return this.userHasLiked && this.post.isDisliked;
+			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
 		}
 	},
 	methods: {
