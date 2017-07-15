@@ -59,6 +59,7 @@
 			let name = this.atSearch ? 'searchPosts' : 'posts';			
 			this.$store.dispatch('resetHasMore');
 			this.cleanup(name);
+			this.loading = false;
 			next();
 		},
 
@@ -128,7 +129,7 @@
 				else this.loading = true;
 
 				if (this.atDetail)
-					this.fetchIdReplies();
+					this.fetchId();
 				else if (this.atSearch)
 					this.fetchSlug();
 				else
@@ -161,10 +162,10 @@
 				this.api('/api/post/' + this.slug, 'push', 'searchPosts');
 			},
 			fetchId() {
-				this.api('/api/post/' + this.id, 'replace', 'post');
-			},
-			fetchIdReplies() {
-				//@TODO: make endpoint this.api('/api/post/' + this.id + '@TODO', 'replace', 'post');
+				if (this.posts.length > 0) 
+				this.api('/api/post/' + this.id + '?skip=' + this.posts[0].relationships.replies.length + '&amount=14', 'pushReplies', 'post');
+				else
+				this.api('/api/post/' + this.id, 'push', 'post');
 			},
 			cleanup(name) {
 				this.$store.dispatch('cleanup', { 

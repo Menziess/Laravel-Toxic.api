@@ -47,6 +47,7 @@ const getters = {
   posts: state => { return state.posts; },
   postsLast: state => { return state.posts[state.posts.length - 1]; },
   post: state => { return state.post; },
+  postLast: state => { return state.post[0].replies[state.post[0].replies.length - 1]; },
   searchPosts: state => { return state.searchPosts; },
   searchPostsLast: state => { return state.searchPosts[state.searchPosts.length - 1]; },
   search: state => { return state.search; }, 
@@ -165,7 +166,14 @@ const mutations = {
     }
   },
   push(state, data) {
-    state[data.name].push.apply(state[data.name], execute.objectifyJsonArray(data.collection)); 
+    state[data.name].push.apply(
+      state[data.name], execute.objectifyJsonArray(data.collection)
+    );
+  },
+  pushReplies(state, data) {
+    state[data.name][0].relationships.replies.push.apply(
+      state[data.name][0].relationships.replies, execute.objectifyJsonArray(data.collection)
+    );
   },
   replace(state, data) { 
     state[data.name] = execute.objectifyJsonArray(data.collection);

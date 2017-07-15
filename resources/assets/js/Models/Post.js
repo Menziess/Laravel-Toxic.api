@@ -17,7 +17,7 @@ export default class Post {
   get isDisliked() { return this.relationships.likes[0].relationships.pivot.attributes.type == 0; }
 
   set likes(likes) { Vue.set(this.relationships, 'likes', likes); }
-
+  
   replaceConversation(post) {
     this.attributes.replies_count++;    
     Vue.set(this.relationships, 'conversation', [post]);

@@ -145,7 +145,7 @@ class PostController extends Controller
     public function slug($slug, $id = null, Request $request)
     {
         if ($id) {
-            return $this->show($id);
+            return $this->show($id, $request);
         }
 
         // Adding reply_count, likes_count and dislikes_count
@@ -164,12 +164,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        return Post::with(['user', 'replies', 'resource'])
+        $query = Post::with(['user', 'replies', 'resource'])
             ->withCount('replies')
             ->withLikes($this->id)
             ->findOrFail($id);
+            
+        $amount = $request->input('amount');
+        $skip = $request->input('skip');
+
+        if (!$amount)
+            return $query;
+        
+        return $this->finishQuery($query->replies()->skip($skip)->take($amount), $request);
     }
 
     /**
