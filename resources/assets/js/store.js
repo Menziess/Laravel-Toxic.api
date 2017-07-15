@@ -97,6 +97,7 @@ const execute = {
     })
   },
   repliesHavingId(id, func) {
+    if (state.post.length < 1) return;
     let index = -1;
     index = find.indexById(state.post[0].replies, id);
     if (index !== -1) {
@@ -130,25 +131,33 @@ const mutations = {
     }
   },
 
-  // If it's an original post, it's added to views, else
-  // it's parents reply_count is updated in all views
-  // and the reply is added to the post in detail.
+  /* 
+   * If it's an original post, it's added to views, else
+   * it's parents reply_count is updated in all views
+   * and the reply is added to the post in detail.
+   */
   unshift(state, jsonPost) {
+    // Convert to Post
     const post = new Post(jsonPost);
+    // Check if it's a new post
     if (execute.original(post)) {
+      // Add to home and search views
       if (execute.slugSameAsSearch(post.slug))
         state.searchPosts.unshift(new Post(jsonPost));
       state.posts.unshift(new Post(jsonPost));
+    // If it's a reply
     } else {
+      // And it's loaded in the detail view
       if (execute.idSameAsDetail(post.parent))
         state.post[0].replies.unshift(new Post(jsonPost));
-      else
-        execute.repliesHavingId(
-          post.parent, 
-          (array, index) => {
-            array[index].replaceConversation(new Post(jsonPost));
-          }
-        )
+      // Or if it's a reply to post on detail view
+      execute.repliesHavingId(
+        post.parent, 
+        (array, index) => {
+          array[index].replaceConversation(new Post(jsonPost));
+        }
+      )
+      // Also update replycount when it's a reply to original
       execute.forEachViewHavingId(
         post.parent,
         (array, index) => array[index].attributes.replies_count++
