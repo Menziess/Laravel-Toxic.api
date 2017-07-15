@@ -59,7 +59,6 @@
 			let name = this.atSearch ? 'searchPosts' : 'posts';			
 			this.$store.dispatch('resetHasMore');
 			this.cleanup(name);
-			this.loading = false;
 			next();
 		},
 
@@ -90,7 +89,7 @@
 			handleScroll() {
 				if (this.loading || !this.$store.getters.hasMore) return;
 				this.scrollPos = document.body.scrollHeight - window.innerHeight - document.body.scrollTop;   
-				if (this.scrollPos < 400) {
+				if (this.scrollPos < 200) {
 					this.infiniteScroll();
 				}
 			},

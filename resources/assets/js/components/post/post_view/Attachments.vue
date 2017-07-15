@@ -10,7 +10,7 @@
 					:title="post.relationships.user.attributes.name" 
 					width="48"
 					height="48"
-				>{{ 'id: ' + post.id }}
+				>
 			</router-link>
 			<li class="btn" @click="authorized('upvote')">
 				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
