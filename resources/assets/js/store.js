@@ -67,43 +67,6 @@ const find = {
       return element.id;
     }).indexOf(id);
   },
-  // addPost(array, post) {
-  //   // If top parent
-  //   if (!post.attributes.post_id) {
-  //     array.unshift(post); 
-  //   } 
-  //   // else reply to some parent
-  //   else {
-  //     const parentId = post.attributes.post_id;
-  //     const parent = find.elementById(array, parentId);
-      
-  //     if (!parent) return;
-
-  //     if (parent.relationships.replies) {
-  //       parent.relationships.replies.unshift(post);
-  //     } else {
-  //       parent.relationships.replies = [ post ];
-  //     }
-  //   }
-  // },
-  // deletePost(array, post) {
-  //   // If top parent
-  //   if (!post.attributes.post_id) {
-  //     const index = find.indexById(array, post.id);
-  //     array.splice(index, 1);
-  //   } 
-  //   // else delete some child
-  //   else {
-  //     const parentId = post.attributes.post_id;
-  //     const parent = find.elementById(array, parentId);
-
-  //     if (!parent) return;
-
-  //     const replies = parent.relationships.replies;
-  //     const index = find.indexById(replies, post.id);
-  //     replies.splice(index, 1);
-  //   }
-  // }
 }
 
 /**
@@ -112,16 +75,15 @@ const find = {
 const execute = {
   objectifyJsonArray: jsonArray => jsonArray.map(post => new Post(post)),
   original(post) {
-    if (!post instanceof Post) throw Error('post instanceof Post');
     return (!post.parent);
   },
   slugSameAsSearch(slug) {
     return state.searchPosts[0] ?
       slug === state.searchPosts[0].slug : false;
   },
-  // Determines whether an id exists in any of the three views
-  existsInView(id, view) {
-    return find.indexById(state[view], id);
+  idSameAsDetail(id) {
+    return state.post[0] ?
+      id === state.post[0].id : false;
   },
   // Generic callback function applied to all posts with same id
   // that are found in any of the views defined in the view
@@ -129,20 +91,19 @@ const execute = {
   forEachViewHavingId(id, func) {
     let index = -1;
     views.map(view => {
-      index = execute.existsInView(id, view);
+      index = find.indexById(state[view], id);
       if (index !== -1)
         func(state[view], index);
     })
   },
-
-  addReplyDetailPage(post) {          //TODO
-    alert('tba');
-  },
-  deleteReplyDetailPage(post) {       //TODO
-    alert('tba');
-  },
-  updateLikesDetailPage(post) {       //TODO
-    alert('tba');
+  repliesHavingId(id, func) {
+    let index = -1;
+    index = find.indexById(state.post[0].replies, id);
+    if (index !== -1) {
+      let post = state.post[0].replies[index];
+      if (!Post.isPost(post)) state.post[0].replies[index] = new Post(post);
+      func(state.post[0].replies, index);
+    }
   }
 }
 
@@ -151,20 +112,16 @@ const execute = {
  */
 const mutations = {
   likeDislike(state, post) {
-    Post.parsePost(post);
+    const func = (array, index) => array[index].copyLikesDislikes(post);
+    if (!Post.isPost(post)) post = new Post(post);
     if (execute.original(post)) {
-      execute.forEachViewHavingId(
-        post.id,
-        (array, index) => {
-          array[index].copyLikesDislikes(post);
-        }
-      )
+      execute.forEachViewHavingId(post.id, func);
     } else {
-      execute.updateLikesDetailPage(post);
+      execute.repliesHavingId(post.id, func);
     }
   },
   delete(state, post) {
-    Post.parsePost(post);
+    if (!Post.isPost(post)) post = new Post(post);
     if (execute.original(post)) {
       execute.forEachViewHavingId(
         post.id,
@@ -173,12 +130,16 @@ const mutations = {
         }
       )
     } else {
-      execute.deleteReplyDetailPage(post);
+      execute.repliesHavingId(
+        1,
+        () => {}
+      )
     }
   },
 
   // If it's an original post, it's added to views, else
   // it's parents reply_count is updated in all views
+  // and the reply is added to the post in detail.
   unshift(state, jsonPost) {
     const post = new Post(jsonPost);
     if (execute.original(post)) {
@@ -186,7 +147,10 @@ const mutations = {
         state.searchPosts.unshift(new Post(jsonPost));
       state.posts.unshift(new Post(jsonPost));
     } else {
-      execute.addReplyDetailPage(new Post(jsonPost));
+      if (execute.idSameAsDetail(post.parent))
+        state.post[0].replies.unshift(new Post(jsonPost));
+      else
+        execute.addReplyToConversation(new Post(jsonPost));
       execute.forEachViewHavingId(
         post.parent,
         (array, index) => array[index].attributes.replies_count++

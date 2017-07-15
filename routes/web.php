@@ -43,10 +43,10 @@ Route::get('/templogout', function() {
 |
 */
 
-Route::middleware('auth')->group(function () {
-    Route::get('/logs', 'HomeController@getLogs');
-    Route::delete('/logs', 'HomeController@deleteLogs');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/logs', 'HomeController@getLogs');
+//     Route::delete('/logs', 'HomeController@deleteLogs');
+// });
 
 /*
 |--------------------------------------------------------------------------

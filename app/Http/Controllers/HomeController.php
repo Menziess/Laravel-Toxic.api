@@ -28,42 +28,42 @@ class HomeController extends Controller
         return view('home')->with('topics', $topics);
     }
 
-    /*
- 	 * Show logs.
- 	 */
-	public function getLogs(Request $request)
-	{
-        if (\Auth::id() != 1) redirect('/'); 
-		$url = '../storage/logs/laravel.log';
-		$lines = null;
-		$file = [];
-		if (file_exists($url)) {
-			$file = file($url);
-			$length = count($file);
-			for ($i = 0; $i < 1000; $i++) {
-				$lines[$i] = $file[$length - ($i + 1)] . "\n";
-				if (preg_match("/Stack trace:/", $lines[$i])) {
-					break;
-				}
-			}
-			$lines = array_reverse($lines);
-		}
+    // /*
+ 	//  * Show logs.
+ 	//  */
+	// public function getLogs(Request $request)
+	// {
+    //     if (\Auth::id() != 1) redirect('/'); 
+	// 	$url = '../storage/logs/laravel.log';
+	// 	$lines = null;
+	// 	$file = [];
+	// 	if (file_exists($url)) {
+	// 		$file = file($url);
+	// 		$length = count($file);
+	// 		for ($i = 0; $i < 1000; $i++) {
+	// 			$lines[$i] = $file[$length - ($i + 1)] . "\n";
+	// 			if (preg_match("/Stack trace:/", $lines[$i])) {
+	// 				break;
+	// 			}
+	// 		}
+	// 		$lines = array_reverse($lines);
+	// 	}
 
-		return view('errors.logs', compact('lines'));
-	}
+	// 	return view('errors.logs', compact('lines'));
+	// }
 
-	/**
-	 * Delete logs.
-	 */
-	public function deleteLogs(Request $request)
-	{
-		if (\Auth::id() != 1) return;
-		$url = '../storage/logs/laravel.log';
-		$msg = 'No log file.';
-		if (file_exists($url)) {
-			unlink($url);
-			$msg = 'Logs cleared!';
-		}
-		return redirect('/logs')->with('message', $msg);		
-	}
+	// /**
+	//  * Delete logs.
+	//  */
+	// public function deleteLogs(Request $request)
+	// {
+	// 	if (\Auth::id() != 1) return;
+	// 	$url = '../storage/logs/laravel.log';
+	// 	$msg = 'No log file.';
+	// 	if (file_exists($url)) {
+	// 		unlink($url);
+	// 		$msg = 'Logs cleared!';
+	// 	}
+	// 	return redirect('/logs')->with('message', $msg);		
+	// }
 }
