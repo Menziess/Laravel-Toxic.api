@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'application',
-  props: ['me', 'facebooklogin', 'logout', 'destination', 'topics'],
+  props: ['me', 'sessions', 'destination', 'topics'],
   methods: {
     valid(value) {
       return (value && value != undefined && value != "undefined");
@@ -21,6 +21,8 @@ export default {
 
     let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     if (csrf_token) store.dispatch('setCsrfToken', csrf_token);
+
+    if (this.valid(this.sessions)) store.dispatch('setSessions', this.sessions);
 
     if (this.valid(this.me)) store.dispatch('setMe', this.me);
 

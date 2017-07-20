@@ -38,6 +38,9 @@
 <script>
 export default {
   name: 'right',
+  mounted() {
+    console.log(this.logout);
+  },
   computed: {
     logout() {
       return this.$store.getters.domainExt + '/logout';

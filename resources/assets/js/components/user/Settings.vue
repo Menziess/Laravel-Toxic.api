@@ -40,7 +40,7 @@
           <hr>
           <p>Become a patreon and support the development and upkeep of this application.</p>
           <hr>
-          <a class="btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+          <a class="btn btn-primary btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@ export default {
 <style scoped>
 .btn-patreon {
   font-family: 'America', sans-serif;
-  background-color: #F96854;
+  background-color: #F96854 !important;
   text-transform: uppercase;
   padding: 0.5rem 0.75rem;
   border: 1px solid #F96854;

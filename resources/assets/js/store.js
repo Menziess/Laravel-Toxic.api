@@ -22,7 +22,7 @@ const state = {
   post: [
 
   ],
-  errors: [
+  sessions: [
 
   ],
   error: null,
@@ -46,6 +46,7 @@ const getters = {
   destinationRoute: state => { return state.destinationRoute; },
   topics: state => { return state.topics; },
   error: state => { return state.error; },
+  sessions: state => { return state.sessions; },
   hasMore: state => { return state.hasMore; },
   posts: state => { return state.posts; },
   postsLast: state => { return state.posts[state.posts.length - 1]; },
@@ -195,6 +196,7 @@ const mutations = {
   setDestination(state, route) { state.destinationRoute = route; },
   setDomainExt(state, route) { state.domainExt = route; },
   setCsrfToken(state, route) { state.csrfToken = route; },
+  setSessions(state, sessions) { state.sessions = sessions; },
   setSearch(state, search) { state.search = search; },
   setMe(state, me) { state.me = me; },
   error(state, error) { state.error = error; },
@@ -268,6 +270,7 @@ const actions = {
   setSearch(context, search) { context.commit('setSearch', search); },
   setTopics(context, topics) { context.commit('setTopics', topics); },
   setDomainExt(context, route) { context.commit('setDomainExt', route); },
+  setSessions(context, sessions) { context.commit('setSessions', sessions); },
   setCsrfToken(context, route) { context.commit('setCsrfToken', route); },
   setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
