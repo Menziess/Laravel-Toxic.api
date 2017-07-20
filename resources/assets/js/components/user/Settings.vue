@@ -18,54 +18,39 @@
       </div>
     </div>
 
-    <!-- Support -->
-    <div v-if="!me" class="panel text-left">
-      <div class="panel-body text-center">
-        <h3>🕵️‍👉&ensp;<a type="button" class="btn btn-primary" :href="login" role="menuitem">Login</a>
-        <br><br>Please Login</h3>
-        
+    <!-- Register -->
+    <Register :me="me"></Register>
+    
+    <!-- Login Options -->
+    <Login :me="me"></Login>
 
-        <hr>
-
-        <h4 class="text-left">Why facebook login?</h4>
-        <ul class="privacy text-left">
-          <li>Most online platforms get swarmed by bots.</li>
-          <li>Bots can heavily influence popularity, direction and influence of posts.</li>
-          <li>It takes significantly more effort to generate lots of facebook bot accounts.</li>
-          <li>Your user profile is automatically created upon logging in.</li>
-        </ul>
-
-        <hr>
-
-        <h4 class="text-left">What about my privacy?</h4>
-        <ul class="privacy text-left">
-          <li><strong>Email:</strong> Like any registration, an email address is used to identify a user.</li>
-          <li><strong>Public Profile:</strong> Public profile data is used to create a user profile:
-            <ol class="privacy">
-              <li>Profile picture</li>
-              <li>First and last name</li>
-              <li>Gender</li>              
-            </ol>
-          </li>
-        </ul>
-
-      </div>
-    </div>
+    <!-- Social Login -->
+    <Social :me="me"></Social>
 
     <!-- Support -->
     <div class="panel text-center">
+      <h3>Like What I Do?</h3>
+        
+      💬&ensp;<router-link to="/t/feedback">Give feedback</router-link>
+      <br>
+      💖&ensp;<a data-toggle="collapse" data-target="#support">Support me!</a>
+
       <div class="panel-body">
-        <p>Become a patreon and support the development and upkeep of this application!</p>
-        <hr>
-        <a class="btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+        <div id="support" class="collapse">
+          <hr>
+          <p>Become a patreon and support the development and upkeep of this application.</p>
+          <hr>
+          <a class="btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+        </div>
       </div>
     </div>
 
     <!-- Deactivate Account -->
     <div v-if="me" class="panel text-center">
+      <h3>Disable Account</h3>
       <div class="panel-body">
         <p>If you decide to no longer make use of this app, you may deactivate your account,
-          which will hide your posts and profile information from other users.</p>
+          all your information, including posts and profile data will be kept hidden until you login again.</p>
         <hr>
         <a role="presentation" class="btn btn-danger" 
           v-on:click.prevent="deleteUser()"
@@ -76,14 +61,19 @@
 </template>
 
 <script>
+import Register from './Register';
+import Social from './Social';
+import Login from './Login';
 export default {
   name: 'settings',
+  components: {
+    Register,
+    Social,
+    Login
+  },
   computed: {
     me() {
       return this.$store.getters.me;
-    },
-    login() {
-      return this.$store.getters.loginRoute;
     },
   },
   methods: {
@@ -96,9 +86,6 @@ export default {
 </script>
 
 <style scoped>
-.privacy {
-  margin-left: 2em;
-}
 .btn-patreon {
   font-family: 'America', sans-serif;
   background-color: #F96854;

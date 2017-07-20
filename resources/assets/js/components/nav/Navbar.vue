@@ -84,14 +84,6 @@ export default {
 </script>
 
 <style scoped>
-nav {
-  background-color: rgba(255,255,255,0.9);
-  width: 100vw;
-}
-.navigation {
-  margin-bottom: 2.1em;
-  height: 20px;
-}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: transparent !important;
 }

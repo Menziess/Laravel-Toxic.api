@@ -22,14 +22,19 @@ const state = {
   post: [
 
   ],
-  me: null,
+  errors: [
+
+  ],
+  error: null,
   search: null,
   hasMore: true,
   replying: null,
-  logoutRoute: null,
-  loginRoute: null,
   destinationRoute: null,
-  error: null,
+
+  domainExt: null,
+  csrfToken: null,
+  
+  me: null,
 };
 
 
@@ -39,8 +44,6 @@ const state = {
 const getters = {
   replying: state => { return state.replying; },
   destinationRoute: state => { return state.destinationRoute; },
-  logoutRoute: state => { return state.logoutRoute; },
-  loginRoute: state => { return state.loginRoute; },
   topics: state => { return state.topics; },
   error: state => { return state.error; },
   hasMore: state => { return state.hasMore; },
@@ -50,7 +53,11 @@ const getters = {
   postLast: state => { return state.post[0].replies[state.post[0].replies.length - 1]; },
   searchPosts: state => { return state.searchPosts; },
   searchPostsLast: state => { return state.searchPosts[state.searchPosts.length - 1]; },
-  search: state => { return state.search; }, 
+  search: state => { return state.search; },
+
+  domainExt: state => { return state.domainExt; }, 
+  csrfToken: state => { return state.csrfToken; }, 
+
   me: state => { return state.me; },
 };
 
@@ -184,10 +191,10 @@ const mutations = {
   },
   toggleReplying(state, id) { state.replying = id; },
   hasMore(state, boolean) {state.hasMore = boolean; },
-  setDestination(state, route) { state.destinationRoute = route; },
   setTopics(state, topics) { state.topics = topics; },
-  setLogout(state, route) { state.logoutRoute = route; },
-  setLogin(state, route) { state.loginRoute = route; },
+  setDestination(state, route) { state.destinationRoute = route; },
+  setDomainExt(state, route) { state.domainExt = route; },
+  setCsrfToken(state, route) { state.csrfToken = route; },
   setSearch(state, search) { state.search = search; },
   setMe(state, me) { state.me = me; },
   error(state, error) { state.error = error; },
@@ -258,10 +265,10 @@ const actions = {
   toggleReplying(context, id) { context.commit('toggleReplying', id); },
   resetHasMore(context) { context.commit('hasMore', true); },
   setDestination(context, route) { context.commit('setDestination', route); },
-  setLogout(context, route) { context.commit('setLogout', route); },
   setSearch(context, search) { context.commit('setSearch', search); },
   setTopics(context, topics) { context.commit('setTopics', topics); },
-  setLogin(context, route) { context.commit('setLogin', route); },
+  setDomainExt(context, route) { context.commit('setDomainExt', route); },
+  setCsrfToken(context, route) { context.commit('setCsrfToken', route); },
   setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
 };

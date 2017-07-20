@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'application',
-  props: ['me', 'login', 'logout', 'destination', 'topics'],
+  props: ['me', 'facebooklogin', 'logout', 'destination', 'topics'],
   methods: {
     valid(value) {
       return (value && value != undefined && value != "undefined");
@@ -16,11 +16,13 @@ export default {
   mounted() {
     const store = this.$store;
 
+    let domain_ext = document.head.querySelector('meta[name="domain_ext"]').content;
+    if (domain_ext) store.dispatch('setDomainExt', domain_ext);
+
+    let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
+    if (csrf_token) store.dispatch('setCsrfToken', csrf_token);
+
     if (this.valid(this.me)) store.dispatch('setMe', this.me);
-
-    if (this.valid(this.login)) store.dispatch('setLogin', this.login);
-
-    if (this.valid(this.logout)) store.dispatch('setLogout', this.logout);
 
     if (this.valid(this.topics)) store.dispatch('setTopics', this.topics);
 

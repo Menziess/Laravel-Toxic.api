@@ -60,17 +60,16 @@ Route::get('/templogout', function() {
 |
 */
 
+Auth::routes();
+
 Route::middleware('web')->group(function() {
 
     Route::namespace('Auth')->group(function() {
-        Route::get('/login', 'LoginController@redirectToFacebook')->name('login');
-        Route::post('/logout', 'LoginController@logout')->name('logout');
 
         Route::group(['prefix' => 'login'], function() {
-            Route::get('/facebook', 'LoginController@redirectToFacebook')->name('login.facebook');
+            Route::get('/facebook', 'LoginController@redirectToFacebook')->name('facebooklogin');
             Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
         });
-
     });
 
     Route::get('/{vue_capture?}', 'HomeController@index')

@@ -18,8 +18,8 @@
       <div class="panel-body">
         
         <!-- Login -->
-        <a v-if="showLogin" type="button" class="btn btn-success" :href="login" role="menuitem"
-        >Login</a>
+        <router-link v-if="showLogin" tag="button" class="btn btn-success" to="/settings"
+        >Login</router-link>
 
         <!-- Logout -->
         <a v-if="showUserSettings" role="presentation" class="btn btn-danger" 
@@ -27,7 +27,7 @@
         >Logout</a>
 
         <form :action="logout" method="POST" style="display: none;" ref="logoutform">
-          <input type="hidden" name="_token" :value="crsf_token">
+          <input type="hidden" name="_token" :value="$store.getters.csrfToken">
         </form>
       </div>
     </div>
@@ -38,17 +38,9 @@
 <script>
 export default {
   name: 'right',
-  data() {
-    return {
-      crsf_token: null
-    }
-  },
   computed: {
-    login() {
-      return this.$store.getters.loginRoute;
-    },
     logout() {
-      return this.$store.getters.logoutRoute;
+      return this.$store.getters.domainExt + '/logout';
     },
     me() {
       return this.$store.getters.me;
@@ -97,9 +89,6 @@ export default {
         post: this.post,
       });
 		}
-  },
-  mounted() {
-    this.crsf_token = document.head.querySelector('meta[name="csrf-token"]').content;
   }
 }
 </script>
