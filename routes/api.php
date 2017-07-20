@@ -20,8 +20,8 @@ Route::namespace('Api')->group(function() {
     Route::post('/log', 'ErrorController@log');
 
     // Login
-    // Route::post('/logout', 'LoginController@logout');
-    // Route::get('/login', 'LoginController@redirectToFacebook');
+    Route::post('/logout', 'LoginController@logout');
+    Route::post('/login', 'LoginController@login');
     
     // Post
     Route::get('post', 'PostController@index');

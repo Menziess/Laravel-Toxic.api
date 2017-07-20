@@ -60,16 +60,25 @@ Route::get('/templogout', function() {
 |
 */
 
-Auth::routes();
+Route::middleware(['web', 'guest'])->group(function() {
+    Route::namespace('Auth')->group(function() {
+        Route::post('/login', 'LoginController@login');    
+        Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('/password/reset', 'ResetPasswordController@reset');
+        Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+        Route::get('/register', 'RegisterController@showRegistrationForm')->name('register');
+        Route::post('/register', 'RegisterController@register@register');
+    });
+});
 
 Route::middleware('web')->group(function() {
-
     Route::namespace('Auth')->group(function() {
-
         Route::group(['prefix' => 'login'], function() {
             Route::get('/facebook', 'LoginController@redirectToFacebook')->name('facebooklogin');
             Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
         });
+        Route::post('/logout', 'LoginController@logout')->name('logout');
     });
 
     Route::get('/{vue_capture?}', 'HomeController@index')

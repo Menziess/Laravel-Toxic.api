@@ -7,7 +7,7 @@
       <br>
       <a type="button" class="btn btn-primary" :href="registerRoute">Create New Account</a>
       <br><br>
-      <a data-toggle="collapse" data-target="#reasons">Why?</a>
+      <a data-toggle="collapse" data-target="#reasons"><i class="glyphicon glyphicon-info-sign"></i></a>
 
       <!-- Collapse -->
       <div class="panel-body">
@@ -15,9 +15,9 @@
           <hr>
           <h4 class="text-left">You'll be able to:</h4>
           <ul class="text-left">
-            <li>Upvote</li>
-            <li>Downvote</li>
-            <li>Repost</li>
+            <li>Upvote&emsp;<i class="glyphicon glyphicon-menu-up"></i></li>
+            <li>Downvote&emsp;<i class="glyphicon glyphicon-menu-down"></i></li>
+            <li>Repost&emsp;<i class="glyphicon glyphicon-repeat"></i></li>
           </ul>
         </div>
       </div>
@@ -37,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.glyphicon-info-sign {
+  font-size: x-large;
+}
+</style>

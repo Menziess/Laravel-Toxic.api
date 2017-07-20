@@ -31,7 +31,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">    
 </head>
 <body>
-    <div id="app">
+    <div id="app" margin-bottom="20vh">
         @yield('content')
     </div>
 

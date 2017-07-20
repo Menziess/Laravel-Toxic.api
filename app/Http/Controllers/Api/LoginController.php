@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Helpers\FacebookLogin;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -29,6 +32,32 @@ class LoginController extends Controller
     public function __construct()
     {
       	$this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Attempt to log user in. 
+     *
+     * @return User
+     */
+    public function login(LoginUserRequest $request) 
+    {
+        if(\Auth::attempt([
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ], true)) {
+            return \Auth::user();
+        } else {
+            return response([
+                "message" => ["Something went wrong during authentication."]
+            ], 401);
+        }
+    }
+
+    /**
+     * Log user out.
+     */
+    public function logout(Request $request) {
+        \Auth::logout();
     }
 
     /**

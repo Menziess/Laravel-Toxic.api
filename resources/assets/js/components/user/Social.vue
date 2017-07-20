@@ -2,7 +2,7 @@
   <div v-if="!me" class="panel text-center">
     <h3>Privacy</h3>
       
-    🕵️‍&ensp;<a data-toggle="collapse" data-target="#privacy">Facebook Login</a>
+    🕵️‍&ensp;<a role="menuitem" data-toggle="collapse" data-target="#privacy">Facebook Login</a>
       
     <!-- Privacy -->
     <div class="panel-body">
@@ -26,7 +26,7 @@
           </li>
         </ul>
         <hr>
-        <p>Facebooks privacy statement: <a>https://www.facebook.com/help/223184117694507</a></p>
+        <p><a href="https://www.facebook.com/help/223184117694507">Facebooks privacy statement</a></p>
         <h3><a type="button" class="btn btn-primary facebook" :href="facebookLogin" role="menuitem">Facebook Login</a></h3>
       </div>
     </div>

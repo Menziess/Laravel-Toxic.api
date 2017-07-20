@@ -30,18 +30,11 @@
     <!-- Support -->
     <div class="panel text-center">
       <h3>Like What I Do?</h3>
-        
       💬&ensp;<router-link to="/t/feedback/new">Give feedback</router-link>
       <br>
-      💖&ensp;<a data-toggle="collapse" data-target="#support">Support me!</a>
-
+      💖&ensp;<a href="https://www.patreon.com/bePatron?u=4945387">Support me!</a>
       <div class="panel-body">
-        <div id="support" class="collapse">
-          <hr>
-          <p>Become a patreon and support the development and upkeep of this application.</p>
-          <hr>
-          <a class="btn btn-primary btn-patreon" href="https://www.patreon.com/bePatron?u=4945387" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
-        </div>
+        <!-- -->
       </div>
     </div>
 
@@ -84,16 +77,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.btn-patreon {
-  font-family: 'America', sans-serif;
-  background-color: #F96854 !important;
-  text-transform: uppercase;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #F96854;
-  color: #FFFFFF !important;
-  font-weight: 700;
-  transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1);
-}
-</style>

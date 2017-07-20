@@ -264,6 +264,16 @@ const actions = {
       context.commit('setMe', null);
     });
   },
+  login(context, credentials) { 
+    return axios({
+      method: 'post',
+      url: 'api/login',
+      data: credentials
+    }).then(response => {
+      context.commit('setMe', response.data.data[0].attributes);
+    });
+  },
+  setMe(context, me) { context.commit('setMe', me); },
   toggleReplying(context, id) { context.commit('toggleReplying', id); },
   resetHasMore(context) { context.commit('hasMore', true); },
   setDestination(context, route) { context.commit('setDestination', route); },
@@ -272,10 +282,8 @@ const actions = {
   setDomainExt(context, route) { context.commit('setDomainExt', route); },
   setSessions(context, sessions) { context.commit('setSessions', sessions); },
   setCsrfToken(context, route) { context.commit('setCsrfToken', route); },
-  setMe(context, me) { context.commit('setMe', me); },
   error(context, error) { context.commit('error', error); },
 };
-
 
 export default new Vuex.Store({
   state,
