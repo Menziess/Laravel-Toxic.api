@@ -11408,7 +11408,7 @@ Vue.component('left', __WEBPACK_IMPORTED_MODULE_11__components_nav_sides_Left_vu
 /**
  * Route components.
  */
-var routes = [{ path: '/t/:slug/new', name: 'new', component: __WEBPACK_IMPORTED_MODULE_3__components_post_PostNew_vue___default.a }, { path: '/t/:slug/:id?', name: 'post', component: __WEBPACK_IMPORTED_MODULE_7__components_Posts_vue___default.a, props: true }, { path: '/u/:slug?', name: 'user', component: __WEBPACK_IMPORTED_MODULE_10__components_User_vue___default.a }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components_user_Settings_vue___default.a }, { path: '/landing', name: 'landing', component: __WEBPACK_IMPORTED_MODULE_4__components_Landing_vue___default.a }, { path: '/trends', name: 'trends', component: __WEBPACK_IMPORTED_MODULE_6__components_Trends_vue___default.a }, { path: '/error', name: 'error', component: __WEBPACK_IMPORTED_MODULE_8__components_ErrorPage_vue___default.a }, { path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_7__components_Posts_vue___default.a }, { path: '*', name: '404', redirect: 'error' }];
+var routes = [{ path: '/t/:slug/new', name: 'new', component: __WEBPACK_IMPORTED_MODULE_3__components_post_PostNew_vue___default.a }, { path: '/t/:slug/:id?', name: 'post', component: __WEBPACK_IMPORTED_MODULE_7__components_Posts_vue___default.a, props: true }, { path: '/u/:slug?', name: 'user', component: __WEBPACK_IMPORTED_MODULE_10__components_User_vue___default.a }, { path: '/settings', name: 'settings', component: __WEBPACK_IMPORTED_MODULE_2__components_user_Settings_vue___default.a }, { path: '/landing', name: 'landing', component: __WEBPACK_IMPORTED_MODULE_4__components_Landing_vue___default.a }, { path: '/trends', name: 'trends', component: __WEBPACK_IMPORTED_MODULE_6__components_Trends_vue___default.a }, { path: '/error', name: 'error', component: __WEBPACK_IMPORTED_MODULE_8__components_ErrorPage_vue___default.a }, { path: '/', name: 'home', component: __WEBPACK_IMPORTED_MODULE_7__components_Posts_vue___default.a }, { path: '/register', name: 'register', redirect: '' }, { path: '/logout', name: 'logout', redirect: '' }, { path: '/login', name: 'login', redirect: '' }, { path: '*', name: '404', redirect: 'error' }];
 
 /**
  * Router.
@@ -12328,8 +12328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var store = this.$store;
 
     var domain_ext = document.head.querySelector('meta[name="domain_ext"]').content;
-    if (domain_ext === '/') domain_ext = '';
-    store.dispatch('setDomainExt', domain_ext);
+    if (domain_ext) store.dispatch('setDomainExt', domain_ext);
 
     var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     if (csrf_token) store.dispatch('setCsrfToken', csrf_token);
@@ -12930,7 +12929,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     logout: function logout() {
-      return this.$store.getters.domainExt + '/logout';
+      return this.$store.getters.domainExt + 'logout';
     },
     me: function me() {
       return this.$store.getters.me;
@@ -13953,7 +13952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['me'],
   computed: {
     passwordRequestRoute: function passwordRequestRoute() {
-      return this.$store.getters.domainExt + '/password/reset';
+      return this.$store.getters.domainExt + 'password/reset';
     },
     sessions: function sessions() {
       return this.$store.getters.sessions;
@@ -14004,7 +14003,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['me'],
   computed: {
     registerRoute: function registerRoute() {
-      return this.$store.getters.domainExt + '/register';
+      return this.$store.getters.domainExt + 'register';
     }
   }
 });
@@ -14153,7 +14152,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['me'],
   computed: {
     facebookLogin: function facebookLogin() {
-      return this.$store.getters.domainExt + '/login/facebook';
+      return this.$store.getters.domainExt + 'login/facebook';
     }
   }
 });
@@ -46285,7 +46284,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel text-center"
   }, [_c('h3', [_vm._v("Like What I Do?")]), _vm._v("\n      \n    💬 "), _c('router-link', {
     attrs: {
-      "to": "/t/feedback"
+      "to": "/t/feedback/new"
     }
   }, [_vm._v("Give feedback")]), _vm._v(" "), _c('br'), _vm._v("\n    💖 "), _c('a', {
     attrs: {

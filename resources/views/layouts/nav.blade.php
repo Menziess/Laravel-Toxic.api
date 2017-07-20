@@ -5,7 +5,7 @@
       <div class="container">
 
         <!-- Posts Feed -->
-        <a href="home" class="btn btn-secondary navbar-btn">
+        <a href="{{ Config::get('services.server.php_self') }}home" class="btn btn-secondary navbar-btn">
           <i class="glyphicon glyphicon-home"></i>&ensp;<span class="mobile-hidden">Home</span>
         </a>
 

@@ -52,7 +52,7 @@ export default {
   props: ['me'],
   computed: {
     passwordRequestRoute() {
-      return this.$store.getters.domainExt + '/password/reset';
+      return this.$store.getters.domainExt + 'password/reset';
     },
     sessions() {
       return this.$store.getters.sessions;

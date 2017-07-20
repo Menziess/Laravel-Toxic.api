@@ -65,7 +65,11 @@ const routes = [
 
 	{ path: '/error', name: 'error', component: ErrorPage },
 
-  { path: '/', name: 'home', component: Posts }, 
+	{ path: '/', name: 'home', component: Posts },
+	
+  { path: '/register', name: 'register', redirect: '' },
+  { path: '/logout', name: 'logout', redirect: '' },
+  { path: '/login', name: 'login', redirect: '' },
 
 	{ path: '*', name: '404', redirect: 'error' }
 	

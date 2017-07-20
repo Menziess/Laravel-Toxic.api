@@ -31,7 +31,7 @@
     <div class="panel text-center">
       <h3>Like What I Do?</h3>
         
-      💬&ensp;<router-link to="/t/feedback">Give feedback</router-link>
+      💬&ensp;<router-link to="/t/feedback/new">Give feedback</router-link>
       <br>
       💖&ensp;<a data-toggle="collapse" data-target="#support">Support me!</a>
 

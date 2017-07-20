@@ -17,8 +17,7 @@ export default {
     const store = this.$store;
 
     let domain_ext = document.head.querySelector('meta[name="domain_ext"]').content;
-    if (domain_ext === '/') domain_ext = '';
-    store.dispatch('setDomainExt', domain_ext);
+    if (domain_ext) store.dispatch('setDomainExt', domain_ext);
 
     let csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     if (csrf_token) store.dispatch('setCsrfToken', csrf_token);

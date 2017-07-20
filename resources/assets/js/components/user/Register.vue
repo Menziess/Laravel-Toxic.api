@@ -32,7 +32,7 @@ export default {
   props: ['me'],
   computed: {
     registerRoute() {
-      return this.$store.getters.domainExt + '/register';
+      return this.$store.getters.domainExt + 'register';
     }
   }
 }

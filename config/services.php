@@ -49,7 +49,7 @@ return [
 
     'server' => [
         'name' => $_SERVER['SERVER_NAME'],
-        'php_self' => preg_replace('/\/index.php/', '', $_SERVER['PHP_SELF']) ?: '/',
+        'php_self' => preg_replace('/\/index.php/', '', $_SERVER['PHP_SELF']) . '/' ?: '/',
     ],
 
 ];

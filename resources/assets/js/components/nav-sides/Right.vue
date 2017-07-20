@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     logout() {
-      return this.$store.getters.domainExt + '/logout';
+      return this.$store.getters.domainExt + 'logout';
     },
     me() {
       return this.$store.getters.me;

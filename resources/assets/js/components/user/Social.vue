@@ -39,7 +39,7 @@ export default {
   props: ['me'],
   computed: {
     facebookLogin() {
-      return this.$store.getters.domainExt + '/login/facebook';
+      return this.$store.getters.domainExt + 'login/facebook';
     }
   }
 }
