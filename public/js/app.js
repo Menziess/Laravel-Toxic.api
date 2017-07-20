@@ -12328,7 +12328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var store = this.$store;
 
     var domain_ext = document.head.querySelector('meta[name="domain_ext"]').content;
-    if (domain_ext) store.dispatch('setDomainExt', domain_ext);
+    if (domain_ext !== '/') store.dispatch('setDomainExt', domain_ext);
 
     var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     if (csrf_token) store.dispatch('setCsrfToken', csrf_token);
