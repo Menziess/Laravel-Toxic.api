@@ -95,6 +95,7 @@ export default {
       if (this.submitted) { return false; }
       this.submitted = true;
       axios({
+        withCredentials: true,
         method: 'post',
         url: 'api/login',
         data: {
@@ -103,11 +104,11 @@ export default {
           email: this.email
         }
       }).then(response => {
-        this.$store.dispatch('setMe', response.data.data[0].attributes);
-        this.submitted = false
+        this.$store.dispatch('setMe', response.data.data[0]);
+        this.submitted = false;
       }).catch(error => {
         this.errors = error.response.data.data;
-        this.submitted = false
+        this.submitted = false;
       });
     }
   }

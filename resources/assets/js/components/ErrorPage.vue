@@ -10,7 +10,7 @@
           {{ error }}
         </div>
 
-        <div v-else-if="me && me.slug === 'stefan-schenk'">
+        <div v-else-if="me && me.attributes.slug === 'stefan-schenk'">
           {{ error.name }}: {{ error.message }}
           <hr>
           <div v-if="error.stack">

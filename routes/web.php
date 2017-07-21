@@ -72,7 +72,7 @@ Route::middleware(['web', 'guest'])->group(function() {
     });
 });
 
-Route::middleware('web')->group(function() {
+Route::middleware(['web'])->group(function() {
     Route::namespace('Auth')->group(function() {
         Route::group(['prefix' => 'login'], function() {
             Route::get('/facebook', 'LoginController@redirectToFacebook')->name('facebooklogin');

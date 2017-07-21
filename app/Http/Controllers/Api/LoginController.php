@@ -25,26 +25,18 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-      	$this->middleware('guest')->except('logout');
-    }
-
-    /**
      * Attempt to log user in. 
      *
      * @return User
      */
     public function login(LoginUserRequest $request) 
     {
-        if(\Auth::attempt([
+        $loggedIn = \Auth::attempt([
             'email' => $request->input('email'),
             'password' => $request->input('password'),
-        ], true)) {
+        ], true);
+
+        if ($loggedIn) {
             return \Auth::user();
         } else {
             return response([

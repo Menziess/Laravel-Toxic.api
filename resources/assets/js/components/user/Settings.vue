@@ -2,21 +2,7 @@
   <div class="col-md-6">
 
     <!-- Settings -->
-    <div v-if="me" class="panel">
-      <div class="panel-body">
-        <div class="details">
-          <div class="leftist">
-            <img 
-              class="img-circle noselect image-border"
-              :src="me.picture"
-              :title="me.name" 
-              width="200px"
-              height="200px"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    <Picture :me="me"></Picture>
 
     <!-- Register -->
     <Register :me="me"></Register>
@@ -55,14 +41,16 @@
 
 <script>
 import Register from './Register';
+import Picture from './Picture';
 import Social from './Social';
 import Login from './Login';
 export default {
   name: 'settings',
   components: {
     Register,
+    Picture,
     Social,
-    Login
+    Login,
   },
   computed: {
     me() {
