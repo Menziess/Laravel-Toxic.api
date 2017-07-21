@@ -45,6 +45,7 @@ return [
 
 	'google' => [
 		'key' => env('GOOGLE_KEY'),
+        'captcha_client_secret' => env('GOOGLE_CAPTCHA_CLIENT_SECRET'),
 	],
 
     'server' => [

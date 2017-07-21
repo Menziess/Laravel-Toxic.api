@@ -68,7 +68,7 @@ Route::middleware(['web', 'guest'])->group(function() {
         Route::post('/password/reset', 'ResetPasswordController@reset');
         Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
         Route::get('/register', 'RegisterController@showRegistrationForm')->name('register');
-        Route::post('/register', 'RegisterController@register@register');
+        Route::post('/register', 'RegisterController@register');
     });
 });
 

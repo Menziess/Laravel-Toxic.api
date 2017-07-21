@@ -47,7 +47,28 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        \Log::info($data);
+
+
+        if ($data['g-recaptcha-response']) {
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $ch = curl_init($url);
+            $xml = "secret=" . \Config::get('services.google.captcha_client_secret') . "&response=" . $data['g-recaptcha-response'];
+
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $response = curl_exec($ch);
+            $response = json_decode($response);
+            curl_close($ch);
+        } 
+
+        $success = isset($response) ? $response->success : false;
+        $data['g-recaptcha-response'] = $success;
+
         return Validator::make($data, [
+            'g-recaptcha-response' => 'bail|required|accepted',
             'first_name' => 'required|string|max:100|regex:/^[(a-zA-Z\s-)]+$/u',
             'last_name' => 'required|string|max:100|regex:/^[(a-zA-Z\s-)]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
