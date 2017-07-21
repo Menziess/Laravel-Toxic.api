@@ -7,7 +7,7 @@
         <form class="form-horizontal" role="form">
 
           <!-- Email -->
-          <div :class="['input-group', emailError && email.length > 0 ? 'has-error' : '']">
+          <div :class="emailStyle">
             <span class="input-group-addon" id="email-addon">email</span>
             <input id="email" type="email" class="form-control" name="email" 
               aria-describedby="email-addon" v-model="email" required autofocus>
@@ -22,7 +22,7 @@
           <br>
 
           <!-- Password -->
-          <div :class="['input-group', passwordError && password.length > 0 ? 'has-error' : '']">
+          <div :class="passwordStyle">
             <span class="input-group-addon" id="password-addon">password</span>
             <input id="password" type="password" class="form-control" name="password" 
               aria-describedby="password-addon" required minlength=3 v-model="password">
@@ -30,11 +30,8 @@
 
           <br>
 
-          <span v-if="passwordFeedback" class="help-block">
-            <strong>{{ passwordFeedback }}</strong>
-          </span>
-          <span v-else-if="defaultFeedback" class="help-block">
-            <strong>{{ defaultFeedback }}</strong>
+          <span v-if="defaultFeedback || passwordFeedback" class="help-block">
+            <strong>{{ defaultFeedback || passwordFeedback }}</strong>
           </span>
 
           <br>
@@ -65,13 +62,31 @@ export default {
     password: '',
     email: '',
   }),
+  watch: {
+    email() { this.errors = null; },
+    password() { this.errors = null; }
+  },
   computed: {
+    passwordStyle() { 
+      return {
+        'input-group': true,
+        'has-error': (this.defaultFeedback || this.passwordFeedback) && !this.passwordError,
+        'has-warning': this.passwordError,
+      }
+    },
+    emailStyle() {
+      return {
+        'input-group': true,
+        'has-error': this.emailFeedback && !this.emailError,
+        'has-warning': this.emailError,
+      }
+    },
     defaultFeedback() { if (this.errors && !this.emailFeedback && !this.passwordFeedback) return this.errors.message[0]; },
     passwordFeedback() { if (this.errors && this.errors.hasOwnProperty('password')) return this.errors.password[0]; },
     emailFeedback() { if (this.errors && this.errors.hasOwnProperty('email')) return this.errors.email[0]; },
     passwordRequestRoute() { return this.$store.getters.domainExt + 'password/reset'; },
-    passwordError() { return this.password.length < 6; },
-    emailError() { return !validEmail(this.email); },
+    passwordError() { return this.password.length < 6 && this.email.length > 0; },
+    emailError() { return !validEmail(this.email) && this.email.length > 0; },
     disabled() { return this.passwordError || this.emailError; },
     sessions() { return this.$store.getters.sessions; }
   },
