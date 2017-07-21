@@ -65,10 +65,20 @@
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" 
                                 aria-describedby="password-confirm-addon" required>
                         </div>
+                        @if ($errors->has('password-confirm'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('password-confirm') }}</strong>
+                            </span>
+                        @endif
 
                         <br><div class="g-recaptcha" data-sitekey="6Lcd8ykUAAAAAJuxUhuwGlgDcZgw2vDuWXSaV_wB"
                             style="transform:scale(0.85);-webkit-transform:scale(0.85);transform-origin:0 0;-webkit-transform-origin:0 0;"
                             ></div>
+                        @if ($errors->has('recaptcha'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('recaptcha') }}</strong>
+                            </span>
+                        @endif
 
                         <br><div class="input-group">
                             <button

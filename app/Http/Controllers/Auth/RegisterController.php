@@ -62,10 +62,10 @@ class RegisterController extends Controller
         } 
 
         $success = isset($response) ? $response->success : false;
-        $data['g-recaptcha-response'] = $success;
+        $data['recaptcha'] = $success;
 
         return Validator::make($data, [
-            'g-recaptcha-response' => 'bail|required|accepted',
+            'recaptcha' => 'bail|required|accepted',
             'first_name' => 'required|string|max:100|regex:/^[(a-zA-Z\s-)]+$/u',
             'last_name' => 'required|string|max:100|regex:/^[(a-zA-Z\s-)]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
