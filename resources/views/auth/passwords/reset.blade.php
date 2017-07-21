@@ -1,8 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.static')
 
 @section('content')
-
-@include('layouts.nav')
 
 <div class="container">
 <div class="container">

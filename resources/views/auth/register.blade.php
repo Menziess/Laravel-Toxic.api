@@ -1,12 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.static')
 
 @section('head')
 <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 @endsection
 
 @section('content')
-
-@include('layouts.nav')
 
 <div class="container">
 <div class="container">
