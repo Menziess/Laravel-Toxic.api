@@ -47,9 +47,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        \Log::info($data);
-
-
         if ($data['g-recaptcha-response']) {
             $url = 'https://www.google.com/recaptcha/api/siteverify';
             $ch = curl_init($url);

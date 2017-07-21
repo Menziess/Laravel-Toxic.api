@@ -68,7 +68,9 @@
                                 aria-describedby="password-confirm-addon" required>
                         </div>
 
-                        <br><div class="g-recaptcha" data-sitekey="6Lcd8ykUAAAAAJuxUhuwGlgDcZgw2vDuWXSaV_wB"></div>
+                        <br><div class="g-recaptcha" data-sitekey="6Lcd8ykUAAAAAJuxUhuwGlgDcZgw2vDuWXSaV_wB"
+                            style="transform:scale(0.85);-webkit-transform:scale(0.85);transform-origin:0 0;-webkit-transform-origin:0 0;"
+                            ></div>
 
                         <br><div class="input-group">
                             <button
