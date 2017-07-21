@@ -4,6 +4,7 @@ namespace App;
 
 use App\Helpers\JsonAble;
 use App\Helpers\SlugAble;
+use App\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -183,5 +184,16 @@ class User extends Authenticatable implements SlugAble
             $this->resource->removeFromStorage();
 			$this->resource->delete();
         }
+	}
+
+	/**
+	 * Send the password reset notification.
+	 *
+	 * @param  string  $token
+	 * @return void
+	 */
+	public function sendPasswordResetNotification($token)
+	{
+		$this->notify(new ResetPassword($token));
 	}
 }
