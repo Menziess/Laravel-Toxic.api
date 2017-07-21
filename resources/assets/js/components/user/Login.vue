@@ -13,8 +13,10 @@
               aria-describedby="email-addon" v-model="email" required autofocus>
           </div>
 
-          <span class="help-block">
-            <strong>{{ emailError }}</strong>
+          <br>
+
+          <span v-if="emailFeedback" class="help-block">
+            <strong>{{ emailFeedback }}</strong>
           </span>
 
           <br>
@@ -26,8 +28,13 @@
               aria-describedby="password-addon" required minlength=3 v-model="password">
           </div>
 
-          <span v-if="passwordError" class="help-block">
-            <strong>{{ passwordError }}</strong>
+          <br>
+
+          <span v-if="passwordFeedback" class="help-block">
+            <strong>{{ passwordFeedback }}</strong>
+          </span>
+          <span v-else-if="defaultFeedback" class="help-block">
+            <strong>{{ defaultFeedback }}</strong>
           </span>
 
           <br>
@@ -52,13 +59,16 @@ export default {
   name: 'login',
   props: ['me'],
   data: () => ({
-    errors: [],
+    errors: null,
     submitted: false,
     remember: 'on',
     password: '',
     email: '',
   }),
   computed: {
+    defaultFeedback() { if (this.errors && !this.emailFeedback && !this.passwordFeedback) return this.errors.message[0]; },
+    passwordFeedback() { if (this.errors && this.errors.hasOwnProperty('password')) return this.errors.password[0]; },
+    emailFeedback() { if (this.errors && this.errors.hasOwnProperty('email')) return this.errors.email[0]; },
     passwordRequestRoute() { return this.$store.getters.domainExt + 'password/reset'; },
     passwordError() { return this.password.length < 6; },
     emailError() { return !validEmail(this.email); },
@@ -69,15 +79,21 @@ export default {
     submit() {
       if (this.submitted) { return false; }
       this.submitted = true;
-      this.$store.dispatch('login', {
-        remember: this.remember,
-        password: this.password,
-        email: this.email
-      }).then(
+      axios({
+        method: 'post',
+        url: 'api/login',
+        data: {
+          remember: this.remember,
+          password: this.password,
+          email: this.email
+        }
+      }).then(response => {
+        this.$store.dispatch('setMe', response.data.data[0].attributes);
         this.submitted = false
-      ).catch(
-        error => console.log(error)
-      );
+      }).catch(error => {
+        this.errors = error.response.data.data;
+        this.submitted = false
+      });
     }
   }
 }

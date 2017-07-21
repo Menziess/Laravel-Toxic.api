@@ -264,15 +264,6 @@ const actions = {
       context.commit('setMe', null);
     });
   },
-  login(context, credentials) { 
-    return axios({
-      method: 'post',
-      url: 'api/login',
-      data: credentials
-    }).then(response => {
-      context.commit('setMe', response.data.data[0].attributes);
-    });
-  },
   setMe(context, me) { context.commit('setMe', me); },
   toggleReplying(context, id) { context.commit('toggleReplying', id); },
   resetHasMore(context) { context.commit('hasMore', true); },

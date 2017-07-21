@@ -32,7 +32,7 @@
     @yield('head')
 </head>
 <body>
-    <div id="app" margin-bottom="20vh">
+    <div id="app" style="margin-bottom: 20vh;">
         @yield('content')
     </div>
 

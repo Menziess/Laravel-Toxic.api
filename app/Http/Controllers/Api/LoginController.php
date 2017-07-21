@@ -48,7 +48,7 @@ class LoginController extends Controller
             return \Auth::user();
         } else {
             return response([
-                "message" => ["Something went wrong during authentication."]
+                "message" => ["Password is incorrect."]
             ], 401);
         }
     }

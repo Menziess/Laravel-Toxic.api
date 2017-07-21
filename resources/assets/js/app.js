@@ -94,12 +94,15 @@ const router = new VueRouter({
 /**
  * Axios interceptor.
  */
+const caught = [401, 422];
 axios.interceptors.response.use(
 	response => {
 		return Promise.resolve(response);
 	}, error => {
-		store.dispatch('error', error);
+		if (caught.indexOf(error.response.status) !== -1) 
+			return Promise.reject(error);
 		router.replace({ name: 'error' });
+		store.dispatch('error', error);
 		return Promise.reject(error);
 	});
 
