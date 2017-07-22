@@ -60,8 +60,11 @@ class LoginController extends Controller
 
             $this->clearLoginAttempts($request);
 
-            if ($request->ajax())
-            return \Auth::user();
+            if ($request->ajax()) {
+                $user = \Auth::user();
+                $user->public_token = \Auth::user()->api_token;
+                return \Auth::user();
+            }
             return $this->authenticated($request, $this->guard()->user())
                     ?: redirect()->intended($this->redirectPath());
         }

@@ -190,6 +190,7 @@ const mutations = {
     if (state[data.name].length > 7)
     state[data.name] = state[data.name].splice(0, 7);
   },
+  cleanupAll(state) { state.post = []; state.posts = []; state.searchPosts = []; },
   toggleReplying(state, id) { state.replying = id; },
   hasMore(state, boolean) {state.hasMore = boolean; },
   setTopics(state, topics) { state.topics = topics; },
@@ -248,6 +249,7 @@ const actions = {
     });
   },
   cleanup(context, data) { context.commit('cleanup', data); },
+  cleanupAll(context) { context.commit('cleanupAll'); },
   delete(context, data) {
     return axios({
       method: 'delete',

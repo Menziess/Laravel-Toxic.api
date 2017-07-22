@@ -86,7 +86,7 @@ export default {
     passwordRequestRoute() { return this.$store.getters.domainExt + 'password/reset'; },
     passwordError() { return this.password.length < 6 && this.email.length > 0; },
     emailError() { return !validEmail(this.email) && this.email.length > 0; },
-    disabled() { return false;return this.passwordError || this.emailError; },
+    disabled() { return this.passwordError || this.emailError; },
     sessions() { return this.$store.getters.sessions; }
   },
   methods: {
@@ -104,15 +104,25 @@ export default {
         }
       }).then(response => {
         this.$store.dispatch('setMe', response.data);
+        this.setApiToken(response.data);
         this.submitted = false;
       }).catch(error => {
         this.errors = this.flattenErrors(error.response.data);
         this.submitted = false;
       });
     },
+    setApiToken(user) {
+      if (!user.public_token) return Error("Something went wrong during authorization.");
+      window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.public_token;
+      const api_token = document.head.querySelector('meta[name="api_token"]');
+      if (api_token) api_token.setAttribute('content', user.public_token);
+      this.refreshContent();
+    },
+    refreshContent() {
+      this.$store.dispatch('cleanupAll');
+    },
     flattenErrors(object) {
       for (const key in object) {
-        console.log(key);
         if (Array.isArray(object[key]))
         object[key] = object[key][0];
       }

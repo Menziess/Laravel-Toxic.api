@@ -76,12 +76,12 @@ export default {
     },
     showUserSettings() {
       return this.me && this.$route.name === 'settings';
-    },
-    submitLogout() {
-      this.$refs.logoutform.submit();
     }
   },
   methods: {
+    submitLogout() {
+      this.$refs.logoutform.submit();
+    },
     deletePost() {
       if (confirm("Delete post?"))
       this.$store.dispatch('delete', {
