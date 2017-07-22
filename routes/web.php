@@ -62,7 +62,7 @@ Route::get('/templogout', function() {
 
 Route::middleware(['web', 'guest'])->group(function() {
     Route::namespace('Auth')->group(function() {
-        Route::post('/login', 'loginController@login')->name('login');    
+        Route::post('/login', 'LoginController@login')->name('login');    
         Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
         Route::post('/password/reset', 'ResetPasswordController@reset');

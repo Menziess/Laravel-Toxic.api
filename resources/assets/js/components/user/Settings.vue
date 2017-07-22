@@ -18,7 +18,7 @@
       <h3>Like What I Do?</h3>
       💬&ensp;<router-link to="/t/feedback/new">Give feedback</router-link>
       <br>
-      💖&ensp;<a href="https://www.patreon.com/bePatron?u=4945387">Support me!</a>
+      💖&ensp;<a href="https://paypal.me/DevStefanSchenk">Support me!</a>
       <div class="panel-body">
         <!-- -->
       </div>
