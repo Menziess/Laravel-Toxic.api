@@ -36,6 +36,11 @@ class LoginUserRequest extends FormRequest
      */
     public function response(array $errors)
     {
-        return response($errors, 422);
+        if ($this->ajax()) {
+            return response($errors, 422);
+        } else {
+            return redirect('/settings')
+                ->with('errors', $errors);
+        }
     }
 }

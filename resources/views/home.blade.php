@@ -6,7 +6,7 @@
 <Application
 	destination="{{ Session::has('destination') ? Session::get('destination') : 'undefined' }}"
 	:topics="{{ json_encode($topics) }}"
-	:me="{{ Auth::check() ? Helpers::jsonify(Auth::user()) : 'undefined' }}"
+	:me="{{ Auth::check() ? Auth::user() : 'undefined' }}"
 	:sessions="{{ json_encode(Session::all()) }}"
 ></Application>
 

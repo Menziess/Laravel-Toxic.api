@@ -18,10 +18,6 @@ Route::namespace('Api')->group(function() {
 
     // Error
     Route::post('/log', 'ErrorController@log');
-
-    // Login
-    Route::post('/logout', 'LoginController@logout');
-    Route::post('/login', 'LoginController@login');
     
     // Post
     Route::get('post', 'PostController@index');

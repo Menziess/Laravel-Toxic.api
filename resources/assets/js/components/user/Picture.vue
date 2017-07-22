@@ -3,8 +3,8 @@
   <div class="panel-body">
     <img 
       class="img-circle image-border"
-      :src="me.attributes.picture"
-      :title="me.attributes.name" 
+      :src="me.picture"
+      :title="me.name" 
       width="200px"
       height="200px"
     >

@@ -30,8 +30,8 @@
 
           <br>
 
-          <span v-if="defaultFeedback || passwordFeedback" class="help-block">
-            <strong>{{ defaultFeedback || passwordFeedback }}</strong>
+          <span v-if="passwordFeedback" class="help-block">
+            <strong>{{ passwordFeedback }}</strong>
           </span>
 
           <br>
@@ -70,7 +70,7 @@ export default {
     passwordStyle() { 
       return {
         'input-group': true,
-        'has-error': (this.defaultFeedback || this.passwordFeedback) && !this.passwordError,
+        'has-error': this.passwordFeedback && !this.passwordError,
         'has-warning': this.passwordError,
       }
     },
@@ -81,13 +81,12 @@ export default {
         'has-warning': this.emailError,
       }
     },
-    defaultFeedback() { if (this.errors && !this.emailFeedback && !this.passwordFeedback) return this.errors.message[0]; },
-    passwordFeedback() { if (this.errors && this.errors.hasOwnProperty('password')) return this.errors.password[0]; },
-    emailFeedback() { if (this.errors && this.errors.hasOwnProperty('email')) return this.errors.email[0]; },
+    passwordFeedback() { if (this.errors && this.errors.hasOwnProperty('password')) return this.errors.password; },
+    emailFeedback() { if (this.errors && this.errors.hasOwnProperty('email')) return this.errors.email; },
     passwordRequestRoute() { return this.$store.getters.domainExt + 'password/reset'; },
     passwordError() { return this.password.length < 6 && this.email.length > 0; },
     emailError() { return !validEmail(this.email) && this.email.length > 0; },
-    disabled() { return this.passwordError || this.emailError; },
+    disabled() { return false;return this.passwordError || this.emailError; },
     sessions() { return this.$store.getters.sessions; }
   },
   methods: {
@@ -97,19 +96,27 @@ export default {
       axios({
         withCredentials: true,
         method: 'post',
-        url: 'api/login',
+        url: 'login',
         data: {
           remember: this.remember,
           password: this.password,
           email: this.email
         }
       }).then(response => {
-        this.$store.dispatch('setMe', response.data.data[0]);
+        this.$store.dispatch('setMe', response.data);
         this.submitted = false;
       }).catch(error => {
-        this.errors = error.response.data.data;
+        this.errors = this.flattenErrors(error.response.data);
         this.submitted = false;
       });
+    },
+    flattenErrors(object) {
+      for (const key in object) {
+        console.log(key);
+        if (Array.isArray(object[key]))
+        object[key] = object[key][0];
+      }
+      return object;
     }
   }
 }
