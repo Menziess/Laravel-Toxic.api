@@ -5,6 +5,7 @@ namespace App;
 use App\Helpers\JsonAble;
 use App\Helpers\SlugAble;
 use App\Notifications\ResetPassword;
+use App\Notifications\VerifyAccount;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -195,5 +196,16 @@ class User extends Authenticatable implements SlugAble
 	public function sendPasswordResetNotification($token)
 	{
 		$this->notify(new ResetPassword($token));
+	}
+
+	/**
+	 * Send the account verification notification.
+	 *
+	 * @param  string  $token
+	 * @return void
+	 */
+	public function sendPasswordVerificationNotification($token)
+	{
+		$this->notify(new VerifyAccount($token));
 	}
 }

@@ -88,4 +88,18 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Verifies user account.
+     *
+     * @return Response
+     */
+    public function verify(string $token)
+    {
+        $user = User::where('confirmation_code', $token)->firstOrFail();
+        $user->confirmed = true;
+        $user->save();
+
+        return redirect('/');
+    }
 }

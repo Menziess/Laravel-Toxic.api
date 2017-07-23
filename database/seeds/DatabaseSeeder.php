@@ -12,5 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        App\User::create([
+            'first_name' => 'Anonymous',
+            'last_name' => 'User',
+            'email' => 't-o-x-i-c@outlook.com',
+        ]);
     }
 }

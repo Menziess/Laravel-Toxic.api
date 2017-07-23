@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
         User::creating(function ($user) {
             $user->makeSlug();
             $user->api_token = str_random(60);
+            $user->confirmation_code = str_random(30);
+            $user->sendPasswordVerificationNotification($user->confirmation_code);
         });
 
         User::deleting(function ($user) {

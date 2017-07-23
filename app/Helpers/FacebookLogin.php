@@ -44,6 +44,7 @@ class FacebookLogin
 			self::fillUser($user, $fb);			
 		} else {
 			$user = User::firstOrNew(['facebook_id' => $fb->id]);
+			$user->confirmed = true;
 			self::fillUser($user, $fb);
 		}
 
