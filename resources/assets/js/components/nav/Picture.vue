@@ -30,13 +30,16 @@ export default {
 </script>
 
 <style scoped>
-.navbar-brand {
-  padding: 14px 15px;
-}
 .badge {
+  animation: updown 3s infinite ease-in-out;
   background-color: orangered;
   position: absolute;
-  left: -6px;
+  right: 40px; 
   top: 25px;
+}
+@keyframes updown {
+  0% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+  100% { transform: translateY(-2px); }
 }
 </style>

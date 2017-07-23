@@ -5,7 +5,7 @@
       <p>You haven't activated your account yet, please check your mailbox (spam folder) for your activation mail,
         or click "Resend Activation Email" for a new activation link.</p>
       <hr>
-      <a role="presentation" class="btn btn-primary" 
+      <a role="presentation" class="btn btn-danger" 
         v-on:click.prevent="resendActivationEmail()"
         :disabled="linkSent"
       >{{ buttonText }}</a>
