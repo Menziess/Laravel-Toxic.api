@@ -59,3 +59,9 @@ Route::middleware('auth:api')->namespace('Api')->group(function() {
     Route::post('post/dislike/{id}', 'PostController@dislike')->where('id', '[0-9]+');
     Route::post('u/follow/{id}', 'UserController@follow')->where('id', '[0-9]+');
 });
+
+Route::middleware('auth:api')->namespace('Auth')->group(function() {
+
+    // Request verification email
+    Route::post('verify', 'VerificationController@newToken')->name('verify.request');
+});

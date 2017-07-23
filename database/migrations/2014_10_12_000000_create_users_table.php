@@ -26,7 +26,8 @@ class CreateUsersTable extends Migration
 
             // Confirmation
             $table->boolean('confirmed')->default(0);
-            $table->string('confirmation_code')->nullable();
+            $table->string('confirmation_code', 60)
+                ->unique();
 
             // Name
             $table->string('first_name');

@@ -67,18 +67,19 @@ Route::middleware(['web', 'guest'])->group(function() {
         Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
         Route::post('/password/reset', 'ResetPasswordController@reset');
         Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
-        Route::get('/verify/{token}', 'VerificationController@verify')->name('verify');
         Route::get('/register', 'RegisterController@showRegistrationForm')->name('register');
         Route::post('/register', 'RegisterController@register');
     });
 });
 
 Route::middleware(['web'])->group(function() {
+    
     Route::namespace('Auth')->group(function() {
         Route::group(['prefix' => 'login'], function() {
             Route::get('/facebook', 'LoginController@redirectToFacebook')->name('facebooklogin');
             Route::get('/facebook/callback', 'LoginController@handleFacebookCallback');
         });
+        Route::get('/verify/{token}', 'VerificationController@verify')->name('verify.token');
         Route::post('/logout', 'LoginController@logout')->name('logout');
     });
 
@@ -89,4 +90,3 @@ Route::middleware(['web'])->group(function() {
     Route::get('{catchall}', 'HomeController@index')
         ->name('home');
 });
-

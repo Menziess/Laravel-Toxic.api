@@ -1,6 +1,9 @@
 <template>
   <div class="col-md-6">
 
+    <!-- Activate Account -->
+    <Activate :me="me"></Activate>
+
     <!-- Settings -->
     <Picture :me="me"></Picture>
 
@@ -41,6 +44,7 @@
 
 <script>
 import Register from './Register';
+import Activate from './Activate';
 import Picture from './Picture';
 import Social from './Social';
 import Login from './Login';
@@ -48,6 +52,7 @@ export default {
   name: 'settings',
   components: {
     Register,
+    Activate,
     Picture,
     Social,
     Login,
