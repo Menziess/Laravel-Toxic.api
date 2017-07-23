@@ -32,6 +32,18 @@ class LoginUserRequest extends FormRequest
     }
 
     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.exists' => 'The selected email is not in use.',
+        ];
+    }
+
+    /**
      * Returns formatted response on error.
      */
     public function response(array $errors)
