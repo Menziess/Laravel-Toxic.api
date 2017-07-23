@@ -42,7 +42,7 @@ class VerifyAccount extends Notification
     {
         return (new MailMessage)
                     ->line('You are receiving this email because an account is created using this email address.')
-                    ->action('Verify Account', url('/register/' . $this->token))
+                    ->action('Verify Account', url('/verify/' . $this->token))
                     ->line('If you did not create an account, no further action is required.');
     }
 

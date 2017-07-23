@@ -31,7 +31,7 @@ class User extends Authenticatable implements SlugAble
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token', 'email', 'latitude', 'longitude',
+        'password', 'confirmation_code', 'remember_token', 'api_token', 'email', 'latitude', 'longitude',
     ];
 
 	/**
