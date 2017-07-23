@@ -183,6 +183,9 @@ canvas {
   background-color: transparent !important;
   color: black !important;
 }
+.btn:active {
+  background-color: #eee !important;
+}
 .mobile-new-button {
   @media all and (min-width: 768px) {
     display: none !important;

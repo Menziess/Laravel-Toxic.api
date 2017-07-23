@@ -26,12 +26,14 @@
     <link rel="shortcut icon" href="{{ asset('favicons/apple-touch-icon.png') }}" type="image/x-icon" />
     <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
     <link rel="mask-icon" href="{{ asset('favicons/safari-pinned-tab.svg') }}" color="#5bbad5">
+    
+    <meta name="apple-mobile-web-app-title" content="T-o-x-i-c">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#ffffff">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     @yield('head')
 </head>
-<body>
+<body ontouchstart="">
     <div id="app" style="margin-bottom: 20vh;">
         @yield('content')
     </div>

@@ -38,7 +38,7 @@
 
           <!-- Submit -->
           <div class="form-group">
-            <button :disabled="disabled" v-on:click="submit()" type="button" class="btn btn-primary">Login</button>
+            <button :disabled="submitted" v-on:click="submit()" type="button" class="btn btn-primary">Login</button>
             <br><br>
             <a :href="passwordRequestRoute">Forgot Your Password?</a>
           </div>
@@ -86,7 +86,6 @@ export default {
     passwordRequestRoute() { return this.$store.getters.domainExt + 'password/reset'; },
     passwordError() { return this.password.length < 6 && this.email.length > 0; },
     emailError() { return !validEmail(this.email) && this.email.length > 0; },
-    disabled() { return this.passwordError || this.emailError; },
     sessions() { return this.$store.getters.sessions; }
   },
   methods: {
