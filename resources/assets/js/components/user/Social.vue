@@ -1,10 +1,9 @@
 <template>
   <div v-if="!me" class="panel text-center">
-    <h3><a data-toggle="collapse" data-target="#privacy"><i class="glyphicon glyphicon-info-sign"></i></a> Privacy</h3>
+    <h3><a data-toggle="collapse" data-target="#privacy"><i class="glyphicon glyphicon-info-sign"></i></a> Social</h3>
       
     <br>
     <a type="button" class="btn btn-primary facebook" :href="facebookLogin" role="menuitem">Facebook Login</a>
-    <!-- 🕵️‍&ensp;<a role="menuitem" data-toggle="collapse" data-target="#privacy">Facebook Login</a> -->
       
     <!-- Privacy -->
     <div class="panel-body">

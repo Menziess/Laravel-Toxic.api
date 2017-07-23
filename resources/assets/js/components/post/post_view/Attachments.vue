@@ -3,15 +3,14 @@
 
 		<!-- Left Side -->
 		<div class="leftist">
-			<router-link :to="'/u/' + this.post.relationships.user.attributes.slug">
-				<img 
-					class="img-circle noselect image-border"
-					:src="post.relationships.user.attributes.picture"
-					:title="post.relationships.user.attributes.name" 
-					width="48"
-					height="48"
-				>
-			</router-link>
+			<img 
+				@click="zoomed = true"
+				class="img-circle clickable zoomable image-border"
+				:src="post.relationships.user.attributes.picture"
+				:title="post.relationships.user.attributes.name" 
+				width="48"
+				height="48"
+			>
 			<li class="btn" @click="authorized('upvote')">
 				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
 			</li>
@@ -20,6 +19,13 @@
 				<i :class="[{ 'clicked': disliked }, 'glyphicon glyphicon-menu-down']"></i>
 			</li>
 		</div>
+
+		<!-- Modal -->
+    <Modal 
+			:show="zoomed"
+			:src="post.relationships.user.attributes.picture"
+			:title="post.relationships.user.attributes.name" 
+		></Modal>
 		
 		<!-- Right Mid Side -->
 		<div class="mid">
@@ -55,13 +61,20 @@
 import Drawing from './Drawing.vue';
 import Textbox from './Textbox.vue';
 import Linkbox from './Linkbox.vue';
+import Modal from '../../utils/Modal';
 export default {
 	name: 'attachments',
 	props: ['post'],
 	components: {
 		Drawing,
 		Textbox,
-		Linkbox
+		Linkbox,
+		Modal
+	},
+	data() {
+		return {
+			zoomed: false
+		}
 	},
 	computed: {
 		me() {

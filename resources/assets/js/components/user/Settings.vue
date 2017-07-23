@@ -7,11 +7,11 @@
     <!-- Settings -->
     <Picture :me="me"></Picture>
 
-    <!-- Register -->
-    <Register :me="me"></Register>
-    
     <!-- Login Options -->
     <Login :me="me"></Login>
+
+    <!-- Register -->
+    <Register :me="me"></Register>
 
     <!-- Social Login -->
     <Social :me="me"></Social>

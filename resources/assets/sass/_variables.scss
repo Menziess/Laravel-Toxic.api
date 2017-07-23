@@ -152,6 +152,17 @@ nav {
   border: 1px solid $brand;
   border-radius: 3px;
 }
+.img-circle {
+  margin: auto;
+}
+.zoomable:hover {
+  border: 1px solid rgba(0, 230, 0, 0.5);
+}
+.zoom {
+  margin-top: 10vh;
+  max-width: 100%;
+  display: block;
+}
 
 
 /**
