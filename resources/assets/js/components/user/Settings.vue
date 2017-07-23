@@ -29,14 +29,22 @@
 
     <!-- Deactivate Account -->
     <div v-if="me" class="panel text-center">
-      <h3>Disable Account</h3>
+      <h3><a data-toggle="collapse" data-target="#delete-info"><i class="glyphicon glyphicon-info-sign"></i></a> Disable Account</h3>
+
+      <!-- Deactivate Button -->
+      <br>
+      <a role="presentation" class="btn btn-danger" v-on:click.prevent="deleteUser()">Disable Account</a>
+
+      <!-- More info -->
       <div class="panel-body">
-        <p>If you decide to no longer make use of this app, you may deactivate your account,
-          all your information, including posts and profile data will be kept hidden until you login again.</p>
-        <hr>
-        <a role="presentation" class="btn btn-danger" 
-          v-on:click.prevent="deleteUser()"
-        >Disable Account</a>
+        <div id="delete-info" class="collapse">
+          <hr>
+          <h4 class="text-left">The following data will be deleted:</h4>
+          <ul class="text-left">
+            <li><strong>Profile picture:</strong> Your profile picture will be deleted right away.</li>
+            <li><strong>Posts:</strong> Unless you reactivate your account, your posts will be deleted after 7 days.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -59,6 +59,7 @@ Route::get('/templogout', function() {
 |
 |
 */
+Auth::routes();
 
 Route::middleware(['web', 'guest'])->group(function() {
     Route::namespace('Auth')->group(function() {

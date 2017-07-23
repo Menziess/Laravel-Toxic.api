@@ -2,7 +2,7 @@
   <div class="dropdown pull-right">
 
     <router-link :to="pictureRoute" class="navbar-brand">
-      <span v-if="me && !me.confirmed" class="badge">!</span>
+      <span v-if="me && !me.confirmed" class="badge noselect">!</span>
       <img v-if="me" class="img-circle noselect profile-pic"                     
         :src="me.picture"
         :title="me.name"

@@ -181,6 +181,9 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function deletePersonalData()
 	{
+		$this->confirmed = false;
+		$this->save();
+		
 		if ($this->resource) {
             $this->resource->removeFromStorage();
 			$this->resource->delete();

@@ -1,6 +1,6 @@
 <template>
   <div v-if="me && !me.confirmed" class="panel text-center">
-    <h3><span v-if="me && !me.confirmed" class="badge">!</span> Activate Account</h3>
+    <h3><span v-if="me && !me.confirmed" class="badge noselect">!</span> Activate Account</h3>
     <div class="panel-body">
       <p>You haven't activated your account yet, please check your mailbox (spam folder) for your activation mail,
         or click "Resend Activation Email" for a new activation link.</p>
@@ -28,11 +28,9 @@ export default {
   },
   methods: {
     success() {
-      this.linkSent = true;
       this.buttonText = SENT_BUTTON;
     },
     somethingWrong() {
-      this.linkSent = true;
       this.buttonText = FAIL_BUTTON;
       setTimeout(() => {
         this.linkSent = false;
@@ -41,15 +39,13 @@ export default {
     },
     resendActivationEmail() {
       if (this.linkSent) return;
+      this.linkSent = true;
       axios({
         method: 'post',
         url: 'api/verify'
       })
       .then(response => this.success())
-      .catch(error => {
-        this.somethingWrong()
-        console.log(error)
-      });
+      .catch(error => this.somethingWrong());
 		}
   }
 }

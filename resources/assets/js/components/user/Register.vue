@@ -1,13 +1,11 @@
 <template>
   <div>
     <div v-if="!me" class="panel text-center">
-      <h3>Register</h3>
+      <h3><a data-toggle="collapse" data-target="#reasons"><i class="glyphicon glyphicon-info-sign"></i></a> Register</h3>
 
       <!-- Create Account -->
       <br>
       <a type="button" class="btn btn-primary" :href="registerRoute">Create New Account</a>
-      <br><br>
-      <a data-toggle="collapse" data-target="#reasons"><i class="glyphicon glyphicon-info-sign"></i></a>
 
       <!-- Collapse -->
       <div class="panel-body">
@@ -37,9 +35,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.glyphicon-info-sign {
-  font-size: x-large;
-}
-</style>

@@ -46,6 +46,8 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
+        \App\User::withTrashed()->where('email', $request->input('email'))->first()->restore();
+
         if ($this->attemptLogin($request)) {
             $request->session()->regenerate();
 
