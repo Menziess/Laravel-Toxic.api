@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Auth;
 use App\User;
+use App\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -33,6 +34,36 @@ class UserController extends Controller
                 ->firstOrFail();
 
         return User::findOrFail($this->id);
+    }
+
+    /**
+     * Upload user picture.
+     */
+    public function upload(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+			'file' => 'required|mimes:jpeg,jpg,png,gif',
+		]);
+
+        if ($validator->fails() || $this->id === 1) {
+			return abort(422);
+		}
+
+        $resource = new Resource;
+		$filepath = $resource->uploadImageFile($request->file('file'), 522, 522);
+
+		# Persist if uploaded succesfully
+		if (\Storage::exists($filepath)) {
+            $user = $request->user('api');
+			if ($user->resource) {
+				$user->resource->removeFromStorage();
+				$user->resource->delete();
+			}
+			$resource->user()->associate($user)->save();
+			$user->resource()->associate($resource)->save();
+		}
+
+        return $user;
     }
 
     /**

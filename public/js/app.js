@@ -14201,6 +14201,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 var STATUS_INITIAL = 0,
     STATUS_SAVING = 1,
@@ -14209,9 +14211,46 @@ var STATUS_INITIAL = 0,
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'picture',
   props: ['me'],
+  data: function data() {
+    return {
+      file: null,
+      preview: null
+    };
+  },
+
+  computed: {
+    src: function src() {
+      return this.preview ? this.preview : this.me.picture;
+    }
+  },
   methods: {
-    uploadPicture: function uploadPicture() {
-      console.log(this.$refs.file.value);
+    setFile: function setFile(event) {
+      var _this = this;
+
+      this.file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function () {
+        _this.preview = reader.result;
+      };
+      reader.readAsDataURL(this.file);
+    },
+    upload: function upload() {
+      if (!this.file) return;
+      axios({
+        headers: { 'Content-Type': 'multipart/form-data' },
+        method: 'post',
+        url: 'api/user/picture',
+        data: { file: this.file }
+      }).then(function (response) {
+        return console.log(response);
+      }).catch(function (error) {
+        return console.log(error.response);
+      });
+    },
+    clear: function clear() {
+      this.$refs.file.value = '';
+      this.preview = null;
+      this.file = null;
     }
   }
 });
@@ -45397,13 +45436,17 @@ module.exports = Component.exports
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(171)
+
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(62),
   /* template */
   __webpack_require__(119),
   /* scopeId */
-  null,
+  "data-v-1c579f85",
   /* cssModules */
   null
 )
@@ -45832,9 +45875,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "panel-body"
   }, [_c('img', {
-    staticClass: "img-circle clickable zoomable image-border",
+    class: ['img-circle clickable zoomable', _vm.preview ? 'preview' : 'image-border'],
     attrs: {
-      "src": _vm.me.picture,
+      "src": _vm.src,
       "title": _vm.me.name,
       "width": "200px",
       "height": "200px",
@@ -45847,28 +45890,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "group"
     }
   }, [_c('label', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "disabled": ""
-    }
-  }, [_c('span', {
-    attrs: {
-      "id": "browse"
-    }
-  }, [_vm._v("Browse")]), _c('input', {
+    staticClass: "btn btn-primary"
+  }, [_c('span', [_vm._v("Browse")]), _c('input', {
     ref: "file",
     staticStyle: {
       "display": "none"
     },
     attrs: {
-      "id": "file",
-      "name": "file",
-      "data-max-size": "4000",
       "accept": "image/*",
       "value": "",
       "type": "file"
+    },
+    on: {
+      "change": function($event) {
+        _vm.setFile($event)
+      }
     }
-  })])]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), (_vm.file) ? _c('button', {
+    staticClass: "btn btn-success",
+    on: {
+      "click": function($event) {
+        _vm.upload()
+      }
+    }
+  }, [_vm._v("Upload")]) : _vm._e(), _vm._v(" "), (_vm.file) ? _c('button', {
+    staticClass: "btn btn-danger",
+    on: {
+      "click": function($event) {
+        _vm.clear()
+      }
+    }
+  }, [_vm._v("Clear")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "modal fade noselect",
     attrs: {
       "id": "zoom",
@@ -45877,7 +45929,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "img-circle zoom",
     attrs: {
-      "src": _vm.me.picture,
+      "src": _vm.src,
       "title": _vm.me.name,
       "data-toggle": "modal",
       "data-target": "#zoom"
@@ -46876,7 +46928,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel"
   }, [(_vm.error) ? _c('div', {
     staticClass: "panel-body"
-  }, [_c('h1', [_vm._v("Error")]), _vm._v(" "), (typeof _vm.error === 'string') ? _c('div', [_vm._v("\n        " + _vm._s(_vm.error) + "\n      ")]) : (_vm.me && _vm.me.slug === 'stefan-schenk') ? _c('div', [_vm._v("\n        " + _vm._s(_vm.error.name) + ": " + _vm._s(_vm.error.message) + "\n        "), _c('hr'), _vm._v(" "), (_vm.error.stack) ? _c('div', [_vm._v("\n          " + _vm._s(_vm.error.stack) + "\n        ")]) : _c('div', [_vm._v("\n          " + _vm._s(_vm.error) + "\n        ")])]) : _c('div', [_vm._v("\n        " + _vm._s(_vm.error.message) + "\n      ")]), _vm._v(" "), _c('a', {
+  }, [_c('h1', [_vm._v("Error")]), _vm._v(" "), (typeof _vm.error === 'string') ? _c('div', [_vm._v("\n        " + _vm._s(_vm.error) + "\n      ")]) : (_vm.me && _vm.me.slug === 'stefan-schenk') ? _c('div', [_vm._v("\n        " + _vm._s(_vm.error.name) + ": " + _vm._s(_vm.error.message) + "\n        "), _c('hr'), _vm._v(" "), (_vm.error.response) ? _c('div', [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.error.response.data)
+    }
+  })]) : (_vm.error.stack) ? _c('div', [_vm._v("\n          " + _vm._s(_vm.error.stack) + "\n        ")]) : _vm._e()]) : _c('div', [_vm._v("\n        " + _vm._s(_vm.error.message) + "\n      ")]), _vm._v(" "), _c('a', {
     on: {
       "click": function($event) {
         _vm.$router.go(-1)
@@ -50900,6 +50956,46 @@ module.exports = function(module) {
 __webpack_require__(18);
 module.exports = __webpack_require__(19);
 
+
+/***/ }),
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.preview[data-v-1c579f85] {\r\n  border: 2px solid red;\n}\r\n", ""]);
+
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(170);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("ac0bead8", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-1c579f85\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Picture.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-1c579f85\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Picture.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

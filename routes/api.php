@@ -47,6 +47,7 @@ Route::namespace('Api')->group(function() {
 Route::middleware('auth:api')->namespace('Api')->group(function() {
     
     // Create Update
+    Route::post('user/picture', 'UserController@upload');
     Route::post('post', 'PostController@store');
     Route::put('post/{id}', 'PostController@update')->where('id', '[0-9]+');
 

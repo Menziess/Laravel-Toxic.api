@@ -12,8 +12,8 @@
 
     <!-- Title -->
     <title>{{ config('app.name', 'Toxic') }}</title>
-    <meta name="description" content="Truth never damages a cause that is just." />
-    <meta property="og:description" content="Truth never damages a cause that is just." />
+    <meta name="description" content="A Twitter alternative, entirely focused on independence, freedom of speech, open unfiltered discussion" />
+    <meta property="og:description" content="A Twitter alternative, entirely focused on independence, freedom of speech, open unfiltered discussion" />
     <meta property="og:image" content="{{ asset('img/Toxic-logo.png') }}" />
     <meta property="og:title" content="Combat Censorship" />
     <meta property="fb:app_id" content="297069167386750" />
@@ -27,13 +27,6 @@
     <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
     <link rel="mask-icon" href="{{ asset('favicons/safari-pinned-tab.svg') }}" color="#5bbad5">
 
-    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="http://www.reckless-intent.com/assets/images/ios/iphone4.jpg">
-    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="http://www.reckless-intent.com/assets/images/ios/iphone5.jpg">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: portrait)" href="http://www.reckless-intent.com/assets/images/ios/ipad.jpg">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: landscape)" href="http://www.reckless-intent.com/assets/images/ios/ipadport.jpg">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="http://www.reckless-intent.com/assets/images/ios/ipadretinaport.jpg">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="http://www.reckless-intent.com/assets/images/ios/ipadretina.jpg">
-    
     <meta name="apple-mobile-web-app-title" content="T-o-x-i-c">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#ffffff">

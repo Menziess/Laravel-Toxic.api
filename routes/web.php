@@ -10,7 +10,7 @@
 */
 
 Route::get('/templogin', function() {
-    $user = App\User::first();
+    $user = App\User::findOrFail(2);
     $loggedin = Auth::check() ? 'true' : 'false';
     $api_token = null;
     if ($user) {
@@ -21,15 +21,6 @@ Route::get('/templogin', function() {
         "logged_in" => $loggedin,
         "logged_user" => $user,
         "api_token" => $api_token,
-    ];
-});
-Route::get('/templogout', function() {
-    $user = Auth::user();
-    Auth::logout($user);
-    $loggedin = Auth::check() ? 'true' : 'false';
-    return [
-        "logged_in" => $loggedin,
-        "logged_user" => $user, 
     ];
 });
 

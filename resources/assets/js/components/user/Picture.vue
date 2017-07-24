@@ -4,11 +4,11 @@
 
     <!-- Picture -->
     <img 
-      class="img-circle clickable zoomable image-border"
-      :src="me.picture"
+      :class="['img-circle clickable zoomable', preview ? 'preview' : 'image-border']"
+      :src="src"
       :title="me.name" 
       width="200px"
-      height="200px"
+      height="200px" 
       data-toggle="modal" 
       data-target="#zoom"
     >
@@ -17,16 +17,18 @@
 
     <!-- Upload -->
     <div class="btn-group" role="group">
-      <label class="btn btn-primary" disabled>
-         <span id="browse">Browse</span><input id="file" name="file" data-max-size="4000" accept="image/*" value="" type="file" style="display: none;" ref="file"> 
+      <label class="btn btn-primary">
+         <span>Browse</span><input accept="image/*" value="" type="file" style="display: none;" @change="setFile($event)" ref="file"> 
       </label>
+      <button v-if="file" @click="upload()" class="btn btn-success">Upload</button>
+      <button v-if="file" @click="clear()" class="btn btn-danger">Clear</button>
     </div>
 
     <!-- Modal -->
     <div id="zoom" class="modal fade noselect" role="dialog">
       <img 
         class="img-circle zoom"
-        :src="me.picture"
+        :src="src"
         :title="me.name"
         data-toggle="modal"
         data-target="#zoom"
@@ -42,10 +44,48 @@ const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED =
 export default {
   name: 'picture',
   props: ['me'],
+  data() {
+    return {
+      file: null,
+      preview: null,
+    }
+  },
+  computed: {
+    src() {
+      return this.preview ? this.preview : this.me.picture;
+    }
+  },
   methods: {
-    uploadPicture() {
-      console.log(this.$refs.file.value);
+    setFile(event) {
+      this.file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.preview = reader.result;
+      }
+      reader.readAsDataURL(this.file);
+    },
+    upload() {
+      if (!this.file) return;
+      axios({
+        headers: { 'Content-Type': 'multipart/form-data' },
+        method: 'post',
+        url: 'api/user/picture',
+        data: { file: this.file }
+      })
+      .then(response => console.log(response))
+      .catch(error => console.log(error.response));
+    },
+    clear() {
+      this.$refs.file.value = '';
+      this.preview = null;
+      this.file = null;
     }
   }
 }
 </script>
+
+<style scoped>
+.preview {
+  border: 2px solid red;
+}
+</style>

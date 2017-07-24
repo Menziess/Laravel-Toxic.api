@@ -13,11 +13,11 @@
         <div v-else-if="me && me.slug === 'stefan-schenk'">
           {{ error.name }}: {{ error.message }}
           <hr>
-          <div v-if="error.stack">
-            {{ error.stack }}
+          <div v-if="error.response">
+            <span v-html="error.response.data"></span>
           </div>
-          <div v-else>
-            {{ error }}
+          <div v-else-if="error.stack">
+            {{ error.stack }}
           </div>
         </div>
 
