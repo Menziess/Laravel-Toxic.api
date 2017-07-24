@@ -6,8 +6,8 @@
 			<img 
 				@click="zoomed = true"
 				class="img-circle clickable zoomable image-border"
-				:src="post.relationships.user.attributes.picture"
-				:title="post.relationships.user.attributes.name" 
+				:src="user.attributes.picture"
+				:title="user.attributes.name" 
 				width="48"
 				height="48"
 			>
@@ -23,16 +23,17 @@
 		<!-- Modal -->
     <Modal 
 			:show="zoomed"
-			:src="post.relationships.user.attributes.picture"
-			:title="post.relationships.user.attributes.name" 
+			:src="user.attributes.picture"
+			:title="user.attributes.name" 
 		></Modal>
 		
 		<!-- Right Mid Side -->
 		<div class="mid">
-			<router-link class="text" :to="'/u/' + this.post.relationships.user.attributes.slug">
-				<span><strong>{{ this.post.relationships.user.attributes.name }}</strong></span>
+			<router-link v-if="user.id != 1" class="text" :to="'/u/' + this.user.attributes.slug">
+				<span><strong>{{ user.attributes.name }}</strong></span>
 			</router-link>
-			<span class="text">/u/{{ this.post.relationships.user.attributes.slug }}</span>
+			<span v-else><strong>{{ user.attributes.name }}</strong></span>			
+			<span v-if="user.id != 1" class="text">/u/{{ user.attributes.slug }}</span>
 			<!--<span class="text">{{ this.post.attributes.created_at }}</span>-->
 
 			<!-- Post Content -->
@@ -44,7 +45,7 @@
 
 			<!-- Buttons -->
 			<div class="button-bar">
-				<button class="btn" data-toggle="modal" data-target="#postModal" @click="authorized('reply')">
+				<button class="btn" data-toggle="modal" data-target="#postModal" @click="reply()">
 					<i class="glyphicon glyphicon-share-alt reply"></i>
 				</button>{{ post.attributes.replies_count || 0 }}&nbsp;
 
@@ -79,6 +80,9 @@ export default {
 	computed: {
 		me() {
 			return this.$store.getters.me
+		},
+		user() {
+			return this.post.relationships.user;
 		},
 		score() {
 			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;

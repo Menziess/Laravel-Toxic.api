@@ -11,7 +11,7 @@ class Helpers
      * Return api token.
      */
     static function api_token() {
-        return Auth::user() ? Auth::user()->api_token : null;
+        return Auth::user() ? Auth::user()->api_token : \App\User::find(1)->api_token;
     }
 
     /**

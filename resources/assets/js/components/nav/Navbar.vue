@@ -4,7 +4,7 @@
     <!-- New Post Mobile -->
     <button v-if="!this.$store.getters.replying"
       class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
-      title="Create a new post" v-on:click="authorized()">
+      title="Create a new post" v-on:click="postRoute()">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -24,7 +24,7 @@
 
         <!-- New Post -->
         <button class="btn btn-success navbar-btn pull-right mobile-hidden"
-          title="Create a new post" v-on:click="authorized()">
+          title="Create a new post" v-on:click="postRoute()">
           New
         </button>
 
@@ -61,23 +61,18 @@ export default {
     },
     homeRoute() {
       return this.$route.name === 'home' ? '/trends' : '/';
-    },
+    }
   },
   methods: {
+    postRoute() {
+      if (this.$route.name === 'new')
+        return this.$router.push('/');
+      else if (this.$route.params.slug)
+        return this.$router.push('/t/' + this.$route.params.slug + '/new') ;
+      return this.$router.push('/t/general/new');
+    },
     submitSearch() {
       alert(this.search);
-    },
-    authorized() {
-      if (!this.me)
-      this.$router.push({ name: 'settings' });
-      else {
-        if (this.$route.name === 'new')
-          this.$router.push('/');
-        else if (this.$route.params.slug)
-          this.$router.push('/t/' + this.$route.params.slug + '/new') ;
-        else
-          this.$router.push('/t/general/new');
-      }
     }
   }
 }
