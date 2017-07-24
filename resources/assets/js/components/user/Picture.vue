@@ -66,14 +66,17 @@ export default {
     },
     upload() {
       if (!this.file) return;
+      const data = new FormData();
+      data.append('file', this.file);
       axios({
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data; boundary=${data._boundary}' },
         method: 'post',
         url: 'api/user/picture',
-        data: { file: this.file }
+        data: data,
+        timeout: 10000,
       })
       .then(response => console.log(response))
-      .catch(error => console.log(error.response));
+      .catch(error => console.log(error.response.data.data));
     },
     clear() {
       this.$refs.file.value = '';

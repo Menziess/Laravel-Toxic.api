@@ -16,9 +16,6 @@
           <div v-if="error.response">
             <span v-html="error.response.data"></span>
           </div>
-          <div v-else-if="error.stack">
-            {{ error.stack }}
-          </div>
         </div>
 
         <div v-else>

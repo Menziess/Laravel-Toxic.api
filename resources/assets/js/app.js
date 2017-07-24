@@ -94,7 +94,10 @@ const router = new VueRouter({
 /**
  * Axios interceptor.
  */
-const caught = [401, 422];
+const caught = [
+	401, 
+	422,
+];
 axios.interceptors.response.use(
 	response => {
 		return Promise.resolve(response);

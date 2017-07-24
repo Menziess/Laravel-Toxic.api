@@ -41,20 +41,19 @@ class UserController extends Controller
      */
     public function upload(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
-			'file' => 'required|mimes:jpeg,jpg,png,gif',
-		]);
+        if ($this->id === 1) { return abort(401); }
+        $file = $request->file('file');
 
-        if ($validator->fails() || $this->id === 1) {
-			return abort(422);
-		}
+        \Validator::make($request->all(), [
+			'file' => 'file|min:1|max:2000|mimes:jpeg,jpg,png,gif',
+        ])->validate();
 
         $resource = new Resource;
-		$filepath = $resource->uploadImageFile($request->file('file'), 522, 522);
+		$filepath = $resource->uploadImageFile($file, 522, 522);
 
 		# Persist if uploaded succesfully
+        $user = $request->user('api');
 		if (\Storage::exists($filepath)) {
-            $user = $request->user('api');
 			if ($user->resource) {
 				$user->resource->removeFromStorage();
 				$user->resource->delete();

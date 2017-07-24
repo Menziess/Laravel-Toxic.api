@@ -90,6 +90,7 @@ class Resource extends Model
 	 */
 	public function uploadImageFile($file, $width = 256, $height = 256)
 	{
+		ini_set('memory_limit','256M');
 		$image = Image::make($file)->orientate()->fit($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
@@ -111,6 +112,7 @@ class Resource extends Model
 	 */
 	public function uploadImagePath($path, $width = 256, $height = 256, $aspectratio = false)
 	{
+		ini_set('memory_limit','256M');
 		if ($aspectratio)
 		$image = Image::make($path)->orientate()->fit($width, $height, function ($constraint) {
 			$constraint->aspectRatio();
@@ -147,7 +149,7 @@ class Resource extends Model
 		$this->checkImagesFolderExists();
 		$filepath = 'public/images/' . $this->url . $this->extension;
 		$image->interlace();
-		$image->save(storage_path('app/' . $filepath));
+		$image->save(storage_path('app/' . $filepath))->destroy();
 
 		return $filepath;
 	}
