@@ -3,15 +3,13 @@
   <div class="panel-body">
 
     <!-- Picture -->
-    <img 
-      :class="['img-circle clickable zoomable', preview ? 'preview' : 'image-border']"
-      :src="src"
-      :title="me.name" 
-      width="200px"
-      height="200px" 
+    <div
+      :class="['img-circle clickable zoomable background-image', preview ? 'image-border-danger' : 'image-border']"
+      :style="'background-image: url(' + src + '); width: 200px; height: 200px;'" 
+      :title="me.name"
       data-toggle="modal" 
       data-target="#zoom"
-    >
+    ></div>
 
     <hr>
 
@@ -27,7 +25,7 @@
     <!-- Modal -->
     <div id="zoom" class="modal fade noselect" role="dialog">
       <img 
-        class="img-circle zoom"
+        class="img-circle zoomed"
         :src="src"
         :title="me.name"
         data-toggle="modal"
@@ -40,7 +38,6 @@
 </template>
 
 <script>
-const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 export default {
   name: 'picture',
   props: ['me'],
@@ -75,8 +72,10 @@ export default {
         data: data,
         timeout: 10000,
       })
-      .then(response => console.log(response))
-      .catch(error => console.log(error.response.data.data));
+      .then(response => {
+        this.$store.dispatch('setMe', response.data.data.me);
+        this.clear();
+      });
     },
     clear() {
       this.$refs.file.value = '';
@@ -86,9 +85,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.preview {
-  border: 2px solid red;
-}
-</style>

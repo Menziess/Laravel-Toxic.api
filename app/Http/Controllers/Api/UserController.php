@@ -57,9 +57,11 @@ class UserController extends Controller
 				$user->resource->removeFromStorage();
 				$user->resource->delete();
 			}
-			$resource->user()->associate($user)->save();
+            $resource->user_id = $user->id;
+            $resource->save();
 			$user->resource()->associate($resource)->save();
 		}
+        return ['me' => $user];
     }
 
     /**
