@@ -45,7 +45,7 @@ export default {
 <style scoped>
 .inputs {
   padding: 0.5em;
-  height: 272px;
+  min-height: 10em;
   width: 100%;
 }
 .input-group {

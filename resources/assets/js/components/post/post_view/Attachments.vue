@@ -12,11 +12,11 @@
 				height="48"
 			>
 			<li class="btn" @click="authorized('upvote')">
-				<i :class="[{ 'clicked': liked}, 'glyphicon glyphicon-menu-up']"></i>
+				<i :class="[{ 'liked': liked}, 'glyphicon glyphicon-menu-up']"></i>
 			</li>
 			<span>{{ score }}</span>
 			<li class="btn" @click="authorized('downvote')">
-				<i :class="[{ 'clicked': disliked }, 'glyphicon glyphicon-menu-down']"></i>
+				<i :class="[{ 'disliked': disliked }, 'glyphicon glyphicon-menu-down']"></i>
 			</li>
 		</div>
 
@@ -138,9 +138,14 @@ export default {
 	font-size: initial;
 	word-wrap: break-word;
 }
-.clicked {
+.liked {
 	font-weight: bold;
 	font-size: larger;
 	color: #2baf43 !important;
+}
+.disliked {
+	font-weight: bold;
+	font-size: larger;
+	color: #ff4500 !important;
 }
 </style>

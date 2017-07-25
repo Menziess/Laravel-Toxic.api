@@ -42,7 +42,7 @@
           <h4 class="text-left">The following data will be deleted:</h4>
           <ul class="text-left">
             <li><strong>Profile picture:</strong> Your profile picture will be deleted right away.</li>
-            <li><strong>Posts:</strong> Unless you reactivate your account, your posts will be deleted after 7 days.</li>
+            <li><strong>Posts:</strong> Your posts will be hidden until you reactivate your account by logging in again.</li>
           </ul>
         </div>
       </div>

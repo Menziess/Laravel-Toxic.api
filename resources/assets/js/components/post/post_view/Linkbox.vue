@@ -60,7 +60,7 @@ export default {
       });
     },
     loadVideo() {
-      this.embedSrc = 'https://www.youtube-nocookie.com/embed/' + this.embed + '?playlist=' + this.embed + 'rel=0&autoplay=1&modestbranding=0&autohide=1&showinfo=0&controls=1';
+      this.embedSrc = 'https://www.youtube-nocookie.com/embed/' + this.embed + '?rel=0&autoplay=1&modestbranding=0&autohide=1&showinfo=0&controls=1';
     },
     openLink() {
       window.location.href = this.post.relationships.resource.attributes.realurl;

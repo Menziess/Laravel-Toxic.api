@@ -49,8 +49,6 @@ class LoginController extends Controller
         \App\User::withTrashed()->where('email', $request->input('email'))->first()->restore();
 
         if ($this->attemptLogin($request)) {
-            // $request->session()->regenerate();
-
             $this->clearLoginAttempts($request);
 
             if ($request->ajax()) {

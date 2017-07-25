@@ -91,6 +91,7 @@ export default {
       this.y = e.pageY - this.rect.top - window.pageYOffset;
     },
     touchPos(e) {
+      console.log(e);
       this.rect = this.canvas.getBoundingClientRect();
       this.x = e.touches[0].pageX - this.rect.left - window.pageXOffset;
       this.y = e.touches[0].pageY - this.rect.top - window.pageYOffset;

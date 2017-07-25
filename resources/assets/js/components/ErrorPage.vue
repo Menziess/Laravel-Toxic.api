@@ -9,17 +9,15 @@
         <div v-if="typeof error === 'string'">
           {{ error }}
         </div>
-
-        <div v-else-if="me && me.slug === 'stefan-schenk'">
-          {{ error.name }}: {{ error.message }}
-          <hr>
-          <div v-if="error.response">
-            <span v-html="error.response.data"></span>
-          </div>
-        </div>
-
         <div v-else>
           {{ error.message }}
+        </div>
+
+        <div v-if="me && me.slug === 'stefan-schenk'">
+          <hr>
+          <div v-if="error.response">
+            <span v-html="error.response.data"></span>  
+          </div>
         </div>
 
         <a v-on:click="$router.go(-1)">
@@ -47,7 +45,6 @@
         <p>I can read error reports all day, but sometimes it's more usefull to know what actually happened! Thank you.</p>
         <hr>
         <router-link to="/t/feedback/new" tag="button" class="btn btn-warning" role="menuitem">Give Feedback</router-link>
-
       </div>
     </div>
 
@@ -58,17 +55,17 @@
 <script>
 export default {
   name: 'errorpage',
+  watch: {
+    error() {
+      console.log(this.error.stack);
+    }
+  },
   computed: {
     error() {
       return this.$store.getters.error;
     },
     me() {
       return this.$store.getters.me;
-    }
-  },
-  watch: {
-    error() {
-      this.$router.push({ name: 'error' });
     }
   }
 }

@@ -34,7 +34,6 @@
     <!-- Replies -->
     <div v-if="!hidereplies">
     <PostView v-for="post in post.relationships.replies"
-      v-if="post.relationships && post.relationships.user"
       :ischild="true"
       :post="post"
       :key="post.id"

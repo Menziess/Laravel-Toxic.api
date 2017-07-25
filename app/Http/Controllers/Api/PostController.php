@@ -145,7 +145,7 @@ class PostController extends Controller
     public function slug($slug, $id = null, Request $request)
     {
         if ($id) {
-            return $this->show($id, $request);
+            return $this->show($slug, $id, $request);
         }
 
         // Adding reply_count, likes_count and dislikes_count
@@ -164,9 +164,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($slug, $id, Request $request)
     {
         $query = Post::with(['user', 'replies', 'resource'])
+            ->where('slug', $slug)
             ->withCount('replies')
             ->withLikes($this->id)
             ->findOrFail($id);
@@ -187,13 +188,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, $id)
-    {
-        $post = Post::findOrFail($id);
-        $post->update($request->all());
+    // public function update(StorePostRequest $request, $id)
+    // {
+    //     $post = Post::findOrFail($id);
+    //     $post->update($request->all());
 
-        return $post;
-    }
+    //     return $post;
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -203,7 +204,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id)->delete();
+        if ($this->id == 1) abort(403);
+
+        $post = Post::findOrFail($id);
+        if ($this->id != $post->user_id) abort(403);
+        $post->delete();
         
         return response("Deleted", 200);
     }
@@ -215,6 +220,8 @@ class PostController extends Controller
      */
     public function like($id)
     {
+        if ($this->id == 1) abort(403);
+        
         return $this->likeOrDislike($id, 1);
     }
 
@@ -225,6 +232,8 @@ class PostController extends Controller
      */
     public function dislike($id)
     {
+        if ($this->id == 1) abort(403);
+        
         return $this->likeOrDislike($id, 0);
     }
 

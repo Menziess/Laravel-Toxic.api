@@ -11,10 +11,10 @@
 
     <!-- Upload -->
     <div class="btn-group" role="group">
+      <button v-if="file" @click="upload()" class="btn btn-success">Upload</button>
       <label class="btn btn-primary">
          <span>Browse</span><input accept="image/*" value="" type="file" style="display: none;" @change="setFile($event)" ref="file"> 
       </label>
-      <button v-if="file" @click="upload()" class="btn btn-success">Upload</button>
       <button v-if="file" @click="clear()" class="btn btn-danger">Clear</button>
     </div>
 

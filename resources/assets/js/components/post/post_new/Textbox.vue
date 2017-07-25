@@ -40,7 +40,7 @@
 textarea {
   padding: 0.5em;
   resize: none;
-  height: 272px;
+  min-height: 10em;
   width: 100%;
 
   outline: none;
