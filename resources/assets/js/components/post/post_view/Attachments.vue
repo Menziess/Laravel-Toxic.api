@@ -72,6 +72,9 @@ export default {
 		Linkbox,
 		Modal
 	},
+	mounted() {
+		console.log(this.post.relationships);
+	},
 	data() {
 		return {
 			zoomed: false
