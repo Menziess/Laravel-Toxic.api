@@ -3,15 +3,11 @@
   <div class="panel-body">
 
     <!-- Picture -->
-    <div
-      :class="['img-circle clickable zoomable background-image', preview ? 'image-border-danger' : 'image-border']"
-      :style="'background-image: url(' + src + '); width: 200px; height: 200px;'" 
-      :title="me.name"
-      data-toggle="modal" 
-      data-target="#zoom"
-    ></div>
+    <div class="panel panel-body">
+      <Picture :title="me.name" :src="src" :preview="preview"></Picture>
+    </div>
 
-    <hr>
+    <br>
 
     <!-- Upload -->
     <div class="btn-group" role="group">
@@ -22,25 +18,18 @@
       <button v-if="file" @click="clear()" class="btn btn-danger">Clear</button>
     </div>
 
-    <!-- Modal -->
-    <div id="zoom" class="modal fade noselect" role="dialog">
-      <img 
-        class="img-circle zoomed"
-        :src="src"
-        :title="me.name"
-        data-toggle="modal"
-        data-target="#zoom"
-      >
-    </div>
-
   </div>
 </div>
 </template>
 
 <script>
+import Picture from '../utils/Picture';
 export default {
-  name: 'picture',
+  name: 'upload',
   props: ['me'],
+  components: {
+    Picture,
+  },
   data() {
     return {
       file: null,

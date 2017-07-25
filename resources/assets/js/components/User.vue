@@ -5,17 +5,8 @@
     <div class="panel">
       <div class="panel-body">
         <h1>{{ $route.params.slug }}</h1>
-        <hr>
-        <div class="details">
-          <div v-if="user" class="leftist">
-            <img 
-              class="img-circle noselect image-border"
-              :src="user.attributes.picture"
-              :title="user.attributes.name" 
-              width="200px"
-              height="200px"
-            >
-          </div>
+        <div v-if="user">
+          <Picture :title="user.attributes.name" :src="user.attributes.picture"></Picture> 
         </div>
       </div>
     </div>
@@ -38,11 +29,13 @@
 <script>
 import PostView from './post/PostView.vue';
 import Loading from './utils/Loading.vue';
+import Picture from './utils/Picture.vue';
 export default {
   name: 'user',
   components: {
     PostView,
-    Loading
+    Loading,
+    Picture
   },
   data() {
     return {

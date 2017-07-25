@@ -1,8 +1,8 @@
 <template>
   <div @click="checkout()">
-    <div v-if="post">
+    <div v-if="post" class="panel">
       <img 
-        class="image-drawing image-border"
+        class="image-drawing"
         :src="post.attributes.drawing"
       >
     </div>

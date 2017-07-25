@@ -21,7 +21,6 @@ Route::namespace('Api')->group(function() {
     
     // Post
     Route::get('post', 'PostController@index');
-    Route::get('post/{id}', 'PostController@show')->where('id', '[0-9]+');
     Route::get('post/{slug}/{id?}', 'PostController@slug')->where('id', '[0-9]+');
 
     // Topic

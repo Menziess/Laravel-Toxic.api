@@ -162,9 +162,9 @@
 			},
 			fetchId() {
 				if (this.posts.length > 0) 
-				this.api('/api/post/' + this.id + '?skip=' + this.posts[0].relationships.replies.length + '&amount=14', 'pushReplies', 'post');
+				this.api('/api/post/' + this.slug + '/' + this.id + '?skip=' + this.posts[0].relationships.replies.length + '&amount=14', 'pushReplies', 'post');
 				else
-				this.api('/api/post/' + this.id, 'push', 'post');
+				this.api('/api/post/' + this.slug + '/' + this.id, 'push', 'post');
 			},
 			cleanup(name) {
 				this.$store.dispatch('cleanup', { 

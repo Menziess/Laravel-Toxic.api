@@ -53,7 +53,7 @@ const routes = [
 
 	{ path: '/t/:slug/new', name: 'new', component: PostNew },
 
-	{ path: '/t/:slug/:id?', name: 'post', component: Posts, props: true },
+	{ path: '/t/:slug?/:id?', name: 'post', component: Posts, props: true },
 
 	{ path: '/u/:slug?', name: 'user', component: User },
 

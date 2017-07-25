@@ -3,7 +3,7 @@
     <div v-if="post">
 
       <!-- No Embed -->
-      <div class="image-border">
+      <div class="panel">
         <div class="video-container">
           <img v-if="!embedSrc"
             class="image-drawing"

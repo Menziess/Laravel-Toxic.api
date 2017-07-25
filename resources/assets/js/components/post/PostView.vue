@@ -1,6 +1,6 @@
 <template>
   <div :class="[ischild ? 'panel-separator' : 
-                isconversation ? '' : ['panel', 'panel-default']]">
+                isconversation ? 'line' : ['panel', 'panel-default']]">
 
     <!-- Subject -->
     <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
@@ -73,3 +73,9 @@
     }
   }
 </script>
+
+<style scoped>
+.line {
+  background: linear-gradient(to right,#db4545 0,#db4545 5px,#fff 5px,#fff 100%) no-repeat;
+}
+</style>

@@ -5,7 +5,7 @@
     <Activate :me="me"></Activate>
 
     <!-- Settings -->
-    <Picture :me="me"></Picture>
+    <Upload :me="me"></Upload>
 
     <!-- Login Options -->
     <Login :me="me"></Login>
@@ -53,7 +53,7 @@
 <script>
 import Register from './Register';
 import Activate from './Activate';
-import Picture from './Picture';
+import Upload from '../utils/Upload';
 import Social from './Social';
 import Login from './Login';
 export default {
@@ -61,7 +61,7 @@ export default {
   components: {
     Register,
     Activate,
-    Picture,
+    Upload,
     Social,
     Login,
   },

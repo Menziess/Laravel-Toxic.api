@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" @click="close()" id="zoom" class="modal fade noselect" role="dialog" ref="modal">
     <img
-      class="img-circle zoom"
+      class="img-circle zoomed"
       :src="src"
       :title="title"
     >

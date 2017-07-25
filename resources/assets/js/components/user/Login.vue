@@ -102,6 +102,7 @@ export default {
           email: this.email
         }
       }).then(response => {
+        if (!response.data.id) { this.submitted = false; return false; }
         this.$store.dispatch('setMe', response.data);
         this.setApiToken(response.data);
         this.submitted = false;

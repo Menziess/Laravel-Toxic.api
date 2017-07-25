@@ -23,8 +23,8 @@ export default {
   data() {
     return {
       maxlength: 255,
+      hasInput: false,
       url: this.$parent.url,
-      hasInput: false
     }
   },
   watch: {
