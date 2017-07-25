@@ -241,11 +241,12 @@ const actions = {
     return axios.get(data.endpoint)
     .then(response => {
       if (response.data.data.length > 0)
-      context.commit(data.mutation, {
+      context.commit(data.mutation, { 
         name: data.name, 
         collection: response.data.data
       });
-      else context.commit('hasMore', false);
+      if (response.data.data.length < 7) 
+        context.commit('hasMore', false);
     });
   },
   cleanup(context, data) { context.commit('cleanup', data); },

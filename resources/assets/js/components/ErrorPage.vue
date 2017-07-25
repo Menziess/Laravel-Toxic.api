@@ -55,11 +55,6 @@
 <script>
 export default {
   name: 'errorpage',
-  watch: {
-    error() {
-      console.log(this.error.stack);
-    }
-  },
   computed: {
     error() {
       return this.$store.getters.error;
