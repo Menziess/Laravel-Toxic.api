@@ -102,11 +102,11 @@
 				if (this.loading) return;
 				else this.loading = true;
 				if (this.atDetail) {
-					if (this.posts.length < 1 || this.posts[0].id != this.id) {
+					if (this.posts.length > 0 && this.posts[0].id === this.id) {
+						this.loading = false;
+					} else {
 						this.$store.commit('replace', { name: 'post', collection: [] });
 						this.fetchId();
-					} else {
-						this.loading = false;
 					}
 				}
 				else if (this.atSearch && (this.posts.length < 1 || this.posts[0].slug != this.slug)) {

@@ -73,9 +73,3 @@
     }
   }
 </script>
-
-<style scoped>
-.line {
-  background: linear-gradient(to right,#db4545 0,#db4545 5px,#fff 5px,#fff 100%) no-repeat;
-}
-</style>
