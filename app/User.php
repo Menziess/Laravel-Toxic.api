@@ -103,7 +103,7 @@ class User extends Authenticatable implements SlugAble
 	{
 		$query = $this->belongsToMany('App\Post');
 		if ($type) $query->wherePivot('type', $type);
-		return $query->withTimestamps();
+		return $query->withTimestamps()->withPivot('type');
 	}
 
 	/**

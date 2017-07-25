@@ -25,7 +25,7 @@ export default class Post {
   copyLikesDislikes(post) {
     this.attributes.likes_count = post.attributes.likes_count;
     this.attributes.dislikes_count = post.attributes.dislikes_count;
-    Vue.set(this.relationships, 'likes', [post.relationships.likes[0]]);
+    Vue.set(this.relationships, 'likes', post.relationships.likes);
   }
 
   static isPost(data) {

@@ -13,11 +13,9 @@ use App\Post, App\User, Auth;
 
 class PostController extends Controller
 {
-    private $id;
-
     public function __construct(Request $request)
     {
-        $this->id = $request->user('api') ? $request->user('api')->id : null;
+        $this->user = $request->user('api');
     }
 
     /**
@@ -169,7 +167,7 @@ class PostController extends Controller
         $query = Post::with(['user', 'replies', 'resource'])
             ->where('slug', $slug)
             ->withCount('replies')
-            ->withLikes($this->id)
+            ->withLikes($this->user->id)
             ->findOrFail($id);
             
         $amount = $request->input('amount');
@@ -204,10 +202,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->id == 1) abort(403);
+        if ($this->user->id == 1) abort(403);
 
         $post = Post::findOrFail($id);
-        if ($this->id != $post->user_id) abort(403);
+        if ($this->user->id != $post->user_id) abort(403);
         $post->delete();
         
         return response("Deleted", 200);
@@ -220,7 +218,7 @@ class PostController extends Controller
      */
     public function like($id)
     {
-        if ($this->id == 1) abort(403);
+        if ($this->user->id == 1) abort(403);
         
         return $this->likeOrDislike($id, 1);
     }
@@ -232,7 +230,7 @@ class PostController extends Controller
      */
     public function dislike($id)
     {
-        if ($this->id == 1) abort(403);
+        if ($this->user->id == 1) abort(403);
         
         return $this->likeOrDislike($id, 0);
     }
@@ -242,27 +240,23 @@ class PostController extends Controller
      */
     private function likeOrDislike($id, $like)
     {
-        // Check like or dislike
-        $post = User::findOrFail(Auth::id())
-            ->likes()
-            ->where('id', $id)
-            ->withPivot('type')
-            ->get();
+        $user = $this->user->load(['likes' => function($query) use ($id) {
+            $query->find($id);
+        }]);
 
-        // If no like or dislike
-        if (!count($post))
-            User::findOrFail(Auth::id())->likes()->attach($id, ['type' => $like]);
-        else
-            User::findOrFail(Auth::id())->likes()->updateExistingPivot($id, ['type' => $like]);
+        if ($user->likes->count() < 1) {
+            $user->likes()->attach($id, ['type' => $like]);
+        } else if ($user->likes[0]->pivot->type == $like) {
+            $user->likes()->detach($id);
+        } else {
+            $user->likes()->updateExistingPivot($id, ['type' => $like]);            
+        }
 
-        $post = User::findOrFail(Auth::id())
-            ->likes()
-            ->where('id', $id)
-            ->withPivot('type')
-            ->withLikes($this->id)
-            ->get();
+        $post = Post::withLikes($this->user->id)->findOrFail($id);
 
-        return response($post, 201);
+        if (count($user->likes))
+            return response($post, 201);
+        return response($post, 200);
     }
 
     /**
@@ -273,7 +267,7 @@ class PostController extends Controller
         return Post::orderBy('id', 'desc')
             ->original()
             ->withCount('replies')
-            ->withLikes($this->id);
+            ->withLikes($this->user->id);
     }
 
     /**
