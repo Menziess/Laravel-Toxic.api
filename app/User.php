@@ -14,9 +14,7 @@ class User extends Authenticatable implements SlugAble
 {
     use Notifiable, JsonAble, SoftDeletes;
 
-	const ANIMALS = [
-		'bird.png'
-	];
+		const ANIMALS = ['bird-icon.png', 'duck-icon.png', 'rabbit-icon.png', 'black-cat-icon.png', 'seal-icon.png', 'bulldog-icon.png', 'fish-icon.png', 'shark-icon.png', 'bunny-icon.png', 'frog-icon.png', 'sheep-icon.png', 'cardinal-icon.png', 'hamster-icon.png', 'squid-icon.png', 'chicken-icon.png', 'jellyfish-icon.png', 'squirrel-icon.png', 'cow-icon.png', 'kitten-icon.png', 'tropical-fish-icon.png', 'crab-icon.png', 'lobster-icon.png', 'tuna-icon.png', 'dachshund-icon.png', 'mouse-icon.png', 'turkey-icon.png', 'dog-icon.png', 'octopus-icon.png', 'turtle-icon.png', 'dolphin-icon.png', 'pig-icon.png', 'whale-icon.png', 'donkey-icon.png', 'puppy-icon.png'];
 
     /**
      * The attributes that are mass assignable.
@@ -161,21 +159,12 @@ class User extends Authenticatable implements SlugAble
 		if ($this->resource) 
 			$image = 'storage/images/' . $this->resource->url . $this->resource->extension;
 		else if ($this->id == 1)
-			$image = static::getAnimalPicture(rand(0, 999));
+			$image = 'img/animals/' . static::ANIMALS[rand(1, 999) % count(static::ANIMALS)];
 		else
-			$image = static::getAnimalPicture($this->id);
+			$image = 'img/animals/' . static::ANIMALS[$this->id % count(static::ANIMALS)];
 		if ($image) 
 			return asset($image);
 			return asset('img/Toxic-logo.png');
-	}
-
-	/*
-	 * Retrieve a cute animal from its cage.
-	 */
-	public static function getAnimalPicture($index)
-	{
-		if ($animals = scandir('img/animals', 1))
-			return 'img/animals/' . $animals[$index % count($animals)];
 	}
 
 	/*
