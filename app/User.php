@@ -160,11 +160,22 @@ class User extends Authenticatable implements SlugAble
 		$image = null;
 		if ($this->resource) 
 			$image = 'storage/images/' . $this->resource->url . $this->resource->extension;
-		else if ($animals = scandir('img/animals', 1))
-			$image =  'img/animals/' . $animals[$this->id % count($animals)];
-		else 
-			$image = 'img/Toxic-logo.png';
-		return asset($image);
+		else if ($this->id == 1)
+			$image = static::getAnimalPicture(rand(0, 999));
+		else
+			$image = static::getAnimalPicture($this->id);
+		if ($image) 
+			return asset($image);
+			return asset('img/Toxic-logo.png');
+	}
+
+	/*
+	 * Retrieve a cute animal from its cage.
+	 */
+	public static function getAnimalPicture($index)
+	{
+		if ($animals = scandir('img/animals', 1))
+			return 'img/animals/' . $animals[$index % count($animals)];
 	}
 
 	/*
