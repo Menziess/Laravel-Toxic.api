@@ -10,7 +10,7 @@
       
       v-on:touchend.prevent="stop"
       v-on:touchstart.prevent="start"
-      v-on:touchmove.prevent="mousePos($event)"
+      v-on:touchmove.prevent="touchPos($event)"
       
       v-bind:class="{ mouseDown: dragging }"
       class="noselect"
@@ -89,6 +89,11 @@ export default {
       this.rect = this.canvas.getBoundingClientRect();
       this.x = e.pageX - this.rect.left - window.pageXOffset;
       this.y = e.pageY - this.rect.top - window.pageYOffset;
+    },
+    touchPos(e) {
+      this.rect = this.canvas.getBoundingClientRect();
+      this.x = e.touches[0].pageX - this.rect.left - window.pageXOffset;
+      this.y = e.touches[0].pageY - this.rect.top - window.pageYOffset;
     },
     getDataUrl() {
       return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
