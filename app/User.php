@@ -14,7 +14,9 @@ class User extends Authenticatable implements SlugAble
 {
     use Notifiable, JsonAble, SoftDeletes;
 
-	const PLACEHOLDER_PICTURE = 'img/Toxic-logo.png';
+	const ANIMALS = [
+		'bird.png'
+	];
 
     /**
      * The attributes that are mass assignable.
@@ -155,9 +157,13 @@ class User extends Authenticatable implements SlugAble
 	 */
 	public function getPictureAttribute()
 	{
-		$image = $this->resource
-			? 'storage/images/' . $this->resource->url . $this->resource->extension
-			: self::PLACEHOLDER_PICTURE;
+		$image = null;
+		if ($this->resource) 
+			$image = 'storage/images/' . $this->resource->url . $this->resource->extension;
+		else if ($animals = scandir('img/animals', 1))
+			$image =  'img/animals/' . $animals[$this->id % count($animals)];
+		else 
+			$image = 'img/Toxic-logo.png';
 		return asset($image);
 	}
 
