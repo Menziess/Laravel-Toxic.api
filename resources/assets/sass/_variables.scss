@@ -148,6 +148,15 @@ nav {
 /**
  * Images attachments.
  */
+.image-placeholder {
+  background-color: whitesmoke;
+  padding-bottom: 50%;
+  width: 100%;
+}
+.image-drawing {
+  display: block;
+  width: 100%;
+}
 .image-border {
   border: 1px solid $brand;
   border-radius: 3px;
@@ -342,5 +351,5 @@ canvas {
 
 // Verical line
 .line {
-  box-shadow: inset 5px 0px 0px 0px $brand-epic;
+  box-shadow: inset 5px 0px 0px 0px $brand-epic !important;
 }

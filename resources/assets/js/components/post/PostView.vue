@@ -1,6 +1,8 @@
 <template>
-  <div :class="[ischild ? 'panel-separator' : 
-                isconversation ? 'line' : ['panel', 'panel-default']]">
+  <div :class="[{ 'panel-separator': child }, 
+                { 'panel panel-default': parent },
+                { 'line': isNew }
+              ]">
 
     <!-- Subject -->
     <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
@@ -68,6 +70,15 @@
       },
       conversation() {
         return this.post.relationships.conversation;
+      },
+      child() {
+        return this.ischild && !this.isconversation;
+      },
+      parent() {
+        return !this.ischild && !this.isconversation
+      },
+      isNew() {
+        return this.post.hasOwnProperty('new');
       }
     }
   }

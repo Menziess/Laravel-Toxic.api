@@ -104,7 +104,7 @@ axios.interceptors.response.use(
 	}, error => {
 		if (caught.indexOf(error.response.status) !== -1) 
 			return Promise.reject(error);
-		router.replace({ name: 'error' });
+		router.push({ name: 'error' });
 		store.dispatch('error', error);
 		return Promise.reject(error);
 	});

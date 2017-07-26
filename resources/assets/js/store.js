@@ -147,6 +147,7 @@ const mutations = {
    */
   unshift(state, jsonPost) {
     // Convert to Post
+    jsonPost.new = true;
     const post = new Post(jsonPost);
     // Check if it's a new post
     if (execute.original(post)) {

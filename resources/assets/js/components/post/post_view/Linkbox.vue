@@ -5,12 +5,16 @@
       <!-- No Embed -->
       <div class="panel">
         <div class="video-container">
-          <img v-if="!embedSrc"
-            class="image-drawing"
-            @click="interact()"
-            :title="post.relationships.resource.attributes.realurl"
-            :src="post.attributes.drawing"
-          >
+          <div :class="[{ 'image-placeholder': !show }]">
+            <img v-if="!embedSrc"
+              v-on:load="show = true"
+              v-show="show"
+              class="image-drawing"
+              @click="interact()"
+              :title="post.relationships.resource.attributes.realurl"
+              :src="post.attributes.drawing"
+            >
+          </div>
           <button v-if="embed && !embedSrc" class="btn-video" @click="interact()"><i class="glyphicon glyphicon-play"></i></button>
         </div>
         <!-- Embed -->
@@ -36,6 +40,7 @@ export default {
   props: ['post'],
   data: () => ({
     embedSrc: null,
+    show: false
   }),
   computed: {
     resource() {
@@ -97,10 +102,6 @@ export default {
 .video-container {
   position: relative;
   text-align: center;
-}
-.image-drawing {
-  display: block;
-  width: 100%;
 }
 .image-info {
   background-color: rgba(255,255,255,0.98);
