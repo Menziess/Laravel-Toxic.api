@@ -11,7 +11,7 @@
 		></PostView>
 
 		<!-- Loading -->
-		<Loading v-if="!empty" :loading="loading" message="No more posts"></Loading>
+		<Loading v-if="!empty" :loading="loading"></Loading>
 
 		<!-- Empty State -->
 		<div v-if="empty">

@@ -16,6 +16,7 @@ class PostController extends Controller
     public function __construct(Request $request)
     {
         $this->user = $request->user('api');
+        $this->id = $this->user ? $this->user->id : null;
     }
 
     /**
@@ -167,7 +168,7 @@ class PostController extends Controller
         $query = Post::with(['user', 'replies', 'resource'])
             ->where('slug', $slug)
             ->withCount('replies')
-            ->withLikes($this->user->id)
+            ->withLikes($this->id)
             ->findOrFail($id);
             
         $amount = $request->input('amount');
@@ -202,10 +203,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->user->id == 1) abort(403);
+        if ($this->id == 1) abort(403);
 
         $post = Post::findOrFail($id);
-        if ($this->user->id != $post->user_id) abort(403);
+        if ($this->id != $post->user_id) abort(403);
         $post->delete();
         
         return response("Deleted", 200);
@@ -218,7 +219,7 @@ class PostController extends Controller
      */
     public function like($id)
     {
-        if ($this->user->id == 1) abort(403);
+        if ($this->id == 1) abort(403);
         
         return $this->likeOrDislike($id, 1);
     }
@@ -230,7 +231,7 @@ class PostController extends Controller
      */
     public function dislike($id)
     {
-        if ($this->user->id == 1) abort(403);
+        if ($this->id == 1) abort(403);
         
         return $this->likeOrDislike($id, 0);
     }
@@ -252,7 +253,7 @@ class PostController extends Controller
             $user->likes()->updateExistingPivot($id, ['type' => $like]);            
         }
 
-        $post = Post::withLikes($this->user->id)->findOrFail($id);
+        $post = Post::withLikes($this->id)->findOrFail($id);
 
         if (count($user->likes))
             return response($post, 201);
@@ -267,7 +268,7 @@ class PostController extends Controller
         return Post::orderBy('id', 'desc')
             ->original()
             ->withCount('replies')
-            ->withLikes($this->user->id);
+            ->withLikes($this->id);
     }
 
     /**

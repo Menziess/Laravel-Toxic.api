@@ -26,6 +26,9 @@ class CreatePostsTable extends Migration
             $table->integer('post_id')
 				  ->unsigned()
 				  ->nullable();
+            $table->integer('repost_id')
+				  ->unsigned()
+				  ->nullable();
             $table->integer('resource_id')
 				  ->unsigned()
 				  ->nullable();

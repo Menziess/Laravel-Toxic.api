@@ -8,12 +8,6 @@
     <div :class="{ 'line': conversation && !isconversation, 
                     'line-start line': conversation && isconversation,
                     'line-start': !conversation && isconversation }">
-
-      <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
-        <router-link :to="'/t/' + post.attributes.slug">
-          <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
-        </router-link>
-      </div>
       <Attachments 
         :post="post"
       ></Attachments>
@@ -61,9 +55,6 @@
       PostReply,
       Drawing,
       Textbox
-    },
-    mounted() {
-      console.log(this.post);
     },
     watch:  {
       replying() {

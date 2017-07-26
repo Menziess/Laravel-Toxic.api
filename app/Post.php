@@ -59,6 +59,15 @@ class Post extends Model implements SlugAble
 	];
 
     /**
+     * Automatically included relations.
+     *
+     * @var array
+     */
+    protected $with = [
+        'repost'
+    ];
+
+    /**
      * Get the owner.
      */
     public function user()
@@ -120,6 +129,24 @@ class Post extends Model implements SlugAble
 		if ($type) $query->wherePivot('type', $type);
 		return $query->withTimestamps();
 	}
+
+    /**
+     * Get repost of this post.
+     */
+    public function repost()
+    {
+        return $this->belongsTo('App\Post', 'repost_id')
+            ->with('user');
+    }
+
+    /**
+     * Get posts that reposted this post.
+     */
+    public function repostedBy()
+    {
+        return $this->hasMany('App\Post', 'repost_id')
+            ->with('user');
+    }
 
     /**
      * Scope original posts. 

@@ -29,7 +29,7 @@
 		
 		<!-- Right Mid Side -->
 		<div class="mid">
-			<router-link v-if="user.id != 1" class="text" :to="'/u/' + this.user.attributes.slug">
+			<router-link v-if="user.id != 1" class="text" :to="'/u/' + user.attributes.slug">
 				<span><strong>{{ user.attributes.name }}</strong></span>
 			</router-link>
 			<span v-else><strong>{{ user.attributes.name }}</strong></span>			
@@ -38,10 +38,20 @@
 
 			<!-- Post Content -->
 			<div class="clickable post-content">
-				<Textbox      v-if="post.attributes.attachment === 'text'" :post="post"></Textbox>
-				<Drawing v-else-if="post.attributes.attachment === 'drawing'" :post="post"></Drawing>
-				<Linkbox v-else-if="post.attributes.attachment === 'url'" :post="post"></Linkbox>
+				<Textbox      v-if="content.attributes.attachment === 'text'" :post="content"></Textbox>
+				<Drawing v-else-if="content.attributes.attachment === 'drawing'" :post="content"></Drawing>
+				<Linkbox v-else-if="content.attributes.attachment === 'url'" :post="content"></Linkbox>
 			</div>
+
+			<!-- Repost Author -->
+			<small v-if="repost">Resent 
+				<router-link class="text" :to="'/u/' + repost.relationships.user.attributes.slug">
+					<strong>{{ repost.relationships.user.attributes.name }}</strong>
+				</router-link>'s original
+				<router-link class="text" :to="'/t/' + repost.attributes.slug + '/' + repost.id">
+					<strong>post</strong>
+				</router-link>
+			</small>
 
 			<!-- Buttons -->
 			<div class="button-bar">
@@ -72,30 +82,25 @@ export default {
 		Linkbox,
 		Modal
 	},
+	created() {
+		if (this.repost)
+			this.content = this.repost;
+		else this.content = this.post;
+	},
 	data() {
 		return {
-			zoomed: false
+			zoomed: false,
+			content: null
 		}
 	},
 	computed: {
-		me() {
-			return this.$store.getters.me
-		},
-		user() {
-			return this.post.relationships.user;
-		},
-		score() {
-			return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0;
-		},
-		userHasLiked() {
-			return (this.post.relationships.likes);
-		},
-		liked() {
-			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 1;
-		},
-		disliked() {
-			return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 0;
-		}
+		me() { return this.$store.getters.me },
+		user() { return this.post.relationships.user; },
+		score() { return this.post.attributes.likes_count - this.post.attributes.dislikes_count || 0; },
+		liked() { return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 1; },
+		repost() { return this.post.relationships.repost; },
+		disliked() { return this.userHasLiked && this.post.relationships.likes[0].relationships.pivot.attributes.type == 0; },
+		userHasLiked() { return (this.post.relationships.likes); },
 	},
 	methods: {
 		authorized(action) {
@@ -113,7 +118,19 @@ export default {
 				this.$store.dispatch('toggleReplying', this.post.id);
 		},
 		resend() {
-			alert("tba");	
+			// if (this.submitted) { return false; }
+			// this.submitted = true;
+			// this.$store.dispatch('create', {
+			// 	endpoint: 'api/post',
+			// 	post: this.getForm(),
+			// }).then(response => {
+			// 	this.submitted = false;
+			// 	this.$router.push({ name: 'home' });
+			// 	window.scroll(0, 0);
+			// }).catch(error => {
+			// 	this.submitted = false;
+			// 	this.$router.push({ name: 'error'});
+			// })
 		},
 		upvote() {
 			this.$store.dispatch('like', {

@@ -63,6 +63,15 @@ class User extends Authenticatable implements SlugAble
 	];
 
 	/**
+ 	 * Automatically included relations.
+  	 *
+  	 * @var array
+ 	 */
+	protected $with = [
+		//
+	];
+
+	/**
      * User posts.
      */
     public function posts()

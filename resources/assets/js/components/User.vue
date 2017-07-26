@@ -21,7 +21,7 @@
     </div>
 
     <!-- Loading -->
-    <Loading :loading="loading" message="No more content"></Loading>
+    <Loading :loading="loading"></Loading>
 
   </div>
 </template>
