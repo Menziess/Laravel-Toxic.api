@@ -44,10 +44,10 @@
 			</div>
 
 			<!-- Repost Author -->
-			<small v-if="repost">Resent 
-				<router-link class="text" :to="'/u/' + repost.relationships.user.attributes.slug">
-					<strong>{{ repost.relationships.user.attributes.name }}</strong>
-				</router-link>'s original
+			<small v-if="repost" style="margin-top: 0.5em;">Resent 
+				<router-link v-if="repost.relationships.user.id !== 1" class="text" :to="'/u/' + repost.relationships.user.attributes.slug">
+					<strong>{{ repost.relationships.user.attributes.name }}'s</strong>
+				</router-link> original
 				<router-link class="text" :to="'/t/' + repost.attributes.slug + '/' + repost.id">
 					<strong>post</strong>
 				</router-link>
@@ -86,6 +86,7 @@ export default {
 		if (this.repost)
 			this.content = this.repost;
 		else this.content = this.post;
+		console.log(this.content.relationships.user.id)
 	},
 	data() {
 		return {
