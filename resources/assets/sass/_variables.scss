@@ -60,6 +60,7 @@ $brand-epic: #30cf4f;
 $brand-primary: #2b60af;
 $brand-info: #8eb4cb;
 $brand-success: #2baf43;
+$brand-soft: #cbf3d3;
 $brand-warning: #cbb956;
 $brand-danger: #af312b;
 
@@ -163,7 +164,7 @@ nav {
   width: 100%;
 }
 .image-border {
-  border: 1px solid $brand;
+  border: 1px solid $brand-soft;
   border-radius: 3px;
 }
 .image-border-danger {
@@ -176,6 +177,8 @@ nav {
   border: 1px solid rgba(0, 230, 0, 0.5);
 }
 .zoomed {
+  border: 1px solid $brand-epic;
+  background-color: white;
   margin-top: 10vh;
   max-width: 100%;
   display: block;
@@ -359,16 +362,16 @@ canvas {
 .new {
   box-shadow: inset 5px 0px 0px 0px $brand-epic !important;
 }
-.line {
+.line, .line-start, .line-end{
   position: relative;
 }
-.line:before {
-  top: -5px;
+.line-start:before {
+  top: -1px;
   bottom: auto;
-  left: 32px;
-  height: 10px;
+  left: 33px;
+  height: 7px;
   position: absolute;
-  border-color: rgba(48, 207, 79, 0.25);
+  border-color: $brand-soft;
   border-style: solid;
   border-width: 2px;
   border-radius: 2px;
@@ -377,9 +380,20 @@ canvas {
 .line:after {
   top: 56px;
   bottom: 0em;
-  left: 32px;
+  left: 33px;
   position: absolute;
-  border-color: rgba(48, 207, 79, 0.25);
+  border-color: $brand-soft;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  content: "";
+}
+ .line-end:after {
+  top: 56px;
+  bottom: 0em;
+  left: 33px;
+  position: absolute;
+  border-color: $brand-soft;
   border-style: solid;
   border-width: 2px;
   border-radius: 2px;

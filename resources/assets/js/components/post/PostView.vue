@@ -1,20 +1,23 @@
 <template>
-  <div :class="[{ 'panel-separator': child }, 
-                { 'panel panel-default': parent },
-                { 'new': isNew }
-              ]">
+  <div :class="{ 'panel-separator': child, 
+                  'panel panel-default': parent,
+                  'new': isNew }
+              ">
 
-    <!-- Subject -->
-    <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
-      <router-link :to="'/t/' + post.attributes.slug">
-        <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
-      </router-link>
+    <!-- Content -->
+    <div :class="{ 'line': conversation && !isconversation, 
+                    'line-start line': conversation && isconversation,
+                    'line-start': !conversation && isconversation }">
+
+      <div v-if="!ischild && $router.history.current.name === 'home'" class="panel-heading">
+        <router-link :to="'/t/' + post.attributes.slug">
+          <strong class="heading-text">/t/{{ post.attributes.subject }}</strong>
+        </router-link>
+      </div>
+      <Attachments 
+        :post="post"
+      ></Attachments>
     </div>
-
-    <!-- Attachments -->
-    <Attachments 
-      :post="post"
-    ></Attachments>
 
     <!-- Reply Form -->
     <div ref="postreply">
@@ -26,7 +29,7 @@
 
     <!-- Conversations -->
     <div v-if="conversation">
-      <PostView class="line" v-if="conversation[0].relationships && conversation[0].relationships.user"
+      <PostView v-if="conversation[0].relationships && conversation[0].relationships.user"
         :isconversation="true"
         :post="conversation[0]"
         :key="conversation[0].id"
@@ -58,6 +61,9 @@
       PostReply,
       Drawing,
       Textbox
+    },
+    mounted() {
+      console.log(this.post);
     },
     watch:  {
       replying() {
