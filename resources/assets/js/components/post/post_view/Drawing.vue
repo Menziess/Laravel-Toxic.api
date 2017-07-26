@@ -26,7 +26,7 @@
       checkout() {
         this.$router.push({ 
           name: 'post',
-          params: { slug: this.post.slug, id: this.post.id }
+          params: { slug: this.post.attributes.slug, id: this.post.id }
         });
       }
     }

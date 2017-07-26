@@ -46,7 +46,7 @@ class Post extends Model implements SlugAble
      * @var array
      */
     protected $appends = [
-        'drawing', 'replies_count',
+        'drawing', 'replies_count', 'hotlink',
     ];
 
 	/**
@@ -198,6 +198,14 @@ class Post extends Model implements SlugAble
     {
         return $this->replies()->count();
     }
+
+    /*
+	 * Get hotlink.
+	 */
+	public function getHotlinkAttribute()
+	{
+        return '/t/' . $this->slug . '/' . $this->id;
+	}
 
     /*
 	 * Get drawing.
