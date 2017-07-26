@@ -159,7 +159,7 @@ class User extends Authenticatable implements SlugAble
 		if ($this->resource) 
 			$image = 'storage/images/' . $this->resource->url . $this->resource->extension;
 		else if ($this->id == 1)
-			$image = 'img/default.webp';
+			$image = 'img/default.png';
 		else
 			$image = 'img/animals/' . static::ANIMALS[$this->id % count(static::ANIMALS)];
 		if ($image) 
