@@ -122,6 +122,11 @@ blockquote {
     display: none !important;
   }
 }
+.xs-hidden {
+  @media only screen and (max-width: 310px) {
+    display: none !important;
+  }
+}
 
 // Navbar
 nav {
@@ -150,7 +155,7 @@ nav {
  */
 .image-placeholder {
   background-color: whitesmoke;
-  padding-bottom: 50%;
+  padding-bottom: 56.5%;
   width: 100%;
 }
 .image-drawing {
@@ -280,6 +285,7 @@ canvas {
   flex:1;
 }
 .leftist {
+  z-index: 1;
   margin-left: 0.2em;
 	text-align: center;
 	width: 50px;
@@ -350,6 +356,32 @@ canvas {
 }
 
 // Verical line
-.line {
+.new {
   box-shadow: inset 5px 0px 0px 0px $brand-epic !important;
+}
+.line {
+  position: relative;
+}
+.line:before {
+  top: -5px;
+  bottom: auto;
+  left: 32px;
+  height: 10px;
+  position: absolute;
+  border-color: rgba(48, 207, 79, 0.25);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  content: "";
+}
+.line:after {
+  top: 56px;
+  bottom: 0em;
+  left: 32px;
+  position: absolute;
+  border-color: rgba(48, 207, 79, 0.25);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  content: "";
 }

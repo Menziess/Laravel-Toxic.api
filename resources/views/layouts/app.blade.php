@@ -19,18 +19,18 @@
     <meta property="fb:app_id" content="297069167386750" />
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
+    <link href="{{ asset('css/app.css') }}" media="all" rel="stylesheet">
+    <link rel="apple-touch-icon" media="screen" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
     <link rel="shortcut icon" href="{{ asset('favicons/apple-touch-icon.png') }}" type="image/x-icon" />
-    <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
+    <link rel="manifest" media="screen" href="{{ asset('favicons/manifest.json') }}">
     <link rel="mask-icon" href="{{ asset('favicons/safari-pinned-tab.svg') }}" color="#5bbad5">
 
     <meta name="apple-mobile-web-app-title" content="T-o-x-i-c">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#ffffff">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
     @yield('head')
 </head>
 <body ontouchstart="">

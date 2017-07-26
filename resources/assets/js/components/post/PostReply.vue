@@ -46,3 +46,10 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.panel-separator {
+	z-index: 1;
+	position: relative;
+}
+</style>

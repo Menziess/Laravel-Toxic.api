@@ -32,7 +32,7 @@
         <Picture></Picture>
 
         <!-- Search Field -->
-        <div class="input-group nav-search pull-right">
+        <div class="input-group nav-search xs-hidden pull-right">
           <form v-on:submit.prevent="submitSearch()" style="margin: 0; padding: 0;">
             <input type="text" class="form-control" :placeholder="$route.params.slug || 'Search...'" v-model="search">
           </form>

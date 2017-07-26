@@ -159,12 +159,12 @@ class User extends Authenticatable implements SlugAble
 		if ($this->resource) 
 			$image = 'storage/images/' . $this->resource->url . $this->resource->extension;
 		else if ($this->id == 1)
-			$image = 'img/animals/' . static::ANIMALS[rand(1, 999) % count(static::ANIMALS)];
+			$image = 'img/default.png';
 		else
 			$image = 'img/animals/' . static::ANIMALS[$this->id % count(static::ANIMALS)];
 		if ($image) 
 			return asset($image);
-			return asset('img/Toxic-logo.png');
+			return asset('img/toxic.png');
 	}
 
 	/*

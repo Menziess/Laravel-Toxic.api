@@ -1,7 +1,7 @@
 <template>
   <div :class="[{ 'panel-separator': child }, 
                 { 'panel panel-default': parent },
-                { 'line': isNew }
+                { 'new': isNew }
               ]">
 
     <!-- Subject -->
@@ -26,7 +26,7 @@
 
     <!-- Conversations -->
     <div v-if="conversation">
-      <PostView v-if="conversation[0].relationships && conversation[0].relationships.user"
+      <PostView class="line" v-if="conversation[0].relationships && conversation[0].relationships.user"
         :isconversation="true"
         :post="conversation[0]"
         :key="conversation[0].id"
