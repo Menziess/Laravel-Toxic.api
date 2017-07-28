@@ -3,7 +3,7 @@
 
     <!-- New Post Mobile -->
     <button v-if="!this.$store.getters.replying"
-      class="btn btn-lg btn-success navbar-btn pull-right mobile-new-button"
+      class="btn btn-lg btn-success navbar-btn pull-right mobile-button"
       title="Create a new post" v-on:click="postRoute()">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
@@ -91,7 +91,7 @@ export default {
   display: inline-block;
   margin: 8px 15px;
 }
-.mobile-new-button {
+.mobile-button {
   position: fixed;
   bottom: 0;
   right: .5em;

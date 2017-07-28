@@ -1,8 +1,15 @@
 <template>
   <div class="left">
 
+    <!-- Back Button -->
+    <button v-if="!atHome"
+      class="btn btn-lg btn-success navbar-btn mobile-button"
+      title="Back" v-on:click="$router.go(-1)">
+      <i class="glyphicon glyphicon-arrow-left"></i>
+    </button>
+
     <!-- Popular Topics -->
-    <div v-if="showPopularTopics" class="row">
+    <div v-if="atHome" class="row">
       <div class="panel">
         <div class="panel-body">
 
@@ -29,11 +36,7 @@ export default {
     topics() {
       return this.$store.getters.topics;
     },
-
-    /**
-     * Only show popular topics when...
-     */
-    showPopularTopics() {
+    atHome() {
       if (!this.$route) return;
       return this.$route.name === "home";
     }
@@ -45,5 +48,19 @@ export default {
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+.mobile-button {
+  position: fixed;
+  bottom: 0;
+  left: .5em;
+  z-index: 999;
+  background-color: rgba(255,255,255,0.98) !important;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);
+  outline: none;
 }
 </style>

@@ -221,7 +221,7 @@ canvas {
 .btn:active {
   background-color: #eee !important;
 }
-.mobile-new-button {
+.mobile-button {
   @media all and (min-width: 768px) {
     display: none !important;
   }
