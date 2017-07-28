@@ -12923,15 +12923,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'left',
@@ -13547,6 +13538,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var NOT_DRAWN = -1,
     DRAWING = 0,
@@ -13580,7 +13572,7 @@ var NOT_DRAWN = -1,
 		drawButton: function drawButton() {
 			switch (this.drawstate) {
 				case DRAWING:
-					return 'Done';break;
+					return 'Save';break;
 				case DRAWN:
 					return 'Draw &#10003;';break;
 				default:
@@ -13602,7 +13594,7 @@ var NOT_DRAWN = -1,
 			return this.canvas !== 'undefined' && this.wasDrawn ? this.canvas.toDataURL() : null;
 		},
 		clearDrawing: function clearDrawing() {
-			this.canvas.width = 0;this.wasDrawn = false;
+			this.canvas.width = 0;this.wasDrawn = false;this.drawing = false;
 		},
 		toggleDrawing: function toggleDrawing() {
 			if (!this.url.length > 0 || confirm("Replace attachment by a drawing?")) {
@@ -13656,6 +13648,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Modal__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_Modal__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13669,9 +13687,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textbox',
-  props: ['text']
+  props: ['text'],
+  components: {
+    Modal: __WEBPACK_IMPORTED_MODULE_0__utils_Modal___default.a
+  },
+  data: function data() {
+    return {
+      zoomed: false
+    };
+  },
+
+  watch: {
+    text: function text() {
+      if (this.$refs.textarea.clientHeight < this.$refs.textarea.scrollHeight) {
+        this.$refs.textarea.style.height = this.$refs.textarea.scrollHeight + "px";
+        if (this.$refs.textarea.clientHeight < this.$refs.textarea.scrollHeight) {
+          this.$refs.textarea.style.height = this.$refs.textarea.scrollHeight * 2 - this.$refs.textarea.clientHeight + "px";
+        }
+      }
+    }
+  },
+  computed: {
+    me: function me() {
+      return this.$store.getters.me;
+    }
+  }
 });
 
 /***/ }),
@@ -14491,7 +14534,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'picture',
-  props: ['title', 'src', 'preview'],
+  props: ['title', 'src', 'preview', 'width', 'height'],
   components: {
     Modal: __WEBPACK_IMPORTED_MODULE_0__utils_Modal___default.a
   },
@@ -17212,7 +17255,7 @@ exports.push([module.i, "\n.inputs[data-v-377e8617] {\r\n  padding: 0.5em;\r\n  
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.row[data-v-450f7b22] {\r\n  margin-left: 0 !important;\r\n  margin-right: 0 !important;\n}\n.btn-back[data-v-450f7b22] {\r\n  margin-left: 12px;\n}\n.mobile-button[data-v-450f7b22] {\r\n  display: none;\r\n  position: fixed;\r\n  bottom: 0;\r\n  left: .5em;\r\n  z-index: 999;\r\n  background-color: rgba(255,255,255,0.98) !important;\r\n  border-radius: 50%;\r\n  height: 3em;\r\n  width: 3em;\r\n  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  outline: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.row[data-v-450f7b22] {\r\n  margin-left: 0 !important;\r\n  margin-right: 0 !important;\n}\n.btn-back[data-v-450f7b22] {\r\n  margin-left: 12px;\n}\r\n", ""]);
 
 /***/ }),
 /* 83 */
@@ -17233,7 +17276,7 @@ exports.push([module.i, "\ninput[data-v-5df2ebbc] {\r\n  text-transform: capital
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  min-height: 10em;\r\n  width: 100%;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-7f154184] {\r\n  padding: 0.5em;\r\n  resize: none;\r\n  width: 100%;\r\n  min-height: 6em;\r\n\r\n  outline: none;\r\n  border: none;\r\n\r\n  line-height: 1.5;\r\n  font-size: larger;\n}\ntextarea[data-v-7f154184]::-webkit-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]:-ms-input-placeholder {\r\n  color: #ccd0d2;\n}\ntextarea[data-v-7f154184]::placeholder {\r\n  color: #ccd0d2;\n}\r\n", ""]);
 
 /***/ }),
 /* 86 */
@@ -46438,19 +46481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "left"
   }, [(_vm.atDetail && _vm.homeVisited) ? _c('div', {
     staticClass: "row"
-  }, [_c('button', {
-    staticClass: "btn btn-lg btn-success navbar-btn mobile-button",
-    attrs: {
-      "title": "Back"
-    },
-    on: {
-      "click": function($event) {
-        _vm.prev()
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-arrow-left"
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "panel"
   }, [_c('div', {
     staticClass: "panel-body"
@@ -46847,7 +46878,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-center"
   }, [_c('div', {
     class: ['img-circle clickable zoomable background-image', _vm.preview ? 'image-border-danger' : 'image-border'],
-    style: ('background-image: url(' + _vm.src + '); width: 200px; height: 200px;'),
+    style: ('background-image: url(' + _vm.src + '); width: ' + (_vm.width || 200) + 'px; height: ' + (_vm.height || 200) + 'px;'),
     attrs: {
       "title": _vm.title
     },
@@ -46878,7 +46909,30 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "panel-content"
+    staticClass: "details"
+  }, [_c('div', {
+    staticClass: "leftist"
+  }, [_c('img', {
+    staticClass: "img-circle clickable zoomable image-border",
+    attrs: {
+      "src": _vm.me ? _vm.me.picture : '/img/default.png',
+      "title": _vm.me ? _vm.me.name : 'Anonymous',
+      "width": "48",
+      "height": "48"
+    },
+    on: {
+      "click": function($event) {
+        _vm.zoomed = true
+      }
+    }
+  })]), _vm._v(" "), (_vm.me) ? _c('Modal', {
+    attrs: {
+      "show": _vm.zoomed,
+      "src": _vm.me.picture,
+      "title": _vm.me.name
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "mid"
   }, [_c('textarea', {
     directives: [{
       name: "model",
@@ -46886,6 +46940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.$parent.text),
       expression: "$parent.text"
     }],
+    ref: "textarea",
     attrs: {
       "maxlength": "255",
       "placeholder": "Write something here...",
@@ -46900,7 +46955,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$parent.text = $event.target.value
       }
     }
-  })])
+  })])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -47071,7 +47126,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.drawing),
       expression: "drawing"
     }],
-    ref: "myDrawing"
+    ref: "myDrawing",
+    staticClass: "panel-separator"
   }), _vm._v(" "), _c('Linkbox', {
     directives: [{
       name: "show",
@@ -47079,7 +47135,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.linking),
       expression: "linking"
     }],
-    ref: "myLinkbox"
+    ref: "myLinkbox",
+    staticClass: "panel-separator"
   }), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('button', {
@@ -47105,7 +47162,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.clearDrawing()
       }
     }
-  }, [_vm._v("Clear")]) : _vm._e(), _vm._v(" "), _c('button', {
+  }, [_vm._v("Delete")]) : _vm._e(), _vm._v(" "), _c('button', {
     staticClass: "btn btn-info",
     attrs: {
       "type": "button"
@@ -47117,7 +47174,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-paperclip"
-  })]), _vm._v(" "), _c('button', {
+  })]), _vm._v("\n\t\t\t "), _c('span', [_vm._v(_vm._s(_vm.text.length) + " / 255")]), _vm._v(" "), _c('button', {
     ref: "mySubmit",
     staticClass: "btn btn-primary pull-right",
     attrs: {

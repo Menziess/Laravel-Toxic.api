@@ -5,7 +5,7 @@
   <div
     @click="zoomed = true"
     :class="['img-circle clickable zoomable background-image', preview ? 'image-border-danger' : 'image-border']"
-    :style="'background-image: url(' + src + '); width: 200px; height: 200px;'" 
+    :style="'background-image: url(' + src + '); width: ' + (width || 200) + 'px; height: ' + (height || 200) + 'px;'" 
     :title="title"
   ></div>
 
@@ -19,7 +19,7 @@
 import Modal from '../utils/Modal';
 export default {
   name: 'picture',
-  props: ['title', 'src', 'preview'],
+  props: ['title', 'src', 'preview', 'width', 'height'],
   components: {
     Modal
   },

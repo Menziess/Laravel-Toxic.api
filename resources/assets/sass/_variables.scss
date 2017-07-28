@@ -184,8 +184,8 @@ nav {
   display: block;
 }
 .background-image {
-  min-height: 100px;
-  min-width: 100px;
+  min-height: 5px;
+  min-width: 5px;
   display: inline-block;
   background-position: center center;
   background-size: cover;
@@ -241,7 +241,7 @@ canvas {
   margin-left: 4em;
 }
 .panel-separator {
-  border-top: 1px solid $brand;  
+  border-top: 1px solid $brand !important;  
 }
 .panel-content {
   line-height: 0;

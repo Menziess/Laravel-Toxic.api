@@ -3,14 +3,15 @@
 
     <!-- Content -->
 		<Textbox :text="text" ref="myTextbox"></Textbox>
-		<Drawing v-show="drawing" ref="myDrawing"></Drawing>
-		<Linkbox v-show="linking" ref="myLinkbox"></Linkbox>
+		<Drawing v-show="drawing" ref="myDrawing" class="panel-separator"></Drawing>
+		<Linkbox v-show="linking" ref="myLinkbox" class="panel-separator"></Linkbox>
 
 		<!-- Buttons -->
 		<div class="panel-footer">
 			<button type="button" v-on:click="toggleDrawing()" class="btn btn-info" v-html="drawButton"></button>
-			<button type="button" v-on:click="clearDrawing()" v-if="drawstate === 0" class="btn btn-danger">Clear</button>
+			<button type="button" v-on:click="clearDrawing()" v-if="drawstate === 0" class="btn btn-danger">Delete</button>
 			<button type="button" v-on:click="toggleLinking()" class="btn btn-info"><i class="glyphicon glyphicon-paperclip"></i></button>
+			&ensp;<span>{{ text.length }} / 255</span>
 			<button :disabled="!submitEnabled" v-on:click="$parent.submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">Post</button>
 			<div class="clearfix"></div>
 		</div>
@@ -44,7 +45,7 @@ export default {
 		drawstate() { return this.wasDrawn ? this.drawing ? DRAWING : DRAWN : NOT_DRAWN; },
 		drawButton() {
 			switch (this.drawstate) {
-				case DRAWING: return 'Done'; break;
+				case DRAWING: return 'Save'; break;
 				case DRAWN: return 'Draw &#10003;'; break;
 				default: return 'Draw';
 			}
@@ -55,7 +56,7 @@ export default {
 		getUrl() { return this.url.length > 0 ? this.url : null; },
 		getText() { return this.text; },
 		getDrawing() { return this.canvas !== 'undefined' && this.wasDrawn ? this.canvas.toDataURL() : null; },
-		clearDrawing() { this.canvas.width = 0; this.wasDrawn = false; },
+		clearDrawing() { this.canvas.width = 0; this.wasDrawn = false; this.drawing = false; },
 		toggleDrawing() { 
 			if (!this.url.length > 0 || confirm("Replace attachment by a drawing?")) {
 				this.drawing = !this.drawing; 
