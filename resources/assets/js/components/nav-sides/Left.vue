@@ -2,11 +2,20 @@
   <div class="left">
 
     <!-- Back Button -->
-    <button v-if="!atHome"
-      class="btn btn-lg btn-success navbar-btn mobile-button"
-      title="Back" v-on:click="$router.go(-1)">
-      <i class="glyphicon glyphicon-arrow-left"></i>
-    </button>
+    <div v-if="atDetail && homeVisited" class="row">
+      <button
+        class="btn btn-lg btn-success navbar-btn mobile-button"
+        title="Back" v-on:click="prev()">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+      </button>
+
+      <div class="panel">
+        <div class="panel-body">
+          <a v-on:click="prev()" class="btn-back"><i class="glyphicon glyphicon-arrow-left"></i></a>
+        </div>
+      </div>
+
+    </div>
 
     <!-- Popular Topics -->
     <div v-if="atHome" class="row">
@@ -33,13 +42,19 @@
 export default {
   name: 'left',
   computed: {
-    topics() {
-      return this.$store.getters.topics;
-    },
     atHome() {
       if (!this.$route) return;
       return this.$route.name === "home";
-    }
+    },
+    atDetail() {
+      if (!this.$route) return;
+      return this.$route.params.id;
+    },
+    topics() { return this.$store.getters.topics; },
+    homeVisited() { return this.$store.getters.posts.length > 0 || this.$store.getters.searchPosts.length > 0; }
+  },
+  methods: {
+    prev() { if (this.homeVisited) this.$router.go(-1); }
   }
 }
 </script>
@@ -49,7 +64,11 @@ export default {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+.btn-back {
+  margin-left: 12px;
+}
 .mobile-button {
+  display: none;
   position: fixed;
   bottom: 0;
   left: .5em;

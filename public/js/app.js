@@ -12923,16 +12923,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'left',
   computed: {
-    topics: function topics() {
-      return this.$store.getters.topics;
-    },
     atHome: function atHome() {
       if (!this.$route) return;
       return this.$route.name === "home";
+    },
+    atDetail: function atDetail() {
+      if (!this.$route) return;
+      return this.$route.params.id;
+    },
+    topics: function topics() {
+      return this.$store.getters.topics;
+    },
+    homeVisited: function homeVisited() {
+      return this.$store.getters.posts.length > 0 || this.$store.getters.searchPosts.length > 0;
+    }
+  },
+  methods: {
+    prev: function prev() {
+      if (this.homeVisited) this.$router.go(-1);
     }
   }
 });
@@ -17170,7 +17191,7 @@ exports.push([module.i, "\n.badge[data-v-1d3e13d7] {\r\n  -webkit-animation: upd
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.nav .open > a[data-v-2320b172], .nav .open > a[data-v-2320b172]:hover, .nav .open > a[data-v-2320b172]:focus {\r\n  background-color: transparent !important;\n}\n.nav-search input[data-v-2320b172] {\r\n  width: 12em;\r\n  border-radius: 20px !important;\r\n  text-transform: capitalize;\n}\n.nav-search[data-v-2320b172] {\r\n  display: inline-block;\r\n  margin: 8px 15px;\n}\n.mobile-button[data-v-2320b172] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  right: .5em;\r\n  z-index: 999;\r\n  background-color: rgba(255,255,255,0.98) !important;\r\n  border-radius: 50%;\r\n  height: 3em;\r\n  width: 3em;\r\n  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  outline: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav .open > a[data-v-2320b172], .nav .open > a[data-v-2320b172]:hover, .nav .open > a[data-v-2320b172]:focus {\r\n  background-color: transparent !important;\n}\n.nav-search input[data-v-2320b172] {\r\n  width: 12em;\r\n  border-radius: 20px !important;\r\n  text-transform: capitalize;\n}\n.nav-search[data-v-2320b172] {\r\n  display: inline-block;\r\n  margin: 8px 15px;\n}\n.mobile-button[data-v-2320b172] {\r\n  display: none;\r\n  position: fixed;\r\n  bottom: 0;\r\n  right: .5em;\r\n  z-index: 999;\r\n  background-color: rgba(255,255,255,0.98) !important;\r\n  border-radius: 50%;\r\n  height: 3em;\r\n  width: 3em;\r\n  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  outline: none;\n}\r\n", ""]);
 
 /***/ }),
 /* 80 */
@@ -17191,7 +17212,7 @@ exports.push([module.i, "\n.inputs[data-v-377e8617] {\r\n  padding: 0.5em;\r\n  
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.row[data-v-450f7b22] {\r\n  margin-left: 0 !important;\r\n  margin-right: 0 !important;\n}\n.mobile-button[data-v-450f7b22] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  left: .5em;\r\n  z-index: 999;\r\n  background-color: rgba(255,255,255,0.98) !important;\r\n  border-radius: 50%;\r\n  height: 3em;\r\n  width: 3em;\r\n  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  outline: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.row[data-v-450f7b22] {\r\n  margin-left: 0 !important;\r\n  margin-right: 0 !important;\n}\n.btn-back[data-v-450f7b22] {\r\n  margin-left: 12px;\n}\n.mobile-button[data-v-450f7b22] {\r\n  display: none;\r\n  position: fixed;\r\n  bottom: 0;\r\n  left: .5em;\r\n  z-index: 999;\r\n  background-color: rgba(255,255,255,0.98) !important;\r\n  border-radius: 50%;\r\n  height: 3em;\r\n  width: 3em;\r\n  box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -moz-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  -webkit-box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.15);\r\n  outline: none;\n}\r\n", ""]);
 
 /***/ }),
 /* 83 */
@@ -46415,19 +46436,34 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "left"
-  }, [(!_vm.atHome) ? _c('button', {
+  }, [(_vm.atDetail && _vm.homeVisited) ? _c('div', {
+    staticClass: "row"
+  }, [_c('button', {
     staticClass: "btn btn-lg btn-success navbar-btn mobile-button",
     attrs: {
       "title": "Back"
     },
     on: {
       "click": function($event) {
-        _vm.$router.go(-1)
+        _vm.prev()
       }
     }
   }, [_c('i', {
     staticClass: "glyphicon glyphicon-arrow-left"
-  })]) : _vm._e(), _vm._v(" "), (_vm.atHome) ? _c('div', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "panel"
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [_c('a', {
+    staticClass: "btn-back",
+    on: {
+      "click": function($event) {
+        _vm.prev()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-arrow-left"
+  })])])])]) : _vm._e(), _vm._v(" "), (_vm.atHome) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "panel"

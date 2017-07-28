@@ -92,6 +92,7 @@ export default {
   margin: 8px 15px;
 }
 .mobile-button {
+  display: none;
   position: fixed;
   bottom: 0;
   right: .5em;

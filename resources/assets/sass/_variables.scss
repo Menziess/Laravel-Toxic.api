@@ -222,8 +222,8 @@ canvas {
   background-color: #eee !important;
 }
 .mobile-button {
-  @media all and (min-width: 768px) {
-    display: none !important;
+  @media all and (max-width: 768px) {
+    display: block !important;
   }
 }
 .reply { 
