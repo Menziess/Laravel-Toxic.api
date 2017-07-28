@@ -24,7 +24,7 @@
   <div class="mid">
     <textarea
       ref="textarea"
-      maxlength="255"
+      maxlength="170"
       placeholder="Write something here..."
       autofocus="autofocus"
       v-model="$parent.text"

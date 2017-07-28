@@ -11,7 +11,7 @@
 			<button type="button" v-on:click="toggleDrawing()" class="btn btn-info" v-html="drawButton"></button>
 			<button type="button" v-on:click="clearDrawing()" v-if="drawstate === 0" class="btn btn-danger">Delete</button>
 			<button type="button" v-on:click="toggleLinking()" class="btn btn-info"><i class="glyphicon glyphicon-paperclip"></i></button>
-			&ensp;<span>{{ text.length }} / 255</span>
+			&ensp;<span>{{ text.length }} / 170</span>
 			<button :disabled="!submitEnabled" v-on:click="$parent.submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">Post</button>
 			<div class="clearfix"></div>
 		</div>
