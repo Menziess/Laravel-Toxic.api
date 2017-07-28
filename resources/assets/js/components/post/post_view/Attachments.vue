@@ -154,6 +154,7 @@ export default {
 	margin: 0.5em 0.5em 0 0;
 	font-size: initial;
 	word-wrap: break-word;
+	word-break: break-all;
 }
 .liked {
 	font-weight: bold;
