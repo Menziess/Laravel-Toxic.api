@@ -1,26 +1,9 @@
 <template>
 	<div class="col-md-6">
-    <div class="panel">
-
-				<!-- Subject -->				
-				<div class="panel-heading">
-					<div class="input-group">
-						<span class="input-group-addon" id="subject-addon">/ t /</span>
-						<input type="text" class="form-control" v-model="subject" maxlength="60"
-							ref="subject"
-							aria-describedby="subject-addon"
-							:placeholder="defaultSubject()">
-						<div class="input-group-btn" @click="$refs.subject.value = ''">
-							<button class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></button>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Inputs -->
-				<Forms ref="form"></Forms>
-			
-			</div>
+    <div class="panel">				
+			<Forms ref="form"></Forms>
 		</div>
+	</div>
 </template>
 
 <script>
@@ -62,30 +45,13 @@ export default {
 			return {
 				post_id: null,
 				subject: this.getSubject(this.subject),
-				attachment: this.$refs.form.attachment,
-				drawing: this.$refs.form.attachment === 'drawing' ? this.$refs.form.$refs.myDrawing.getDataUrl() : null,
-				text: this.$refs.form.attachment === 'text' ? this.$refs.form.$refs.myTextbox.text : null,
-				url: this.$refs.form.attachment === 'url' ? this.$refs.form.$refs.myLinkbox.url : null
-			}
-		},
-		defaultSubject() {
-			if (this.$route.params.slug) return this.$route.params.slug;
-			switch (this.attachment) {
-				case 'drawing':
-					return "Drawings";
-					break;
-				case 'url':
-					return "Links";
-					break;
-				default:
-					return "General";
-					break;
+				drawing: this.$refs.form.getDrawing(),
+				text: this.$refs.form.getText(),
+				url: this.$refs.form.getUrl()
 			}
 		},
 		getSubject(subject) {
-			if (!subject) {
-				subject = this.defaultSubject();
-			}
+			if (!subject) { subject = this.$route.params.slug; }
 			return subject.replace(/[^a-zA-Z0-9]+/g, " ");
 		}
 	}

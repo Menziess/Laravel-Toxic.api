@@ -48,10 +48,13 @@ class PostController extends Controller
         $post->fill($request->all());
         $user = Auth::user();
 
-        if ($request->input('attachment') == "drawing")
+        if ($request->input('drawing')) {
             self::addDrawing($request, $post);
-        if ($request->input('attachment') == "url")        
+            $post->attachment = 'drawing';
+        } else if ($request->input('url')) {
             self::addLink($request, $post, $linkPreview);
+            $post->attachment = 'url';
+        } else $post->attachment = 'text';
 
         $post->user()->associate($user)->save();
 

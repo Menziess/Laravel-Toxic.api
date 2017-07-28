@@ -38,8 +38,8 @@
 
 			<!-- Post Content -->
 			<div class="clickable post-content">
-				<Textbox      v-if="content.attributes.attachment === 'text'" :post="content"></Textbox>
-				<Drawing v-else-if="content.attributes.attachment === 'drawing'" :post="content"></Drawing>
+				<Textbox v-if="content.attributes.text" :post="content"></Textbox>
+				<Drawing v-if="content.attributes.attachment === 'drawing'" :post="content"></Drawing>
 				<Linkbox v-else-if="content.attributes.attachment === 'url'" :post="content"></Linkbox>
 			</div>
 
@@ -86,7 +86,6 @@ export default {
 		if (this.repost)
 			this.content = this.repost;
 		else this.content = this.post;
-		console.log(this.content.relationships.user.id)
 	},
 	data() {
 		return {

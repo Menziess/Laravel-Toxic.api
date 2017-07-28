@@ -36,26 +36,19 @@ export default {
   name: 'drawing',
   data() {
     return {
-      canvas: null,
       context: null,
       startAngle: 0,
       endAngle: 2 * Math.PI,
       dragging: false,
       rect: null,
       radius: 2,
-      hasInput: false,
       x: 0,
       y: 0,
     }
   },
-  watch: {
-    hasInput() {
-      this.$emit('hasInput', true);        
-    }
-  },
   methods: {
     start(e) {
-      if (this.canvas.width === 0) { this.init(); } 
+      if (this.$parent.canvas.width === 0) { this.init(); } 
       this.dragging = true;
       this.mousePos(e);
     },
@@ -70,7 +63,7 @@ export default {
     },
     renderCanvas() {
       if (this.dragging) {  
-        this.hasInput = true;
+        this.$parent.wasDrawn = true;
 
         this.context.lineTo(this.x, this.y);
         this.context.stroke();
@@ -86,29 +79,26 @@ export default {
       this.renderCanvas();
     },
     mousePos(e) {
-      this.rect = this.canvas.getBoundingClientRect();
+      this.rect = this.$parent.canvas.getBoundingClientRect();
       this.x = e.pageX - this.rect.left - window.pageXOffset;
       this.y = e.pageY - this.rect.top - window.pageYOffset;
     },
     touchPos(e) {
-      this.rect = this.canvas.getBoundingClientRect();
+      this.rect = this.$parent.canvas.getBoundingClientRect();
       this.x = e.touches[0].pageX - this.rect.left - window.pageXOffset;
       this.y = e.touches[0].pageY - this.rect.top - window.pageYOffset;
     },
-    getDataUrl() {
-      return this.canvas !== 'undefined' ? this.canvas.toDataURL() : null;
-    },
     init() {
-      this.canvas.width = this.canvas.parentElement.clientWidth;
-      this.canvas.height = this.canvas.width / 2.031;
-      this.context = this.canvas.getContext('2d');
+      this.$parent.canvas.width = this.$parent.canvas.parentElement.parentElement.clientWidth;
+      this.$parent.canvas.height = this.$parent.canvas.width / 2.031;
+      this.context = this.$parent.canvas.getContext('2d');
       this.context.lineWidth = this.radius * 2;
       this.lineJoin = this.context.lineCap = 'round';
       this.draw();
     }
   },
   mounted() {
-    this.canvas = this.$refs.myCanvas;
+    this.$parent.canvas = this.$refs.myCanvas;
     this.init();
   }
 }

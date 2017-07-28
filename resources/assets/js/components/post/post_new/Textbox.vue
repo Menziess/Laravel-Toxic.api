@@ -1,10 +1,10 @@
 <template>
   <div class="panel-content">
     <textarea
-      :placeholder="placeholder ? placeholder : 'Write something here...'"
-      :maxlength="maxlength"
+      maxlength="255"
+      placeholder="Write something here..."
       autofocus="autofocus"
-      v-model="text"
+      v-model="$parent.text"
     >
     </textarea>
   </div>
@@ -13,26 +13,7 @@
 <script>
   export default {
     name: 'textbox',
-    props: ['placeholder'],
-    data() {
-      return {
-        text: this.$parent.text,
-        maxlength: 255,
-        hasInput: false
-      }
-    },
-    watch: {
-      text() {
-        if (this.text.length !== 0 && !this.hasInput) {
-          this.hasInput = true;
-          this.$emit('hasInput', this.hasInput);
-        }
-        if (this.text.length < 1) {
-          this.hasInput = false;
-          this.$emit('hasInput', this.hasInput)
-        }
-      }
-    }
+    props: ['text']
   }
 </script>
 

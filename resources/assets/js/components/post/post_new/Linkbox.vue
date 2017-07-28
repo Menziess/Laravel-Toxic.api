@@ -5,10 +5,10 @@
         <span class="input-group-addon" id="url-addon">url</span>
         <input class="form-control"
           aria-describedby="url-addon"
-          :placeholder="placeholder ? placeholder : 'Enter attachment url'"
-          :maxlength="maxlength"
+          maxlength="255"
+          placeholder="Enter attachment url"
           autofocus="autofocus"
-          v-model="url" 
+          v-model="$parent.url" 
           type="url" 
         >
       </div>
@@ -19,26 +19,6 @@
 <script>
 export default {
   name: 'linkbox',
-  props: ['placeholder'],
-  data() {
-    return {
-      maxlength: 255,
-      hasInput: false,
-      url: this.$parent.url,
-    }
-  },
-  watch: {
-    url() {
-      if (this.url.length !== 0 && !this.hasInput) {
-        this.hasInput = true;
-        this.$emit('hasInput', this.hasInput);
-      }
-      if (this.url.length < 1) {
-        this.hasInput = false;
-        this.$emit('hasInput', this.hasInput)
-      }
-    }
-  }
 }
 </script>
 

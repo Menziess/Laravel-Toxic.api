@@ -36,13 +36,11 @@ export default {
 			return {
 				post_id: this.post.id,
 				subject: this.post.attributes.subject,
-				attachment: this.$refs.form.attachment,
-				drawing: this.$refs.form.attachment === 'drawing' ? this.$refs.form.$refs.myDrawing.getDataUrl() : null,
-				text: this.$refs.form.attachment === 'text' ? this.$refs.form.$refs.myTextbox.text : null,
-				url: this.$refs.form.attachment === 'url' ? this.$refs.form.$refs.myLinkbox.url : null
+				drawing: this.$refs.form.getDrawing(),
+				text: this.$refs.form.getText(),
+				url: this.$refs.form.getUrl()
 			}
-		},
-
+		}
 	}
 }
 </script>

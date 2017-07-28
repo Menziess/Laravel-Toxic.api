@@ -1,49 +1,24 @@
 <template>
   <div v-on:keyup.ctrl.enter="$parent.submit()">
 
-    <!-- Textbox -->
-		<Textbox v-if="attachment === 'text'" 
-			@hasInput="enableSubmit"
-			ref="myTextbox" 
-			placeholder="Write your reply here..."
-		></Textbox>
-
-    <!-- Drawing -->
-		<Drawing v-if="attachment === 'drawing'" 
-			@hasInput="enableSubmit"
-			ref="myDrawing"
-		></Drawing>
-
-    <!-- Linkbox -->
-		<Linkbox v-if="attachment === 'url'" 
-			@hasInput="enableSubmit"
-			ref="myLinkbox"
-		></Linkbox>	
+    <!-- Content -->
+		<Textbox :text="text" ref="myTextbox"></Textbox>
+		<Drawing v-show="drawing" ref="myDrawing"></Drawing>
+		<Linkbox v-show="linking" ref="myLinkbox"></Linkbox>
 
 		<!-- Buttons -->
 		<div class="panel-footer">
-
-			<button type="button" v-on:click="attachment = 'text'" class="btn btn-info">
-				Write
-			</button>
-
-			<button type="button" v-on:click="attachment = 'drawing'" class="btn btn-info">
-				Draw
-			</button>
-
-			<button type="button" v-on:click="attachment = 'url'" class="btn btn-info">
-				<i class="glyphicon glyphicon-paperclip"></i>
-			</button>
-
-			<button :disabled="!submitEnabled" v-on:click="$parent.submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">
-				Post
-			</button>
+			<button type="button" v-on:click="toggleDrawing()" class="btn btn-info" v-html="drawButton"></button>
+			<button type="button" v-on:click="clearDrawing()" v-if="drawstate === 0" class="btn btn-danger">Clear</button>
+			<button type="button" v-on:click="toggleLinking()" class="btn btn-info"><i class="glyphicon glyphicon-paperclip"></i></button>
+			<button :disabled="!submitEnabled" v-on:click="$parent.submit()" type="button" class="btn btn-primary pull-right" ref="mySubmit">Post</button>
 			<div class="clearfix"></div>
 		</div>
   </div>
 </template>
 
 <script>
+const NOT_DRAWN = -1, DRAWING = 0, DRAWN = 1;
 import Drawing from './Drawing.vue';
 import Textbox from './Textbox.vue';
 import Linkbox from './Linkbox.vue';
@@ -56,19 +31,45 @@ export default {
 	},
 	data() {
 		return {
-			attachment: "text",
-			submitEnabled: false
+			url: '',
+			text: '',
+			canvas: null,
+			wasDrawn: false,
+
+			drawing: false,
+			linking: false,
 		}
 	},
-	watch: {
-		attachment() {
-			this.enableSubmit(false);
-		}
+	computed: {
+		drawstate() { return this.wasDrawn ? this.drawing ? DRAWING : DRAWN : NOT_DRAWN; },
+		drawButton() {
+			switch (this.drawstate) {
+				case DRAWING: return 'Done'; break;
+				case DRAWN: return 'Draw &#10003;'; break;
+				default: return 'Draw';
+			}
+		},
+		submitEnabled() { return this.text.length > 0 || this.url.length > 0 || this.wasDrawn; }
 	},
 	methods: {
-		enableSubmit(enable) {
-			this.submitEnabled = enable;
+		getUrl() { return this.url.length > 0 ? this.url : null; },
+		getText() { return this.text; },
+		getDrawing() { return this.canvas !== 'undefined' && this.wasDrawn ? this.canvas.toDataURL() : null; },
+		clearDrawing() { this.canvas.width = 0; this.wasDrawn = false; },
+		toggleDrawing() { 
+			if (!this.url.length > 0 || confirm("Replace attachment by a drawing?")) {
+				this.drawing = !this.drawing; 
+				this.linking = false;
+				this.url = '';
+			}
 		},
+		toggleLinking() {
+			if (!this.wasDrawn || confirm("Replace image by attachment?")) {
+				this.linking = !this.linking; 
+				this.drawing = false;
+				this.clearDrawing();
+			}
+		}
 	}
 }
 </script>
