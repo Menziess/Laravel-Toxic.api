@@ -113,7 +113,7 @@ axios.interceptors.response.use(
 /**
  * Vue directives.
  */
-// Vue.directive('store', function(el, binding) {
+// Vue.directive('editor', function(el, binding) {
 // 	console.log(binding.endpoint);
 // 	console.log(binding);
 // 	console.log(store);

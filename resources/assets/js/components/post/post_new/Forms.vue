@@ -2,7 +2,7 @@
   <div v-on:keyup.ctrl.enter="$parent.submit()">
 
     <!-- Content -->
-		<Textbox :text="text" ref="myTextbox"></Textbox>
+		<Textbox ref="myTextbox"></Textbox>
 		<Drawing v-show="drawing" ref="myDrawing" class="panel-separator"></Drawing>
 		<Linkbox v-show="linking" ref="myLinkbox" class="panel-separator"></Linkbox>
 
@@ -29,6 +29,11 @@ export default {
 		Drawing,
 		Textbox,
 		Linkbox
+	},
+	watch: {
+		text() {
+			console.log(this.text);
+		}
 	},
 	data() {
 		return {

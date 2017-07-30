@@ -19,5 +19,9 @@
     "vue": "^2.1.10",
     "vue-router": "^2.6.0",
     "vuex": "^2.3.1"
+  },
+  "dependencies": {
+    "medium-editor": "^5.23.1",
+    "medium-editor-auto-style-extension": "^2.0.3"
   }
 }

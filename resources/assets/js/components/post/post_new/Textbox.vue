@@ -22,51 +22,68 @@
 
   <!-- Right Mid Side -->
   <div class="mid">
-    <textarea
-      ref="textarea"
-      maxlength="170"
-      placeholder="Write something here..."
+    <div v-editor
       autofocus="autofocus"
-      v-model="$parent.text"
-    >
-    </textarea>
+      placeholder="Sup"
+      contenteditable="true" 
+      class="editor"></div> 
   </div>
 </div>
 </template>
 
 <script>
+import MediumEditor from 'medium-editor';
 import Modal from '../../utils/Modal';
 export default {
   name: 'textbox',
-  props: ['text'],
   components: {
     Modal
   },
   data() {
     return {
-      zoomed: false
-    }
-  },
-  watch: {
-    text() {
-      if (this.$refs.textarea.clientHeight < this.$refs.textarea.scrollHeight) {
-        this.$refs.textarea.style.height = this.$refs.textarea.scrollHeight + "px";
-        if (this.$refs.textarea.clientHeight < this.$refs.textarea.scrollHeight)
-        {
-          this.$refs.textarea.style.height = 
-            (this.$refs.textarea.scrollHeight * 2 - this.$refs.textarea.clientHeight) + "px";
-        }
-      }
+      zoomed: false,
+      hashtagregex: /\S*#(?:\[[^\]]+\]|\S+)/
     }
   },
   computed: {
     me() { return this.$store.getters.me; }
+  },
+  methods: {
+    hashtag(event) {
+      console.log("hashtag");
+    },
+    atpersand(event) {
+      console.log("atpersand");
+    }
+  },
+  directives: {
+    editor(el, binding, vnode) {
+      const editor = new MediumEditor(el, {
+        toolbar: false,
+        autoLink: true,
+        placeholder: false,
+        disableReturn: true,
+        disableExtraSpaces: true,
+      });
+      editor.subscribe('editableKeyup', event => {
+        switch (event.keyCode) {
+          case 51:
+            break;
+          case 50:
+            break;
+        }
+      });
+      editor.subscribe('editableInput', event => {
+        console.log(el.html());
+        vnode.context.$parent.text = event.target.innerText;
+      });
+    }
   }
 }
 </script>
 
 <style scoped>
-textarea {
+.editor {
   padding: 0.5em;
   resize: none;
   width: 100%;
@@ -77,8 +94,12 @@ textarea {
 
   line-height: 1.5;
   font-size: larger;
+
+  word-wrap: break-word;
+	word-break: break-all;
 }
-textarea::placeholder {
-  color: #ccd0d2;
+.editor:empty::before {
+  content: attr(placeholder);
+  opacity: .50;
 }
 </style>
